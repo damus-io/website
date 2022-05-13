@@ -1,0 +1,177 @@
+@import url('https://rsms.me/inter/inter.css');
+html { font-family: 'Inter', sans-serif; }
+@supports (font-variation-settings: normal) {
+  html { font-family: 'Inter var', sans-serif; }
+}
+
+.container {
+    max-width: 800px;
+}
+
+label {
+    white-space: nowrap;
+}
+
+blockquote {
+    font-style: italic;
+}
+
+blockquote:before {
+    color: #ccc;
+    content: open-quote;
+    display: block;
+    position: relative;
+    left: -0.6em;
+    top: 0.3em;
+    font-size: 4em;
+    line-height: 0.1em;
+    vertical-align: -0.4em;
+}
+
+blockquote:after {
+    color: #ccc;
+    content: close-quote;
+    font-size: 4em;
+    position:relative;
+    top: 0.2em;
+    left: -0.1em;
+    line-height: 0.1em;
+    vertical-align: -0.4em;
+}
+
+.author {
+    font-weight: bold;
+}
+
+label input {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+ul.socials {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    overflow: hidden;
+}
+
+.profile {
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.socials-container {
+    display: flex;
+    margin: auto;
+    justify-content: space-evenly;
+    width: 110px;
+}
+
+ul.socials > li {
+    float: left;
+    display: block;
+    text-align: center;
+}
+
+.socials-container img {
+    color: #ff0000;
+    width: 20px;
+}
+
+.row {
+    margin-bottom: 8rem;
+}
+
+.hero {
+    margin-top: 5rem;
+    text-align: center;
+    clear: left;
+}
+
+.header {
+	display: flex;
+	margin-left: 50px;
+	align-items: center;
+}
+
+.portrait {
+    border-radius: 50%;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0px 0px 10px #aaa;
+    border: 2px solid white;
+}
+
+.centered {
+    text-align: center;
+}
+
+.value-img {
+    margin: 2.5rem auto 2.5rem auto;
+    width: 100px;
+    display: block;
+    text-align: center;
+}
+
+.credits {
+    margin-top: 10rem;
+    text-align: center;
+    color: #252D3A;
+}
+
+.code-example {
+    width: 80%;
+}
+
+.value-prop {
+    margin-top: 3rem;
+}
+
+.value-props {
+    margin-bottom: 7rem;
+}
+
+.damus {
+	font-size: 4rem;
+	letter-spacing: -0.08em;
+	font-weight: 100;
+	margin-bottom: 20px;
+}
+
+.title {
+	font-size: 8rem;
+	font-weight: 500;
+	letter-spacing: -0.055em;
+}
+
+
+.logo {
+    margin-bottom: 0;
+    letter-spacing: -0.05em;
+}
+
+.logo img {
+    padding-right: 18px;
+    width: 60px;
+}
+
+.wizards {
+    font-size: 1.5rem;
+    top: -2em;
+    left: 0.2em;
+    position: relative;
+    color: #999;
+}
+
+body {
+    letter-spacing: -0.044em;
+    margin: 3rem 0 10em 0;
+    color: white;
+    background: linear-gradient(45deg, rgba(28,85,255,1) 0%, rgba(127,53,171,1) 59%, rgba(255,11,214,1) 100%);
+}
+
+input {
+    color: #252D3A;
+}
+
