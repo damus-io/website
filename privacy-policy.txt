@@ -1,0 +1,1 @@
+Damus doesn't store any information about you other than the posts which you make, which are published to the damus relay as well other relays if configured.

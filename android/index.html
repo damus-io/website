@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>damus</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta property="og:title" content="Damus">
+        <meta property="og:description" content="A new social network that you control">
+        <meta property="og:image" content="https://damus.io/img/damus.png">
+        <meta property="og:url" content="https://damus.io">
+        <meta name="twitter:card" content="summary_large_image">
+
+        <link rel="stylesheet" href="/css/normalize.css">
+        <link rel="stylesheet" href="/css/skeleton.css?v=3">
+        <link rel="stylesheet" href="/css/custom.css?v=4">
+
+    </head>
+    <body>
+	    <section class="header">
+		    <span class="logo">
+			<img src="/img/damus-nobg.svg"/>
+		    </span>
+		    <span class="damus">damus</span>
+	    </section>
+        <div class="container">
+            <section class="hero">
+		    <h2>Damus Android crowdfund</h2>
+                <h5 class="subtitle">If ya'll help crowdfund me an android phone I can start working on an android version</h5>
+
+                <!-- <div class="row"> -->
+                <!-- <h4 class="subtitle">Developers First</h4> -->
+                <!-- <img class="code-example" src="img/code-placeholder.svg"> -->
+                <!-- </div> -->
+            </section>
+
+    <h4>Donations</h4>
+
+    <p>This is a bolt12 offer, you can pay this with a CLN node. Otherwise press the button to get a bolt11 invoice.</p>
+    <a id="bolt12" href="lightning:lno1pgt5gctdw4ejqstwv3ex76tyyp3hymmhv3n82mnyzsyxgctdw4eju6t0rcs08sggen2ndwzjdpqlpfw9sgfth8n9sjs7kjfssrnurnp5lqk66ug">
+	    <div id="qrcode" class="tipjar-copy" style="float: left; width: 256px; cursor: pointer" ></div>
+    </a>
+
+    <button style="margin-left: 20px; height: 50px" onclick="click_make_invoice(this)">Request bolt11 invoice</button>
+
+    <div id="tipjar-summary" style="clear: left; width: 100%; margin-bottom: 30px;">
+	    Loading donations...
+    </div>
+
+    </body>
+
+  <script src="/js/qrcode.min.js" > </script>
+  <script src="/js/lnsocket.js?v=10" > </script>
+  <script src="/js/tipjar.js?v=21" ></script>
+</html>

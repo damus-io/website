@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>damus key converter</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta property="og:title" content="Damus">
+        <meta property="og:description" content="A new social network that you control">
+        <meta property="og:image" content="https://damus.io/img/logo.png">
+        <meta property="og:url" content="https://damus.io">
+        <meta name="twitter:card" content="summary_large_image">
+
+        <link rel="stylesheet" href="/css/normalize.css">
+        <link rel="stylesheet" href="/css/skeleton.css?v=2">
+        <link rel="stylesheet" href="/css/custom.css?v=4">
+
+    </head>
+    <body>
+	<section class="header">
+		<span class="logo">
+			<img src="/img/damus-nobg.svg"/>
+		</span>
+
+		<span class="damus">damus</span>
+
+	</section>
+
+
+	<div class="container">
+		<h1>Key Converter</h2>
+		<p>Convert a damus key to an old-style hex key</p>
+	      <label for="bech32">damus key</label>
+	      <input type="text" class="u-full-width" placeholder="npub... OR nsec..." id="damus-key">
+
+	      <label for="bech32">hex key</label>
+	      <input type="text" class="u-full-width" placeholder="" id="hex-key">
+	</div>
+
+	<script src="bech32.js" ></script>
+	<script src="key.js" ></script>
+    </body>
+</html>
