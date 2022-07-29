@@ -12,7 +12,7 @@ async function make_request(method, rune, params) {
 }
 
 function fetch_tipjar_summary() {
-	const rune = "b3Xsg2AS2cknHYa6H94so7FAVQVdnRSP6Pv-1WOQEBc9NCZtZXRob2Q9b2ZmZXItc3VtbWFyeQ=="
+	const rune = "5sgpXcVRMy19h2Ai9LiklJ7jI_J3qNnnG36wvyViqR49OTQmbWV0aG9kPW9mZmVyLXN1bW1hcnkmcG5hbWVkZXNjcmlwdGlvbj1AZGFtdXMtYW5kcm9pZCZwbmFtZWxpbWl0PTU="
 	return make_request("offer-summary", rune, {
 		offerid: "2043536dfec68d559102f73510927622812a230cfdda079e96fccbfe35a96d11",
 		description: "@damus-android",
@@ -24,7 +24,7 @@ function make_invoice(description) {
 	const rune = "LZwGZJO7wZgmoScFQb5reZ0Ii8qPKCeUfTb-UcbDxWw9MTImbWV0aG9kPWludm9pY2U="
 	description = (description && `${description} @damus-android`) || "@damus-android donation"
 	return make_request("invoice", rune, {
-		msatoshi: "any",
+		amount_msat: "any",
 		label: `damus-android-${new Date().getTime()}`,
 		description: description
 	})
@@ -122,7 +122,7 @@ function render_tip(tip)
 {
 	let note = tip.payer_note ? tip.payer_note : (tip.description || "Anonymous")
 	note = note.replace("@damus-android", "")
-	const amount = format_amount(tip.msatoshi / 1000)
+	const amount = format_amount(tip.amount_msat / 1000)
 	const now = Math.floor(new Date().getTime() / 1000)
 	const date = time_delta(now * 1000, tip.paid_at * 1000)
 
