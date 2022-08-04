@@ -1,0 +1,16 @@
+
+# The Damus Log - Powered by #nostr
+
+Hey there, Welcome to the damus log! A blog powered by... nostr! What does this mean!? What is nostr? Let's find out!
+
+nostr is what powers damus, an iOS nostr client we're working on. It's a fancy pants new internet protocol designed to be the email of social networks. Imagine if email was controlled by a single company. Everyone would have to use the same email client (probably something like gmail), and a single company would have complete control over all your data... everyone's data!
+
+This isn't good, this is why the internet today was originally built on these decentralized protocols. Things like websites and email are all available on different platforms, clients and servers. This freedom to pick and choose prevents any single company to have complete control over our data.
+
+nostr is an attempt to do the same for social networks themselves. It provides a censorship resistant, real-time database. Anyone can run a nostr relay and no single relay is in control of the data. It's quite ingenious if we say so ourselves.
+
+We like it so much we've made our blog nostr-powered! The comments below are from the nostr network. You can comment on it from the damus client itself! If you're interested in trying it out, try out the testflight at the bottom of our homepage:
+
+=> https://damus.io damus.io
+
+Looking forward to seeing you on nostr!

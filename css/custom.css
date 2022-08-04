@@ -8,6 +8,10 @@ html { font-family: 'Inter', sans-serif; }
     max-width: 800px;
 }
 
+.blog-container {
+	font-family: serif;
+}
+
 label {
     white-space: nowrap;
 }

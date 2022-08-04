@@ -1,0 +1,25 @@
+#!/usr/bin/env sed -Ef
+
+# gmi2md: Sed script to convert text/gemini to markdown.
+# Based on v0.14.2 of the gemini spec.
+#
+# This script is dedicated to the public domain according to the terms of CC0:
+# https://creativecommons.org/publicdomain/zero/1.0/
+
+x
+/^```/ {
+    x
+    /^```/ {
+        x
+        s/.*//
+        x
+    }
+    b
+}
+g
+
+/^=>/ {
+    s/[][()]/\\&/g
+    s/^=>\s*([^[:space:]]+)\s*$/[\1](\1)/
+    s/^=>\s*([^[:space:]]+)\s+(.+)/[\2](\1)/
+}
