@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>The Damus Log</title>
+        <link rel="stylesheet" href="log.css?v=29">
+        <link rel="stylesheet" href="comments.css?v=5">
+    </head>
+    <body>
+	<section class="header">
+		<span class="logo">
+			<img src="/img/damus-nobg.svg"/>
+		</span>
+	</section>
+	<div class="container">
+		<a href="https://damus.io/log" class="date">&lt; The Damus Log</a>
+<h1 id="v0.1.3---the-stuff-loads-better-release">v0.1.3 - The “Stuff
+Loads Better” Release</h1>
+<p>It’s that time again! A new damus release. This one fixes a bunch of
+annoying issues such as profiles not loading properly in some
+situations. We also do a much better job at caching profile pictures, so
+no more weird poppyness and wasting your cell data.</p>
+<p>If you’re not on the testflight already, you can get it here:</p>
+<p><a href="https://testflight.apple.com/join/CLwjLxWl">Damus
+TestFlight</a></p>
+<p>This was the last release before lightning support, so next version
+will be exciting!!</p>
+<p>Anyways, here’s the full changlog!</p>
+<pre><code># Added
+
+     - Support kind 42 chat messages (ArcadeCity).
+     - Friend icons next to names on some views. Check is friend. Arrows are friend-of-friends
+     - Load chat view first if content contains #chat
+     - Cancel button on search box
+     - Added profile picture cache
+     - Multiline DM messages
+
+# Changed
+
+     - #hashtags now use the `t` tag instead of `hashtag`
+     - Clicking a chatroom quote reply will now expand it instead of jumping to it
+     - Clicking on a note will now always scroll it to the bottom
+     - Check note ids and signatures on every note
+     - use bech32 ids everywhere
+     - Don&#39;t animate scroll in chat view
+     - Post button is not shown if the content is only whitespace
+
+# Fixed
+
+     - Fixed thread loading issue when clicking on boosts
+     - Fixed various issues with chatroom view
+     - Fix bug where sometimes nested navigation views weren&#39;t dismissed when tapping the tab bar
+     - Fixed minor carousel spacing issue on homescreen
+     - You can now reference users, notes hashtags in DMs
+     - Profile pics are now loaded in the background
+     - Limit post sizes to max 32,000 as an upper bound sanity limit.
+     - Missing profiles are now loaded everywhere
+     - No longer parse hashtags in urls
+     - Logging out now resets your keypair and actually logs out
+     - Copying text in DMs will now copy the decrypted text</code></pre>
+<p><a href="https://damus.io">Damus TestFlight</a></p>
+
+<h3><a id="comment-link" href="nostr:e:">Comments</a></h3>
+    <div id="comments">
+    </div>
+    <script src="nostr.js?v=4" ></script>
+    <script src="comments.js?v=16" ></script>
+	     <script>
+		const threads = {
+			"the-stuff-loads-better-release": "9941b55c2844f275b7b8714a1c39859088a425ce798f740ea8fea879f9098641",
+			"introducing-damus-log": "4e8b44bb43018f79bd3efcdcd71af43814cdf996e0c62adedda1ac33bf5e1371",
+		}
+		let relay
+		for (const key of Object.keys(threads)) {
+			if (window.location.href.includes(key)) {
+				const id = threads[key]
+				relay = comments_init(id)
+				document.querySelector("#comment-link").href = 'nostr:e:' + id
+				break
+			}
+		}
+	     </script>
+  </div> <!-- container -->
+    </body>
+</html>

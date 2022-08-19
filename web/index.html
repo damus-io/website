@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,12 +5,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Damus Web</title>
+
+        <link rel="stylesheet" href="damus.css?v=2">
     </head>
     <body>
-        <h1>Damus Web</h1>
-	<div id="content">
-	</div>
-    <script src="index.js"></script>
+	<section class="header">
+		<span class="logo">
+			<img src="img/damus-nobg.svg"/>
+		</span>
+	</section>
+    <div class="container">
+	    <div id="posts">
+	    </div>
+    </div>
+    <script src="nostr.js?v=1"></script>
+    <script src="damus.js?v=2"></script>
+    <script>
+	const relay = damus_web_init("4e8b44bb43018f79bd3efcdcd71af43814cdf996e0c62adedda1ac33bf5e1371")
+    </script>
     </body>
 </html>
 

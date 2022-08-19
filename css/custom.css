@@ -12,6 +12,16 @@ html { font-family: 'Inter', sans-serif; }
 	font-family: serif;
 }
 
+a {
+	text-decoration: underline;
+	font-family: -system-ui, sans-serif;
+	color: white;
+}
+
+a:visited {
+	color: #eee;
+}
+
 label {
     white-space: nowrap;
 }

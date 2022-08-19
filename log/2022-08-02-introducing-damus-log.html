@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>The Damus Log</title>
-        <link rel="stylesheet" href="log.css?v=17">
+        <link rel="stylesheet" href="log.css?v=29">
         <link rel="stylesheet" href="comments.css?v=5">
     </head>
     <body>
@@ -16,6 +16,7 @@
 		</span>
 	</section>
 	<div class="container">
+		<a href="https://damus.io/log" class="date">&lt; The Damus Log</a>
 <h1 id="the-damus-log---powered-by-nostr">The Damus Log - Powered by
 #nostr</h1>
 <p>Hey there, Welcome to the damus log! A blog powered by… nostr! What
@@ -42,13 +43,25 @@ testflight at the bottom of our homepage:</p>
 <p><a href="https://damus.io">damus.io</a></p>
 <p>Looking forward to seeing you on nostr!</p>
 
- <h3>Comments</h3>
+<h3><a id="comment-link" href="nostr:e:">Comments</a></h3>
     <div id="comments">
     </div>
     <script src="nostr.js?v=4" ></script>
     <script src="comments.js?v=16" ></script>
 	     <script>
-		const relay = comments_init("4e8b44bb43018f79bd3efcdcd71af43814cdf996e0c62adedda1ac33bf5e1371")
+		const threads = {
+			"the-stuff-loads-better-release": "9941b55c2844f275b7b8714a1c39859088a425ce798f740ea8fea879f9098641",
+			"introducing-damus-log": "4e8b44bb43018f79bd3efcdcd71af43814cdf996e0c62adedda1ac33bf5e1371",
+		}
+		let relay
+		for (const key of Object.keys(threads)) {
+			if (window.location.href.includes(key)) {
+				const id = threads[key]
+				relay = comments_init(id)
+				document.querySelector("#comment-link").href = 'nostr:e:' + id
+				break
+			}
+		}
 	     </script>
   </div> <!-- container -->
     </body>

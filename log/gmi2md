@@ -1,4 +1,4 @@
-#!/usr/bin/env sed -Ef
+#!/usr/bin/env sedef
 
 # gmi2md: Sed script to convert text/gemini to markdown.
 # Based on v0.14.2 of the gemini spec.

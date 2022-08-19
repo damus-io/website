@@ -12,9 +12,29 @@
     letter-spacing: -0.05em;
 }
 
+.date {
+	font-size: 0.7em;
+	margin-left: 10px;
+	color: #eee;
+}
+
 .logo img {
     padding-right: 18px;
     width: 60px;
+}
+
+a {
+	font-family: -system-ui, sans-serif;
+	color: white;
+}
+
+a:visited {
+	color: #eee;
+}
+
+body {
+    color: white;
+    min-height: 800px;
 }
 
 html {
@@ -22,7 +42,6 @@ html {
   font-size: 20px;
   font-family: "Georgia", sans-serif;
 
-    color: white;
     background: linear-gradient(45deg, rgba(28,85,255,1) 0%, rgba(127,53,171,1) 59%, rgba(255,11,214,1) 100%);
 }
 .container {
@@ -55,12 +74,6 @@ html {
 }
 p {
   margin: 1em 0;
-}
-a {
-  color: #1a1a1a;
-}
-a:visited {
-  color: #1a1a1a;
 }
 img {
   max-width: 100%;
