@@ -8,18 +8,20 @@ function uuidv4() {
 
 async function comments_init(thread)
 {
-	const relay = await Relay("wss://relay.damus.io")
+	const pool = RelayPool(["wss://relay.damus.io"])
 	const now = (new Date().getTime()) / 1000
 	const model = {events: [], profiles: {}}
 	const comments_id = uuidv4()
 	const profiles_id = uuidv4()
 
-	model.pool = relay
+	model.pool = pool
 	model.el = document.querySelector("#comments")
 
-	relay.subscribe(comments_id, {kinds: [1], "#e": [thread]})
+	pool.on('open', relay => {
+		relay.subscribe(comments_id, {kinds: [1], "#e": [thread]})
+	});
 
-	relay.event = (sub_id, ev) => {
+	pool.on('event', (sub_id, ev) => {
 		if (sub_id === comments_id) {
 			if (ev.content !== "")
 				insert_event_sorted(model.events, ev)
@@ -32,17 +34,17 @@ async function comments_init(thread)
 				console.log("failed to parse", ev.content)
 			}
 		}
-	}
+	})
 
-	relay.eose = async (sub_id) => {
+	pool.on('eose', async (sub_id) => {
 		if (sub_id === comments_id) {
 			handle_comments_loaded(profiles_id, model)
 		} else if (sub_id === profiles_id) {
 			handle_profiles_loaded(profiles_id, model)
 		}
-	}
+	})
 
-	return relay
+	return pool
 }
 
 function handle_profiles_loaded(profiles_id, model) {
