@@ -36,7 +36,7 @@ async function damus_web_init(thread)
 	model.el = document.querySelector("#posts")
 
 	pool.on('open', relay => {
-		relay.subscribe(comments_id, {kinds: [1], limit: 100})
+		relay.subscribe(comments_id, {kinds: [1,42], limit: 100})
 	});
 
 	pool.on('event', (relay, sub_id, ev) => {
