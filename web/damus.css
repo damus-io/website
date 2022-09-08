@@ -21,7 +21,7 @@ html {
   font-family: "Georgia", sans-serif;
 
     color: white;
-    background: linear-gradient(45deg, rgba(28,85,255,1) 0%, rgba(127,53,171,1) 59%, rgba(255,11,214,1) 100%);
+    background: linear-gradient(45deg, rgba(28,85,255,1) 0%, rgba(127,53,171,1) 59%, #C45BFE 100%);
 }
 .container {
   margin: 0 auto;
