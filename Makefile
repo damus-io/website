@@ -1,4 +1,4 @@
 dist: fake
-	rsync -avzP ./ charon:/www/damus.io/
+	rsync -avzP --exclude .git/ ./ charon:/www/damus.io/
 
 .PHONY: fake
