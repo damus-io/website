@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>The Damus Log</title>
+        <link rel="stylesheet" href="log.css?v=29">
+        <link rel="stylesheet" href="comments.css?v=5">
+    </head>
+    <body>
+	<section class="header">
+		<span class="logo">
+			<img src="/img/damus-nobg.svg"/>
+		</span>
+	</section>
+	<div class="container">
+		<a href="https://damus.io/log" class="date">&lt; The Damus Log</a>
+<h1 id="v0.1.4---ok-can-you-guys-stop-developing">v0.1.4 - Ok can you
+guys stop developing</h1>
+<p>So someone had the smart idea[1] to create nostr chatrooms, so
+naturally damus should support these. I know I said the previous release
+would be the last release before lightning support, but chatrooms are
+pretty cool and I wanted to squeeze in an initial chatroom release. So
+here we are.</p>
+<p>I haven’t added full chatroom support yet, like searching for and
+joining channels. The way that this release currently works is that if
+you see one of your friends chatting in a chatroom, you’ll be able to
+reply to that chat from your home feed, or pop into the chatroom by
+clicking on the post.</p>
+<p>In the future I plan on having full chatroom support, probably
+something like how telegram displays their chatrooms.</p>
+<p>It’s up on testflight now so check it out!</p>
+<p>Enjoy!</p>
+<p><a href="anigma.io">[1] Anigma</a> <a href="https://damus.io">Damus
+TestFlight</a></p>
+
+<h3><a id="comment-link" href="nostr:e:">Comments</a></h3>
+    <div id="comments">
+    </div>
+    <script src="nostr.js?v=4" ></script>
+    <script src="comments.js?v=16" ></script>
+	     <script>
+		const threads = {
+			"the-stuff-loads-better-release": "9941b55c2844f275b7b8714a1c39859088a425ce798f740ea8fea879f9098641",
+			"introducing-damus-log": "4e8b44bb43018f79bd3efcdcd71af43814cdf996e0c62adedda1ac33bf5e1371",
+		}
+		let relay
+		for (const key of Object.keys(threads)) {
+			if (window.location.href.includes(key)) {
+				const id = threads[key]
+				relay = comments_init(id)
+				document.querySelector("#comment-link").href = 'nostr:e:' + id
+				break
+			}
+		}
+	     </script>
+  </div> <!-- container -->
+    </body>
+</html>
