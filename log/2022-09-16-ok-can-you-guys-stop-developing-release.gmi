@@ -11,6 +11,7 @@ It's up on testflight now so check it out!
 
 Enjoy!
 
-=> anigma.io [1] Anigma
-=> https://damus.io Damus TestFlight
+=> https://anigma.io [1] Anigma
+
+=> https://testflight.apple.com/join/CLwjLxWl Damus TestFlight
 
