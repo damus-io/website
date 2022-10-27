@@ -1,0 +1,181 @@
+.header {
+	display: flex;
+	margin: 30px 0 30px 0;
+	flex-direction: column;
+	align-items: center;
+}
+
+.logo {
+    margin-bottom: 0;
+    letter-spacing: -0.05em;
+}
+
+.logo img {
+    padding-right: 18px;
+    width: 60px;
+}
+
+body {
+	min-height: 100vh;
+	font-family: system-ui, sans;
+}
+
+#reply-top {
+	display: flex;
+	align-items: center;
+}
+
+#reply-modal {
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	background: rgba(0,0,0,0.4);
+}
+
+#reply-content {
+	background-color: rgba(255,255,255,0.2);
+	border: 0;
+	width: 100%;
+	color: white;
+	border-radius: 5px;
+}
+
+button {
+	border: 0;
+	padding: 5px;
+	color: white;
+	background-color: #C073EB;
+	border-radius: 5px;
+}
+
+.close {
+	margin: 0 8px 0 8px;
+	font-size: 1.3em;
+	font-weight: bold;
+	text-decoration: none;
+	color: white;
+}
+
+.small-text {
+	font-size: 12px;
+}
+
+#reply-modal-content {
+	/*display: none; */
+	padding: 10px;
+	margin: 10% auto;
+	width: 60%;
+	height: 50%;
+	overflow: auto; /* Enable scroll if needed */
+	background: linear-gradient(0deg, #A74BDB 0%, #C45BFE 100%);
+	border-radius: 15px;
+}
+
+html {
+  line-height: 1.5;
+  font-size: 20px;
+  font-family: "Georgia", sans-serif;
+
+    color: white;
+    background: linear-gradient(45deg, rgba(28,85,255,1) 0%, rgba(127,53,171,1) 59%, #C45BFE 100%);
+}
+.container {
+  margin: 0 auto;
+  max-width: 36em;
+  hyphens: auto;
+  word-wrap: break-word;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+}
+@media (max-width: 600px) {
+  .container {
+    font-size: 0.9em;
+    padding: 1em;
+  }
+}
+@media print {
+  .container {
+    background-color: transparent;
+    color: black;
+    font-size: 12pt;
+  }
+  p, h2, h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  h2, h3, h4 {
+    page-break-after: avoid;
+  }
+}
+
+.pfp {
+	width: 60px;
+	height: 60px;
+  margin: 0 15px 0 15px;
+  border-radius: 50%;
+}
+
+.comment {
+  display: flex;
+  font-family: system-ui, sans;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.comment p {
+  background-color: rgba(255.0,255.0,255.0,0.1);
+  padding: 10px;
+  border-radius: 8px;
+  margin: 0;
+  width: 55%;
+}
+
+.comment .info {
+  text-align: right;
+  width: 18%;
+  line-height: 0.8em;
+}
+
+.quote {
+  border-left: 2px solid white;
+  margin-left: 10px;
+  padding: 10px;
+  background-color: rgba(255.0,255.0,255.0,0.1);
+  display: block;
+}
+
+.comment .info span {
+  font-size: 11px;
+  color: rgba(255.0,255.0,255.0,0.7);
+}
+
+@media (max-width: 800px){
+    /* Reverse the order of elements in the user comments,
+    so that the avatar and info appear after the text. */
+    .comment .info {
+        order: 2;
+	width: 50%;
+	text-align: left;
+    }
+
+    .pfp {
+        order: 1;
+	  margin: 0 15px 0 0;
+    }
+    
+    .comment {
+	  padding: 10px;
+	  border-radius: 8px;
+	  background-color: rgba(255.0,255.0,255.0,0.1);
+    }
+
+    .comment p {
+        order: 3;
+	margin-top: 10px;
+        width: 100%;
+    }
+}

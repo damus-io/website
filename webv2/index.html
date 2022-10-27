@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Damus Web</title>
+
+        <link rel="stylesheet" href="damus.css?v=3">
+    </head>
+    <body>
+	<section class="header">
+		<span class="logo">
+			<img src="img/damus-nobg.svg"/>
+		</span>
+	</section>
+    <div class="container">
+	    <div id="posts">
+	    </div>
+
+	    <div style="display: none" id="reply-modal">
+	    <div id="reply-modal-content">
+		    <span id="reply-top">
+			    <a class="close" href="javascript:close_reply()">✕</a>
+			    <span class="small-text">
+				    Replying to...
+			    </span>
+		    </span>
+
+		    <div id="replying-to">
+		    </div>
+
+		    <div>
+			    <textarea id="reply-content"></textarea>
+		    </div>
+
+		    <div style="float:right">
+			    <button onclick="send_reply()" id="reply-button">Reply</button>
+		    </div>
+	    </div>
+	    </div>
+    </div>
+    <script src="noble-secp256k1.js?v=1"></script>
+    <script src="bech32.js?v=1"></script>
+    <script src="nostr.js?v=3"></script>
+    <script src="damus.js?v=5"></script>
+    <script>
+	const relay = damus_web_init("4e8b44bb43018f79bd3efcdcd71af43814cdf996e0c62adedda1ac33bf5e1371")
+    </script>
+    </body>
+</html>
+
