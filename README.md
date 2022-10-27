@@ -5,11 +5,7 @@ The damus.io website
 
 ## Damus Web
 
-You can find the damus web app in the `web` directory
-
-A new version is actively being worked on in the web-v2 branch:
-
-	git clone -b web-v2 git://jb55.com/damus.io
+You can find the damus web app in the `web` and `webv2` directory
 
 ## Contributing
 
