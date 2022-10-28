@@ -37,6 +37,7 @@ function init_home_model() {
 	return {
 		done_init: false,
 		loading: true,
+		notifications: 0,
 		rendered: {},
 		all_events: {},
 		events: [],
@@ -51,6 +52,15 @@ const BOOTSTRAP_RELAYS = [
 	"wss://nostr-relay.wlvs.space",
 	"wss://nostr-pub.wellorder.net"
 ]
+
+function update_title(model) {
+	if (document.visibilityState === 'visible')
+		model.notifications = 0
+	if (model.notifications === 0)
+		document.title = "Damus"
+	else
+		document.title = `(${model.notifications}) Damus`
+}
 
 async function damus_web_init()
 {
@@ -76,6 +86,10 @@ async function damus_web_init()
 	model.pool = pool
 	model.view_el = document.querySelector("#view")
 	redraw_home_view(model)
+
+	document.addEventListener('visibilitychange', () => {
+		update_title(model)
+	})
 
 	pool.on('open', (relay) => {
 		//let authors = followers
@@ -107,9 +121,34 @@ async function damus_web_init()
 	return pool
 }
 
-function process_event(ev)
+function process_event(model, ev)
 {
 	ev.refs = determine_event_refs(ev.tags)
+	const notified = was_pubkey_notified(model.pubkey, ev)
+	ev.notified = notified
+
+	const last_notified = get_local_state('last_notified_date')
+	if (notified && (last_notified == null || ((ev.created_at*1000) > last_notified))) {
+		set_local_state('last_notified_date', new Date().getTime())
+		model.notifications++
+		update_title(model)
+	}
+}
+
+function was_pubkey_notified(pubkey, ev)
+{
+	if (!(ev.kind === 1 || ev.kind === 42))
+		return false
+
+	if (ev.pubkey === pubkey)
+		return false
+
+	for (const tag of ev.tags) {
+		if (tag.length >= 2 && tag[0] === "p" && tag[1] === pubkey)
+			return true
+	}
+
+	return false
 }
 
 let rerender_home_timer
@@ -118,10 +157,9 @@ function handle_home_event(ids, model, relay, sub_id, ev) {
 
 	switch (sub_id) {
 	case ids.home:
-		if (ev.content !== "") {
-			process_event(ev)
-			insert_event_sorted(model.events, ev)
-		}
+		process_event(model, ev)
+		insert_event_sorted(model.events, ev)
+
 		if (model.realtime) {
 			if (rerender_home_timer)
 				clearTimeout(rerender_home_timer)
@@ -155,7 +193,7 @@ function handle_profile_event(model, ev) {
 
 function send_initial_filters(account_id, pubkey, relay) {
 	const filter = {authors: [pubkey], kinds: [3], limit: 1}
-	console.log("sending initial filter", filter)
+	//console.log("sending initial filter", filter)
 	relay.subscribe(account_id, filter)
 }
 
@@ -332,12 +370,12 @@ function handle_comments_loaded(profiles_id, model, relay)
 
 	// load profiles
 	const filter = {kinds: [0], authors: authors}
-	console.log("subscribe", profiles_id, filter, relay)
+	//console.log("subscribe", profiles_id, filter, relay)
 	model.pool.subscribe(profiles_id, filter, relay)
 }
 
 function redraw_events(model) {
-	log_debug("rendering home view")
+	//log_debug("rendering home view")
 	model.rendered = {}
 	model.events_el.innerHTML = render_events(model)
 }
