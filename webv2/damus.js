@@ -384,7 +384,7 @@ function render_reply_line_bot() {
 }
 
 function render_event(model, ev, opts={}) {
-	if (model.rendered[ev.id])
+	if (!opts.is_composing && model.rendered[ev.id])
 		return ""
 	model.rendered[ev.id] = true
 	const profile = model.profiles[ev.pubkey] || {
@@ -557,7 +557,7 @@ function reply_to(evid) {
 
 	replying_to.dataset.evid = evid
 	const ev = DSTATE.all_events[evid]
-	replying_to.innerHTML = render_event(DSTATE, ev, {nobar: true})
+	replying_to.innerHTML = render_event(DSTATE, ev, {is_composing: true, nobar: true})
 
 	modal.style.display = replying? "block" : "none";
 }

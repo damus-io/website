@@ -85,7 +85,6 @@ button {
 	padding: 10px;
 	margin: 10% auto;
 	width: 60%;
-	height: 50%;
 	overflow: auto; /* Enable scroll if needed */
 	background: linear-gradient(0deg, #A74BDB 0%, #C45BFE 100%);
 	border-radius: 15px;
