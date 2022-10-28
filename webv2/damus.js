@@ -46,7 +46,7 @@ function init_home_model() {
 	}
 }
 
-async function damus_web_init(thread)
+async function damus_web_init()
 {
 	const {RelayPool} = nostrjs
 	const pool = RelayPool(["wss://relay.damus.io"])
