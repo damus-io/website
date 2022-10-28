@@ -37,6 +37,7 @@ function init_home_model() {
 	return {
 		done_init: false,
 		loading: true,
+		rendered: {},
 		all_events: {},
 		events: [],
 		profiles: {},
@@ -98,14 +99,21 @@ async function damus_web_init(thread)
 	return pool
 }
 
+function process_event(ev)
+{
+	ev.refs = determine_event_refs(ev.tags)
+}
+
 let rerender_home_timer
 function handle_home_event(ids, model, relay, sub_id, ev) {
 	model.all_events[ev.id] = ev
 
 	switch (sub_id) {
 	case ids.home:
-		if (ev.content !== "")
+		if (ev.content !== "") {
+			process_event(ev)
 			insert_event_sorted(model.events, ev)
+		}
 		if (model.realtime) {
 			if (rerender_home_timer)
 				clearTimeout(rerender_home_timer)
@@ -320,15 +328,65 @@ function handle_comments_loaded(profiles_id, model, relay)
 
 function render_home_view(model) {
 	log_debug("rendering home view")
+	model.rendered = {}
 	model.el.innerHTML = render_events(model)
 }
 
 function render_events(model) {
-	const render = render_event.bind(null, model)
-	return model.events.map(render).join("\n")
+	return model.events.map((ev) => render_event(model, ev)).join("\n")
+}
+
+function determine_event_refs_positionally(ids)
+{
+	if (ids.length === 1)
+		return {reply: ids[0]}
+	else if (ids.length === 2)
+		return {root: ids[0], reply: ids[1]}
+
+	return {}
+}
+
+function determine_event_refs(tags) {
+	let positional_ids = []
+	let root
+	let reply
+	let i = 0
+
+	for (const tag of tags) {
+		if (tag.length >= 4 && tag[0] == "e") {
+			if (tag[3] === "root")
+				root = tag[1]
+			else if (tag[3] === "reply")
+				reply = tag[1]
+
+			// we found both a root and a reply, we're done
+			if (root !== undefined && reply !== undefined)
+				break
+		} else if (tag.length >= 2 && tag[0] == "e") {
+			positional_ids.push(tag[1])
+		}
+
+		i++
+	}
+
+	if (!root && !reply && positional_ids.length > 0)
+		return determine_event_refs_positionally(positional_ids)
+
+	return {root, reply}
+}
+
+function render_reply_line_top() {
+	return `<div class="line-top"></div>`
+}
+
+function render_reply_line_bot() {
+	return `<div class="line-bot"></div>`
 }
 
 function render_event(model, ev, opts={}) {
+	if (model.rendered[ev.id])
+		return ""
+	model.rendered[ev.id] = true
 	const profile = model.profiles[ev.pubkey] || {
 		name: "anon",
 		display_name: "Anonymous",
@@ -336,13 +394,36 @@ function render_event(model, ev, opts={}) {
 	const delta = time_delta(new Date().getTime(), ev.created_at*1000)
 	const pk = ev.pubkey
 	const bar = opts.nobar? "" : render_action_bar(ev) 
+
+	let replying_to = ""
+	let reply_line_top = ""
+
+	const has_bot_line = opts.is_reply 
+
+	if (ev.refs && ev.refs.reply) {
+		const reply_ev = model.all_events[ev.refs.reply]
+		if (reply_ev) {
+			opts.replies = opts.replies == null ? 1 : opts.replies + 1
+			opts.is_reply = true
+			replying_to = render_event(model, reply_ev, opts)
+			reply_line_top = render_reply_line_top()
+		}
+	}
+
+	const reply_line_bot = (has_bot_line && render_reply_line_bot()) || ""
+
 	return `
-	<div class="comment">
+	${replying_to}
+	<div id="ev${ev.id}" class="comment">
 		<div class="info">
 			${render_name(ev.pubkey, profile)}
 			<span>${delta}</span>
 		</div>
-		<img class="pfp" onerror="this.onerror=null;this.src='${robohash(pk)}';" src="${get_picture(pk, profile)}">
+		<div>
+			${reply_line_top}
+			<img class="pfp" onerror="this.onerror=null;this.src='${robohash(pk)}';" src="${get_picture(pk, profile)}">
+			${reply_line_bot}
+		</div>
 		<p>
 		${format_content(ev.content)}
 
