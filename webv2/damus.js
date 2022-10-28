@@ -68,7 +68,8 @@ async function damus_web_init()
 	if (!model.pubkey)
 		return
 	model.pool = pool
-	model.el = document.querySelector("#posts")
+	model.view_el = document.querySelector("#view")
+	redraw_home_view(model)
 
 	pool.on('open', (relay) => {
 		//let authors = followers
@@ -117,7 +118,7 @@ function handle_home_event(ids, model, relay, sub_id, ev) {
 		if (model.realtime) {
 			if (rerender_home_timer)
 				clearTimeout(rerender_home_timer)
-			rerender_home_timer = setTimeout(render_home_view.bind(null, model), 200)
+			rerender_home_timer = setTimeout(redraw_events.bind(null, model), 500)
 		}
 		break;
 	case ids.account:
@@ -295,7 +296,8 @@ function handle_profiles_loaded(profiles_id, model, relay) {
 	// stop asking for profiles
 	model.pool.unsubscribe(profiles_id, relay)
 	model.realtime = true
-	render_home_view(model)
+
+	redraw_events(model)
 }
 
 function debounce(f, interval) {
@@ -326,10 +328,49 @@ function handle_comments_loaded(profiles_id, model, relay)
 	model.pool.subscribe(profiles_id, filter, relay)
 }
 
-function render_home_view(model) {
+function redraw_events(model) {
 	log_debug("rendering home view")
 	model.rendered = {}
-	model.el.innerHTML = render_events(model)
+	model.events_el.innerHTML = render_events(model)
+}
+
+function redraw_home_view(model) {
+	model.view_el.innerHTML = render_home_view(model)
+	model.events_el = document.querySelector("#events")
+	if (model.events.length > 0) 
+		redraw_events(model)
+	else
+		model.events_el.innerText = "Loading..."
+}
+
+async function send_post() {
+	const input_el = document.querySelector("#post-input")
+
+	const content = input_el.value
+	const created_at = Math.floor(new Date().getTime() / 1000)
+	const kind = 1
+	const tags = []
+	const pubkey = get_pubkey()
+	const privkey = get_privkey()
+	const {pool} = DSTATE
+
+	let post = { pubkey, tags, content, created_at, kind }
+
+	post.id = await nostrjs.calculate_id(post)
+	post.sig = await sign_id(privkey, post.id)
+
+	pool.send(["EVENT", post])
+}
+
+function render_home_view(model) {
+	return `
+	<div id="newpost">
+		<input id="post-input" type="text"></input>
+		<button onclick="send_post(this)" id="post-button">Post</button>
+	</div>
+	<div id="events">
+	</div>
+	`
 }
 
 function render_events(model) {
@@ -480,7 +521,6 @@ async function send_reply() {
 	const privkey = get_privkey()
 
 	let reply = await create_reply(privkey, pubkey, content, ev)
-	console.log(nostrjs.event_commitment(reply), reply)
 	pool.send(["EVENT", reply])
 
 	close_reply()

@@ -6,7 +6,7 @@
 
         <title>Damus Web</title>
 
-        <link rel="stylesheet" href="damus.css?v=6">
+        <link rel="stylesheet" href="damus.css?v=7">
     </head>
     <body>
 	<section class="header">
@@ -14,8 +14,7 @@
 			<img src="img/damus-nobg.svg"/>
 		</span>
 	</section>
-    <div class="container">
-	    <div id="posts">
+	    <div id="view" class="container">
 	    </div>
 
 	    <div style="display: none" id="reply-modal">
@@ -39,11 +38,10 @@
 		    </div>
 	    </div>
 	    </div>
-    </div>
     <script src="noble-secp256k1.js?v=1"></script>
     <script src="bech32.js?v=1"></script>
     <script src="nostr.js?v=3"></script>
-    <script src="damus.js?v=9"></script>
+    <script src="damus.js?v=10"></script>
     <script>
 	const relay = damus_web_init()
     </script>

@@ -52,12 +52,26 @@ body {
 	background: rgba(0,0,0,0.4);
 }
 
-#reply-content {
+textarea, input {
 	background-color: rgba(255,255,255,0.2);
 	border: 0;
-	width: 100%;
+	height: 40px;
 	color: white;
 	border-radius: 5px;
+}
+
+#newpost {
+	padding: 20px;
+	margin: auto;
+	width: 70%
+}
+
+#post-input {
+	width: 80%;
+}
+
+textarea {
+	width: 100%;
 }
 
 button {
@@ -100,7 +114,7 @@ html {
 }
 .container {
   margin: 0 auto;
-  max-width: 36em;
+  max-width: 48em;
   hyphens: auto;
   word-wrap: break-word;
   text-rendering: optimizeLegibility;
