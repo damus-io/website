@@ -419,7 +419,7 @@ function render_event(model, ev, opts={}) {
 			${render_name(ev.pubkey, profile)}
 			<span>${delta}</span>
 		</div>
-		<div>
+		<div class="pfpbox">
 			${reply_line_top}
 			<img class="pfp" onerror="this.onerror=null;this.src='${robohash(pk)}';" src="${get_picture(pk, profile)}">
 			${reply_line_bot}

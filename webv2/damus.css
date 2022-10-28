@@ -181,18 +181,22 @@ html {
 
     .pfp {
         order: 1;
-	  margin: 0 15px 0 0;
+	  margin: 0 0 0 0;
+    }
+
+    .pfpbox {
+	    margin-right: 20px;
     }
     
     .comment {
 	  padding: 10px;
+	  align-items: center;
 	  border-radius: 8px;
 	  background-color: rgba(255.0,255.0,255.0,0.1);
     }
 
     .comment p {
         order: 3;
-	margin-top: 10px;
         width: 100%;
     }
 }
