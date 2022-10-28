@@ -46,13 +46,22 @@ function init_home_model() {
 	}
 }
 
+const BOOTSTRAP_RELAYS = [
+	"wss://relay.damus.io",
+	"wss://nostr-relay.wlvs.space",
+	"wss://nostr-pub.wellorder.net"
+]
+
 async function damus_web_init()
 {
-	const {RelayPool} = nostrjs
-	const pool = RelayPool(["wss://relay.damus.io"])
-	const now = (new Date().getTime()) / 1000
 	const model = init_home_model()
 	DSTATE = model
+	model.pubkey = await get_pubkey()
+	if (!model.pubkey)
+		return
+	const {RelayPool} = nostrjs
+	const pool = RelayPool(BOOTSTRAP_RELAYS)
+	const now = (new Date().getTime()) / 1000
 
 	const ids = {
 		comments: "comments",//uuidv4(),
@@ -64,9 +73,6 @@ async function damus_web_init()
 		dms: "dms",//uuidv4(),
 	}
 
-	model.pubkey = get_pubkey()
-	if (!model.pubkey)
-		return
 	model.pool = pool
 	model.view_el = document.querySelector("#view")
 	redraw_home_view(model)
@@ -78,6 +84,7 @@ async function damus_web_init()
 		
 		if (!model.done_init) {
 			model.loading = false
+
 			send_initial_filters(ids.account, model.pubkey, relay)
 		} else {
 			send_home_filters(ids, model, relay)
@@ -148,6 +155,7 @@ function handle_profile_event(model, ev) {
 
 function send_initial_filters(account_id, pubkey, relay) {
 	const filter = {authors: [pubkey], kinds: [3], limit: 1}
+	console.log("sending initial filter", filter)
 	relay.subscribe(account_id, filter)
 }
 
@@ -350,18 +358,32 @@ async function send_post() {
 	const created_at = Math.floor(new Date().getTime() / 1000)
 	const kind = 1
 	const tags = []
-	const pubkey = get_pubkey()
-	const privkey = get_privkey()
+	const pubkey = await get_pubkey()
 	const {pool} = DSTATE
 
 	let post = { pubkey, tags, content, created_at, kind }
 
 	post.id = await nostrjs.calculate_id(post)
-	post.sig = await sign_id(privkey, post.id)
+	post = await sign_event(post)
 
 	pool.send(["EVENT", post])
 
 	input_el.value = ""
+}
+
+async function sign_event(ev) {
+	if (window.nostr && window.nostr.signEvent) {
+		const signed = await window.nostr.signEvent(ev)
+		if (typeof signed === 'string') {
+			ev.sig = signed
+			return ev
+		}
+		return signed
+	}
+
+	const privkey = get_privkey()
+	ev.sig = await sign_id(privkey, ev.id)
+	return ev
 }
 
 function render_home_view(model) {
@@ -498,7 +520,7 @@ function gather_reply_tags(pubkey, from) {
 	return tags
 }
 
-async function create_reply(privkey, pubkey, content, from) {
+async function create_reply(pubkey, content, from) {
 	const tags = gather_reply_tags(pubkey, from)
 	const created_at = Math.floor(new Date().getTime() / 1000)
 	const kind = from.kind
@@ -506,8 +528,7 @@ async function create_reply(privkey, pubkey, content, from) {
 	let reply = { pubkey, tags, content, created_at, kind }
 
 	reply.id = await nostrjs.calculate_id(reply)
-	reply.sig = await sign_id(privkey, reply.id)
-
+	reply = await sign_event(reply)
 	return reply
 }
 
@@ -518,12 +539,13 @@ async function send_reply() {
 	const ev = DSTATE.all_events[evid]
 
 	const { pool } = DSTATE
-	const content = document.querySelector("#reply-content").value
-	const pubkey = get_pubkey()
-	const privkey = get_privkey()
+	const reply_content_el = document.querySelector("#reply-content")
+	const content = reply_content_el.value
+	const pubkey = await get_pubkey()
 
-	let reply = await create_reply(privkey, pubkey, content, ev)
+	let reply = await create_reply(pubkey, content, ev)
 	pool.send(["EVENT", reply])
+	reply_content_el.value = ""
 
 	close_reply()
 }
@@ -546,11 +568,17 @@ function set_local_state(key, val) {
 	localStorage.setItem(key, val)
 }
 
-function get_pubkey() {
+async function get_pubkey() {
 	let pubkey = get_local_state('pubkey')
 
 	if (pubkey)
 		return pubkey
+
+	if (window.nostr && window.nostr.getPublicKey) {
+		const pubkey = await window.nostr.getPublicKey()
+		console.log("got %s pubkey from nos2x", pubkey)
+		return pubkey
+	}
 
 	pubkey = prompt("Enter pubkey (hex or npub)")
 

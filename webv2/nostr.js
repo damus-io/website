@@ -153,7 +153,11 @@ function Relay(relay, opts={})
 	const me = this
 	me.onfn = {}
 
-	init_websocket(me)
+	try {
+		init_websocket(me)
+	} catch (e) {
+		console.log(e)
+	}
 
 	return this
 }
@@ -187,6 +191,8 @@ function init_websocket(me) {
 		ws.onopen = () => {
 			if (me.onfn.open)
 				me.onfn.open()
+			else
+				console.log("no onopen???", me)
 
 			if (resolved) return
 
