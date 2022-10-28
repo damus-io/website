@@ -360,6 +360,8 @@ async function send_post() {
 	post.sig = await sign_id(privkey, post.id)
 
 	pool.send(["EVENT", post])
+
+	input_el.value = ""
 }
 
 function render_home_view(model) {
