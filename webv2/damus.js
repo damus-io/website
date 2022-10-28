@@ -448,6 +448,10 @@ function render_reply_line_bot() {
 	return `<div class="line-bot"></div>`
 }
 
+function can_reply(ev) {
+	return ev.kind === 1 || ev.kind === 42
+}
+
 function render_event(model, ev, opts={}) {
 	if (!opts.is_composing && model.rendered[ev.id])
 		return ""
@@ -458,7 +462,7 @@ function render_event(model, ev, opts={}) {
 	}
 	const delta = time_delta(new Date().getTime(), ev.created_at*1000)
 	const pk = ev.pubkey
-	const bar = opts.nobar? "" : render_action_bar(ev) 
+	const bar = !can_reply(ev) || opts.nobar? "" : render_action_bar(ev) 
 
 	let replying_to = ""
 	let reply_line_top = ""
@@ -490,7 +494,8 @@ function render_event(model, ev, opts={}) {
 			${reply_line_bot}
 		</div>
 		<p>
-		${format_content(ev.content)}
+
+		${format_content(ev)}
 
 		${bar}
 		</p>
@@ -660,9 +665,15 @@ function convert_quote_blocks(content)
 	}, "")
 }
 
-function format_content(content)
+function format_content(ev)
 {
-	return convert_quote_blocks(content)
+	if (ev.kind === 7) {
+		if (ev.content === "" || ev.content === "+")
+			return "❤️"
+		return sanitize(ev.content)
+	}
+
+	return convert_quote_blocks(ev.content)
 }
 
 function sanitize(content)
