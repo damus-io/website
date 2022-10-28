@@ -61,9 +61,12 @@ textarea, input {
 }
 
 #newpost {
-	padding: 20px;
-	margin: auto;
-	width: 70%
+	margin: 0 auto 20px auto;
+	width: 100%
+}
+
+::placeholder {
+	color: rgba(255,255,255,0.7);
 }
 
 #post-input {

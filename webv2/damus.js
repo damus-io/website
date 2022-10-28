@@ -365,7 +365,7 @@ async function send_post() {
 function render_home_view(model) {
 	return `
 	<div id="newpost">
-		<input id="post-input" type="text"></input>
+		<input placeholder="What's on your mind?" id="post-input" type="text"></input>
 		<button onclick="send_post(this)" id="post-button">Post</button>
 	</div>
 	<div id="events">
