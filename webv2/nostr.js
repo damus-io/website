@@ -128,7 +128,7 @@ RelayPool.prototype.find_relays = function relayPoolFindRelays(relay_ids) {
 Relay.prototype.wait_connected = async function relay_wait_connected(data) {
 	let retry = 1000
 	while (true) {
-		if (this.ws.readyState !== 1) {
+		if (!this.ws || this.ws.readyState !== 1) {
 			await sleep(retry)
 			retry *= 1.5
 		}

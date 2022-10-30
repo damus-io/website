@@ -5,7 +5,11 @@ all: fake
 tags: fake
 	ctags damus.js nostr.js > $@
 
+emojiregex: fake
+	@curl -sL 'https://raw.githubusercontent.com/mathiasbynens/emoji-test-regex-pattern/main/dist/latest/javascript.txt'
+
 dist:
 	rsync -avzP ./ charon:/www/damus.io/webv2/
+
 
 .PHONY: fake
