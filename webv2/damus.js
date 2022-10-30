@@ -597,10 +597,18 @@ function get_reaction_emoji(ev) {
 	return ev.content
 }
 
-function render_reaction_group(model, emoji, reactions) {
+function render_reaction_group(model, emoji, reactions, reacting_to) {
 	const pfps = Object.keys(reactions).map((pk) => render_reaction(model, reactions[pk]))
+
+	let onclick = ""
+	let classes = ""
+	if (!reactions[model.pubkey]) {
+		onclick = `onclick="send_reply('${emoji}', '${reacting_to.id}')"`
+		classes = "can-react"
+	}
+
 	return `
-	<span class="reaction-group">
+	<span ${onclick} class="reaction-group ${classes}">
 	  <span class="reaction-emoji">
 	  ${emoji}
 	  </span>
@@ -640,7 +648,7 @@ function render_reactions(model, ev) {
 	}, {})
 
 	for (const emoji of Object.keys(groups)) {
-		str += render_reaction_group(model, emoji, groups[emoji])
+		str += render_reaction_group(model, emoji, groups[emoji], ev)
 	}
 
 	return `
@@ -688,19 +696,27 @@ async function create_reply(pubkey, content, from) {
 	return reply
 }
 
-async function send_reply() {
+async function send_reply(content, replying_to)
+{
+	const ev = DSTATE.all_events[replying_to]
+	if (!ev)
+		return
+
+	const pubkey = await get_pubkey()
+	let reply = await create_reply(pubkey, content, ev)
+	DSTATE.pool.send(["EVENT", reply])
+}
+
+async function do_send_reply() {
 	const modal = document.querySelector("#reply-modal")
 	const replying_to = modal.querySelector("#replying-to")
-	const evid = replying_to.dataset.evid
-	const ev = DSTATE.all_events[evid]
 
-	const { pool } = DSTATE
+	const evid = replying_to.dataset.evid
 	const reply_content_el = document.querySelector("#reply-content")
 	const content = reply_content_el.value
-	const pubkey = await get_pubkey()
 
-	let reply = await create_reply(pubkey, content, ev)
-	pool.send(["EVENT", reply])
+	await send_reply(content, evid)
+
 	reply_content_el.value = ""
 
 	close_reply()
