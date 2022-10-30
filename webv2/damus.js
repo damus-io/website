@@ -124,6 +124,9 @@ async function damus_web_init()
 
 function process_reaction_event(model, ev)
 {
+	if (!is_valid_reaction_content(ev.content))
+		return
+
 	let last = {}
 
 	for (const tag of ev.tags) {
@@ -573,9 +576,21 @@ function render_pfp(pk, profile, size="normal") {
 	return `<img class="pfp pfp-${size}" onerror="this.onerror=null;this.src='${robohash(pk)}';" src="${get_picture(pk, profile)}">`
 }
 
+const REACTION_REGEX = /^(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])$/gi;
+function is_emoji(str) 
+{
+	return REACTION_REGEX.test(str)
+}
+
+function is_valid_reaction_content(content)
+{
+	return content === "+" || content === "" || is_emoji(content)
+}
+
 function get_reaction_emoji(ev) {
 	if (ev.content === "+" || ev.content === "")
 		return "❤️"
+
 	return ev.content
 }
 
@@ -657,7 +672,11 @@ function gather_reply_tags(pubkey, from) {
 async function create_reply(pubkey, content, from) {
 	const tags = gather_reply_tags(pubkey, from)
 	const created_at = Math.floor(new Date().getTime() / 1000)
-	const kind = from.kind
+	let kind = from.kind
+
+	// convert emoji replies into reactions
+	if (is_valid_reaction_content(content))
+		kind = 7
 
 	let reply = { pubkey, tags, content, created_at, kind }
 
