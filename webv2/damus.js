@@ -40,6 +40,7 @@ function init_home_model() {
 		notifications: 0,
 		rendered: {},
 		all_events: {},
+		reactions_to: {},
 		events: [],
 		profiles: {},
 		last_event_of_kind: {},
@@ -121,11 +122,29 @@ async function damus_web_init()
 	return pool
 }
 
+function process_reaction_event(model, ev)
+{
+	let last = {}
+
+	for (const tag of ev.tags) {
+		if (tag.length >= 2 && (tag[0] === "e" || tag[0] === "p"))
+			last[tag[0]] = tag[1]
+	}
+
+	if (last.e && last.p) {
+		model.reactions_to[last.e] = model.reactions_to[last.e] || new Set()
+		model.reactions_to[last.e].add(ev.id)
+	}
+}
+
 function process_event(model, ev)
 {
 	ev.refs = determine_event_refs(ev.tags)
 	const notified = was_pubkey_notified(model.pubkey, ev)
 	ev.notified = notified
+
+	if (ev.kind === 7)
+		process_reaction_event(model, ev)
 
 	const last_notified = get_local_state('last_notified_date')
 	if (notified && (last_notified == null || ((ev.created_at*1000) > last_notified))) {
@@ -151,6 +170,11 @@ function was_pubkey_notified(pubkey, ev)
 	return false
 }
 
+function should_add_to_home(ev)
+{
+	return ev.kind === 1 || ev.kind === 42
+}
+
 let rerender_home_timer
 function handle_home_event(ids, model, relay, sub_id, ev) {
 	model.all_events[ev.id] = ev
@@ -158,7 +182,9 @@ function handle_home_event(ids, model, relay, sub_id, ev) {
 	switch (sub_id) {
 	case ids.home:
 		process_event(model, ev)
-		insert_event_sorted(model.events, ev)
+
+		if (should_add_to_home(ev))
+			insert_event_sorted(model.events, ev)
 
 		if (model.realtime) {
 			if (rerender_home_timer)
@@ -490,16 +516,17 @@ function can_reply(ev) {
 	return ev.kind === 1 || ev.kind === 42
 }
 
+const DEFAULT_PROFILE = {
+	name: "anon",
+	display_name: "Anonymous",
+}
+
 function render_event(model, ev, opts={}) {
 	if (!opts.is_composing && model.rendered[ev.id])
 		return ""
 	model.rendered[ev.id] = true
-	const profile = model.profiles[ev.pubkey] || {
-		name: "anon",
-		display_name: "Anonymous",
-	}
+	const profile = model.profiles[ev.pubkey] || DEFAULT_PROFILE
 	const delta = time_delta(new Date().getTime(), ev.created_at*1000)
-	const pk = ev.pubkey
 	const bar = !can_reply(ev) || opts.nobar? "" : render_action_bar(ev) 
 
 	let replying_to = ""
@@ -528,15 +555,79 @@ function render_event(model, ev, opts={}) {
 		</div>
 		<div class="pfpbox">
 			${reply_line_top}
-			<img class="pfp" onerror="this.onerror=null;this.src='${robohash(pk)}';" src="${get_picture(pk, profile)}">
+			${render_pfp(ev.pubkey, profile)}
 			${reply_line_bot}
 		</div>
-		<p>
+		<div class="comment-body">
+			<p>
+			${format_content(ev)}
+			</p>
+			${render_reactions(model, ev)}
+			${bar}
+		</div>
+	</div>
+	`
+}
 
-		${format_content(ev)}
+function render_pfp(pk, profile, size="normal") {
+	return `<img class="pfp pfp-${size}" onerror="this.onerror=null;this.src='${robohash(pk)}';" src="${get_picture(pk, profile)}">`
+}
 
-		${bar}
-		</p>
+function get_reaction_emoji(ev) {
+	if (ev.content === "+" || ev.content === "")
+		return "❤️"
+	return ev.content
+}
+
+function render_reaction_group(model, emoji, reactions) {
+	const pfps = Object.keys(reactions).map((pk) => render_reaction(model, reactions[pk]))
+	return `
+	<span class="reaction-group">
+	  <span class="reaction-emoji">
+	  ${emoji}
+	  </span>
+	  ${pfps.join("\n")}
+	</span>
+	`
+}
+
+function render_reaction(model, reaction) {
+	const profile = model.profiles[reaction.pubkey] || DEFAULT_PROFILE
+	let emoji = reaction.content[0]
+	if (reaction.content === "+" || reaction.content === "")
+		emoji = "❤️"
+
+	return render_pfp(reaction.pubkey, profile, "small")
+}
+
+function render_reactions(model, ev) {
+	const reactions_set = model.reactions_to[ev.id]
+	if (!reactions_set)
+		return ""
+
+	let reactions = []
+	for (const id of reactions_set.keys()) {
+		const reaction = model.all_events[id]
+		if (!reaction)
+			continue
+		reactions.push(reaction)
+	}
+
+	let str = ""
+	const groups = reactions.reduce((grp, r) => {
+		const e = get_reaction_emoji(r)
+		grp[e] = grp[e] || {}
+		grp[e][r.pubkey] = r
+		return grp
+	}, {})
+
+	for (const emoji of Object.keys(groups)) {
+		str += render_reaction_group(model, emoji, groups[emoji])
+	}
+
+	return `
+	<div class="reactions">
+	  ${str}
 	</div>
 	`
 }
@@ -677,7 +768,9 @@ function reply_to(evid) {
 
 function render_action_bar(ev) {
 	return `
-	<a href="javascript:reply_to('${ev.id}')">reply</a>
+	<div class="action-bar">
+		<a href="javascript:reply_to('${ev.id}')">reply</a>
+	</div>
 	`
 }
 

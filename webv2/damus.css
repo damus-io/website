@@ -73,6 +73,21 @@ textarea, input {
 	width: 80%;
 }
 
+.reaction-group {
+	display: inline-flex;
+	background-color: rgba(255,255,255,0.15);
+	padding: 4px;
+	border-radius: 5px;
+}
+
+.reaction-group img {
+	margin-left: -8px;
+}
+
+.reaction-emoji {
+	margin-right: 14px;
+}
+
 textarea {
 	width: 100%;
 }
@@ -145,10 +160,18 @@ html {
 }
 
 .pfp {
+	border-radius: 50%;
+}
+
+.pfp-small {
+	width: 28px;
+	height: 28px;
+}
+
+.pfp-normal {
+	margin: 0 15px 0 15px;
 	width: 60px;
 	height: 60px;
-  margin: 0 15px 0 15px;
-  border-radius: 50%;
 }
 
 .comment {
@@ -159,12 +182,16 @@ html {
   /*align-items: center;*/
 }
 
-.comment p {
+.comment .comment-body {
   background-color: rgba(255.0,255.0,255.0,0.1);
   padding: 10px;
   border-radius: 8px;
   margin: 0;
   width: 55%;
+}
+
+.comment-body p {
+  margin: 0 0 10px 0;
 }
 
 .comment .info {
