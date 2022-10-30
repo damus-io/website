@@ -542,8 +542,10 @@ function render_event(model, ev, opts={}) {
 		if (reply_ev) {
 			opts.replies = opts.replies == null ? 1 : opts.replies + 1
 			opts.is_reply = true
-			replying_to = render_event(model, reply_ev, opts)
-			reply_line_top = render_reply_line_top()
+			if (opts.max_depth == null || opts.replies < opts.max_depth) {
+				replying_to = render_event(model, reply_ev, opts)
+				reply_line_top = render_reply_line_top()
+			}
 		}
 	}
 
@@ -781,7 +783,7 @@ function reply_to(evid) {
 
 	replying_to.dataset.evid = evid
 	const ev = DSTATE.all_events[evid]
-	replying_to.innerHTML = render_event(DSTATE, ev, {is_composing: true, nobar: true})
+	replying_to.innerHTML = render_event(DSTATE, ev, {is_composing: true, nobar: true, max_depth: 2})
 
 	modal.style.display = replying? "block" : "none";
 }
