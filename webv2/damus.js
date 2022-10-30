@@ -456,7 +456,7 @@ async function sign_event(ev) {
 function render_home_view(model) {
 	return `
 	<div id="newpost">
-		<input placeholder="What's on your mind?" id="post-input" type="text"></input>
+		<textarea placeholder="What's on your mind?" id="post-input"></textarea>
 		<button onclick="send_post(this)" id="post-button">Post</button>
 	</div>
 	<div id="events">
