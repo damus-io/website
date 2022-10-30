@@ -134,7 +134,7 @@ function process_reaction_event(model, ev)
 			last[tag[0]] = tag[1]
 	}
 
-	if (last.e && last.p) {
+	if (last.e) {
 		model.reactions_to[last.e] = model.reactions_to[last.e] || new Set()
 		model.reactions_to[last.e].add(ev.id)
 	}
