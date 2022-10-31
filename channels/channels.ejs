@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Active nostr channels past week</title>
+        <link rel="stylesheet" href="../log/comments.css?v=5">
+        <link rel="stylesheet" href="channels.css?v=7">
+    </head>
+    <body>
+	<section class="header">
+		<span class="logo">
+			<img src="/img/damus-nobg.svg"/>
+		</span>
+	</section>
+	<div class="container">
+
+		<h2>Active nostr channels past week</h2>
+		<table>
+		
+		<thead>
+			<tr>
+				<th>Channel</th>
+				<th>Messages</th>
+				<th>ID</th>
+			</tr>
+		</thead>
+		<tbody>
+		<% channels.forEach((channel) => { %>
+		    <tr>
+			    <td>
+				    <div class="channel">
+					    <img onerror="this.onerror=null;this.src='https://robohash.org/<%= channel[3] %>'" src="<%= channel[2] %>" />
+					    <%= channel[1].slice(0,20) %>
+				    </div>
+			    </td>
+			    <td><%= channel[0] %></td>
+			    <td><pre><%= channel[3] %></pre></td>
+		    </tr>
+		<% }) %>
+		</tbody>
+		</table>
+
+		<h3>Raw Data</h3>
+		<a href="https://damus.io/stats/channels-last-week.json">json</a><br/>
+		<a href="https://damus.io/stats/channels-last-week.csv">csv</a>
+
+		<!--
+	<h3><a href="nostr:e:2ed9b99190f0acf8f5cf768d4edd4be004a1262c6d296f341333e5e94b5ec423">Comments</a></h3>
+    <div id="comments">
+    </div>
+    <script src="nostr.js?v=4" ></script>
+    <script src="comments.js?v=16" ></script>
+	     <script>
+		const relay = comments_init("2ed9b99190f0acf8f5cf768d4edd4be004a1262c6d296f341333e5e94b5ec423")
+	     </script>
+		-->
+  </div> <!-- container -->
+    </body>
+</html>

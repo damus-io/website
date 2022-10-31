@@ -1,0 +1,69 @@
+
+
+@import url('https://rsms.me/inter/inter.css');
+
+.header {
+	display: flex;
+	margin: 50px 0 0 0;
+	flex-direction: column;
+	align-items: center;
+}
+
+.logo {
+    margin-bottom: 0;
+    letter-spacing: -0.05em;
+}
+
+.date {
+	font-size: 0.7em;
+	margin-left: 10px;
+	color: #eee;
+}
+
+.logo img {
+    padding-right: 18px;
+    width: 60px;
+}
+
+a {
+	font-family: -system-ui, sans-serif;
+	color: white;
+}
+
+a:visited {
+	color: #eee;
+}
+
+body {
+    color: white;
+    min-height: 800px;
+}
+
+html {
+  line-height: 1.5;
+  font-size: 20px;
+  font-family: sans-serif;
+
+    background: linear-gradient(45deg, rgba(28,85,255,1) 0%, rgba(127,53,171,1) 59%, rgba(255,11,214,1) 100%);
+}
+
+.channel {
+	display: inline-flex;
+	align-items: center;
+}
+
+.channel img {
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.container {
+  margin: 0 auto 0 auto;
+  max-width: 50em;
+  hyphens: auto;
+  word-wrap: break-word;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+}
