@@ -8,7 +8,7 @@
    version="1.1"
    id="svg5"
    inkscape:version="1.2-alpha (0bd5040e, 2022-02-05)"
-   sodipodi:docname="damus.svg"
+   sodipodi:docname="damus2.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -25,17 +25,29 @@
      inkscape:blackoutopacity="0.0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.8409652"
-     inkscape:cx="445.91619"
-     inkscape:cy="505.37169"
+     inkscape:zoom="0.5946522"
+     inkscape:cx="405.27892"
+     inkscape:cy="491.04334"
      inkscape:window-width="1435"
      inkscape:window-height="844"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="0"
-     inkscape:current-layer="layer4" />
+     inkscape:current-layer="layer2" />
   <defs
      id="defs2">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient39361">
+      <stop
+         style="stop-color:#0de8ff;stop-opacity:0.78082192;"
+         offset="0"
+         id="stop39357" />
+      <stop
+         style="stop-color:#d600fc;stop-opacity:0.95433789;"
+         offset="1"
+         id="stop39359" />
+    </linearGradient>
     <inkscape:path-effect
        effect="bspline"
        id="path-effect255"
@@ -72,6 +84,15 @@
        x2="246.56145"
        y2="7.1864405"
        gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient39361"
+       id="linearGradient39367"
+       x1="62.104473"
+       y1="128.78963"
+       x2="208.25758"
+       y2="128.78963"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <g
      inkscape:label="Background"
@@ -95,11 +116,9 @@
      inkscape:label="Logo"
      sodipodi:insensitive="true">
     <path
-       style="fill:#000000;fill-opacity:0;stroke:#ffffff;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:url(#linearGradient39367);fill-opacity:1;stroke:#ffffff;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 101.1429,213.87373 C 67.104473,239.1681 67.104473,42.67112 67.104473,42.67112 135.18122,57.58146 203.25844,72.491904 203.25758,105.24181 c -8.6e-4,32.74991 -68.07625,83.33755 -102.11468,108.63192 z"
        id="path253"
-       inkscape:path-effect="#path-effect255"
-       inkscape:original-d="M 67.104473,239.1681 V 42.67112 c 0,0 136.153917,29.821017 204.230237,44.731019 C 203.25703,137.99214 135.18164,188.57978 67.104473,239.1681 Z"
        sodipodi:insensitive="true" />
   </g>
   <g
