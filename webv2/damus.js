@@ -57,7 +57,6 @@ const BOOTSTRAP_RELAYS = [
 function update_favicon(path)
 {
 	let link = document.querySelector("link[rel~='icon']");
-	let link_mask = document.querySelector("link[rel~='mask-icon']");
 	const head = document.getElementsByTagName('head')[0]
 
 	if (!link) {
@@ -66,14 +65,7 @@ function update_favicon(path)
 		head.appendChild(link);
 	}
 
-	if (!link_mask) {
-		link_mask = document.createElement('link');
-		link_mask.rel = 'mask-icon';
-		head.appendChild(link_mask);
-	}
-
 	link.href = path;
-	link_mask.href = path;
 }
 
 function update_title(model) {
