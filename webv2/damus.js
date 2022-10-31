@@ -57,13 +57,23 @@ const BOOTSTRAP_RELAYS = [
 function update_favicon(path)
 {
 	let link = document.querySelector("link[rel~='icon']");
+	let link_mask = document.querySelector("link[rel~='mask-icon']");
+	const head = document.getElementsByTagName('head')[0]
+
 	if (!link) {
 		link = document.createElement('link');
 		link.rel = 'icon';
-		document.getElementsByTagName('head')[0].appendChild(link);
+		head.appendChild(link);
+	}
+
+	if (!link_mask) {
+		link_mask = document.createElement('link');
+		link_mask.rel = 'mask-icon';
+		head.appendChild(link_mask);
 	}
 
 	link.href = path;
+	link_mask.href = path;
 }
 
 function update_title(model) {
@@ -71,10 +81,10 @@ function update_title(model) {
 		model.notifications = 0
 	if (model.notifications === 0) {
 		document.title = "Damus"
-		update_favicon("img/favicon.ico")
+		update_favicon("img/damus.svg")
 	} else {
 		document.title = `(${model.notifications}) Damus`
-		update_favicon("img/favicon-notif.ico")
+		update_favicon("img/damus_notif.svg")
 	}
 }
 
