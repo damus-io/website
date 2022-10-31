@@ -54,13 +54,28 @@ const BOOTSTRAP_RELAYS = [
 	"wss://nostr-pub.wellorder.net"
 ]
 
+function update_favicon(path)
+{
+	let link = document.querySelector("link[rel~='icon']");
+	if (!link) {
+		link = document.createElement('link');
+		link.rel = 'icon';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	}
+
+	link.href = path;
+}
+
 function update_title(model) {
 	if (document.visibilityState === 'visible')
 		model.notifications = 0
-	if (model.notifications === 0)
+	if (model.notifications === 0) {
 		document.title = "Damus"
-	else
+		update_favicon("img/favicon.ico")
+	} else {
 		document.title = `(${model.notifications}) Damus`
+		update_favicon("img/favicon-notif.ico")
+	}
 }
 
 async function damus_web_init()
