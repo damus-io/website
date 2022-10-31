@@ -541,6 +541,21 @@ const DEFAULT_PROFILE = {
 	display_name: "Anonymous",
 }
 
+function render_replying_to(model, ev, opts)
+{
+	if (ev.refs && ev.refs.reply) {
+		const reply_ev = model.all_events[ev.refs.reply]
+		if (reply_ev) {
+			opts.replies = opts.replies == null ? 1 : opts.replies + 1
+			opts.is_reply = true
+			if (opts.max_depth == null || opts.replies < opts.max_depth)
+				return render_event(model, reply_ev, opts)
+		}
+	}
+
+	return ""
+}
+
 function render_event(model, ev, opts={}) {
 	if (!opts.is_composing && model.rendered[ev.id])
 		return ""
@@ -549,24 +564,11 @@ function render_event(model, ev, opts={}) {
 	const delta = time_delta(new Date().getTime(), ev.created_at*1000)
 	const bar = !can_reply(ev) || opts.nobar? "" : render_action_bar(ev) 
 
-	let replying_to = ""
-	let reply_line_top = ""
-
 	const has_bot_line = opts.is_reply 
-
-	if (ev.refs && ev.refs.reply) {
-		const reply_ev = model.all_events[ev.refs.reply]
-		if (reply_ev) {
-			opts.replies = opts.replies == null ? 1 : opts.replies + 1
-			opts.is_reply = true
-			if (opts.max_depth == null || opts.replies < opts.max_depth) {
-				replying_to = render_event(model, reply_ev, opts)
-				reply_line_top = render_reply_line_top()
-			}
-		}
-	}
-
 	const reply_line_bot = (has_bot_line && render_reply_line_bot()) || ""
+
+	const replying_to = render_replying_to(model, ev, opts)
+	const reply_line_top = replying_to === "" ? "" : render_reply_line_top()
 
 	return `
 	${replying_to}
