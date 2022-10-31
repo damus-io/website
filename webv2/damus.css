@@ -73,6 +73,11 @@ textarea, input {
 	width: 80%;
 }
 
+.replying-to {
+	font-size: 0.6em;
+	color: rgba(255,255,255,0.8);
+}
+
 .can-react {
 	cursor: pointer;
 }
@@ -212,7 +217,7 @@ html {
   display: block;
 }
 
-.comment .info span {
+.comment .timestamp {
   font-size: 11px;
   color: rgba(255.0,255.0,255.0,0.7);
 }

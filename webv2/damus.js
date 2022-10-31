@@ -485,18 +485,19 @@ function render_events(model) {
 	return model.events.map((ev) => render_event(model, ev)).join("\n")
 }
 
-function determine_event_refs_positionally(ids)
+function determine_event_refs_positionally(pubkeys, ids)
 {
 	if (ids.length === 1)
-		return {reply: ids[0]}
+		return {root: ids[0], reply: ids[0], pubkeys}
 	else if (ids.length === 2)
-		return {root: ids[0], reply: ids[1]}
+		return {root: ids[0], reply: ids[1], pubkeys}
 
-	return {}
+	return {pubkeys}
 }
 
 function determine_event_refs(tags) {
 	let positional_ids = []
+	let pubkeys = []
 	let root
 	let reply
 	let i = 0
@@ -507,21 +508,19 @@ function determine_event_refs(tags) {
 				root = tag[1]
 			else if (tag[3] === "reply")
 				reply = tag[1]
-
-			// we found both a root and a reply, we're done
-			if (root !== undefined && reply !== undefined)
-				break
 		} else if (tag.length >= 2 && tag[0] == "e") {
 			positional_ids.push(tag[1])
+		} else if (tag.length >= 2 && tag[0] == "p") {
+			pubkeys.push(tag[1])
 		}
 
 		i++
 	}
 
 	if (!root && !reply && positional_ids.length > 0)
-		return determine_event_refs_positionally(positional_ids)
+		return determine_event_refs_positionally(pubkeys, positional_ids)
 
-	return {root, reply}
+	return {root, reply, pubkeys}
 }
 
 function render_reply_line_top() {
@@ -541,19 +540,55 @@ const DEFAULT_PROFILE = {
 	display_name: "Anonymous",
 }
 
-function render_replying_to(model, ev, opts)
+function render_replied_events(model, ev, opts)
 {
-	if (ev.refs && ev.refs.reply) {
-		const reply_ev = model.all_events[ev.refs.reply]
-		if (reply_ev) {
-			opts.replies = opts.replies == null ? 1 : opts.replies + 1
-			opts.is_reply = true
-			if (opts.max_depth == null || opts.replies < opts.max_depth)
-				return render_event(model, reply_ev, opts)
-		}
+	if (!(ev.refs && ev.refs.reply))
+		return ""
+
+	const reply_ev = model.all_events[ev.refs.reply]
+	if (!reply_ev)
+		return ""
+
+
+	opts.replies = opts.replies == null ? 1 : opts.replies + 1
+	if (!(opts.max_depth == null || opts.replies < opts.max_depth))
+		return ""
+
+	opts.is_reply = true
+	return render_event(model, reply_ev, opts)
+}
+
+function render_replying_to_chat(model, ev) {
+	const roomid = ev.refs.root || "??"
+	const pks = ev.refs.pubkeys || []
+	const names = pks.map(pk => render_mentioned_name(pk, model.profiles[pk])).join(", ")
+	const to_users = pks.length === 0 ? "" : ` to ${names}`
+	return `<div class="replying-to">replying${to_users} in ${roomid} chatroom</div>`
+}
+
+function render_replying_to(model, ev) {
+	if (!(ev.refs && ev.refs.reply))
+		return ""
+
+	if (ev.kind === 42)
+		return render_replying_to_chat(model, ev)
+
+	let pubkeys = ev.refs.pubkeys || []
+	if (pubkeys.length === 0 && ev.refs.reply) {
+		const replying_to = model.all_events[ev.refs.reply]
+		if (!replying_to)
+			return `<div class="replying-to">reply to ${ev.refs.reply}</div>`
+
+		pubkeys = [replying_to.pubkey]
 	}
 
-	return ""
+	const names = ev.refs.pubkeys.map(pk => render_mentioned_name(pk, model.profiles[pk])).join(", ")
+
+	return `
+	<div class="replying-to">
+		replying to ${names}
+	</div>
+	`
 }
 
 function render_event(model, ev, opts={}) {
@@ -567,15 +602,15 @@ function render_event(model, ev, opts={}) {
 	const has_bot_line = opts.is_reply 
 	const reply_line_bot = (has_bot_line && render_reply_line_bot()) || ""
 
-	const replying_to = render_replying_to(model, ev, opts)
-	const reply_line_top = replying_to === "" ? "" : render_reply_line_top()
+	const replied_events = render_replied_events(model, ev, opts)
+	const reply_line_top = replied_events === "" ? "" : render_reply_line_top()
 
 	return `
-	${replying_to}
+	${replied_events}
 	<div id="ev${ev.id}" class="comment">
 		<div class="info">
 			${render_name(ev.pubkey, profile)}
-			<span>${delta}</span>
+			<span class="timestamp">${delta}</span>
 		</div>
 		<div class="pfpbox">
 			${reply_line_top}
@@ -583,6 +618,7 @@ function render_event(model, ev, opts={}) {
 			${reply_line_bot}
 		</div>
 		<div class="comment-body">
+			${render_replying_to(model, ev)}
 			<p>
 			${format_content(ev)}
 			</p>
@@ -884,15 +920,31 @@ function get_picture(pk, profile) {
 	return profile.resolved_picture
 }
 
-function render_name_plain(pk, profile)
+function render_name_plain(pk, profile=DEFAULT_PROFILE)
 {
 	if (profile.sanitized_name)
 		return profile.sanitized_name
+
 	const display_name = profile.display_name || profile.user
 	const username = profile.name || "anon"
 	const name = display_name || username
+
 	profile.sanitized_name = sanitize(name)
 	return profile.sanitized_name
+}
+
+function render_pubkey(pk)
+{
+	return pk.slice(-8)
+}
+
+function render_username(pk, profile)
+{
+	return (profile && profile.name) || render_pubkey(pk)
+}
+
+function render_mentioned_name(pk, profile) {
+	return `<span class="username">@${render_username(pk, profile)}</span>`
 }
 
 function render_name(pk, profile) {
