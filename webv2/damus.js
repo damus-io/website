@@ -482,7 +482,9 @@ function render_home_view(model) {
 }
 
 function render_events(model) {
-	return model.events.map((ev) => render_event(model, ev)).join("\n")
+	return model.events
+		.filter((ev, i) => i < 80)
+		.map((ev) => render_event(model, ev)).join("\n")
 }
 
 function determine_event_refs_positionally(pubkeys, ids)
