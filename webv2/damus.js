@@ -483,7 +483,7 @@ function render_home_view(model) {
 
 function render_events(model) {
 	return model.events
-		.filter((ev, i) => i < 80)
+		.filter((ev, i) => i < 140)
 		.map((ev) => render_event(model, ev)).join("\n")
 }
 
