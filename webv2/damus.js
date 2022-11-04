@@ -555,8 +555,10 @@ const DEFAULT_PROFILE = {
 	display_name: "Anonymous",
 }
 
-function render_thread_collapsed(model, reply_ev)
+function render_thread_collapsed(model, reply_ev, opts)
 {
+	if (opts.is_composing)
+		return ""
 	return `<div onclick="expand_thread('${reply_ev.id}')" class="thread-collapsed clickable">...</div>`
 }
 
@@ -935,7 +937,7 @@ function reply_to(evid) {
 
 	replying_to.dataset.evid = evid
 	const ev = DSTATE.all_events[evid]
-	replying_to.innerHTML = render_event(DSTATE, ev, {is_composing: true, nobar: true, max_depth: 2})
+	replying_to.innerHTML = render_event(DSTATE, ev, {is_composing: true, nobar: true, max_depth: 1})
 
 	modal.style.display = replying? "block" : "none";
 }
