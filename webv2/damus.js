@@ -644,6 +644,8 @@ function render_event(model, ev, opts={}) {
 	const replied_events = render_replied_events(model, ev, opts)
 	const reply_line_top = replied_events === "" ? "" : render_reply_line_top()
 
+	const show_media = !opts.is_composing
+
 	return `
 	${replied_events}
 	<div id="ev${ev.id}" class="comment">
@@ -659,7 +661,7 @@ function render_event(model, ev, opts={}) {
 		<div class="comment-body">
 			${render_replying_to(model, ev)}
 			<p>
-			${format_content(ev)}
+			${format_content(ev, show_media)}
 			</p>
 			${render_reactions(model, ev)}
 			${bar}
@@ -961,12 +963,12 @@ function is_video_url(path) {
 }
 
 const URL_REGEX = /(https?:\/\/[^\s\):]+)/g;
-function linkify(text) {
+function linkify(text, show_media) {
 	return text.replace(URL_REGEX, function(url) {
 		const parsed = new URL(url)
-		if (is_img_url(parsed.pathname))
+		if (show_media && is_img_url(parsed.pathname))
 			return `<img class="inline-img" src="${url}"/>`;
-		else if (is_video_url(parsed.pathname))
+		else if (show_media && is_video_url(parsed.pathname))
 			return `
 			<video controls class="inline-img" />
 			  <source src="${url}">
@@ -977,7 +979,7 @@ function linkify(text) {
 	})
 }
 
-function convert_quote_blocks(content)
+function convert_quote_blocks(content, show_media)
 {
 	const split = content.split("\n")
 	let blockin = false
@@ -987,19 +989,19 @@ function convert_quote_blocks(content)
 				str += "<span class='quote'>"
 				blockin = true
 			}
-			str += linkify(sanitize(line.slice(1)))
+			str += linkify(sanitize(line.slice(1)), show_media)
 		} else {
 			if (blockin) {
 				blockin = false
 				str += "</span>"
 			}
-			str += linkify(sanitize(line))
+			str += linkify(sanitize(line), show_media)
 		}
 		return str + "<br/>"
 	}, "")
 }
 
-function format_content(ev)
+function format_content(ev, show_media)
 {
 	if (ev.kind === 7) {
 		if (ev.content === "" || ev.content === "+")
@@ -1007,7 +1009,7 @@ function format_content(ev)
 		return sanitize(ev.content)
 	}
 
-	return convert_quote_blocks(ev.content)
+	return convert_quote_blocks(ev.content, show_media)
 }
 
 function sanitize(content)
