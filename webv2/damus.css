@@ -10,6 +10,7 @@
     letter-spacing: -0.05em;
 }
 
+
 .logo img {
     padding-right: 18px;
     width: 60px;
@@ -183,6 +184,11 @@ html {
 	height: 60px;
 }
 
+
+.thread-collapsed {
+	margin: auto;
+}
+
 .comment {
   display: flex;
   font-family: system-ui, sans;
@@ -226,8 +232,6 @@ html {
     /* Reverse the order of elements in the user comments,
     so that the avatar and info appear after the text. */
     .comment .info {
-        order: 2;
-	width: 50%;
 	text-align: left;
     }
 
@@ -239,12 +243,20 @@ html {
     .pfpbox {
 	    margin-right: 20px;
     }
+
+    .comment .comment-body {
+	    width: 100%;
+    }
+
+    .line-top, .line-bottom {
+	    display: none;
+    }
     
     .comment {
 	  padding: 10px;
 	  align-items: center;
 	  border-radius: 8px;
-	  background-color: rgba(255.0,255.0,255.0,0.1);
+	  /*background-color: rgba(255.0,255.0,255.0,0.1);*/
     }
 
     .comment p {
