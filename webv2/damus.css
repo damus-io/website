@@ -20,6 +20,10 @@
 	cursor: pointer;
 }
 
+.inline-img {
+	width: 100%;
+}
+
 .line-top {
 	width: 2px;
 	height: 5px;

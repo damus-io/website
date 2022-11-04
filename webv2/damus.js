@@ -950,6 +950,22 @@ function render_action_bar(ev) {
 	`
 }
 
+const IMG_REGEX = /(png|jpeg)$/i
+function is_img_url(path) {
+	return IMG_REGEX.test(path)
+}
+
+const URL_REGEX = /(https?:\/\/[^\s\):]+)/g;
+function linkify(text) {
+	return text.replace(URL_REGEX, function(url) {
+		const parsed = new URL(url)
+		if (is_img_url(parsed.pathname))
+			return `<img class="inline-img" src="${url}">`;
+		else
+			return `<a target="_blank" rel="noopener noreferrer" href="${url}">${url}</a>`;
+	})
+}
+
 function convert_quote_blocks(content)
 {
 	const split = content.split("\n")
@@ -960,13 +976,13 @@ function convert_quote_blocks(content)
 				str += "<span class='quote'>"
 				blockin = true
 			}
-			str += sanitize(line.slice(1))
+			str += linkify(sanitize(line.slice(1)))
 		} else {
 			if (blockin) {
 				blockin = false
 				str += "</span>"
 			}
-			str += sanitize(line)
+			str += linkify(sanitize(line))
 		}
 		return str + "<br/>"
 	}, "")
