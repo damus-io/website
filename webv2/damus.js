@@ -175,6 +175,15 @@ function process_chatroom_event(model, ev)
 	}
 }
 
+function process_json_content(ev)
+{
+	try {
+		ev.json_content = JSON.parse(ev.content)
+	} catch(e) {
+		log_debug("error parsing json content for", ev)
+	}
+}
+
 function process_event(model, ev)
 {
 	ev.refs = determine_event_refs(ev.tags)
@@ -187,6 +196,8 @@ function process_event(model, ev)
 		notice_chatroom(model, ev.refs.root)
 	else if (ev.kind === 40)
 		process_chatroom_event(model, ev)
+	else if (ev.kind === 6)
+		process_json_content(ev)
 
 	const last_notified = get_local_state('last_notified_date')
 	if (notified && (last_notified == null || ((ev.created_at*1000) > last_notified))) {
@@ -214,7 +225,7 @@ function was_pubkey_notified(pubkey, ev)
 
 function should_add_to_home(ev)
 {
-	return ev.kind === 1 || ev.kind === 42
+	return ev.kind === 1 || ev.kind === 42 || ev.kind === 6
 }
 
 let rerender_home_timer
@@ -667,7 +678,28 @@ function render_replying_to(model, ev) {
 	`
 }
 
+function render_unknown_event(model, ev) {
+	return "Unknown event"
+}
+
+function render_boost(model, ev, opts) {
+	//todo validate content
+	if (!ev.json_content)
+		return render_unknown_event(ev)
+	
+	const profile = model.profiles[ev.pubkey]
+	return `
+	<div class="boost">
+	<div class="boost-text">Reposted by ${render_name_plain(ev.pubkey, profile)}</div>
+	${render_event(model, ev.json_content, opts)}
+	</div>
+	`
+}
+
 function render_event(model, ev, opts={}) {
+	if (ev.kind === 6)
+		return render_boost(model, ev, opts)
+
 	if (!opts.is_composing && !model.expanded.has(ev.id) && model.rendered[ev.id])
 		return ""
 	model.rendered[ev.id] = true
@@ -1043,10 +1075,10 @@ function format_content(ev, show_media)
 	if (ev.kind === 7) {
 		if (ev.content === "" || ev.content === "+")
 			return "❤️"
-		return sanitize(ev.content)
+		return sanitize(ev.content.trim())
 	}
 
-	return convert_quote_blocks(ev.content, show_media)
+	return convert_quote_blocks(ev.content.trim(), show_media)
 }
 
 function sanitize(content)

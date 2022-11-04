@@ -24,6 +24,16 @@
 	width: 100%;
 }
 
+.boost {
+}
+
+.boost-text {
+	padding: 0 10px 10px 10px;
+	color: #b6ffa8;
+	margin: auto;
+	font-size: 0.8em;
+}
+
 .chatroom-name {
 	color: orange;
 	font-weight: bold;
