@@ -1,0 +1,1 @@
+video player needs to be outside the timeline, since re-rendering destroys it
