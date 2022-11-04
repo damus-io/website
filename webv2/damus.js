@@ -486,7 +486,7 @@ function render_home_view(model) {
 function render_events(model) {
 	return model.events
 		.filter((ev, i) => i < 140)
-		.map((ev) => render_event(model, ev)).join("\n")
+		.map((ev) => render_event(model, ev, {max_depth: 3})).join("\n")
 }
 
 function determine_event_refs_positionally(pubkeys, ids)
