@@ -950,9 +950,14 @@ function render_action_bar(ev) {
 	`
 }
 
-const IMG_REGEX = /(png|jpeg)$/i
+const IMG_REGEX = /(png|jpeg|jpg|gif|webp)$/i
 function is_img_url(path) {
 	return IMG_REGEX.test(path)
+}
+
+const VID_REGEX = /(webm|mp4)$/i
+function is_video_url(path) {
+	return VID_REGEX.test(path)
 }
 
 const URL_REGEX = /(https?:\/\/[^\s\):]+)/g;
@@ -960,7 +965,13 @@ function linkify(text) {
 	return text.replace(URL_REGEX, function(url) {
 		const parsed = new URL(url)
 		if (is_img_url(parsed.pathname))
-			return `<img class="inline-img" src="${url}">`;
+			return `<img class="inline-img" src="${url}"/>`;
+		else if (is_video_url(parsed.pathname))
+			return `
+			<video controls class="inline-img" />
+			  <source src="${url}">
+			</video>
+			`;
 		else
 			return `<a target="_blank" rel="noopener noreferrer" href="${url}">${url}</a>`;
 	})
