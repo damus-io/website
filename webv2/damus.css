@@ -24,6 +24,11 @@
 	width: 100%;
 }
 
+.chatroom-name {
+	color: orange;
+	font-weight: bold;
+}
+
 .line-top {
 	width: 2px;
 	height: 5px;

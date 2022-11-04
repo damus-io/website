@@ -43,6 +43,7 @@ function init_home_model() {
 		expanded: new Set(),
 		reactions_to: {},
 		events: [],
+		chatrooms: {},
 		profiles: {},
 		profile_events: {},
 		last_event_of_kind: {},
@@ -80,6 +81,12 @@ function update_title(model) {
 		document.title = `(${model.notifications}) Damus`
 		update_favicon("img/damus_notif.svg")
 	}
+}
+
+function notice_chatroom(state, id)
+{
+	if (!state.chatrooms[id])
+		state.chatrooms[id] = {}
 }
 
 async function damus_web_init()
@@ -159,6 +166,16 @@ function process_reaction_event(model, ev)
 	}
 }
 
+function process_chatroom_event(model, ev)
+{
+	try {
+		log_debug("processing chatroom event", ev)
+		model.chatrooms[ev.id] = JSON.parse(ev.content)
+	} catch (err) {
+		log_debug("error processing chatroom creation event", ev, err)
+	}
+}
+
 function process_event(model, ev)
 {
 	ev.refs = determine_event_refs(ev.tags)
@@ -167,6 +184,10 @@ function process_event(model, ev)
 
 	if (ev.kind === 7)
 		process_reaction_event(model, ev)
+	else if (ev.kind === 42 && ev.refs && ev.refs.root)
+		notice_chatroom(model, ev.refs.root)
+	else if (ev.kind === 40)
+		process_chatroom_event(model, ev)
 
 	const last_notified = get_local_state('last_notified_date')
 	if (notified && (last_notified == null || ((ev.created_at*1000) > last_notified))) {
@@ -200,10 +221,10 @@ function should_add_to_home(ev)
 let rerender_home_timer
 function handle_home_event(ids, model, relay, sub_id, ev) {
 	model.all_events[ev.id] = ev
+	process_event(model, ev)
 
 	switch (sub_id) {
 	case ids.home:
-		process_event(model, ev)
 
 		if (should_add_to_home(ev))
 			insert_event_sorted(model.events, ev)
@@ -408,6 +429,17 @@ function debounce(f, interval) {
 	};
 }
 
+function get_unknown_chatroom_ids(state)
+{
+	let chatroom_ids = []
+	for (const key of Object.keys(state.chatrooms)) {
+		const chatroom = state.chatrooms[key]
+		if (chatroom.name === undefined)
+			chatroom_ids.push(key)
+	}
+	return chatroom_ids
+}
+
 // load profiles after comment notes are loaded
 function handle_comments_loaded(profiles_id, model, relay)
 {
@@ -417,10 +449,14 @@ function handle_comments_loaded(profiles_id, model, relay)
 	}, new Set())
 	const authors = Array.from(pubkeys)
 
-	// load profiles
-	const filter = {kinds: [0], authors: authors}
+	// load profiles and noticed chatrooms
+	const chatroom_ids = get_unknown_chatroom_ids(model)
+	const profile_filter = {kinds: [0], authors: authors}
+	const chatroom_filter = {kinds: [40], ids: chatroom_ids}
+	const filters = [profile_filter, chatroom_filter]
+
 	//console.log("subscribe", profiles_id, filter, relay)
-	model.pool.subscribe(profiles_id, filter, relay)
+	model.pool.subscribe(profiles_id, filters, relay)
 }
 
 function redraw_events(model) {
@@ -598,11 +634,13 @@ function render_replied_events(model, ev, opts)
 }
 
 function render_replying_to_chat(model, ev) {
-	const roomid = ev.refs.root || "??"
+	const chatroom = (ev.refs.root && model.chatrooms[ev.refs.root]) || {}
+	const roomname = chatroom.name || ev.refs.root || "??"
 	const pks = ev.refs.pubkeys || []
 	const names = pks.map(pk => render_mentioned_name(pk, model.profiles[pk])).join(", ")
 	const to_users = pks.length === 0 ? "" : ` to ${names}`
-	return `<div class="replying-to small-txt">replying${to_users} in ${roomid} chatroom</div>`
+
+	return `<div class="replying-to small-txt">replying${to_users} in <span class="chatroom-name">${roomname}</span></div>`
 }
 
 function render_replying_to(model, ev) {

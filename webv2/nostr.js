@@ -254,7 +254,7 @@ function handle_nostr_message(relay, msg)
 	try {
 		data = JSON.parse(msg.data)
 	} catch (e) {
-		console.error("handle_nostr_message", e)
+		console.error("handle_nostr_message", msg, e)
 		return
 	}
 	if (data.length >= 2) {
