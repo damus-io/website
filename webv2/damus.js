@@ -40,6 +40,7 @@ function init_home_model() {
 		notifications: 0,
 		rendered: {},
 		all_events: {},
+		expanded: new Set(),
 		reactions_to: {},
 		events: [],
 		profiles: {},
@@ -483,17 +484,27 @@ function render_home_view(model) {
 	`
 }
 
+function render_home_event(model, ev)
+{
+	let max_depth = 3
+	if (ev.refs && ev.refs.root && model.expanded.has(ev.refs.root)) {
+		max_depth = null
+	}
+
+	return render_event(model, ev, {max_depth})
+}
+
 function render_events(model) {
 	return model.events
 		.filter((ev, i) => i < 140)
-		.map((ev) => render_event(model, ev, {max_depth: 3})).join("\n")
+		.map((ev) => render_home_event(model, ev)).join("\n")
 }
 
 function determine_event_refs_positionally(pubkeys, ids)
 {
 	if (ids.length === 1)
 		return {root: ids[0], reply: ids[0], pubkeys}
-	else if (ids.length === 2)
+	else if (ids.length >= 2)
 		return {root: ids[0], reply: ids[1], pubkeys}
 
 	return {pubkeys}
@@ -544,6 +555,29 @@ const DEFAULT_PROFILE = {
 	display_name: "Anonymous",
 }
 
+function render_thread_collapsed(model, reply_ev)
+{
+	return `<div onclick="expand_thread('${reply_ev.id}')" class="thread-collapsed clickable">...</div>`
+}
+
+function* yield_etags(tags)
+{
+	for (const tag of tags) {
+		if (tag.length >= 2 && tag[0] === "e")
+			yield tag
+	}
+}
+
+function expand_thread(id) {
+	const ev = DSTATE.all_events[id]
+	if (ev) {
+		for (const tag of yield_etags(ev.tags))
+			DSTATE.expanded.add(tag[1])
+	}
+	DSTATE.expanded.add(id)
+	redraw_events(DSTATE)
+}
+
 function render_replied_events(model, ev, opts)
 {
 	if (!(ev.refs && ev.refs.reply))
@@ -553,10 +587,9 @@ function render_replied_events(model, ev, opts)
 	if (!reply_ev)
 		return ""
 
-
 	opts.replies = opts.replies == null ? 1 : opts.replies + 1
 	if (!(opts.max_depth == null || opts.replies < opts.max_depth))
-		return ""
+		return render_thread_collapsed(model, reply_ev, opts)
 
 	opts.is_reply = true
 	return render_event(model, reply_ev, opts)
@@ -567,7 +600,7 @@ function render_replying_to_chat(model, ev) {
 	const pks = ev.refs.pubkeys || []
 	const names = pks.map(pk => render_mentioned_name(pk, model.profiles[pk])).join(", ")
 	const to_users = pks.length === 0 ? "" : ` to ${names}`
-	return `<div class="replying-to">replying${to_users} in ${roomid} chatroom</div>`
+	return `<div class="replying-to small-txt">replying${to_users} in ${roomid} chatroom</div>`
 }
 
 function render_replying_to(model, ev) {
@@ -581,7 +614,7 @@ function render_replying_to(model, ev) {
 	if (pubkeys.length === 0 && ev.refs.reply) {
 		const replying_to = model.all_events[ev.refs.reply]
 		if (!replying_to)
-			return `<div class="replying-to">reply to ${ev.refs.reply}</div>`
+			return `<div class="replying-to small-txt">reply to ${ev.refs.reply}</div>`
 
 		pubkeys = [replying_to.pubkey]
 	}
@@ -589,14 +622,14 @@ function render_replying_to(model, ev) {
 	const names = ev.refs.pubkeys.map(pk => render_mentioned_name(pk, model.profiles[pk])).join(", ")
 
 	return `
-	<div class="replying-to">
+	<div class="replying-to small-txt">
 		replying to ${names}
 	</div>
 	`
 }
 
 function render_event(model, ev, opts={}) {
-	if (!opts.is_composing && model.rendered[ev.id])
+	if (!opts.is_composing && !model.expanded.has(ev.id) && model.rendered[ev.id])
 		return ""
 	model.rendered[ev.id] = true
 	const profile = model.profiles[ev.pubkey] || DEFAULT_PROFILE
@@ -665,7 +698,7 @@ function render_reaction_group(model, emoji, reactions, reacting_to) {
 	let classes = ""
 	if (!reactions[model.pubkey]) {
 		onclick = `onclick="send_reply('${emoji}', '${reacting_to.id}')"`
-		classes = "can-react"
+		classes = "clickable"
 	}
 
 	return `
