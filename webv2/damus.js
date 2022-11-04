@@ -169,7 +169,6 @@ function process_reaction_event(model, ev)
 function process_chatroom_event(model, ev)
 {
 	try {
-		log_debug("processing chatroom event", ev)
 		model.chatrooms[ev.id] = JSON.parse(ev.content)
 	} catch (err) {
 		log_debug("error processing chatroom creation event", ev, err)
