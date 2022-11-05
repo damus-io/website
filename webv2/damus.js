@@ -688,6 +688,7 @@ function render_boost(model, ev, opts) {
 		return render_unknown_event(ev)
 	
 	const profile = model.profiles[ev.pubkey]
+	opts.is_boost_event = true
 	return `
 	<div class="boost">
 	<div class="boost-text">Reposted by ${render_name_plain(ev.pubkey, profile)}</div>
@@ -696,12 +697,16 @@ function render_boost(model, ev, opts) {
 	`
 }
 
+function shouldnt_render_event(model, ev, opts) {
+	return !opts.is_boost_event && !opts.is_composing && !model.expanded.has(ev.id) && model.rendered[ev.id]
+}
+
 function render_event(model, ev, opts={}) {
 	if (ev.kind === 6)
 		return render_boost(model, ev, opts)
-
-	if (!opts.is_composing && !model.expanded.has(ev.id) && model.rendered[ev.id])
+	if (shouldnt_render_event(model, ev, opts))
 		return ""
+	delete opts.is_boost_event
 	model.rendered[ev.id] = true
 	const profile = model.profiles[ev.pubkey] || DEFAULT_PROFILE
 	const delta = time_delta(new Date().getTime(), ev.created_at*1000)
