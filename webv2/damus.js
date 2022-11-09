@@ -823,10 +823,12 @@ function render_event(model, ev, opts={}) {
 	const has_bot_line = opts.is_reply
 	const reply_line_bot = (has_bot_line && render_reply_line_bot()) || ""
 
+	const deleted = is_deleted(model, ev.id)
+	if (deleted && !opts.is_reply)
+		return ""
+
 	const replied_events = render_replied_events(model, ev, opts)
 	const reply_line_top = replied_events === "" ? "" : render_reply_line_top()
-
-	const deleted = is_deleted(model, ev.id)
 
 	return `
 	${replied_events}
