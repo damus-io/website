@@ -44,6 +44,8 @@ function init_home_model() {
 		reactions_to: {},
 		events: [],
 		chatrooms: {},
+		deletions: {},
+		deleted: new Set(),
 		profiles: {},
 		profile_events: {},
 		last_event_of_kind: {},
@@ -184,6 +186,63 @@ function process_json_content(ev)
 	}
 }
 
+function process_deletion_event(model, ev)
+{
+	for (const tag of ev.tags) {
+		if (tag.length >= 2 && tag[0] === "e") {
+			const evid = tag[1]
+
+			// we've already recorded this one as a valid deleted event
+			// we can just ignore it
+			if (model.deleted.has(evid))
+				continue
+
+			let ds = model.deletions[evid] = (model.deletions[evid] || new Set())
+
+			// add the deletion event id to the deletion set of this event
+			// we will use this to determine if this event is valid later in
+			// case we don't have the deleted event yet.
+			ds.add(ev.id)
+		}
+	}
+}
+
+function is_deleted(model, evid)
+{
+	// we've already know it's deleted
+	if (model.deleted.has(evid))
+		return true
+
+	const ev = model.all_events[evid]
+	if (!ev)
+		return false
+
+	// all deletion events
+	const ds = model.deletions[ev.id]
+	if (!ds)
+		return false
+
+	// find valid deletion events
+	for (const id of ds.keys()) {
+		const d_ev = model.all_events[id]
+		if (!d_ev)
+			continue
+
+		// only allow deletes from the user who created it
+		if (d_ev.pubkey === ev.pubkey) {
+			model.deleted.add(ev.id)
+			log_debug("received deletion for", ev)
+			// clean up deletion data that we don't need anymore
+			delete model.deletions[ev.id]
+			return true
+		} else {
+			log_debug(`User ${d_ev.pubkey} tried to delete ${ev.pubkey}'s event ... what?`)
+		}
+	}
+
+	return false
+}
+
 function process_event(model, ev)
 {
 	ev.refs = determine_event_refs(ev.tags)
@@ -198,6 +257,8 @@ function process_event(model, ev)
 		process_chatroom_event(model, ev)
 	else if (ev.kind === 6)
 		process_json_content(ev)
+	else if (ev.kind === 5)
+		process_deletion_event(model, ev)
 
 	const last_notified = get_local_state('last_notified_date')
 	if (notified && (last_notified == null || ((ev.created_at*1000) > last_notified))) {
@@ -235,7 +296,6 @@ function handle_home_event(ids, model, relay, sub_id, ev) {
 
 	switch (sub_id) {
 	case ids.home:
-
 		if (should_add_to_home(ev))
 			insert_event_sorted(model.events, ev)
 
@@ -284,7 +344,7 @@ function send_home_filters(ids, model, relay) {
 	const contacts_filter = {kinds: [0], authors: friends}
 	const dms_filter = {kinds: [4], limit: 500}
 	const our_dms_filter = {kinds: [4], authors: [ model.pubkey ], limit: 500}
-	const home_filter = {kinds: [1,42,6,7], authors: friends, limit: 500}
+	const home_filter = {kinds: [1,42,5,6,7], authors: friends, limit: 500}
 	const notifications_filter = {kinds: [1,42,6,7], "#p": [model.pubkey], limit: 100}
 
 	let home_filters = [home_filter]
@@ -702,6 +762,8 @@ function shouldnt_render_event(model, ev, opts) {
 }
 
 function render_event(model, ev, opts={}) {
+	if (is_deleted(model, ev.id))
+		return "Deleted :("
 	if (ev.kind === 6)
 		return render_boost(model, ev, opts)
 	if (shouldnt_render_event(model, ev, opts))
@@ -773,20 +835,33 @@ function render_reaction_group(model, emoji, reactions, reacting_to) {
 	const pfps = Object.keys(reactions).map((pk) => render_reaction(model, reactions[pk]))
 
 	let onclick = ""
-	let classes = ""
-	if (!reactions[model.pubkey]) {
+	const reaction = reactions[model.pubkey]
+	if (!reaction) {
 		onclick = `onclick="send_reply('${emoji}', '${reacting_to.id}')"`
-		classes = "clickable"
+	} else {
+		onclick = `onclick="delete_post('${reaction.id}')"`
 	}
 
 	return `
-	<span ${onclick} class="reaction-group ${classes}">
+	<span ${onclick} class="reaction-group clickable">
 	  <span class="reaction-emoji">
 	  ${emoji}
 	  </span>
 	  ${pfps.join("\n")}
 	</span>
 	`
+}
+
+async function delete_post(id)
+{
+	const ev = DSTATE.all_events[id]
+	if (!ev)
+		return
+
+	const pubkey = await get_pubkey()
+	let del = await create_deletion_event(pubkey, id)
+	console.log("deleting", ev)
+	broadcast_event(del)
 }
 
 function render_reaction(model, reaction) {
@@ -805,6 +880,8 @@ function render_reactions(model, ev) {
 
 	let reactions = []
 	for (const id of reactions_set.keys()) {
+		if (is_deleted(model, id))
+			continue
 		const reaction = model.all_events[id]
 		if (!reaction)
 			continue
@@ -850,6 +927,19 @@ function gather_reply_tags(pubkey, from) {
 	if (from.pubkey !== pubkey)
 		tags.push(["p", from.pubkey])
 	return tags
+}
+
+async function create_deletion_event(pubkey, target, content="")
+{
+	const created_at = Math.floor(new Date().getTime() / 1000)
+	let kind = 5
+
+	const tags = [["e", target]]
+	let del = { pubkey, tags, content, created_at, kind }
+
+	del.id = await nostrjs.calculate_id(del)
+	del = await sign_event(del)
+	return del
 }
 
 async function create_reply(pubkey, content, from) {
