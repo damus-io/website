@@ -732,10 +732,28 @@ function render_replying_to(model, ev) {
 	const names = ev.refs.pubkeys.map(pk => render_mentioned_name(pk, model.profiles[pk])).join(", ")
 
 	return `
-	<div class="replying-to small-txt">
+	<span class="replying-to small-txt">
 		replying to ${names}
-	</div>
+	</span>
 	`
+}
+
+function render_delete_post(model, ev) {
+	if (model.pubkey !== ev.pubkey)
+		return ""
+
+	return `
+	<span onclick="delete_post_confirm('${ev.id}')" class="clickable" style="float: right">
+	✕
+	</span>
+	`
+}
+
+function delete_post_confirm(evid) {
+	if (!confirm("Are you sure you want to delete this post?"))
+		return
+
+	delete_post(evid)
 }
 
 function render_unknown_event(model, ev) {
@@ -761,9 +779,38 @@ function shouldnt_render_event(model, ev, opts) {
 	return !opts.is_boost_event && !opts.is_composing && !model.expanded.has(ev.id) && model.rendered[ev.id]
 }
 
+function render_deleted_name() {
+	return "???"
+}
+
+function render_deleted_pfp() {
+	return `<div class="pfp pfp-normal">😵</div>`
+}
+
+function render_comment_body(model, ev, opts) {
+	const bar = !can_reply(ev) || opts.nobar? "" : render_action_bar(ev)
+	const show_media = !opts.is_composing
+
+	return `
+	<div>
+	${render_replying_to(model, ev)}
+	${render_delete_post(model, ev)}
+	</div>
+	<p>
+	${format_content(ev, show_media)}
+	</p>
+	${render_reactions(model, ev)}
+	${bar}
+	`
+}
+
+function render_deleted_comment_body() {
+	return `
+	<div class="deleted-comment">This comment was deleted</div>
+	`
+}
+
 function render_event(model, ev, opts={}) {
-	if (is_deleted(model, ev.id))
-		return "Deleted :("
 	if (ev.kind === 6)
 		return render_boost(model, ev, opts)
 	if (shouldnt_render_event(model, ev, opts))
@@ -772,7 +819,6 @@ function render_event(model, ev, opts={}) {
 	model.rendered[ev.id] = true
 	const profile = model.profiles[ev.pubkey] || DEFAULT_PROFILE
 	const delta = time_delta(new Date().getTime(), ev.created_at*1000)
-	const bar = !can_reply(ev) || opts.nobar? "" : render_action_bar(ev)
 
 	const has_bot_line = opts.is_reply
 	const reply_line_bot = (has_bot_line && render_reply_line_bot()) || ""
@@ -780,27 +826,22 @@ function render_event(model, ev, opts={}) {
 	const replied_events = render_replied_events(model, ev, opts)
 	const reply_line_top = replied_events === "" ? "" : render_reply_line_top()
 
-	const show_media = !opts.is_composing
+	const deleted = is_deleted(model, ev.id)
 
 	return `
 	${replied_events}
 	<div id="ev${ev.id}" class="comment">
 		<div class="info">
-			${render_name(ev.pubkey, profile)}
+			${deleted ? render_deleted_name() : render_name(ev.pubkey, profile)}
 			<span class="timestamp">${delta}</span>
 		</div>
 		<div class="pfpbox">
 			${reply_line_top}
-			${render_pfp(ev.pubkey, profile)}
+			${deleted ? render_deleted_pfp() : render_pfp(ev.pubkey, profile)}
 			${reply_line_bot}
 		</div>
 		<div class="comment-body">
-			${render_replying_to(model, ev)}
-			<p>
-			${format_content(ev, show_media)}
-			</p>
-			${render_reactions(model, ev)}
-			${bar}
+			${deleted ? render_deleted_comment_body() : render_comment_body(model, ev, opts)}
 		</div>
 	</div>
 	`
