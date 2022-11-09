@@ -45,7 +45,7 @@ function init_home_model() {
 		events: [],
 		chatrooms: {},
 		deletions: {},
-		deleted: new Set(),
+		deleted: {},
 		profiles: {},
 		profile_events: {},
 		last_event_of_kind: {},
@@ -194,7 +194,7 @@ function process_deletion_event(model, ev)
 
 			// we've already recorded this one as a valid deleted event
 			// we can just ignore it
-			if (model.deleted.has(evid))
+			if (model.deleted[evid])
 				continue
 
 			let ds = model.deletions[evid] = (model.deletions[evid] || new Set())
@@ -210,8 +210,8 @@ function process_deletion_event(model, ev)
 function is_deleted(model, evid)
 {
 	// we've already know it's deleted
-	if (model.deleted.has(evid))
-		return true
+	if (model.deleted[evid])
+		return model.deleted[evid]
 
 	const ev = model.all_events[evid]
 	if (!ev)
@@ -230,7 +230,7 @@ function is_deleted(model, evid)
 
 		// only allow deletes from the user who created it
 		if (d_ev.pubkey === ev.pubkey) {
-			model.deleted.add(ev.id)
+			model.deleted[ev.id] = d_ev
 			log_debug("received deletion for", ev)
 			// clean up deletion data that we don't need anymore
 			delete model.deletions[ev.id]
@@ -753,7 +753,12 @@ function delete_post_confirm(evid) {
 	if (!confirm("Are you sure you want to delete this post?"))
 		return
 
-	delete_post(evid)
+	const reason = (prompt("Why you are deleting this? Leave empty to not specify. Type CANCEL to cancel.") || "").trim()
+
+	if (reason.toLowerCase() === "cancel")
+		return
+
+	delete_post(evid, reason)
 }
 
 function render_unknown_event(model, ev) {
@@ -804,10 +809,19 @@ function render_comment_body(model, ev, opts) {
 	`
 }
 
-function render_deleted_comment_body() {
-	return `
-	<div class="deleted-comment">This comment was deleted</div>
-	`
+function render_deleted_comment_body(ev, deleted) {
+	if (deleted.content) {
+		const show_media = false
+		return `
+		<div class="deleted-comment">
+			This comment was deleted. Reason:
+			<div class="quote">${format_content(deleted, show_media)}</div>
+		</div>
+		`
+	}
+
+
+	return `<div class="deleted-comment">This comment was deleted</div>`
 }
 
 function render_event(model, ev, opts={}) {
@@ -843,7 +857,7 @@ function render_event(model, ev, opts={}) {
 			${reply_line_bot}
 		</div>
 		<div class="comment-body">
-			${deleted ? render_deleted_comment_body() : render_comment_body(model, ev, opts)}
+			${deleted ? render_deleted_comment_body(ev, deleted) : render_comment_body(model, ev, opts)}
 		</div>
 	</div>
 	`
@@ -895,14 +909,14 @@ function render_reaction_group(model, emoji, reactions, reacting_to) {
 	`
 }
 
-async function delete_post(id)
+async function delete_post(id, reason)
 {
 	const ev = DSTATE.all_events[id]
 	if (!ev)
 		return
 
 	const pubkey = await get_pubkey()
-	let del = await create_deletion_event(pubkey, id)
+	let del = await create_deletion_event(pubkey, id, reason)
 	console.log("deleting", ev)
 	broadcast_event(del)
 }
