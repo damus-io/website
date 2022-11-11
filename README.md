@@ -5,7 +5,7 @@ The damus.io website
 
 ## Damus Web
 
-You can find the damus web app in the `web` and `webv2` directory
+You can find the damus web app in the `web` directory
 
 ## Contributing
 
