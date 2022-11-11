@@ -45,6 +45,7 @@ function init_home_model() {
 		events: [],
 		chatrooms: {},
 		deletions: {},
+		cw_open: {},
 		deleted: {},
 		profiles: {},
 		profile_events: {},
@@ -533,6 +534,13 @@ function redraw_events(model) {
 	//log_debug("rendering home view")
 	model.rendered = {}
 	model.events_el.innerHTML = render_events(model)
+	setup_home_event_handlers(model.events_el)
+}
+
+function setup_home_event_handlers(events_el)
+{
+	for (const el of events_el.querySelectorAll(".cw"))
+		el.addEventListener("toggle", toggle_content_warning.bind(null))
 }
 
 function redraw_home_view(model) {
@@ -1222,6 +1230,30 @@ function convert_quote_blocks(content, show_media)
 	}, "")
 }
 
+function get_content_warning(tags)
+{
+	for (const tag of tags) {
+		if (tag.length >= 1 && tag[0] === "content-warning")
+			return tag[1] || ""
+	}
+
+	return null
+}
+
+function toggle_content_warning(e)
+{
+	const el = e.target
+	const id = el.id.split("_")[1]
+	const ev = DSTATE.all_events[id]
+
+	if (!ev) {
+		log_debug("could not find content-warning event", id)
+		return
+	}
+
+	DSTATE.cw_open[id] = el.open
+}
+
 function format_content(ev, show_media)
 {
 	if (ev.kind === 7) {
@@ -1230,7 +1262,22 @@ function format_content(ev, show_media)
 		return sanitize(ev.content.trim())
 	}
 
-	return convert_quote_blocks(ev.content.trim(), show_media)
+	const content = ev.content.trim()
+	const body = convert_quote_blocks(content, show_media)
+
+	let cw = get_content_warning(ev.tags)
+	if (cw !== null) {
+		cw = cw === ""? "Content Warning" : `Content Warning: ${cw}`
+		const open = !!DSTATE.cw_open[ev.id]? "open" : ""
+		return `
+		<details class="cw" id="cw_${ev.id}" ${open}>
+		  <summary>${cw}</summary>
+		  ${body}
+		</details>
+		`
+	}
+
+	return body
 }
 
 function sanitize(content)
