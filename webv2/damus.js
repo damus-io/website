@@ -554,11 +554,13 @@ function redraw_home_view(model) {
 
 async function send_post() {
 	const input_el = document.querySelector("#post-input")
+	const cw_el = document.querySelector("#content-warning-input")
 
+	const cw = cw_el.value
 	const content = input_el.value
 	const created_at = Math.floor(new Date().getTime() / 1000)
 	const kind = 1
-	const tags = []
+	const tags = cw? [["content-warning", cw]] : []
 	const pubkey = await get_pubkey()
 	const {pool} = DSTATE
 
@@ -570,6 +572,7 @@ async function send_post() {
 	pool.send(["EVENT", post])
 
 	input_el.value = ""
+	cw_el.value = ""
 }
 
 async function sign_event(ev) {
@@ -590,8 +593,14 @@ async function sign_event(ev) {
 function render_home_view(model) {
 	return `
 	<div id="newpost">
-		<textarea placeholder="What's on your mind?" id="post-input"></textarea>
-		<button onclick="send_post(this)" id="post-button">Post</button>
+		<div id="content-warning-input-container">
+			<input id="content-warning-input" type="text" placeholder="Content Warning (nsfw, politics, etc)"></input>
+		</div>
+
+		<div class="post-group">
+			<textarea placeholder="What's on your mind?" id="post-input"></textarea>
+			<button onclick="send_post(this)" id="post-button">Post</button>
+		</div>
 	</div>
 	<div id="events">
 	</div>

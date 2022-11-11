@@ -16,6 +16,15 @@
     width: 60px;
 }
 
+#content-warning-input {
+	width: 100%;
+}
+
+#content-warning-input-container {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
 .deleted-comment {
 	border: 2px dashed white;
 	border-radius: 10px;
@@ -94,9 +103,18 @@ details {
 	border-radius: 20px;
 }
 
-textarea, input {
+input {
 	background-color: rgba(255,255,255,0.2);
 	border: 0;
+	height: 30px;
+	color: white;
+	border-radius: 5px;
+}
+
+textarea {
+	background-color: rgba(255,255,255,0.2);
+	border: 0;
+	width: 100%;
 	height: 40px;
 	color: white;
 	border-radius: 5px;
@@ -104,15 +122,23 @@ textarea, input {
 
 #newpost {
 	margin: 0 auto 20px auto;
-	width: 100%
+	width: 80%
 }
 
 ::placeholder {
 	color: rgba(255,255,255,0.7);
 }
 
-#post-input {
-	width: 80%;
+.post-group {
+	display: flex;
+}
+
+#post-button {
+	width: 50px;
+}
+
+.post-group > textarea {
+	margin-right: 10px;
 }
 
 .small-txt {
@@ -135,15 +161,11 @@ textarea, input {
 	margin-right: 14px;
 }
 
-textarea {
-	width: 100%;
-}
-
 button {
 	border: 0;
 	padding: 5px;
 	color: white;
-	background-color: #C073EB;
+	background-color: #9202e2;
 	border-radius: 5px;
 }
 
