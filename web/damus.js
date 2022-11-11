@@ -294,6 +294,10 @@ function should_add_to_home(ev)
 
 let rerender_home_timer
 function handle_home_event(ids, model, relay, sub_id, ev) {
+	// ignore duplicates
+	if (model.all_events[ev.id])
+		return
+
 	model.all_events[ev.id] = ev
 	process_event(model, ev)
 
@@ -324,13 +328,8 @@ function handle_home_event(ids, model, relay, sub_id, ev) {
 
 function process_profile_event(model, ev) {
 	const prev_ev = model.profile_events[ev.pubkey]
-	if (prev_ev) {
-		if (ev.id === prev_ev.id)
-			return
-
-		if (prev_ev.created_at > ev.created_at)
-			return
-	}
+	if (prev_ev && prev_ev.created_at > ev.created_at)
+		return
 
 	model.profile_events[ev.pubkey] = ev
 	try {
