@@ -3,49 +3,70 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
         <title>Damus</title>
-
-        <link rel="stylesheet" href="damus.css?v=21">
+        <link rel="stylesheet" href="styles.css?v=17">
+        <link rel="stylesheet" href="damus.css?v=20">
+        <link rel="stylesheet" href="fontawesome.css?v=2">
     </head>
     <body>
-	<section class="header">
-		<span class="logo">
-			<img src="img/damus-nobg.svg"/>
-		</span>
-	</section>
-	    <div id="view" class="container">
-	    </div>
-
-	    <div style="display: none" id="reply-modal">
-	    <div id="reply-modal-content">
-		    <span id="reply-top">
-			    <a class="close" href="javascript:close_reply()">✕</a>
-			    <span class="small-text">
-				    Replying to...
-			    </span>
-		    </span>
-
-		    <div id="replying-to">
-		    </div>
-
-		    <div>
-			    <textarea id="reply-content"></textarea>
-		    </div>
-
-		    <div style="float:right">
-			    <button onclick="do_send_reply()" id="reply-button">Reply</button>
-		    </div>
-	    </div>
-	    </div>
-    <script src="noble-secp256k1.js?v=1"></script>
-    <script src="bech32.js?v=1"></script>
-    <script src="nostr.js?v=6"></script>
-    <script src="damus.js?v=59"></script>
-    <script>
-	// I have to delay loading to wait for nos2x
-	const relay = setTimeout(damus_web_init, 100)
-    </script>
+	    <div id="container">
+			<div class="flex-fill"></div>
+			<div id="nav">
+				<div id="app-icon-logo">
+					<i class="fa-regular fa-fw fa-hand-peace"></i>
+				</div>
+				<div>
+					<button class="nav icon">
+						<i class="fa fa-fw fa-home"></i><span class="hide">Home</span>
+					</button></div>
+				<div>
+					<button class="nav icon">
+						<i class="fa fa-fw fa-user"></i><span class="hide">Profile</span>
+					</button></div>
+				<div>
+					<button class="nav icon">
+						<i class="fa fa-fw fa-gear"></i><span class="hide">Settings</span>
+					</button></div>
+				<div>
+					<button class="nav icon">
+						<i class="fa-regular fa-fw fa-circle-question"></i><span class="hide">Help</span>
+					</button></div>
+			</div>
+			<div id="content">
+				<header>
+					<label>Home</label>
+				</header>
+				<div id="view"></div>
+			</div>
+			<div class="flex-fill"></div>
+		</div>
+	    <div class="modal closed" id="reply-modal">
+	    	<div id="reply-modal-content" class="modal-content">
+				<header>
+					<label>Reply To</label>
+					<button class="icon" onclick="close_reply()">
+						<i class="fa fa-xmark"></i>
+					</button>
+				</header>
+			    <div id="replying-to"></div>
+				<div>
+			        <textarea id="reply-content" class="post-input" 
+						placeholder="Write your reply here..."></textarea>
+			        <div class="post-tools">
+				        <button id="reply-button" class="action" onclick="do_send_reply()">
+							Reply
+						</button>
+			        </div>
+				</div>
+	    	</div>
+		</div>
+    	<script src="noble-secp256k1.js?v=1"></script>
+    	<script src="bech32.js?v=1"></script>
+    	<script src="nostr.js?v=6"></script>
+    	<script src="damus.js?v=57"></script>
+    	<script>
+		// I have to delay loading to wait for nos2x
+		const relay = setTimeout(damus_web_init, 100)
+    	</script>
     </body>
 </html>
-

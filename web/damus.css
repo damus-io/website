@@ -1,29 +1,8 @@
-.header {
-	display: flex;
-	margin: 30px 0 30px 0;
-	flex-direction: column;
-	align-items: center;
-}
-
-.logo {
-    margin-bottom: 0;
-    letter-spacing: -0.05em;
-}
-
-
-.logo img {
-    padding-right: 18px;
-    width: 60px;
-}
-
-#content-warning-input {
-	width: 100%;
-}
-
-#content-warning-input-container {
-	width: 100%;
-	margin-bottom: 10px;
-}
+/*
+ * This code is not maintained it needs to be cleaned up and deleted. The code
+ * resides here as a working base to migrate to styles.css. Original author is 
+ * JB55.
+ */
 
 .deleted-comment {
 	border: 2px dashed white;
@@ -31,313 +10,32 @@
 	padding: 10px;
 }
 
-.clickable {
-	cursor: pointer;
-}
-
 .inline-img {
 	width: 100%;
 	border-radius: 8px;
 }
 
-.boost {
-}
-
-.boost-text {
-	padding: 0 10px 10px 10px;
-	color: #b6ffa8;
-	margin: auto;
-	font-size: 0.8em;
-}
-
-.chatroom-name {
-	color: orange;
-	font-weight: bold;
-}
-
+/*
 .line-top {
-	width: 2px;
+	width: 3px;
 	height: 5px;
-	background-color: #eac3ff;
+	background-color: var(--clrBorder);
 	margin-left: auto;
 	margin-right: auto;
-}
+}*/
 
 .line-bot {
-	width: 2px;
+	width: 3px;
 	height: 100%;
 	margin-top: -7px;
-	background-color: #eac3ff;
+	background-color: var(--clrBorder);
 	margin-left: auto;
 	margin-right: auto;
-}
-
-body {
-	min-height: 100vh;
-	font-family: system-ui, sans;
-}
-
-#reply-top {
-	display: flex;
-	align-items: center;
-}
-
-#reply-modal {
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	background: rgba(0,0,0,0.4);
-}
-
-summary {
-	cursor: pointer;
-}
-
-details {
-	background-color: rgba(255,255,255,0.2);
-	padding: 10px;
-	margin-right: 30px;
-	border-radius: 20px;
-}
-
-input {
-	background-color: rgba(255,255,255,0.2);
-	border: 0;
-	height: 30px;
-	color: white;
-	border-radius: 5px;
-}
-
-textarea {
-	background-color: rgba(255,255,255,0.2);
-	border: 0;
-	width: 100%;
-	height: 40px;
-	color: white;
-	border-radius: 5px;
-}
-
-#newpost {
-	margin: 0 auto 20px auto;
-	width: 80%
-}
-
-::placeholder {
-	color: rgba(255,255,255,0.7);
-}
-
-.post-group {
-	display: flex;
-}
-
-#post-button {
-	width: 50px;
-}
-
-.post-group > textarea {
-	margin-right: 10px;
-}
-
-.small-txt {
-	font-size: 0.6em;
-	color: rgba(255,255,255,0.8);
-}
-
-.reaction-group {
-	display: inline-flex;
-	background-color: rgba(255,255,255,0.15);
-	padding: 4px;
-	border-radius: 5px;
-}
-
-.reaction-group img {
-	margin-left: -8px;
-}
-
-.reaction-emoji {
-	margin-right: 14px;
-}
-
-button {
-	border: 0;
-	padding: 5px;
-	color: white;
-	background-color: #9202e2;
-	border-radius: 5px;
-}
-
-.close {
-	margin: 0 8px 0 8px;
-	font-size: 1.3em;
-	font-weight: bold;
-	text-decoration: none;
-	color: white;
-}
-
-.small-text {
-	font-size: 12px;
-}
-
-#reply-modal-content {
-	/*display: none; */
-	padding: 10px;
-	margin: 10% auto;
-	width: 60%;
-	overflow: auto; /* Enable scroll if needed */
-	background: linear-gradient(0deg, #A74BDB 0%, #C45BFE 100%);
-	border-radius: 15px;
-}
-
-html {
-  line-height: 1.5;
-  font-size: 20px;
-  font-family: "Georgia", sans-serif;
-
-    color: white;
-    background: linear-gradient(45deg, rgba(28,85,255,1) 0%, rgba(127,53,171,1) 59%, #C45BFE 100%);
-}
-.container {
-  margin: 0 auto;
-  max-width: 48em;
-  hyphens: auto;
-  word-wrap: break-word;
-  text-rendering: optimizeLegibility;
-  font-kerning: normal;
-}
-@media (max-width: 600px) {
-  .container {
-    font-size: 0.9em;
-  }
-}
-@media print {
-  .container {
-    background-color: transparent;
-    color: black;
-    font-size: 12pt;
-  }
-  p, h2, h3 {
-    orphans: 3;
-    widows: 3;
-  }
-  h2, h3, h4 {
-    page-break-after: avoid;
-  }
-}
-
-.pfp {
-	border-radius: 50%;
-}
-
-.pfp-small {
-	width: 28px;
-	height: 28px;
-}
-
-.pfp-normal {
-	margin: 0 15px 0 15px;
-	width: 60px;
-	height: 60px;
-	font-size: 2.4em;
-}
-
-
-.thread-collapsed {
-	margin: 0 auto 5px auto;
-	width: 56.3%;
-}
-
-.comment {
-  display: flex;
-  font-family: system-ui, sans;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  /*align-items: center;*/
-}
-
-.comment .comment-body {
-  background-color: rgba(255.0,255.0,255.0,0.1);
-  padding: 10px;
-  border-radius: 8px;
-  margin: 0;
-  width: 55%;
-}
-
-.comment-body p {
-  margin: 0 0 10px 0;
-}
-
-.comment .info {
-  text-align: right;
-  width: 18%;
-  line-height: 0.8em;
 }
 
 .quote {
-  border-left: 2px solid white;
   margin-left: 10px;
   padding: 10px;
-  background-color: rgba(255.0,255.0,255.0,0.1);
   display: block;
 }
 
-.comment .timestamp {
-  font-size: 11px;
-  color: rgba(255.0,255.0,255.0,0.7);
-}
-
-.invisible {
-	visibility: hidden;
-}
-
-@media (max-width: 800px){
-    /* Reverse the order of elements in the user comments,
-    so that the avatar and info appear after the text. */
-
-    .pfp {
-	  margin: 0 0 0 0;
-    }
-
-    .pfpbox {
-        order: 1;
-	margin-right: 10px;
-    }
-
-    .comment .info {
-        order: 2;
-	text-align: left;
-	width: 70%;
-    }
-
-    .comment .comment-body {
-	    width: 100%;
-	    order: 3;
-	    margin: 5px 0 0 0;
-    }
-
-    .line-top {
-	    height: 20px;
-    }
-
-    .line-bottom {
-	    /*display: none;*/
-    }
-    
-    .comment {
-	  margin: 0 0 0 0;
-	  align-items: center;
-	  border-radius: 8px;
-	  /*background-color: rgba(255.0,255.0,255.0,0.1);*/
-    }
-
-    #newpost {
-	    width: 100%;
-    }
-
-    .comment p {
-        order: 3;
-        width: 100%;
-    }
-}
