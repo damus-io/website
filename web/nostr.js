@@ -1,4 +1,4 @@
-const RelayPool = (function nostrlib() {
+const nostrjs = (function nostrlib() {
 const WS = typeof WebSocket !== 'undefined' ? WebSocket : require('ws')
 
 function RelayPool(relays, opts)
@@ -31,17 +31,18 @@ RelayPool.prototype.on = function relayPoolOn(method, fn) {
 
 RelayPool.prototype.has = function relayPoolHas(relayUrl) {
 	for (const relay of this.relays) {
-		if (relay.relay === relayUrl)
+		if (relay.url === relayUrl)
 			return true
 	}
 
 	return false
 }
 
-RelayPool.prototype.setupHandlers = function relayPoolSetupHandlers(method, fn)
+RelayPool.prototype.setupHandlers = function relayPoolSetupHandlers()
 {
 	// setup its message handlers with the ones we have already
-	for (const handler of Object.keys(this.on)) {
+	const keys = Object.keys(this.onfn)
+	for (const handler of keys) {
 		for (const relay of this.relays) {
 			relay.onfn[handler] = this.onfn[handler].bind(null, relay)
 		}
@@ -64,15 +65,24 @@ RelayPool.prototype.remove = function relayPoolRemove(url) {
 	return false
 }
 
-RelayPool.prototype.subscribe = function relayPoolSubscribe(...args) {
-	for (const relay of this.relays) {
-		relay.subscribe(...args)
+RelayPool.prototype.subscribe = function relayPoolSubscribe(sub_id, filters, relay_ids) {
+	const relays = relay_ids ? this.find_relays(relay_ids) : this.relays
+	for (const relay of relays) {
+		relay.subscribe(sub_id, filters)
 	}
 }
 
-RelayPool.prototype.unsubscribe = function relayPoolUnsubscibe(...args) {
-	for (const relay of this.relays) {
-		relay.unsubscribe(...args)
+RelayPool.prototype.unsubscribe = function relayPoolUnsubscibe(sub_id, relay_ids) {
+	const relays = relay_ids ? this.find_relays(relay_ids) : this.relays
+	for (const relay of relays) {
+		relay.unsubscribe(sub_id)
+	}
+}
+
+RelayPool.prototype.send = function relayPoolSend(payload, relay_ids) {
+	const relays = relay_ids ? this.find_relays(relay_ids) : this.relays
+	for (const relay of relays) {
+		relay.send(payload)
 	}
 }
 
@@ -95,6 +105,40 @@ RelayPool.prototype.add = function relayPoolAdd(relay) {
 	return true
 }
 
+RelayPool.prototype.find_relays = function relayPoolFindRelays(relay_ids) {
+	if (relay_ids instanceof Relay)
+		return [relay_ids]
+
+	if (relay_ids.length === 0)
+		return []
+
+	if (!relay_ids[0])
+		throw new Error("what!?")
+
+	if (relay_ids[0] instanceof Relay)
+		return relay_ids
+
+	return this.relays.reduce((acc, relay) => {
+		if (relay_ids.some((rid) => relay.url === rid))
+			acc.push(relay)
+		return acc
+	}, [])
+}
+
+Relay.prototype.wait_connected = async function relay_wait_connected(data) {
+	let retry = 1000
+	while (true) {
+		if (!this.ws || this.ws.readyState !== 1) {
+			await sleep(retry)
+			retry *= 1.5
+		}
+		else {
+			return
+		}
+	}
+}
+
+
 function Relay(relay, opts={})
 {
 	if (!(this instanceof Relay))
@@ -109,13 +153,22 @@ function Relay(relay, opts={})
 	const me = this
 	me.onfn = {}
 
-	init_websocket(me)
+	try {
+		init_websocket(me)
+	} catch (e) {
+		console.log(e)
+	}
 
 	return this
 }
 
 function init_websocket(me) {
-	const ws = me.ws = new WS(me.url);
+	let ws
+	try {
+		ws = me.ws = new WS(me.url);
+	} catch(e) {
+		return null
+	}
 	return new Promise((resolve, reject) => {
 		let resolved = false
 		ws.onmessage = (m) => { handle_nostr_message(me, m) }
@@ -138,6 +191,8 @@ function init_websocket(me) {
 		ws.onopen = () => {
 			if (me.onfn.open)
 				me.onfn.open()
+			else
+				console.log("no onopen???", me)
 
 			if (resolved) return
 
@@ -160,7 +215,7 @@ async function reconnect(me)
 		await init_websocket(me)
 		me.reconnecting = false
 	} catch {
-		console.error(`error thrown during reconnect... trying again in ${n} ms`)
+		//console.error(`error thrown during reconnect... trying again in ${n} ms`)
 		await sleep(n)
 		n *= 1.5
 	}
@@ -177,19 +232,31 @@ Relay.prototype.close = function relayClose() {
 	}
 }
 
-Relay.prototype.subscribe = function relay_subscribe(sub_id, ...filters) {
-	const tosend = ["REQ", sub_id, ...filters]
-	this.ws.send(JSON.stringify(tosend))
+Relay.prototype.subscribe = function relay_subscribe(sub_id, filters) {
+	if (Array.isArray(filters))
+		this.send(["REQ", sub_id, ...filters])
+	else
+		this.send(["REQ", sub_id, filters])
 }
 
 Relay.prototype.unsubscribe = function relay_unsubscribe(sub_id) {
-	const tosend = ["CLOSE", sub_id]
-	this.ws.send(JSON.stringify(tosend))
+	this.send(["CLOSE", sub_id])
+}
+
+Relay.prototype.send = async function relay_send(data) {
+	await this.wait_connected()
+	this.ws.send(JSON.stringify(data))
 }
 
 function handle_nostr_message(relay, msg)
 {
-	const data = JSON.parse(msg.data)
+	let data
+	try {
+		data = JSON.parse(msg.data)
+	} catch (e) {
+		console.error("handle_nostr_message", msg, e)
+		return
+	}
 	if (data.length >= 2) {
 		switch (data[0]) {
 		case "EVENT":
@@ -204,8 +271,96 @@ function handle_nostr_message(relay, msg)
 	}
 }
 
-return RelayPool
+async function sha256(message) {
+	if (crypto.subtle) {
+		const buffer = await crypto.subtle.digest('SHA-256', message);
+		return new Uint8Array(buffer);
+	} else if (require) {
+		const { createHash } = require('crypto');
+		const hash = createHash('sha256');
+		[message].forEach((m) => hash.update(m));
+		return Uint8Array.from(hash.digest());
+	} else {
+		throw new Error("The environment doesn't have sha256 function");
+	}
+}
+
+async function calculate_id(ev) {
+	const commit = event_commitment(ev)
+	const buf = new TextEncoder().encode(commit);                    
+	return hex_encode(await sha256(buf))
+}
+
+function event_commitment(ev) {
+	const {pubkey,created_at,kind,tags,content} = ev
+	return JSON.stringify([0, pubkey, created_at, kind, tags, content])
+}
+
+function hex_char(val) {
+	if (val < 10)
+		return String.fromCharCode(48 + val)
+	if (val < 16)
+		return String.fromCharCode(97 + val - 10)
+}
+
+function hex_encode(buf) {
+	let str = ""
+	for (let i = 0; i < buf.length; i++) {
+		const c = buf[i]
+		str += hex_char(c >> 4)
+		str += hex_char(c & 0xF)
+	}
+	return str
+}
+
+function char_to_hex(cstr) {
+	const c = cstr.charCodeAt(0)
+	// c >= 0 && c <= 9
+	if (c >= 48 && c <= 57) {
+		return c - 48;
+	}
+	// c >= a && c <= f
+ 	if (c >= 97 && c <= 102) {
+		return c - 97 + 10;
+	}
+	// c >= A && c <= F
+ 	if (c >= 65 && c <= 70) {
+		return c - 65 + 10;
+	}
+	return -1;
+}
+
+
+function hex_decode(str, buflen)
+{
+	let bufsize = buflen || 33
+	let c1, c2
+	let i = 0
+	let j = 0
+	let buf = new Uint8Array(bufsize)
+	let slen = str.length
+	while (slen > 1) {
+		if (-1==(c1 = char_to_hex(str[j])) || -1==(c2 = char_to_hex(str[j+1])))
+			return null;
+		if (!bufsize)
+			return null;
+		j += 2
+		slen -= 2
+		buf[i++] = (c1 << 4) | c2
+		bufsize--;
+	}
+
+	return buf
+}
+
+return {
+	RelayPool,
+	calculate_id,
+	event_commitment,
+	hex_encode,
+	hex_decode,
+}
 })()
 
 if (typeof module !== 'undefined' && module.exports)
-	module.exports = RelayPool
+	module.exports = nostrjs
