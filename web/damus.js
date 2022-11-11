@@ -1200,7 +1200,7 @@ function is_video_url(path) {
 	return VID_REGEX.test(path)
 }
 
-const URL_REGEX = /(https?:\/\/[^\s\):]+)/g;
+const URL_REGEX = /(https?:\/\/[^\s]+)[,:)]?(\w|$)/g;
 function linkify(text, show_media) {
 	return text.replace(URL_REGEX, function(url) {
 		const parsed = new URL(url)
