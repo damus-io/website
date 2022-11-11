@@ -260,6 +260,8 @@ function process_event(model, ev)
 		process_json_content(ev)
 	else if (ev.kind === 5)
 		process_deletion_event(model, ev)
+	else if (ev.kind === 0)
+		process_profile_event(model, ev)
 
 	const last_notified = get_local_state('last_notified_date')
 	if (notified && (last_notified == null || ((ev.created_at*1000) > last_notified))) {
@@ -314,22 +316,24 @@ function handle_home_event(ids, model, relay, sub_id, ev) {
 			model.done_init = true
 			model.pool.unsubscribe(ids.account, [relay])
 			break
-		case 0:
-			handle_profile_event(model, ev)
-			break
 		}
 	case ids.profiles:
-		try {
-			model.profile_events[ev.pubkey] = ev
-			model.profiles[ev.pubkey] = JSON.parse(ev.content)
-		} catch {
-			console.log("failed to parse", ev.content)
-		}
+		break
 	}
 }
 
-function handle_profile_event(model, ev) {
-	console.log("PROFILE", ev)
+function process_profile_event(model, ev) {
+	const prev_ev = model.profile_events[ev.pubkey]
+	if (prev_ev) {
+		if (ev.id === prev_ev.id)
+			return
+
+		if (prev_ev.created_at > ev.created_at)
+			return
+	}
+
+	model.profile_events[ev.pubkey] = ev
+	model.profiles[ev.pubkey] = JSON.parse(ev.content)
 }
 
 function send_initial_filters(account_id, pubkey, relay) {
