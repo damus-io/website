@@ -333,7 +333,11 @@ function process_profile_event(model, ev) {
 	}
 
 	model.profile_events[ev.pubkey] = ev
-	model.profiles[ev.pubkey] = JSON.parse(ev.content)
+	try {
+		model.profiles[ev.pubkey] = JSON.parse(ev.content)
+	} catch(e) {
+		log_debug("failed to parse profile contents", ev)
+	}
 }
 
 function send_initial_filters(account_id, pubkey, relay) {
