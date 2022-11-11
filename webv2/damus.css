@@ -210,7 +210,6 @@ html {
 @media (max-width: 600px) {
   .container {
     font-size: 0.9em;
-    padding: 1em;
   }
 }
 @media print {
@@ -289,35 +288,52 @@ html {
   color: rgba(255.0,255.0,255.0,0.7);
 }
 
+.invisible {
+	visibility: hidden;
+}
+
 @media (max-width: 800px){
     /* Reverse the order of elements in the user comments,
     so that the avatar and info appear after the text. */
-    .comment .info {
-	text-align: left;
-    }
 
     .pfp {
-        order: 1;
 	  margin: 0 0 0 0;
     }
 
     .pfpbox {
-	    margin-right: 20px;
+        order: 1;
+	margin-right: 10px;
+    }
+
+    .comment .info {
+        order: 2;
+	text-align: left;
+	width: 70%;
     }
 
     .comment .comment-body {
 	    width: 100%;
+	    order: 3;
+	    margin: 5px 0 0 0;
     }
 
-    .line-top, .line-bottom {
-	    display: none;
+    .line-top {
+	    height: 20px;
+    }
+
+    .line-bottom {
+	    /*display: none;*/
     }
     
     .comment {
-	  padding: 10px;
+	  margin: 0 0 0 0;
 	  align-items: center;
 	  border-radius: 8px;
 	  /*background-color: rgba(255.0,255.0,255.0,0.1);*/
+    }
+
+    #newpost {
+	    width: 100%;
     }
 
     .comment p {

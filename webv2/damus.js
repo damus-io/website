@@ -661,8 +661,9 @@ function determine_event_refs(tags) {
 	return {root, reply, pubkeys}
 }
 
-function render_reply_line_top() {
-	return `<div class="line-top"></div>`
+function render_reply_line_top(invisible) {
+	const classes = invisible ? "invisible" : ""
+	return `<div class="line-top ${classes}"></div>`
 }
 
 function render_reply_line_bot() {
@@ -859,7 +860,6 @@ function render_event(model, ev, opts={}) {
 		return ""
 
 	const replied_events = render_replied_events(model, ev, opts)
-	const reply_line_top = replied_events === "" ? "" : render_reply_line_top()
 
 	return `
 	${replied_events}
@@ -869,7 +869,7 @@ function render_event(model, ev, opts={}) {
 			<span class="timestamp">${delta}</span>
 		</div>
 		<div class="pfpbox">
-			${reply_line_top}
+			${render_reply_line_top(replied_events === "")}
 			${deleted ? render_deleted_pfp() : render_pfp(ev.pubkey, profile)}
 			${reply_line_bot}
 		</div>
