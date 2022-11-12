@@ -111,8 +111,9 @@ button.nav {
 	font-weight: 800;
 	display: block;
 }
+
 #view {
-	width: 750px;
+	max-width: 750px;
 	overflow-y: scroll;
 	flex: 1;
 }
