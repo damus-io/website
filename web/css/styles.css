@@ -353,6 +353,11 @@ input[type="text"].cw {
 @media (max-width: 800px){
 	:root {
 		--navPadding: 2px;
+
+		--fsSmall:    10px;
+		--fsNormal:   14px;
+		--fsReduced:  12px;
+		--fsEnlarged: 16px;
 	}
 
 	.pfp {

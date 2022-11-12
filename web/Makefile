@@ -11,4 +11,7 @@ emojiregex: fake
 dist:
 	rsync -avzP ./ charon:/www/damus.io/web/
 
+dist-staging:
+	rsync -avzP ./ charon:/www/damus.io/web-staging/
+
 .PHONY: fake
