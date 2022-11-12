@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Damus</title>
-        <link rel="stylesheet" href="css/styles.css?v=111">
+        <link rel="stylesheet" href="css/styles.css?v=112">
         <link rel="stylesheet" href="css/damus.css?v=211">
         <link rel="stylesheet" href="css/fontawesome.css?v=2">
         <script defer src="js/ui/util.js?v=1"></script>
@@ -24,15 +24,17 @@
         });
         </script>
         <div id="container">
-            <div class="flex-fill"></div>
             <div id="nav">
-                <div id="app-icon-logo">
-                    <i class="fa-regular fa-fw fa-hand-peace"></i>
-                </div>
                 <div>
                     <button class="nav icon">
                         <i class="fa fa-fw fa-home"></i><span class="hide">Home</span>
-                    </button></div>
+                    </button>
+		</div>
+
+                <div id="app-icon-logo">
+			<!--<img src="https://damus.io/img/damus.svg">-->
+			<i class="fa-regular fa-fw fa-hand-peace"></i>
+                </div>
 
                 <!--
                 <div>
@@ -47,15 +49,13 @@
                 <div>
                     <button onclick="press_logout()" title="Sign Out" class="nav icon">
                         <i class="fa fa-fw fa-arrow-right-from-bracket"></i><span class="hide">Sign Out</span>
-                    </button></div>
+                    </button>
+		</div>
             </div>
-            <div id="content">
-                <header>
-                    <label>Home</label>
-                </header>
-                <div id="view"></div>
-            </div>
-            <div class="flex-fill"></div>
+            <header>
+               <label>Home</label>
+            </header>
+            <div id="view"></div>
         </div>
         <div class="modal closed" id="reply-modal">
             <div id="reply-modal-content" class="modal-content">
