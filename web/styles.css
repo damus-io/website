@@ -21,6 +21,7 @@
 	--clrHeart:       #ff5050;
 	--clrWarn:        #fbc560;
 
+	--navPadding: 5px;
 	--fsSmall:    12px;
 	--fsNormal:   16px;
 	--fsReduced:  14px;
@@ -81,13 +82,13 @@ button.action {
 button.nav {
 	color: var(--clrBtn);
 	font-size: 24px;
-	padding: 15px 25px;
+	padding: calc(var(--navPadding) * 4) calc(var(--navPadding) * 5);
 }
 
 #app-icon-logo {
 	font-size: 28px;
 	text-align: center;
-	padding: 20px;
+	padding: calc(var(--navPadding) * 4);
 }
 #container {
 	display: flex;
@@ -320,3 +321,8 @@ input[type="text"].cw {
 	cursor: pointer;
 }
 
+@media (max-width: 800px){
+	:root {
+		--navPadding: 2px;
+	}
+}
