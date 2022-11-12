@@ -11,6 +11,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;800&display=swap');
 
 :root {
+	/* Colors */
 	--clrBg:          #fff;
 	--clrPanel:       #f9f9f9;
 	--clrBorder:      #f2f2f2;
@@ -21,12 +22,13 @@
 	--clrHeart:       #ff5050;
 	--clrWarn:        #fbc560;
 
-	--navPadding: 5px;
+	/* Font Sizes */
 	--fsSmall:    12px;
 	--fsNormal:   16px;
 	--fsReduced:  14px;
 	--fsEnlarged: 18px;
 
+	/* Font Families */
 	--ffDefault: "Noto Sans", sans-serif;
 }
 *:focus-visible {
@@ -48,7 +50,11 @@ body {
 
 /* Utilities */
 .flex-fill {
-	flex: 1;
+	flex: auto;
+}
+.flex-noshrink {
+	/*flex-shrink: 0;*/
+	flex: none;
 }
 .hide {
 	display: none;
@@ -82,43 +88,52 @@ button.action {
 .float-right {
 	float: right;
 }
-
-/* Application Framework */
-button.nav {
-	color: var(--clrBtn);
-	font-size: 24px;
-	padding: calc(var(--navPadding) * 4) calc(var(--navPadding) * 5);
+.clickable {
+	cursor: pointer;
+}
+.bottom-border { /* TODO rename to bdr-bottom */
+	border-bottom: solid 1px var(--clrBorder);
 }
 
+/* Navigation */
+#nav {
+	display: flex;
+	flex-flow: column;
+	border-right: 1px solid var(--clrBorder);
+	padding: 15px;
+}
+#nav > * {
+	margin-bottom: 38px;
+}
 #app-icon-logo {
 	font-size: 28px;
 	text-align: center;
-	padding: calc(var(--navPadding) * 4);
 }
-
 #app-icon-logo > img {
 	border-radius: 50%;
 	width: 42px;
 	height: 42px;
 }
+button.nav {
+	color: var(--clrBtn);
+	font-size: 24px;
+}
 
+/* Application Framework */
 #container {
 	display: flex;
-
-	/*
-	flex-direction: row;
+	flex-flow: row;
 	width: 100vw;
 	height: 100vh;
-	overflow: hidden;*/
-}
-#nav {
-	flex-shrink: 1;
-	border-right: 1px solid var(--clrBorder);
+	overflow: hidden;
 }
 #content {
+	flex: auto;
 	display: flex;
 	flex-direction: column;
 	border-right: 1px solid var(--clrBorder);
+	overflow: hidden;
+	width: 750px;
 }
 #content header > label {
 	padding: 22px 15px;
@@ -126,9 +141,8 @@ button.nav {
 	font-weight: 800;
 	display: block;
 }
-
 #view {
-	max-width: 750px;
+	height: 100%;
 	overflow-y: scroll;
 	flex: 1;
 }
@@ -347,14 +361,6 @@ input[type="text"].cw {
 	font-size: var(--fsReduced);
 }
 
-.clickable {
-	cursor: pointer;
-}
-
-.bottom-border {
-	border-bottom: solid 1px var(--clrBorder);
-}
-
 .deleted-comment {
 	border: 2px dashed var(--clrBorder);
 	border-radius: 10px;
@@ -374,25 +380,4 @@ input[type="text"].cw {
   margin-left: 10px;
   padding: 10px;
   display: block;
-}
-
-@media (max-width: 800px){
-	:root {
-		--navPadding: 2px;
-
-		--fsSmall:    10px;
-		--fsNormal:   14px;
-		--fsReduced:  12px;
-		--fsEnlarged: 16px;
-	}
-
-	.pfp {
-		width: 44px;
-		height: 44px;
-		font-size: 2.2em;
-	}
-
-	#newpost > :first-child {
-		width: 0;
-	}
 }
