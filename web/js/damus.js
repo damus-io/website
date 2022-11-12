@@ -999,6 +999,7 @@ async function sign_id(privkey, id)
 
 function reply_to(evid) {
 	const modal = document.querySelector("#reply-modal")
+	const replybox = modal.querySelector("#reply-content")
 	modal.classList.remove("closed")
 	const replying_to = modal.querySelector("#replying-to")
 
@@ -1006,6 +1007,8 @@ function reply_to(evid) {
 
 	const ev = DAMUS.all_events[evid]
 	replying_to.innerHTML = render_event(DAMUS, ev, {is_composing: true, nobar: true, max_depth: 1})
+
+	replybox.focus()
 }
 
 const IMG_REGEX = /(png|jpeg|jpg|gif|webp)$/i
