@@ -163,6 +163,17 @@ button.nav {
 .chatroom-name {
 	font-weight: bold;
 }
+
+#replying-to {
+	max-height: 200px;
+	overflow-y: scroll;
+}
+
+#replybox {
+	margin-top: 10px;
+	border-top: 1px solid var(--clrBorder);
+}
+
 .timestamp, .replying-to, .boosted-by {
 	font-size: var(--fsSmall);
 	color: var(--clrTextLight);

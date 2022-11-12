@@ -201,7 +201,7 @@ function render_event(model, ev, opts={}) {
 	}
 
 	const has_top_line = replied_events !== ""
-	const border_bottom = has_bot_line ? "" : "bottom-border";
+	const border_bottom = opts.is_composing || has_bot_line ? "" : "bottom-border";
 	return `
 	${replied_events}
 	<div id="ev${ev.id}" class="event ${border_bottom}">
