@@ -330,4 +330,8 @@ input[type="text"].cw {
 		width: 44px;
 		height: 44px;
 	}
+
+	#newpost > :first-child {
+		width: 0;
+	}
 }
