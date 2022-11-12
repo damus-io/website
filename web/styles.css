@@ -143,12 +143,15 @@ button.nav {
 .userpic {
 	flex-shrink: 1;
 }
-.userpic > img {
+
+.pfp {
 	border-radius: 50%;
 	width: 64px;
 	height: 64px;
 	object-fit: fill;
+	font-size: 3.25em;
 }
+
 .event-content {
 	flex: 1;
 	padding-left: 15px;
@@ -327,14 +330,21 @@ input[type="text"].cw {
 	border-bottom: solid 1px var(--clrBorder);
 }
 
+.deleted-comment {
+	border: 2px dashed var(--clrBorder);
+	border-radius: 10px;
+	padding: 10px;
+}
+
 @media (max-width: 800px){
 	:root {
 		--navPadding: 2px;
 	}
 
-	.userpic > img {
+	.pfp {
 		width: 44px;
 		height: 44px;
+		font-size: 2.2em;
 	}
 
 	#newpost > :first-child {
