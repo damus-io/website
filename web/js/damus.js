@@ -1,5 +1,10 @@
-
 let DSTATE
+
+const BOOTSTRAP_RELAYS = [
+	"wss://relay.damus.io",
+	"wss://nostr-relay.wlvs.space",
+	"wss://nostr-pub.wellorder.net"
+]
 
 function uuidv4() {
   return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
@@ -53,12 +58,6 @@ function init_home_model() {
 		contacts: init_contacts()
 	}
 }
-
-const BOOTSTRAP_RELAYS = [
-	"wss://relay.damus.io",
-	"wss://nostr-relay.wlvs.space",
-	"wss://nostr-pub.wellorder.net"
-]
 
 function update_favicon(path)
 {
@@ -640,44 +639,9 @@ async function sign_event(ev) {
 	return ev
 }
 
-function render_home_view(model) {
-	return `
-	<div id="newpost">
-		<div><!-- empty to accomodate profile pic --></div>
-		<div>
-			<textarea placeholder="What's up?" oninput="post_input_changed(this)" class="post-input" id="post-input"></textarea>
-			<div class="post-tools">
-				<input id="content-warning-input" class="cw hide" type="text" placeholder="Reason"/>
-				<button title="Mark this message as sensitive." onclick="toggle_cw(this)" class="cw icon">
-					<i class="fa-solid fa-triangle-exclamation"></i>
-				</button>
-				<button onclick="send_post(this)" class="action" id="post-button" disabled>Send</button>
-			</div>
-		</div>
-	</div>
-	<div id="events"></div>
-	`
-}
-
 function post_input_changed(el)
 {
 	document.querySelector("#post-button").disabled = el.value === ""
-}
-
-function render_home_event(model, ev)
-{
-	let max_depth = 3
-	if (ev.refs && ev.refs.root && model.expanded.has(ev.refs.root)) {
-		max_depth = null
-	}
-
-	return render_event(model, ev, {max_depth})
-}
-
-function render_events(model) {
-	return model.events
-		.filter((ev, i) => i < 140)
-		.map((ev) => render_home_event(model, ev)).join("\n")
 }
 
 function determine_event_refs_positionally(pubkeys, ids)
@@ -718,15 +682,6 @@ function determine_event_refs(tags) {
 	return {root, reply, pubkeys}
 }
 
-function render_reply_line_top(has_top_line) {
-	const classes = has_top_line ? "" : "invisible"
-	return `<div class="line-top ${classes}"></div>`
-}
-
-function render_reply_line_bot() {
-	return `<div class="line-bot"></div>`
-}
-
 function can_reply(ev) {
 	return ev.kind === 1 || ev.kind === 42
 }
@@ -734,17 +689,6 @@ function can_reply(ev) {
 const DEFAULT_PROFILE = {
 	name: "anon",
 	display_name: "Anonymous",
-}
-
-function render_thread_collapsed(model, reply_ev, opts)
-{
-	if (opts.is_composing)
-		return ""
-	return `<div onclick="expand_thread('${reply_ev.id}')" class="thread-collapsed">
-		<div class="thread-summary">
-		More messages in thread available. Click to expand.
-		</div>
-	</div>`
 }
 
 function* yield_etags(tags)
@@ -765,58 +709,6 @@ function expand_thread(id) {
 	redraw_events(DSTATE)
 }
 
-function render_replied_events(model, ev, opts)
-{
-	if (!(ev.refs && ev.refs.reply))
-		return ""
-
-	const reply_ev = model.all_events[ev.refs.reply]
-	if (!reply_ev)
-		return ""
-
-	opts.replies = opts.replies == null ? 1 : opts.replies + 1
-	if (!(opts.max_depth == null || opts.replies < opts.max_depth))
-		return render_thread_collapsed(model, reply_ev, opts)
-
-	opts.is_reply = true
-	return render_event(model, reply_ev, opts)
-}
-
-function render_replying_to_chat(model, ev) {
-	const chatroom = (ev.refs.root && model.chatrooms[ev.refs.root]) || {}
-	const roomname = chatroom.name || ev.refs.root || "??"
-	const pks = ev.refs.pubkeys || []
-	const names = pks.map(pk => render_mentioned_name(pk, model.profiles[pk])).join(", ")
-	const to_users = pks.length === 0 ? "" : ` to ${names}`
-
-	return `<div class="replying-to">replying${to_users} in <span class="chatroom-name">${roomname}</span></div>`
-}
-
-function render_replying_to(model, ev) {
-	if (!(ev.refs && ev.refs.reply))
-		return ""
-
-	if (ev.kind === 42)
-		return render_replying_to_chat(model, ev)
-
-	let pubkeys = ev.refs.pubkeys || []
-	if (pubkeys.length === 0 && ev.refs.reply) {
-		const replying_to = model.all_events[ev.refs.reply]
-		if (!replying_to)
-			return `<div class="replying-to small-txt">reply to ${ev.refs.reply}</div>`
-
-		pubkeys = [replying_to.pubkey]
-	}
-
-	const names = ev.refs.pubkeys.map(pk => render_mentioned_name(pk, model.profiles[pk])).join(", ")
-
-	return `
-	<span class="replying-to small-txt">
-		replying to ${names}
-	</span>
-	`
-}
-
 function delete_post_confirm(evid) {
 	if (!confirm("Are you sure you want to delete this post?"))
 		return
@@ -829,30 +721,6 @@ function delete_post_confirm(evid) {
 	delete_post(evid, reason)
 }
 
-function render_unknown_event(model, ev) {
-	return "Unknown event"
-}
-
-function render_boost(model, ev, opts) {
-	//todo validate content
-	if (!ev.json_content)
-		return render_unknown_event(ev)
-	
-	//const profile = model.profiles[ev.pubkey]
-	opts.is_boost_event = true
-	opts.boosted = {
-		pubkey: ev.pubkey,
-		profile: model.profiles[ev.pubkey]
-	}
-	return render_event(model, ev.json_content, opts)
-	//return `
-	//<div class="boost">
-	//<div class="boost-text">Reposted by ${render_name_plain(ev.pubkey, profile)}</div>
-	//${render_event(model, ev.json_content, opts)}
-	//</div>
-	//`
-}
-
 function shouldnt_render_event(model, ev, opts) {
 	return !opts.is_boost_event &&
 		!opts.is_composing &&
@@ -860,117 +728,11 @@ function shouldnt_render_event(model, ev, opts) {
 		model.rendered[ev.id]
 }
 
-function render_deleted_name() {
-	return "???"
-}
-
-function render_deleted_pfp() {
-	return `<div class="pfp pfp-normal">😵</div>`
-}
-
-function render_comment_body(model, ev, opts) {
-	const can_delete = model.pubkey === ev.pubkey;
-	const bar = !can_reply(ev) || opts.nobar? "" : render_action_bar(ev, can_delete)
-	const show_media = !opts.is_composing
-
-	return `
-	<div>
-	${render_replying_to(model, ev)}
-	${render_boosted_by(model, ev, opts)}
-	</div>
-	<p>
-	${format_content(ev, show_media)}
-	</p>
-	${render_reactions(model, ev)}
-	${bar}
-	`
-}
-
-function render_boosted_by(model, ev, opts) {
-	const b = opts.boosted
-	if (!b) {
-		return ""
-	}
-	// TODO encapsulate username as link/button!
-	return `
-	<div class="boosted-by">Shared by 
-		<span class="username" data-pubkey="${b.pubkey}">${render_name_plain(b.pubkey, b.profile)}</span>
- 	</div>
-	`	
-}
-
-function render_deleted_comment_body(ev, deleted) {
-	if (deleted.content) {
-		const show_media = false
-		return `
-		<div class="deleted-comment">
-			This comment was deleted. Reason:
-			<div class="quote">${format_content(deleted, show_media)}</div>
-		</div>
-		`
-	}
-	return `<div class="deleted-comment">This comment was deleted</div>`
-}
-
 function press_logout() {
 	if (confirm("Are you sure you want to logout?")) {
 		localStorage.clear();
 		location.reload();
 	}
-}
-
-function render_event(model, ev, opts={}) {
-	if (ev.kind === 6)
-		return render_boost(model, ev, opts)
-	if (shouldnt_render_event(model, ev, opts))
-		return ""
-	delete opts.is_boost_event
-	model.rendered[ev.id] = true
-	const profile = model.profiles[ev.pubkey] || DEFAULT_PROFILE
-	const delta = time_delta(new Date().getTime(), ev.created_at*1000)
-
-	const has_bot_line = opts.is_reply
-	const reply_line_bot = (has_bot_line && render_reply_line_bot()) || ""
-
-	const deleted = is_deleted(model, ev.id)
-	if (deleted && !opts.is_reply)
-		return ""
-
-	const replied_events = render_replied_events(model, ev, opts)
-
-	let name = "???"
-	if (!deleted) {
-		name = render_name_plain(ev.pubkey, profile)
-	}
-
-	const has_top_line = replied_events !== ""
-	const border_bottom = has_bot_line ? "" : "bottom-border";
-	return `
-	${replied_events}
-	<div id="ev${ev.id}" class="event ${border_bottom}">
-		<div class="userpic">
-			${render_reply_line_top(has_top_line)}
-			${deleted ? render_deleted_pfp() : render_pfp(ev.pubkey, profile)}
-			${reply_line_bot}
-		</div>	
-		<div class="event-content">
-			<div class="info">
-				<span class="username" data-pubkey="${ev.pubkey}" data-name="${name}">
-					${name}
-				</span>
-				<span class="timestamp">${delta}</span>
-			</div>
-			<div class="comment">
-				${deleted ? render_deleted_comment_body(ev, deleted) : render_comment_body(model, ev, opts)}
-			</div>
-		</div>
-	</div>
-	`
-}
-
-function render_pfp(pk, profile, size="normal") {
-	const name = render_name_plain(pk, profile)
-	return `<img class="pfp" title="${name}" onerror="this.onerror=null;this.src='${robohash(pk)}';" src="${get_picture(pk, profile)}">`
 }
 
 const REACTION_REGEX = /^[#*0-9]\uFE0F?\u20E3|[\xA9\xAE\u203C\u2049\u2122\u2139\u2194-\u2199\u21A9\u21AA\u231A\u231B\u2328\u23CF\u23ED-\u23EF\u23F1\u23F2\u23F8-\u23FA\u24C2\u25AA\u25AB\u25B6\u25C0\u25FB\u25FC\u25FE\u2600-\u2604\u260E\u2611\u2614\u2615\u2618\u2620\u2622\u2623\u2626\u262A\u262E\u262F\u2638-\u263A\u2640\u2642\u2648-\u2653\u265F\u2660\u2663\u2665\u2666\u2668\u267B\u267E\u267F\u2692\u2694-\u2697\u2699\u269B\u269C\u26A0\u26A7\u26AA\u26B0\u26B1\u26BD\u26BE\u26C4\u26C8\u26CF\u26D1\u26D3\u26E9\u26F0-\u26F5\u26F7\u26F8\u26FA\u2702\u2708\u2709\u270F\u2712\u2714\u2716\u271D\u2721\u2733\u2734\u2744\u2747\u2757\u2763\u27A1\u2934\u2935\u2B05-\u2B07\u2B1B\u2B1C\u2B55\u3030\u303D\u3297\u3299]\uFE0F?|[\u261D\u270C\u270D](?:\uFE0F|\uD83C[\uDFFB-\uDFFF])?|[\u270A\u270B](?:\uD83C[\uDFFB-\uDFFF])?|[\u23E9-\u23EC\u23F0\u23F3\u25FD\u2693\u26A1\u26AB\u26C5\u26CE\u26D4\u26EA\u26FD\u2705\u2728\u274C\u274E\u2753-\u2755\u2795-\u2797\u27B0\u27BF\u2B50]|\u26F9(?:\uFE0F|\uD83C[\uDFFB-\uDFFF])?(?:\u200D[\u2640\u2642]\uFE0F?)?|\u2764\uFE0F?(?:\u200D(?:\uD83D\uDD25|\uD83E\uDE79))?|\uD83C(?:[\uDC04\uDD70\uDD71\uDD7E\uDD7F\uDE02\uDE37\uDF21\uDF24-\uDF2C\uDF36\uDF7D\uDF96\uDF97\uDF99-\uDF9B\uDF9E\uDF9F\uDFCD\uDFCE\uDFD4-\uDFDF\uDFF5\uDFF7]\uFE0F?|[\uDF85\uDFC2\uDFC7](?:\uD83C[\uDFFB-\uDFFF])?|[\uDFC3\uDFC4\uDFCA](?:\uD83C[\uDFFB-\uDFFF])?(?:\u200D[\u2640\u2642]\uFE0F?)?|[\uDFCB\uDFCC](?:\uFE0F|\uD83C[\uDFFB-\uDFFF])?(?:\u200D[\u2640\u2642]\uFE0F?)?|[\uDCCF\uDD8E\uDD91-\uDD9A\uDE01\uDE1A\uDE2F\uDE32-\uDE36\uDE38-\uDE3A\uDE50\uDE51\uDF00-\uDF20\uDF2D-\uDF35\uDF37-\uDF7C\uDF7E-\uDF84\uDF86-\uDF93\uDFA0-\uDFC1\uDFC5\uDFC6\uDFC8\uDFC9\uDFCF-\uDFD3\uDFE0-\uDFF0\uDFF8-\uDFFF]|\uDDE6\uD83C[\uDDE8-\uDDEC\uDDEE\uDDF1\uDDF2\uDDF4\uDDF6-\uDDFA\uDDFC\uDDFD\uDDFF]|\uDDE7\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEF\uDDF1-\uDDF4\uDDF6-\uDDF9\uDDFB\uDDFC\uDDFE\uDDFF]|\uDDE8\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDEE\uDDF0-\uDDF5\uDDF7\uDDFA-\uDDFF]|\uDDE9\uD83C[\uDDEA\uDDEC\uDDEF\uDDF0\uDDF2\uDDF4\uDDFF]|\uDDEA\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDED\uDDF7-\uDDFA]|\uDDEB\uD83C[\uDDEE-\uDDF0\uDDF2\uDDF4\uDDF7]|\uDDEC\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEE\uDDF1-\uDDF3\uDDF5-\uDDFA\uDDFC\uDDFE]|\uDDED\uD83C[\uDDF0\uDDF2\uDDF3\uDDF7\uDDF9\uDDFA]|\uDDEE\uD83C[\uDDE8-\uDDEA\uDDF1-\uDDF4\uDDF6-\uDDF9]|\uDDEF\uD83C[\uDDEA\uDDF2\uDDF4\uDDF5]|\uDDF0\uD83C[\uDDEA\uDDEC-\uDDEE\uDDF2\uDDF3\uDDF5\uDDF7\uDDFC\uDDFE\uDDFF]|\uDDF1\uD83C[\uDDE6-\uDDE8\uDDEE\uDDF0\uDDF7-\uDDFB\uDDFE]|\uDDF2\uD83C[\uDDE6\uDDE8-\uDDED\uDDF0-\uDDFF]|\uDDF3\uD83C[\uDDE6\uDDE8\uDDEA-\uDDEC\uDDEE\uDDF1\uDDF4\uDDF5\uDDF7\uDDFA\uDDFF]|\uDDF4\uD83C\uDDF2|\uDDF5\uD83C[\uDDE6\uDDEA-\uDDED\uDDF0-\uDDF3\uDDF7-\uDDF9\uDDFC\uDDFE]|\uDDF6\uD83C\uDDE6|\uDDF7\uD83C[\uDDEA\uDDF4\uDDF8\uDDFA\uDDFC]|\uDDF8\uD83C[\uDDE6-\uDDEA\uDDEC-\uDDF4\uDDF7-\uDDF9\uDDFB\uDDFD-\uDDFF]|\uDDF9\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDED\uDDEF-\uDDF4\uDDF7\uDDF9\uDDFB\uDDFC\uDDFF]|\uDDFA\uD83C[\uDDE6\uDDEC\uDDF2\uDDF3\uDDF8\uDDFE\uDDFF]|\uDDFB\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDEE\uDDF3\uDDFA]|\uDDFC\uD83C[\uDDEB\uDDF8]|\uDDFD\uD83C\uDDF0|\uDDFE\uD83C[\uDDEA\uDDF9]|\uDDFF\uD83C[\uDDE6\uDDF2\uDDFC]|\uDFF3\uFE0F?(?:\u200D(?:\u26A7\uFE0F?|\uD83C\uDF08))?|\uDFF4(?:\u200D\u2620\uFE0F?|\uDB40\uDC67\uDB40\uDC62\uDB40(?:\uDC65\uDB40\uDC6E\uDB40\uDC67|\uDC73\uDB40\uDC63\uDB40\uDC74|\uDC77\uDB40\uDC6C\uDB40\uDC73)\uDB40\uDC7F)?)|\uD83D(?:[\uDC08\uDC26](?:\u200D\u2B1B)?|[\uDC3F\uDCFD\uDD49\uDD4A\uDD6F\uDD70\uDD73\uDD76-\uDD79\uDD87\uDD8A-\uDD8D\uDDA5\uDDA8\uDDB1\uDDB2\uDDBC\uDDC2-\uDDC4\uDDD1-\uDDD3\uDDDC-\uDDDE\uDDE1\uDDE3\uDDE8\uDDEF\uDDF3\uDDFA\uDECB\uDECD-\uDECF\uDEE0-\uDEE5\uDEE9\uDEF0\uDEF3]\uFE0F?|[\uDC42\uDC43\uDC46-\uDC50\uDC66\uDC67\uDC6B-\uDC6D\uDC72\uDC74-\uDC76\uDC78\uDC7C\uDC83\uDC85\uDC8F\uDC91\uDCAA\uDD7A\uDD95\uDD96\uDE4C\uDE4F\uDEC0\uDECC](?:\uD83C[\uDFFB-\uDFFF])?|[\uDC6E\uDC70\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4-\uDEB6](?:\uD83C[\uDFFB-\uDFFF])?(?:\u200D[\u2640\u2642]\uFE0F?)?|[\uDD74\uDD90](?:\uFE0F|\uD83C[\uDFFB-\uDFFF])?|[\uDC00-\uDC07\uDC09-\uDC14\uDC16-\uDC25\uDC27-\uDC3A\uDC3C-\uDC3E\uDC40\uDC44\uDC45\uDC51-\uDC65\uDC6A\uDC79-\uDC7B\uDC7D-\uDC80\uDC84\uDC88-\uDC8E\uDC90\uDC92-\uDCA9\uDCAB-\uDCFC\uDCFF-\uDD3D\uDD4B-\uDD4E\uDD50-\uDD67\uDDA4\uDDFB-\uDE2D\uDE2F-\uDE34\uDE37-\uDE44\uDE48-\uDE4A\uDE80-\uDEA2\uDEA4-\uDEB3\uDEB7-\uDEBF\uDEC1-\uDEC5\uDED0-\uDED2\uDED5-\uDED7\uDEDC-\uDEDF\uDEEB\uDEEC\uDEF4-\uDEFC\uDFE0-\uDFEB\uDFF0]|\uDC15(?:\u200D\uD83E\uDDBA)?|\uDC3B(?:\u200D\u2744\uFE0F?)?|\uDC41\uFE0F?(?:\u200D\uD83D\uDDE8\uFE0F?)?|\uDC68(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D(?:[\uDC68\uDC69]\u200D\uD83D(?:\uDC66(?:\u200D\uD83D\uDC66)?|\uDC67(?:\u200D\uD83D[\uDC66\uDC67])?)|[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uDC66(?:\u200D\uD83D\uDC66)?|\uDC67(?:\u200D\uD83D[\uDC66\uDC67])?)|\uD83E[\uDDAF-\uDDB3\uDDBC\uDDBD])|\uD83C(?:\uDFFB(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF-\uDDB3\uDDBC\uDDBD]|\uDD1D\u200D\uD83D\uDC68\uD83C[\uDFFC-\uDFFF])))?|\uDFFC(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF-\uDDB3\uDDBC\uDDBD]|\uDD1D\u200D\uD83D\uDC68\uD83C[\uDFFB\uDFFD-\uDFFF])))?|\uDFFD(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF-\uDDB3\uDDBC\uDDBD]|\uDD1D\u200D\uD83D\uDC68\uD83C[\uDFFB\uDFFC\uDFFE\uDFFF])))?|\uDFFE(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF-\uDDB3\uDDBC\uDDBD]|\uDD1D\u200D\uD83D\uDC68\uD83C[\uDFFB-\uDFFD\uDFFF])))?|\uDFFF(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF-\uDDB3\uDDBC\uDDBD]|\uDD1D\u200D\uD83D\uDC68\uD83C[\uDFFB-\uDFFE])))?))?|\uDC69(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?[\uDC68\uDC69]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D(?:[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uDC66(?:\u200D\uD83D\uDC66)?|\uDC67(?:\u200D\uD83D[\uDC66\uDC67])?|\uDC69\u200D\uD83D(?:\uDC66(?:\u200D\uD83D\uDC66)?|\uDC67(?:\u200D\uD83D[\uDC66\uDC67])?))|\uD83E[\uDDAF-\uDDB3\uDDBC\uDDBD])|\uD83C(?:\uDFFB(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:[\uDC68\uDC69]|\uDC8B\u200D\uD83D[\uDC68\uDC69])\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF-\uDDB3\uDDBC\uDDBD]|\uDD1D\u200D\uD83D[\uDC68\uDC69]\uD83C[\uDFFC-\uDFFF])))?|\uDFFC(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:[\uDC68\uDC69]|\uDC8B\u200D\uD83D[\uDC68\uDC69])\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF-\uDDB3\uDDBC\uDDBD]|\uDD1D\u200D\uD83D[\uDC68\uDC69]\uD83C[\uDFFB\uDFFD-\uDFFF])))?|\uDFFD(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:[\uDC68\uDC69]|\uDC8B\u200D\uD83D[\uDC68\uDC69])\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF-\uDDB3\uDDBC\uDDBD]|\uDD1D\u200D\uD83D[\uDC68\uDC69]\uD83C[\uDFFB\uDFFC\uDFFE\uDFFF])))?|\uDFFE(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:[\uDC68\uDC69]|\uDC8B\u200D\uD83D[\uDC68\uDC69])\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF-\uDDB3\uDDBC\uDDBD]|\uDD1D\u200D\uD83D[\uDC68\uDC69]\uD83C[\uDFFB-\uDFFD\uDFFF])))?|\uDFFF(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:[\uDC68\uDC69]|\uDC8B\u200D\uD83D[\uDC68\uDC69])\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF-\uDDB3\uDDBC\uDDBD]|\uDD1D\u200D\uD83D[\uDC68\uDC69]\uD83C[\uDFFB-\uDFFE])))?))?|\uDC6F(?:\u200D[\u2640\u2642]\uFE0F?)?|\uDD75(?:\uFE0F|\uD83C[\uDFFB-\uDFFF])?(?:\u200D[\u2640\u2642]\uFE0F?)?|\uDE2E(?:\u200D\uD83D\uDCA8)?|\uDE35(?:\u200D\uD83D\uDCAB)?|\uDE36(?:\u200D\uD83C\uDF2B\uFE0F?)?)|\uD83E(?:[\uDD0C\uDD0F\uDD18-\uDD1F\uDD30-\uDD34\uDD36\uDD77\uDDB5\uDDB6\uDDBB\uDDD2\uDDD3\uDDD5\uDEC3-\uDEC5\uDEF0\uDEF2-\uDEF8](?:\uD83C[\uDFFB-\uDFFF])?|[\uDD26\uDD35\uDD37-\uDD39\uDD3D\uDD3E\uDDB8\uDDB9\uDDCD-\uDDCF\uDDD4\uDDD6-\uDDDD](?:\uD83C[\uDFFB-\uDFFF])?(?:\u200D[\u2640\u2642]\uFE0F?)?|[\uDDDE\uDDDF](?:\u200D[\u2640\u2642]\uFE0F?)?|[\uDD0D\uDD0E\uDD10-\uDD17\uDD20-\uDD25\uDD27-\uDD2F\uDD3A\uDD3F-\uDD45\uDD47-\uDD76\uDD78-\uDDB4\uDDB7\uDDBA\uDDBC-\uDDCC\uDDD0\uDDE0-\uDDFF\uDE70-\uDE7C\uDE80-\uDE88\uDE90-\uDEBD\uDEBF-\uDEC2\uDECE-\uDEDB\uDEE0-\uDEE8]|\uDD3C(?:\u200D[\u2640\u2642]\uFE0F?|\uD83C[\uDFFB-\uDFFF])?|\uDDD1(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF-\uDDB3\uDDBC\uDDBD]|\uDD1D\u200D\uD83E\uDDD1))|\uD83C(?:\uDFFB(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D(?:\uD83D\uDC8B\u200D)?\uD83E\uDDD1\uD83C[\uDFFC-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF-\uDDB3\uDDBC\uDDBD]|\uDD1D\u200D\uD83E\uDDD1\uD83C[\uDFFB-\uDFFF])))?|\uDFFC(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D(?:\uD83D\uDC8B\u200D)?\uD83E\uDDD1\uD83C[\uDFFB\uDFFD-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF-\uDDB3\uDDBC\uDDBD]|\uDD1D\u200D\uD83E\uDDD1\uD83C[\uDFFB-\uDFFF])))?|\uDFFD(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D(?:\uD83D\uDC8B\u200D)?\uD83E\uDDD1\uD83C[\uDFFB\uDFFC\uDFFE\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF-\uDDB3\uDDBC\uDDBD]|\uDD1D\u200D\uD83E\uDDD1\uD83C[\uDFFB-\uDFFF])))?|\uDFFE(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D(?:\uD83D\uDC8B\u200D)?\uD83E\uDDD1\uD83C[\uDFFB-\uDFFD\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF-\uDDB3\uDDBC\uDDBD]|\uDD1D\u200D\uD83E\uDDD1\uD83C[\uDFFB-\uDFFF])))?|\uDFFF(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D(?:\uD83D\uDC8B\u200D)?\uD83E\uDDD1\uD83C[\uDFFB-\uDFFE]|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF-\uDDB3\uDDBC\uDDBD]|\uDD1D\u200D\uD83E\uDDD1\uD83C[\uDFFB-\uDFFF])))?))?|\uDEF1(?:\uD83C(?:\uDFFB(?:\u200D\uD83E\uDEF2\uD83C[\uDFFC-\uDFFF])?|\uDFFC(?:\u200D\uD83E\uDEF2\uD83C[\uDFFB\uDFFD-\uDFFF])?|\uDFFD(?:\u200D\uD83E\uDEF2\uD83C[\uDFFB\uDFFC\uDFFE\uDFFF])?|\uDFFE(?:\u200D\uD83E\uDEF2\uD83C[\uDFFB-\uDFFD\uDFFF])?|\uDFFF(?:\u200D\uD83E\uDEF2\uD83C[\uDFFB-\uDFFE])?))?)$/
@@ -993,30 +755,6 @@ function get_reaction_emoji(ev) {
 	return ev.content
 }
 
-function render_react_onclick(our_pubkey, reacting_to, emoji, reactions) {
-	const reaction = reactions[our_pubkey]
-	if (!reaction) {
-		return `onclick="send_reply('${emoji}', '${reacting_to}')"`
-	} else {
-		return `onclick="delete_post('${reaction.id}')"`
-	}
-}
-
-function render_reaction_group(model, emoji, reactions, reacting_to) {
-	const pfps = Object.keys(reactions).map((pk) => render_reaction(model, reactions[pk]))
-
-	let onclick = render_react_onclick(model.pubkey, reacting_to.id, emoji, reactions)
-
-	return `
-	<span ${onclick} class="reaction-group clickable">
-	  <span class="reaction-emoji">
-	  ${emoji}
-	  </span>
-	  ${pfps.join("\n")}
-	</span>
-	`
-}
-
 async function delete_post(id, reason)
 {
 	const ev = DSTATE.all_events[id]
@@ -1027,15 +765,6 @@ async function delete_post(id, reason)
 	let del = await create_deletion_event(pubkey, id, reason)
 	console.log("deleting", ev)
 	broadcast_event(del)
-}
-
-function render_reaction(model, reaction) {
-	const profile = model.profiles[reaction.pubkey] || DEFAULT_PROFILE
-	let emoji = reaction.content[0]
-	if (reaction.content === "+" || reaction.content === "")
-		emoji = "❤️"
-
-	return render_pfp(reaction.pubkey, profile, "small")
 }
 
 function get_reactions(model, evid)
@@ -1062,21 +791,6 @@ function get_reactions(model, evid)
 	}, {})
 
 	return groups
-}
-
-function render_reactions(model, ev) {
-	const groups = get_reactions(model, ev.id)
-	let str = ""
-
-	for (const emoji of Object.keys(groups)) {
-		str += render_reaction_group(model, emoji, groups[emoji], ev)
-	}
-
-	return `
-	<div class="reactions">
-	  ${str}
-	</div>
-	`
 }
 
 function close_reply() {
@@ -1280,26 +994,6 @@ function reply_to(evid) {
 	modal.style.display = replying? "block" : "none";
 }
 
-function render_action_bar(ev, can_delete) {
-	let delete_html = ""
-	if (can_delete)
-		delete_html = `<button class="icon" title="Delete" onclick="delete_post_confirm('${ev.id}')"><i class="fa fa-fw fa-trash"></i></a>`
-
-	const groups = get_reactions(DSTATE, ev.id)
-	const like = "❤️"
-	const likes = groups[like] || {}
-	const react_onclick = render_react_onclick(DSTATE.pubkey, ev.id, like, likes)
-	return `
-	<div class="action-bar">
-		<button class="icon" title="Reply" onclick="reply_to('${ev.id}')"><i class="fa fa-fw fa-comment"></i></a>
-		<button class="icon react heart" ${react_onclick} title="Like"><i class="fa fa-fw fa-heart"></i></a>
-		<button class="icon" title="Share" onclick=""><i class="fa fa-fw fa-link"></i></a>
-		${delete_html}	
-		<button class="icon" title="View raw Nostr event." onclick=""><i class="fa-solid fa-fw fa-code"></i></a>
-	</div>
-	`
-}
-
 const IMG_REGEX = /(png|jpeg|jpg|gif|webp)$/i
 function is_img_url(path) {
 	return IMG_REGEX.test(path)
@@ -1422,37 +1116,6 @@ function get_picture(pk, profile) {
 	return profile.resolved_picture
 }
 
-function render_name_plain(pk, profile=DEFAULT_PROFILE)
-{
-	if (profile.sanitized_name)
-		return profile.sanitized_name
-
-	const display_name = profile.display_name || profile.user
-	const username = profile.name || "anon"
-	const name = display_name || username
-
-	profile.sanitized_name = sanitize(name)
-	return profile.sanitized_name
-}
-
-function render_pubkey(pk)
-{
-	return pk.slice(-8)
-}
-
-function render_username(pk, profile)
-{
-	return (profile && profile.name) || render_pubkey(pk)
-}
-
-function render_mentioned_name(pk, profile) {
-	return `<span class="username">@${render_username(pk, profile)}</span>`
-}
-
-function render_name(pk, profile) {
-	return `<div class="username">${render_name_plain(pk, profile)}</div>`
-}
-
 function time_delta(current, previous) {
     var msPerMinute = 60 * 1000;
     var msPerHour = msPerMinute * 60;
@@ -1487,9 +1150,3 @@ function time_delta(current, previous) {
     }
 }
 
-function toggle_cw(el) {
-	el.classList.toggle("active");
-    const isOn = el.classList.contains("active");
-	const input = el.parentElement.querySelector("input.cw");
-	input.classList.toggle("hide", !isOn);
-}
