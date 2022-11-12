@@ -588,6 +588,7 @@ async function send_post() {
 
 	input_el.value = ""
 	cw_el.value = ""
+	post_input_changed(input_el)
 }
 
 async function sign_event(ev) {
@@ -610,18 +611,23 @@ function render_home_view(model) {
 	<div id="newpost">
 		<div><!-- empty to accomodate profile pic --></div>
 		<div>
-			<textarea placeholder="What's up?" class="post-input" id="post-input"></textarea>
+			<textarea placeholder="What's up?" oninput="post_input_changed(this)" class="post-input" id="post-input"></textarea>
 			<div class="post-tools">
-                <input id="content-warning-input" class="cw hide" type="text" placeholder="Reason"/>
+				<input id="content-warning-input" class="cw hide" type="text" placeholder="Reason"/>
 				<button title="Mark this message as sensitive." onclick="toggle_cw(this)" class="cw icon">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
+					<i class="fa-solid fa-triangle-exclamation"></i>
 				</button>
-				<button onclick="send_post(this)" class="action" id="post-button">Send</button>
+				<button onclick="send_post(this)" class="action" id="post-button" disabled>Send</button>
 			</div>
 		</div>
 	</div>
 	<div id="events"></div>
 	`
+}
+
+function post_input_changed(el)
+{
+	document.querySelector("#post-button").disabled = el.value === ""
 }
 
 function render_home_event(model, ev)
