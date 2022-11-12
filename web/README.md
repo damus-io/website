@@ -22,6 +22,7 @@ before making changes and supplying patch notes.
 8. Do not write animations in JavaScript, CSS only. Keep them short and snappy.
    Animations should not be a forefront, but an enjoyable addition.
 9. All new & modified code should be properly documented.
+10. Source code should be readable in the browser.
 
 TODO Write about code style requirements & add number of spaces.
 
