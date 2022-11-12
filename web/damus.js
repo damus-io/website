@@ -837,8 +837,8 @@ function render_deleted_pfp() {
 }
 
 function render_comment_body(model, ev, opts) {
-	const canDelete = !(model.pubkey !== ev.pubkey)
-	const bar = !can_reply(ev) || opts.nobar? "" : render_action_bar(ev, canDelete)
+	const can_delete = model.pubkey === ev.pubkey;
+	const bar = !can_reply(ev) || opts.nobar? "" : render_action_bar(ev, can_delete)
 	const show_media = !opts.is_composing
 
 	return `
@@ -952,16 +952,19 @@ function get_reaction_emoji(ev) {
 	return ev.content
 }
 
+function render_react_onclick(our_pubkey, reacting_to, emoji, reactions) {
+	const reaction = reactions[our_pubkey]
+	if (!reaction) {
+		return `onclick="send_reply('${emoji}', '${reacting_to}')"`
+	} else {
+		return `onclick="delete_post('${reaction.id}')"`
+	}
+}
+
 function render_reaction_group(model, emoji, reactions, reacting_to) {
 	const pfps = Object.keys(reactions).map((pk) => render_reaction(model, reactions[pk]))
 
-	let onclick = ""
-	const reaction = reactions[model.pubkey]
-	if (!reaction) {
-		onclick = `onclick="send_reply('${emoji}', '${reacting_to.id}')"`
-	} else {
-		onclick = `onclick="delete_post('${reaction.id}')"`
-	}
+	let onclick = render_react_onclick(model.pubkey, reacting_to.id, emoji, reactions)
 
 	return `
 	<span ${onclick} class="reaction-group clickable">
@@ -994,8 +997,9 @@ function render_reaction(model, reaction) {
 	return render_pfp(reaction.pubkey, profile, "small")
 }
 
-function render_reactions(model, ev) {
-	const reactions_set = model.reactions_to[ev.id]
+function get_reactions(model, evid)
+{
+	const reactions_set = model.reactions_to[evid]
 	if (!reactions_set)
 		return ""
 
@@ -1009,13 +1013,19 @@ function render_reactions(model, ev) {
 		reactions.push(reaction)
 	}
 
-	let str = ""
 	const groups = reactions.reduce((grp, r) => {
 		const e = get_reaction_emoji(r)
 		grp[e] = grp[e] || {}
 		grp[e][r.pubkey] = r
 		return grp
 	}, {})
+
+	return groups
+}
+
+function render_reactions(model, ev) {
+	const groups = get_reactions(model, ev.id)
+	let str = ""
 
 	for (const emoji of Object.keys(groups)) {
 		str += render_reaction_group(model, emoji, groups[emoji], ev)
@@ -1229,17 +1239,21 @@ function reply_to(evid) {
 	modal.style.display = replying? "block" : "none";
 }
 
-function render_action_bar(ev, canDelete=false) {
-	let deleteHTML = ""
-	if (canDelete) {
-		deleteHTML = `<button class="icon" title="Delete" onclick="like('${ev.id}')"><i class="fa fa-fw fa-trash"></i></a>`
-	}
+function render_action_bar(ev, can_delete) {
+	let delete_html = ""
+	if (can_delete)
+		delete_html = `<button class="icon" title="Delete" onclick="like('${ev.id}')"><i class="fa fa-fw fa-trash"></i></a>`
+
+	const groups = get_reactions(DSTATE, ev.id)
+	const like = "❤️"
+	const likes = groups[like] || {}
+	const react_onclick = render_react_onclick(DSTATE.pubkey, ev.id, like, likes)
 	return `
 	<div class="action-bar">
 		<button class="icon" title="Reply" onclick="reply_to('${ev.id}')"><i class="fa fa-fw fa-comment"></i></a>
-		<button class="icon react heart" title="Like" onclick=""><i class="fa fa-fw fa-heart"></i></a>
+		<button class="icon react heart" ${react_onclick} title="Like"><i class="fa fa-fw fa-heart"></i></a>
 		<button class="icon" title="Share" onclick=""><i class="fa fa-fw fa-link"></i></a>
-		${deleteHTML}	
+		${delete_html}	
 		<button class="icon" title="View raw Nostr event." onclick=""><i class="fa-solid fa-fw fa-code"></i></a>
 	</div>
 	`
