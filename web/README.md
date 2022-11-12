@@ -14,7 +14,7 @@ before making changes and supplying patch notes.
    question, ask it.
 3. Do not include your personal tools in the source code. Use your own scripts
    outside of the project. This does not include build tools such as Make.
-4. Spaces, no tabs.
+4. We use a non-standard js style: tabs and snake_case for variables and functions. Sorry.
 5. Do not include binary files.
 6. No NPM (and kin) environments. If you need a file from an external resource
    mark the location in the "sources" file and add it to the repo.
