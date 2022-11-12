@@ -14,8 +14,7 @@ before making changes and supplying patch notes.
    question, ask it.
  - Do not include your personal tools in the source code. Use your own scripts
  - outside of the project. This does not include build tools such as Make.
- - Use tabs.
- - Write methods in snake_case.
+ - Use tabs & write JS with snake_case. End of discussion.
  - Do not include binary files.
  - No NPM (and kin) environments. If you need a file from an external resource
    mark the location in the "sources" file and add it to the repo.
