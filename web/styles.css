@@ -216,6 +216,7 @@ details.cw summary {
 	color: #444;
 	cursor: pointer;
 	margin-bottom: 10px;
+	outline: none;
 }
 
 /* Thread Expansion */
@@ -315,3 +316,4 @@ input[type="text"].cw {
 .clickable {
 	cursor: pointer;
 }
+

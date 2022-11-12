@@ -777,17 +777,6 @@ function render_replying_to(model, ev) {
 	`
 }
 
-function render_delete_post(model, ev) {
-	if (model.pubkey !== ev.pubkey)
-		return ""
-
-	return `
-	<span onclick="delete_post_confirm('${ev.id}')" class="clickable" style="float: right">
-	✕
-	</span>
-	`
-}
-
 function delete_post_confirm(evid) {
 	if (!confirm("Are you sure you want to delete this post?"))
 		return
@@ -1242,7 +1231,7 @@ function reply_to(evid) {
 function render_action_bar(ev, can_delete) {
 	let delete_html = ""
 	if (can_delete)
-		delete_html = `<button class="icon" title="Delete" onclick="like('${ev.id}')"><i class="fa fa-fw fa-trash"></i></a>`
+		delete_html = `<button class="icon" title="Delete" onclick="delete_post_confirm('${ev.id}')"><i class="fa fa-fw fa-trash"></i></a>`
 
 	const groups = get_reactions(DSTATE, ev.id)
 	const like = "❤️"
