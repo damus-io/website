@@ -728,7 +728,7 @@ function shouldnt_render_event(model, ev, opts) {
 }
 
 function press_logout() {
-	if (confirm("Are you sure you want to logout?")) {
+	if (confirm("Are you sure you want to sign out?")) {
 		localStorage.clear();
 		const url = new URL(location.href)
 		url.searchParams.delete("pk")

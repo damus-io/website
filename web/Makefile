@@ -3,7 +3,7 @@ all: fake
 	@echo "you don't need to build anything."
 
 tags: fake
-	ctags damus.js nostr.js > $@
+	find js -name '*.js' | grep -v noble-secp256k1 | xargs ctags > "$@"
 
 emojiregex: fake
 	@curl -sL 'https://raw.githubusercontent.com/mathiasbynens/emoji-test-regex-pattern/main/dist/latest/javascript.txt'
