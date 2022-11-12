@@ -1215,8 +1215,26 @@ function set_local_state(key, val) {
 	localStorage.setItem(key, val)
 }
 
+function get_qs(loc=location.href) {
+	return new URL(loc).searchParams
+}
+
+function handle_pubkey(pubkey) {
+	if (pubkey[0] === "n")
+		pubkey = bech32_decode(pubkey)
+
+	set_local_state('pubkey', pubkey)
+
+	return pubkey
+}
+
 async function get_pubkey() {
 	let pubkey = get_local_state('pubkey')
+
+	// qs pk overrides stored key
+	const qs_pk = get_qs().get("pk")
+	if (qs_pk)
+		return handle_pubkey(qs_pk)
 
 	if (pubkey)
 		return pubkey
@@ -1232,11 +1250,7 @@ async function get_pubkey() {
 	if (!pubkey)
 		throw new Error("Need pubkey to continue")
 
-	if (pubkey[0] === "n")
-		pubkey = bech32_decode(pubkey)
-
-	set_local_state('pubkey', pubkey)
-	return pubkey
+	return handle_pubkey(pubkey)
 }
 
 function get_privkey() {
