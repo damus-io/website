@@ -1,4 +1,11 @@
 @media (max-width: 800px){
+	:root {
+		--fsSmall:    10px;
+		--fsNormal:   14px;
+		--fsReduced:  12px;
+		--fsEnlarged: 16px;
+	}
+
 	/* Utility */
 	.vertical-hide {
 		display: none;
@@ -16,6 +23,7 @@
 	/* Navigation */
 	#nav {
 		flex-flow: row;
+		border-top: 1px solid var(--clrBorder);
 		border-right: none;
 	}
 	#nav > * {
