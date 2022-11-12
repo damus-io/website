@@ -878,6 +878,13 @@ function render_deleted_comment_body(ev, deleted) {
 	return `<div class="deleted-comment">This comment was deleted</div>`
 }
 
+function press_logout() {
+	if (confirm("Are you sure you want to logout?")) {
+		localStorage.clear();
+		location.reload();
+	}
+}
+
 function render_event(model, ev, opts={}) {
 	if (ev.kind === 6)
 		return render_boost(model, ev, opts)

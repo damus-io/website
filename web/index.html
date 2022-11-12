@@ -28,8 +28,8 @@
 						<i class="fa fa-fw fa-gear"></i><span class="hide">Settings</span>
 					</button></div>
 				<div>
-					<button class="nav icon">
-						<i class="fa-regular fa-fw fa-circle-question"></i><span class="hide">Help</span>
+					<button onclick="press_logout()" class="nav icon">
+						<i class="fa fa-fw fa-arrow-right-from-bracket"></i><span class="hide">Logout</span>
 					</button></div>
 			</div>
 			<div id="content">
@@ -63,7 +63,7 @@
     	<script src="noble-secp256k1.js?v=1"></script>
     	<script src="bech32.js?v=1"></script>
     	<script src="nostr.js?v=6"></script>
-    	<script src="damus.js?v=63"></script>
+    	<script src="damus.js?v=64"></script>
     	<script>
 		// I have to delay loading to wait for nos2x
 		const relay = setTimeout(damus_web_init, 100)
