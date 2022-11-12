@@ -4,6 +4,9 @@
 
 function render_home_view(model) {
 	return `
+	<header>
+		<label>Home</label>
+	</header>
 	<div id="newpost">
 		<div><!-- empty to accomodate profile pic --></div>
 		<div>

@@ -8,30 +8,16 @@
 
 	/* Utility */
 	.vertical-hide {
-		display: none;
+		display: none !important;
 	}
 
 	/* Application Framework */
-	#container {
-		flex-flow: column-reverse;
-	}
-	#content {
+	#view {
 		width: initial;
 		border-right: none;
 	}
 	#content header > label {
 	    padding: 12px;
-	}
-
-	/* Navigation */
-	#nav {
-		flex-flow: row;
-		border-right: none;
-	}
-	#nav > * {
-		flex: auto;
-		margin-bottom: 0;
-		font-size: 1.3em;
 	}
 
 	/* Event */

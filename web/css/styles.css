@@ -44,8 +44,6 @@ body {
 	font-size: var(--fsNormal);
 	margin: 0;
 	padding: 0;
-	width: 100%;
-	height: 100%;
 }
 
 /* Utilities */
@@ -94,15 +92,23 @@ button.action {
 .bottom-border { /* TODO rename to bdr-bottom */
 	border-bottom: solid 1px var(--clrBorder);
 }
+.sticky {
+	position: sticky;
+	top: 0;
+}
 
 /* Navigation */
 #nav {
-	display: flex;
-	flex-flow: column;
 	border-right: 1px solid var(--clrBorder);
 	padding: 16px;
 }
-#nav > * {
+#nav > div {
+	position: sticky;
+	top: 16px;
+	display: flex;
+	flex-flow: column;
+}
+#nav > div > * {
 	margin-bottom: 38px;
 }
 #app-icon-logo {
@@ -123,36 +129,22 @@ button.nav {
 #container {
 	display: flex;
 	flex-flow: row;
-	width: 100vw;
-	height: 100vh;
-	overflow: hidden;
 }
-#content {
+#view {
 	flex: auto;
-	display: flex;
-	flex-direction: column;
 	border-right: 1px solid var(--clrBorder);
-	overflow: hidden;
 	width: 750px;
 }
-#content {
-	flex: auto;
-	display: flex;
-	flex-direction: column;
-	border-right: 1px solid var(--clrBorder);
-	overflow: hidden;
-	width: 750px;
+#view header {
+	position: sticky;
+	top: 0;
+	background: var(--clrBg);
 }
-#content header > label {
+#view header > label {
 	padding: 22px 15px;
 	font-size: 22px;
 	font-weight: 800;
 	display: block;
-}
-#view {
-	height: 100%;
-	overflow-y: scroll;
-	flex: 1;
 }
 
 /* Events & Content */
@@ -169,10 +161,9 @@ button.nav {
 	text-align: center;
 	padding: 15px;
 }
-.userpic {
+.userpic { /* TODO remove .userpic and use helper class */
 	flex-shrink: 1;
 }
-
 .pfp {
 	border-radius: 50%;
 	width: 64px;
