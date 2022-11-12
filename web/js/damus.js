@@ -547,6 +547,12 @@ function handle_comments_loaded(profiles_id, model, relay)
 {
 	const pubkeys = model.events.reduce((s, ev) => {
 		s.add(ev.pubkey)
+		for (const tag of ev.tags) {
+			if (tag.length >= 2 && tag[0] === "p") {
+				if (!model.profile_events[tag[1]])
+					s.add(tag[1])
+			}
+		}
 		return s
 	}, new Set())
 	const authors = Array.from(pubkeys)
