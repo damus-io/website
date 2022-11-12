@@ -703,6 +703,8 @@ function expand_thread(id) {
 	if (ev) {
 		for (const tag of yield_etags(ev.tags))
 			DAMUS.expanded.add(tag[1])
+	} else {
+		log_debug("expand_thread, id not found?", id)
 	}
 	DAMUS.expanded.add(id)
 	redraw_events(DAMUS)

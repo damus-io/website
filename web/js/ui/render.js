@@ -67,7 +67,8 @@ function render_replied_events(model, ev, opts)
 		return ""
 
 	opts.replies = opts.replies == null ? 1 : opts.replies + 1
-	if (!(opts.max_depth == null || opts.replies < opts.max_depth))
+	const expanded = model.expanded.has(reply_ev.id)
+	if (!expanded && !(opts.max_depth == null || opts.replies < opts.max_depth))
 		return render_thread_collapsed(model, reply_ev, opts)
 
 	opts.is_reply = true
@@ -119,7 +120,6 @@ function render_boost(model, ev, opts) {
 		return render_unknown_event(ev)
 	
 	//const profile = model.profiles[ev.pubkey]
-	opts.is_boost_event = true
 	opts.boosted = {
 		pubkey: ev.pubkey,
 		profile: model.profiles[ev.pubkey]
@@ -182,7 +182,6 @@ function render_event(model, ev, opts={}) {
 		return render_boost(model, ev, opts)
 	if (shouldnt_render_event(model, ev, opts))
 		return ""
-	delete opts.is_boost_event
 	model.rendered[ev.id] = true
 	const profile = model.profiles[ev.pubkey] || DEFAULT_PROFILE
 	const delta = time_delta(new Date().getTime(), ev.created_at*1000)
