@@ -25,10 +25,12 @@
 		flex-flow: row;
 		border-top: 1px solid var(--clrBorder);
 		border-right: none;
+		padding: 10px;
 	}
 	#nav > * {
 		flex: auto;
 		margin-bottom: 0;
+		font-size: 1.3em;
 	}
 
 	/* Event */
