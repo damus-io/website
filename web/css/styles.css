@@ -121,10 +121,10 @@ button.nav {
 
 /* Application Framework */
 #container {
+	margin: auto;
+	max-width: 750px;
 	display: flex;
 	flex-flow: row;
-	width: 100vw;
-	height: 100vh;
 	overflow: hidden;
 }
 #content {
