@@ -4,9 +4,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Damus</title>
-        <link rel="stylesheet" href="styles.css?v=109">
-        <link rel="stylesheet" href="damus.css?v=211">
-        <link rel="stylesheet" href="fontawesome.css?v=2">
+        <link rel="stylesheet" href="css/styles.css?v=109">
+        <link rel="stylesheet" href="css/damus.css?v=211">
+        <link rel="stylesheet" href="css/fontawesome.css?v=2">
     </head>
     <body>
 	    <div id="container">
@@ -31,8 +31,8 @@
 					</button></div>
 				-->
 				<div>
-					<button onclick="press_logout()" class="nav icon">
-						<i class="fa fa-fw fa-arrow-right-from-bracket"></i><span class="hide">Logout</span>
+					<button onclick="press_logout()" title="Sign Out" class="nav icon">
+						<i class="fa fa-fw fa-arrow-right-from-bracket"></i><span class="hide">Sign Out</span>
 					</button></div>
 			</div>
 			<div id="content">
@@ -63,10 +63,10 @@
 				</div>
 	    	</div>
 		</div>
-    	<script src="noble-secp256k1.js?v=1"></script>
-    	<script src="bech32.js?v=1"></script>
-    	<script src="nostr.js?v=6"></script>
-    	<script src="damus.js?v=65"></script>
+    	<script src="js/noble-secp256k1.js?v=1"></script>
+    	<script src="js/bech32.js?v=1"></script>
+    	<script src="js/nostr.js?v=6"></script>
+    	<script src="js/damus.js?v=65"></script>
     	<script>
 		// I have to delay loading to wait for nos2x
 		const relay = setTimeout(damus_web_init, 100)
