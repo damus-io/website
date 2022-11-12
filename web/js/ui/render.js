@@ -277,9 +277,9 @@ function render_action_bar(ev, can_delete) {
 	<div class="action-bar">
 		<button class="icon" title="Reply" onclick="reply_to('${ev.id}')"><i class="fa fa-fw fa-comment"></i></a>
 		<button class="icon react heart" ${react_onclick} title="Like"><i class="fa fa-fw fa-heart"></i></a>
-		<button class="icon" title="Share" onclick=""><i class="fa fa-fw fa-link"></i></a>
+		<!--<button class="icon" title="Share" onclick=""><i class="fa fa-fw fa-link"></i></a>-->
 		${delete_html}	
-		<button class="icon" title="View raw Nostr event." onclick=""><i class="fa-solid fa-fw fa-code"></i></a>
+		<!--<button class="icon" title="View raw Nostr event." onclick=""><i class="fa-solid fa-fw fa-code"></i></a>-->
 	</div>
 	`
 }

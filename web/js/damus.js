@@ -990,8 +990,6 @@ function reply_to(evid) {
 	replying_to.dataset.evid = evid
 	const ev = DSTATE.all_events[evid]
 	replying_to.innerHTML = render_event(DSTATE, ev, {is_composing: true, nobar: true, max_depth: 1})
-
-	modal.style.display = replying? "block" : "none";
 }
 
 const IMG_REGEX = /(png|jpeg|jpg|gif|webp)$/i
