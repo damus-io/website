@@ -95,6 +95,13 @@ button.nav {
 	text-align: center;
 	padding: calc(var(--navPadding) * 4);
 }
+
+#app-icon-logo > img {
+	border-radius: 50%;
+	width: 42px;
+	height: 42px;
+}
+
 #container {
 	display: flex;
 
