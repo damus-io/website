@@ -1312,7 +1312,11 @@ function linkify(text, show_media) {
 	return text.replace(URL_REGEX, function(url) {
 		const parsed = new URL(url)
 		if (show_media && is_img_url(parsed.pathname))
-			return `<img class="inline-img" src="${url}"/>`;
+			return `
+			<a target="_blank" href="${url}">
+				<img class="inline-img" src="${url}"/>
+			</a>
+			`;
 		else if (show_media && is_video_url(parsed.pathname))
 			return `
 			<video controls class="inline-img" />
