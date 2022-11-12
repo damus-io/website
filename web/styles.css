@@ -325,4 +325,9 @@ input[type="text"].cw {
 	:root {
 		--navPadding: 2px;
 	}
+
+	.userpic > img {
+		width: 44px;
+		height: 44px;
+	}
 }
