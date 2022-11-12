@@ -1,5 +1,5 @@
 
-let DSTATE
+let DAMUS
 
 function uuidv4() {
   return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
@@ -95,7 +95,7 @@ function notice_chatroom(state, id)
 async function damus_web_init()
 {
 	const model = init_home_model()
-	DSTATE = model
+	DAMUS = model
 	model.pubkey = await get_pubkey()
 	if (!model.pubkey)
 		return
@@ -609,7 +609,7 @@ async function send_post() {
 	const kind = 1
 	const tags = cw ? [["content-warning", cw]] : []
 	const pubkey = await get_pubkey()
-	const {pool} = DSTATE
+	const {pool} = DAMUS
 
 	let post = { pubkey, tags, content, created_at, kind }
 
@@ -738,7 +738,8 @@ function render_thread_collapsed(model, reply_ev, opts)
 {
 	if (opts.is_composing)
 		return ""
-	return `<div onclick="expand_thread('${reply_ev.id}')" class="thread-collapsed">
+	return `
+	<div onclick="expand_thread('${reply_ev.id}')" class="thread-collapsed">
 		<div class="thread-summary">
 		More messages in thread available. Click to expand.
 		</div>
@@ -754,13 +755,13 @@ function* yield_etags(tags)
 }
 
 function expand_thread(id) {
-	const ev = DSTATE.all_events[id]
+	const ev = DAMUS.all_events[id]
 	if (ev) {
 		for (const tag of yield_etags(ev.tags))
-			DSTATE.expanded.add(tag[1])
+			DAMUS.expanded.add(tag[1])
 	}
-	DSTATE.expanded.add(id)
-	redraw_events(DSTATE)
+	DAMUS.expanded.add(id)
+	redraw_events(DAMUS)
 }
 
 function render_replied_events(model, ev, opts)
@@ -1017,7 +1018,7 @@ function render_reaction_group(model, emoji, reactions, reacting_to) {
 
 async function delete_post(id, reason)
 {
-	const ev = DSTATE.all_events[id]
+	const ev = DAMUS.all_events[id]
 	if (!ev)
 		return
 
@@ -1134,10 +1135,10 @@ function get_tag_event(tag)
 		return null
 
 	if (tag[0] === "e")
-		return DSTATE.all_events[tag[1]]
+		return DAMUS.all_events[tag[1]]
 
 	if (tag[0] === "p")
-		return DSTATE.profile_events[tag[1]]
+		return DAMUS.profile_events[tag[1]]
 
 	return null
 }
@@ -1165,12 +1166,12 @@ async function broadcast_related_events(ev)
 }
 
 function broadcast_event(ev) {
-	DSTATE.pool.send(["EVENT", ev])
+	DAMUS.pool.send(["EVENT", ev])
 }
 
 async function send_reply(content, replying_to)
 {
-	const ev = DSTATE.all_events[replying_to]
+	const ev = DAMUS.all_events[replying_to]
 	if (!ev)
 		return
 
@@ -1203,14 +1204,14 @@ function bech32_decode(pubkey) {
 }
 
 function get_local_state(key) {
-	if (DSTATE[key] != null)
-		return DSTATE[key]
+	if (DAMUS[key] != null)
+		return DAMUS[key]
 
 	return localStorage.getItem(key)
 }
 
 function set_local_state(key, val) {
-	DSTATE[key] = val
+	DAMUS[key] = val
 	localStorage.setItem(key, val)
 }
 
@@ -1272,8 +1273,8 @@ function reply_to(evid) {
 	const replying_to = modal.querySelector("#replying-to")
 
 	replying_to.dataset.evid = evid
-	const ev = DSTATE.all_events[evid]
-	replying_to.innerHTML = render_event(DSTATE, ev, {is_composing: true, nobar: true, max_depth: 1})
+	const ev = DAMUS.all_events[evid]
+	replying_to.innerHTML = render_event(DAMUS, ev, {is_composing: true, nobar: true, max_depth: 1})
 }
 
 function render_action_bar(ev, can_delete) {
@@ -1281,10 +1282,10 @@ function render_action_bar(ev, can_delete) {
 	if (can_delete)
 		delete_html = `<button class="icon" title="Delete" onclick="delete_post_confirm('${ev.id}')"><i class="fa fa-fw fa-trash"></i></a>`
 
-	const groups = get_reactions(DSTATE, ev.id)
+	const groups = get_reactions(DAMUS, ev.id)
 	const like = "❤️"
 	const likes = groups[like] || {}
-	const react_onclick = render_react_onclick(DSTATE.pubkey, ev.id, like, likes)
+	const react_onclick = render_react_onclick(DAMUS.pubkey, ev.id, like, likes)
 	return `
 	<div class="action-bar">
 		<button class="icon" title="Reply" onclick="reply_to('${ev.id}')"><i class="fa fa-fw fa-comment"></i></a>
@@ -1359,14 +1360,14 @@ function toggle_content_warning(e)
 {
 	const el = e.target
 	const id = el.id.split("_")[1]
-	const ev = DSTATE.all_events[id]
+	const ev = DAMUS.all_events[id]
 
 	if (!ev) {
 		log_debug("could not find content-warning event", id)
 		return
 	}
 
-	DSTATE.cw_open[id] = el.open
+	DAMUS.cw_open[id] = el.open
 }
 
 function format_content(ev, show_media)
@@ -1388,7 +1389,7 @@ function format_content(ev, show_media)
 		} else {
 			cwHTML += `: "<span>${cw}</span>".`
 		}
-		const open = !!DSTATE.cw_open[ev.id]? "open" : ""
+		const open = !!DAMUS.cw_open[ev.id]? "open" : ""
 		return `
 		<details class="cw" id="cw_${ev.id}" ${open}>
 		  <summary>${cwHTML}</summary>
