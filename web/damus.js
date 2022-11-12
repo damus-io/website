@@ -106,6 +106,7 @@ async function damus_web_init()
 	const ids = {
 		comments: "comments",//uuidv4(),
 		profiles: "profiles",//uuidv4(),
+		refevents: "refevents",//uuidv4(),
 		account: "account",//uuidv4(),
 		home: "home",//uuidv4(),
 		contacts: "contacts",//uuidv4(),
@@ -486,6 +487,29 @@ function load_our_contacts(contacts, our_pubkey, ev) {
 	}
 }
 
+function get_referenced_events(model)
+{
+	let evset = new Set()
+	for (const ev of model.events) {
+		for (const tag of ev.tags) {
+			if (tag.count >= 2 && tag[0] === "e") {
+				const e = tag[1]
+				if (!model.all_events[e]) {
+					evset.add(e)
+				}
+			}
+		}
+	}
+	return Array.from(evset)
+}
+
+
+function fetch_referenced_events(refevents_id, model, relay) {
+
+	const ref = df
+	model.pool.subscribe(refevents_id, [filter], relay)
+}
+
 function handle_profiles_loaded(profiles_id, model, relay) {
 	// stop asking for profiles
 	model.pool.unsubscribe(profiles_id, relay)
@@ -527,11 +551,21 @@ function handle_comments_loaded(profiles_id, model, relay)
 	}, new Set())
 	const authors = Array.from(pubkeys)
 
+	const ref_evids = get_referenced_events(model)
+
 	// load profiles and noticed chatrooms
 	const chatroom_ids = get_unknown_chatroom_ids(model)
 	const profile_filter = {kinds: [0], authors: authors}
 	const chatroom_filter = {kinds: [40], ids: chatroom_ids}
-	const filters = [profile_filter, chatroom_filter]
+	const ref_evs_1 = {ids: ref_evids}
+	const ref_evs_2 = {"#e": ref_evids}
+	let filters = [profile_filter, chatroom_filter]
+
+	if (ref_evids.length > 0) {
+		log_debug("got %d new referenced events to pull after initial load", ref_evids.length)
+		filters.push(ref_evs_1)
+		filters.push(ref_evs_2)
+	}
 
 	//console.log("subscribe", profiles_id, filter, relay)
 	model.pool.subscribe(profiles_id, filters, relay)
@@ -1352,11 +1386,11 @@ function format_content(ev, show_media)
 
 	let cw = get_content_warning(ev.tags)
 	if (cw !== null) {
-		let cwHTML = "This content has been marked as sensitive"
+		let cwHTML = "Content Warning"
 		if (cw === "") {
 			cwHTML += "."
 		} else {
-			cwHTML += ` due to: "<span>${cw}</span>".`
+			cwHTML += `: "<span>${cw}</span>".`
 		}
 		const open = !!DSTATE.cw_open[ev.id]? "open" : ""
 		return `

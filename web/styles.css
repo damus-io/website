@@ -173,6 +173,11 @@ button.nav {
 .comment {
 	word-break: break-word;
 }
+
+.inline-img {
+	width: 100%;
+}
+
 .action-bar {
 }
 .action-bar > button {
