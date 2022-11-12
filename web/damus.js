@@ -551,20 +551,18 @@ function handle_comments_loaded(profiles_id, model, relay)
 	}, new Set())
 	const authors = Array.from(pubkeys)
 
-	const ref_evids = get_referenced_events(model)
-
 	// load profiles and noticed chatrooms
 	const chatroom_ids = get_unknown_chatroom_ids(model)
 	const profile_filter = {kinds: [0], authors: authors}
 	const chatroom_filter = {kinds: [40], ids: chatroom_ids}
-	const ref_evs_1 = {ids: ref_evids}
-	const ref_evs_2 = {"#e": ref_evids}
+
 	let filters = [profile_filter, chatroom_filter]
 
+	const ref_evids = get_referenced_events(model)
 	if (ref_evids.length > 0) {
 		log_debug("got %d new referenced events to pull after initial load", ref_evids.length)
-		filters.push(ref_evs_1)
-		filters.push(ref_evs_2)
+		filters.push({ids: ref_evids})
+		filters.push({"#e": ref_evids})
 	}
 
 	//console.log("subscribe", profiles_id, filter, relay)
@@ -1276,8 +1274,6 @@ function reply_to(evid) {
 	replying_to.dataset.evid = evid
 	const ev = DSTATE.all_events[evid]
 	replying_to.innerHTML = render_event(DSTATE, ev, {is_composing: true, nobar: true, max_depth: 1})
-
-	modal.style.display = replying? "block" : "none";
 }
 
 function render_action_bar(ev, can_delete) {
@@ -1293,11 +1289,11 @@ function render_action_bar(ev, can_delete) {
 	<div class="action-bar">
 		<button class="icon" title="Reply" onclick="reply_to('${ev.id}')"><i class="fa fa-fw fa-comment"></i></a>
 		<button class="icon react heart" ${react_onclick} title="Like"><i class="fa fa-fw fa-heart"></i></a>
-		<button class="icon" title="Share" onclick=""><i class="fa fa-fw fa-link"></i></a>
 		${delete_html}	
-		<button class="icon" title="View raw Nostr event." onclick=""><i class="fa-solid fa-fw fa-code"></i></a>
 	</div>
 	`
+	//<button class="icon" title="Share" onclick=""><i class="fa fa-fw fa-link"></i></a>
+	//<button class="icon" title="View raw Nostr event." onclick=""><i class="fa-solid fa-fw fa-code"></i></a>-->
 }
 
 const IMG_REGEX = /(png|jpeg|jpg|gif|webp)$/i
