@@ -127,9 +127,6 @@ button.nav {
 }
 
 /* Events & Content */
-#events > .event {
-	border-bottom: solid 1px var(--clrBorder);
-}
 .event {
 	display: flex;
 	flex-direction: row;
@@ -324,6 +321,10 @@ input[type="text"].cw {
 
 .clickable {
 	cursor: pointer;
+}
+
+.bottom-border {
+	border-bottom: solid 1px var(--clrBorder);
 }
 
 @media (max-width: 800px){

@@ -684,8 +684,8 @@ function determine_event_refs(tags) {
 	return {root, reply, pubkeys}
 }
 
-function render_reply_line_top(invisible) {
-	const classes = invisible ? "invisible" : ""
+function render_reply_line_top(has_top_line) {
+	const classes = has_top_line ? "" : "invisible"
 	return `<div class="line-top ${classes}"></div>`
 }
 
@@ -820,7 +820,10 @@ function render_boost(model, ev, opts) {
 }
 
 function shouldnt_render_event(model, ev, opts) {
-	return !opts.is_boost_event && !opts.is_composing && !model.expanded.has(ev.id) && model.rendered[ev.id]
+	return !opts.is_boost_event &&
+		!opts.is_composing &&
+		!model.expanded.has(ev.id) &&
+		model.rendered[ev.id]
 }
 
 function render_deleted_name() {
@@ -899,11 +902,13 @@ function render_event(model, ev, opts={}) {
 		name = render_name_plain(ev.pubkey, profile)
 	}
 
+	const has_top_line = replied_events !== ""
+	const border_bottom = has_bot_line ? "" : "bottom-border";
 	return `
 	${replied_events}
-	<div id="ev${ev.id}" class="event">
+	<div id="ev${ev.id}" class="event ${border_bottom}">
 		<div class="userpic">
-			${render_reply_line_top(replied_events === "")}
+			${render_reply_line_top(has_top_line)}
 			${deleted ? render_deleted_pfp() : render_pfp(ev.pubkey, profile)}
 			${reply_line_bot}
 		</div>	
