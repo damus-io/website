@@ -11,6 +11,10 @@
 		display: none;
 	}
 
+	#content header > label {
+	    padding: 12px;
+	}
+
 	/* Application Framework */
 	#container {
 		flex-flow: column-reverse;
