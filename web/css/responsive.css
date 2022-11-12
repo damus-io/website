@@ -11,27 +11,22 @@
 		display: none;
 	}
 
-	#content header > label {
-	    padding: 12px;
-	}
-
 	/* Application Framework */
 	#container {
 		flex-flow: column-reverse;
-		width: 100vw;
-		height: 100vh;
 	}
 	#content {
 		width: initial;
 		border-right: none;
 	}
+	#content header > label {
+	    padding: 12px;
+	}
 
 	/* Navigation */
 	#nav {
 		flex-flow: row;
-		border-top: 1px solid var(--clrBorder);
 		border-right: none;
-		padding: 10px;
 	}
 	#nav > * {
 		flex: auto;

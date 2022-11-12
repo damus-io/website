@@ -100,7 +100,7 @@ button.action {
 	display: flex;
 	flex-flow: column;
 	border-right: 1px solid var(--clrBorder);
-	padding: 15px;
+	padding: 16px;
 }
 #nav > * {
 	margin-bottom: 38px;
@@ -121,11 +121,19 @@ button.nav {
 
 /* Application Framework */
 #container {
-	margin: auto;
-	max-width: 750px;
 	display: flex;
 	flex-flow: row;
+	width: 100vw;
+	height: 100vh;
 	overflow: hidden;
+}
+#content {
+	flex: auto;
+	display: flex;
+	flex-direction: column;
+	border-right: 1px solid var(--clrBorder);
+	overflow: hidden;
+	width: 750px;
 }
 #content {
 	flex: auto;
@@ -186,6 +194,25 @@ button.nav {
 }
 .chatroom-name {
 	font-weight: bold;
+}
+
+.deleted-comment {
+	border: 2px dashed var(--clrBorder);
+	border-radius: 10px;
+	padding: 10px;
+}
+.line-bot {
+	width: 3px;
+	height: 100%;
+	margin-top: -7px;
+	background-color: var(--clrBorder);
+	margin-left: auto;
+	margin-right: auto;
+}
+.quote {
+  margin-left: 10px;
+  padding: 10px;
+  display: block;
 }
 
 #replying-to {
@@ -361,23 +388,3 @@ input[type="text"].cw {
 	font-size: var(--fsReduced);
 }
 
-.deleted-comment {
-	border: 2px dashed var(--clrBorder);
-	border-radius: 10px;
-	padding: 10px;
-}
-
-.line-bot {
-	width: 3px;
-	height: 100%;
-	margin-top: -7px;
-	background-color: var(--clrBorder);
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.quote {
-  margin-left: 10px;
-  padding: 10px;
-  display: block;
-}
