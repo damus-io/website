@@ -914,7 +914,9 @@ function render_deleted_comment_body(ev, deleted) {
 function press_logout() {
 	if (confirm("Are you sure you want to logout?")) {
 		localStorage.clear();
-		location.reload();
+		const url = new URL(location.href)
+		url.searchParams.delete("pk")
+		window.location.href = url.toString()
 	}
 }
 
