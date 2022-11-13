@@ -1126,7 +1126,7 @@ function format_content(ev, show_media)
 		const open = !!DAMUS.cw_open[ev.id]? "open" : ""
 		return `
 		<details class="cw" id="cw_${ev.id}" ${open}>
-		  <summary>${cwHTML}</summary>
+		  <summary class="event-message">${cwHTML}</summary>
 		  ${body}
 		</details>
 		`

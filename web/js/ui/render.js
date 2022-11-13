@@ -54,7 +54,7 @@ function render_thread_collapsed(model, reply_ev, opts)
 	if (opts.is_composing)
 		return ""
 	return `<div onclick="expand_thread('${reply_ev.id}')" class="thread-collapsed">
-		<div class="thread-summary">
+		<div class="thread-summary event-message">
 		More messages in thread available. Click to expand.
 		</div>
 	</div>`
@@ -163,15 +163,18 @@ function render_boosted_by(model, ev, opts) {
 
 function render_deleted_comment_body(ev, deleted) {
 	if (deleted.content) {
-		const show_media = false
 		return `
-		<div class="deleted-comment">
-			This comment was deleted. Reason:
-			<div class="quote">${format_content(deleted, show_media)}</div>
+		<div class="deleted-comment event-message">
+			This content was deleted with reason: 	
+			<div class="quote">${format_content(deleted, false)}</div>
 		</div>
 		`
 	}
-	return `<div class="deleted-comment">This comment was deleted</div>`
+	return `
+	<div class="deleted-comment event-message">
+		This content was deleted.
+	</div>
+	`
 }
 
 function render_event(model, ev, opts={}) {
@@ -192,7 +195,7 @@ function render_event(model, ev, opts={}) {
 
 	const replied_events = render_replied_events(model, ev, opts)
 
-	let name = "???"
+	let name = ""
 	if (!deleted) {
 		name = render_name_plain(ev.pubkey, profile)
 	}
@@ -220,11 +223,6 @@ function render_event(model, ev, opts={}) {
 		</div>
 	</div>
 	`
-}
-
-function render_pfp(pk, profile) {
-	const name = render_name_plain(pk, profile)
-	return `<img class="pfp" title="${name}" onerror="this.onerror=null;this.src='${robohash(pk)}';" src="${get_picture(pk, profile)}">`
 }
 
 function render_react_onclick(our_pubkey, reacting_to, emoji, reactions) {
@@ -329,11 +327,19 @@ function render_name(pk, profile) {
 }
 
 function render_deleted_name() {
-	return "???"
+	return ""
+}
+
+function render_pfp(pk, profile) {
+	const name = render_name_plain(pk, profile)
+	return `<img class="pfp" title="${name}" onerror="this.onerror=null;this.src='${robohash(pk)}';" src="${get_picture(pk, profile)}">`
 }
 
 function render_deleted_pfp() {
-	return `<div class="pfp pfp-normal">😵</div>`
+	return `
+	<div class="pfp deleted">
+		<i class="fa-solid fa-fw fa-ghost"></i>
+	</div>`
 }
 
 
