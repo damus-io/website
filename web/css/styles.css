@@ -267,7 +267,7 @@ button.nav {
 	font-size: var(--fsNormal);
 }
 .reactions {
-	padding-bottom: 15px;
+	margin-bottom: 15px;
 }
 
 .reaction-group {
