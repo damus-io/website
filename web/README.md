@@ -28,7 +28,7 @@ before making changes and supplying patch notes.
  - Keep source code organised. Refer to the folder structure. If you have a
    question, ask it.
  - Do not include your personal tools in the source code. Use your own scripts
- - outside of the project. This does not include build tools such as Make.
+   outside of the project. This does not include build tools such as Make.
  - Use tabs & write JS with snake_case. End of discussion.
  - Do not include binary files.
  - No NPM (and kin) environments. If you need a file from an external resource
