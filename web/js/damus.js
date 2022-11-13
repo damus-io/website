@@ -129,7 +129,6 @@ async function damus_web_init()
 
 		if (!model.done_init) {
 			model.loading = false
-
 			send_initial_filters(ids.account, model.pubkey, relay)
 		} else {
 			send_home_filters(ids, model, relay)
@@ -514,8 +513,13 @@ function handle_profiles_loaded(profiles_id, model, relay) {
 	// stop asking for profiles
 	model.pool.unsubscribe(profiles_id, relay)
 	model.realtime = true
-
 	redraw_events(model)
+	redraw_my_pfp(model)
+}
+
+function redraw_my_pfp(model) {
+	const html = render_pfp(model.pubkey, model.profiles[model.pubkey]);
+	document.querySelector(".my-userpic").innerHTML = html;
 }
 
 function debounce(f, interval) {
@@ -1029,24 +1033,28 @@ function is_video_url(path) {
 	return VID_REGEX.test(path)
 }
 
-const URL_REGEX = /(https?:\/\/[^\s]+)[,:)]?(\w|$)/g;
+const URL_REGEX = /(^|\s)(https?:\/\/[^\s]+)[,:)]?(\w|$)/g;
 function linkify(text, show_media) {
-	return text.replace(URL_REGEX, function(url) {
+	return text.replace(URL_REGEX, function(match, p1, p2, p3) {
+		const url = p2+p3 
 		const parsed = new URL(url)
-		if (show_media && is_img_url(parsed.pathname))
-			return `
+		let html;
+		if (show_media && is_img_url(parsed.pathname)) {
+			html = `
 			<a target="_blank" href="${url}">
 				<img class="inline-img" src="${url}"/>
 			</a>
 			`;
-		else if (show_media && is_video_url(parsed.pathname))
-			return `
+		} else if (show_media && is_video_url(parsed.pathname)) {
+			html = `
 			<video controls class="inline-img" />
 			  <source src="${url}">
 			</video>
 			`;
-		else
-			return `<a target="_blank" rel="noopener noreferrer" href="${url}">${url}</a>`;
+		} else {
+			html = `<a target="_blank" rel="noopener noreferrer" href="${url}">${url}</a>`;
+		}
+		return p1+html;
 	})
 }
 
@@ -1118,7 +1126,7 @@ function format_content(ev, show_media)
 		const open = !!DAMUS.cw_open[ev.id]? "open" : ""
 		return `
 		<details class="cw" id="cw_${ev.id}" ${open}>
-		  <summary>${cwHTML}</summary>
+		  <summary class="event-message">${cwHTML}</summary>
 		  ${body}
 		</details>
 		`

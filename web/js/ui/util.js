@@ -11,3 +11,8 @@ function toggle_cw(el) {
 	input.classList.toggle("hide", !isOn);
 }
 
+// toggle_gnav hides or shows the global navigation's additional buttons based
+// on its opened state.
+function toggle_gnav(el) {
+	el.parentElement.classList.toggle("open");
+}

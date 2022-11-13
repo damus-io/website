@@ -1,5 +1,9 @@
 @media (max-width: 800px){
 	:root {
+		/* TODO font size should not be controlled by CSS:
+		 * Instead I would prefer user settings. The main reason is the font is
+		 * too small on my desktop when I use the app in column mode.
+		 */
 		--fsSmall:    10px;
 		--fsNormal:   14px;
 		--fsReduced:  12px;
@@ -8,35 +12,19 @@
 
 	/* Utility */
 	.vertical-hide {
-		display: none;
-	}
-
-	#content header > label {
-	    padding: 12px;
+		display: none !important;
 	}
 
 	/* Application Framework */
-	#container {
-		flex-flow: column-reverse;
-		width: 100vw;
-		height: 100vh;
+	#gnav {
+		display: initial;
 	}
-	#content {
+	#view {
 		width: initial;
 		border-right: none;
 	}
-
-	/* Navigation */
-	#nav {
-		flex-flow: row;
-		border-top: 1px solid var(--clrBorder);
-		border-right: none;
-		padding: 10px;
-	}
-	#nav > * {
-		flex: auto;
-		margin-bottom: 0;
-		font-size: 1.3em;
+	#content header > label {
+	    padding: 12px;
 	}
 
 	/* Event */
@@ -44,10 +32,5 @@
 		width: 44px;
 		height: 44px;
 		font-size: 2.2em;
-	}
-
-	/* Post Tools */
-	#newpost > :first-child {
-		width: 0;
 	}
 }

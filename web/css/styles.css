@@ -30,6 +30,13 @@
 
 	/* Font Families */
 	--ffDefault: "Noto Sans", sans-serif;
+
+	/* Z Layers */
+	--zDefault: 0;
+	--zPFP:     1;
+	--zHeader:  2;
+	--zGlobal:  3;
+	--zModal:   4;
 }
 *:focus-visible {
 	/* Technically this is bad and something else should be done to indicate
@@ -44,8 +51,6 @@ body {
 	font-size: var(--fsNormal);
 	margin: 0;
 	padding: 0;
-	width: 100%;
-	height: 100%;
 }
 
 /* Utilities */
@@ -94,15 +99,29 @@ button.action {
 .bottom-border { /* TODO rename to bdr-bottom */
 	border-bottom: solid 1px var(--clrBorder);
 }
+.sticky {
+	position: sticky;
+	top: 0;
+}
+.event-message {
+	background: #f2f2f2;
+	padding: 10px;
+	border-radius: 12px;
+	color: #444;
+}
 
 /* Navigation */
 #nav {
+	border-right: 1px solid var(--clrBorder);
+	padding: 16px;
+}
+#nav > div {
+	position: sticky;
+	top: 16px;
 	display: flex;
 	flex-flow: column;
-	border-right: 1px solid var(--clrBorder);
-	padding: 15px;
 }
-#nav > * {
+#nav > div > * {
 	margin-bottom: 38px;
 }
 #app-icon-logo {
@@ -118,33 +137,57 @@ button.nav {
 	color: var(--clrBtn);
 	font-size: 24px;
 }
+#gnav {
+	display: none;
+	position: fixed;
+	bottom: 55px;
+	right: 55px;
+	z-index: var(--zGlobal);
+}
+#gnav button {
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 24px;
+	border-radius: 50%;
+	background: var(--clrText);
+	color: var(--clrBg);	
+	padding: 5px;
+	border: transparent 5px solid;
+	transition: top 0.05s linear;
+	transform: translateX(-50%) translateY(-50%);
+	z-index: calc(var(--zGlobal) - 1);
+}
+#gnav button[role="open-gnav"] {
+	z-index: var(--zGlobal);
+	padding: 15px;
+}
+#gnav.open button[role="sign-out"] {
+	top: -75px;
+}
 
 /* Application Framework */
 #container {
-	margin: auto;
-	max-width: 750px;
 	display: flex;
 	flex-flow: row;
-	overflow: hidden;
 }
-#content {
+#view {
 	flex: auto;
-	display: flex;
-	flex-direction: column;
 	border-right: 1px solid var(--clrBorder);
-	overflow: hidden;
 	width: 750px;
+	min-height: 100vh;
 }
-#content header > label {
-	padding: 22px 15px;
+#view header {
+	position: sticky;
+	top: 0;
+	z-index: var(--zHeader);
+	background: var(--clrBg);
+}
+#view header > label {
+	padding: 15px;
 	font-size: 22px;
 	font-weight: 800;
 	display: block;
-}
-#view {
-	height: 100%;
-	overflow-y: scroll;
-	flex: 1;
 }
 
 /* Events & Content */
@@ -161,16 +204,28 @@ button.nav {
 	text-align: center;
 	padding: 15px;
 }
-.userpic {
+.userpic { /* TODO remove .userpic and use helper class */
 	flex-shrink: 1;
 }
-
 .pfp {
-	border-radius: 50%;
 	width: 64px;
 	height: 64px;
-	object-fit: fill;
+	position: relative;
+	border-radius: 50%;
+	z-index: var(--zPFP);
 	font-size: 3.25em;
+	object-fit: fill;
+}
+.pfp.deleted {
+	background: var(--clrText);
+	font-size: 32px;
+	color: var(--clrBg);
+}
+.pfp.deleted > i {
+	top: 40%;
+	left: 50%;
+	position: relative;
+	transform: translateX(-50%) translateY(-50%);
 }
 
 .event-content {
@@ -186,6 +241,22 @@ button.nav {
 }
 .chatroom-name {
 	font-weight: bold;
+}
+.deleted-comment {
+	margin-top: 10px;
+}
+.line-bot {
+	width: 3px;
+	height: 100%;
+	position: relative;
+	top: -7px;
+	left: calc(50% - 1px);
+	background-color: var(--clrBorder);
+}
+.quote {
+  margin-left: 10px;
+  padding: 10px;
+  display: block;
 }
 
 #replying-to {
@@ -220,7 +291,7 @@ button.nav {
 	font-size: var(--fsNormal);
 }
 .reactions {
-	padding-bottom: 15px;
+	margin-bottom: 15px;
 }
 
 .reaction-group {
@@ -258,31 +329,20 @@ button.nav {
 	color: var(--clrHeart);
 }
 details.cw summary {
-	background: #f2f2f2;
-	padding: 10px;
-	border-radius: 12px;
-	color: #444;
 	cursor: pointer;
-	margin-bottom: 10px;
 	outline: none;
+	margin-bottom: 10px;
 }
 
 /* Thread Expansion */
 .thread-collapsed {
 	padding: 15px; 
 }
-.thread-summary {
-	background: #f2f2f2;
-	padding: 10px;
-	border-radius: 12px;
-	color: #444;
-	cursor: pointer;
-}
 
 /* Modal */
 .modal {
 	position: fixed;
-	z-index: 1; 
+	z-index: var(--zModal); 
 	left: 0;
 	top: 0;
 	width: 100%; 
@@ -361,23 +421,3 @@ input[type="text"].cw {
 	font-size: var(--fsReduced);
 }
 
-.deleted-comment {
-	border: 2px dashed var(--clrBorder);
-	border-radius: 10px;
-	padding: 10px;
-}
-
-.line-bot {
-	width: 3px;
-	height: 100%;
-	margin-top: -7px;
-	background-color: var(--clrBorder);
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.quote {
-  margin-left: 10px;
-  padding: 10px;
-  display: block;
-}

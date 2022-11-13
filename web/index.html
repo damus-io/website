@@ -6,7 +6,6 @@
 		<title>Damus</title>
 		<link rel="stylesheet" href="css/styles.css?v=116">
 		<link rel="stylesheet" href="css/responsive.css?v=7">
-		<link rel="stylesheet" href="css/damus.css?v=211">
 		<link rel="stylesheet" href="css/fontawesome.css?v=2">
 		<script defer src="js/ui/util.js?v=1"></script>
 		<script defer src="js/ui/render.js?v=1"></script>
@@ -21,27 +20,36 @@
 		// This is our main entry.
 		// https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event
 		addEventListener('DOMContentLoaded', (ev) => {
+			// TODO fix race condition where profile doesn't load fast enough.
 			damus_web_init();
 		});
 		</script>
+		<nav id="gnav">
+			<button class="icon" role="open-gnav" title="Open Menu" onclick="toggle_gnav(this)">
+				<i class="fa fa-fw fa-hand-peace"></i>
+			</button>
+			<button class="icon" role="sign-out" title="Sign Out" onclick="press_logout()">
+				<i class="fa fa-fw fa-arrow-right-from-bracket"></i>
+			</button>
+		</nav>
 		<div id="container">
-			<div id="nav" class="flex-noshrink">
-				<div id="app-icon-logo" class="vertical-hide">
-					<i class="fa-regular fa-fw fa-hand-peace"></i>
+			<div class="flex-fill vertical-hide"></div>
+			<div id="nav" class="flex-noshrink vertical-hide">
+				<div>
+					<div id="app-icon-logo">
+						<!--<img src="https://damus.io/img/damus.svg">-->
+						<i class="fa-regular fa-fw fa-hand-peace"></i>
+					</div>
+					<button class="nav icon" title="Home">
+						<i class="fa fa-fw fa-home"></i><span class="hide">Home</span>
+					</button>
+					<button onclick="press_logout()" title="Sign Out" class="nav icon">
+						<i class="fa fa-fw fa-arrow-right-from-bracket"></i><span class="hide">Sign Out</span>
+					</button>
 				</div>
-				<button class="nav icon">
-					<i class="fa fa-fw fa-home"></i><span class="hide">Home</span>
-				</button>
-				<button onclick="press_logout()" title="Sign Out" class="nav icon">
-					<i class="fa fa-fw fa-arrow-right-from-bracket"></i><span class="hide">Sign Out</span>
-				</button>
 			</div>
-			<div id="content">
-				<header class="flex-noshrink">
-					<label>Home</label>
-				</header>
-				<div id="view"></div>
-			</div>
+			<div id="view"></div>
+			<div class="flex-fill vertical-hide"></div>
 		</div>
 		<div class="modal closed" id="reply-modal">
 			<div id="reply-modal-content" class="modal-content">
