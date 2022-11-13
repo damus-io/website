@@ -1033,24 +1033,28 @@ function is_video_url(path) {
 	return VID_REGEX.test(path)
 }
 
-const URL_REGEX = /(https?:\/\/[^\s]+)[,:)]?(\w|$)/g;
+const URL_REGEX = /(^|\s)(https?:\/\/[^\s]+)[,:)]?(\w|$)/g;
 function linkify(text, show_media) {
-	return text.replace(URL_REGEX, function(url) {
+	return text.replace(URL_REGEX, function(match, p1, p2, p3) {
+		const url = p2 
 		const parsed = new URL(url)
-		if (show_media && is_img_url(parsed.pathname))
-			return `
+		let html;
+		if (show_media && is_img_url(parsed.pathname)) {
+			html = `
 			<a target="_blank" href="${url}">
 				<img class="inline-img" src="${url}"/>
 			</a>
 			`;
-		else if (show_media && is_video_url(parsed.pathname))
-			return `
+		} else if (show_media && is_video_url(parsed.pathname)) {
+			html = `
 			<video controls class="inline-img" />
 			  <source src="${url}">
 			</video>
 			`;
-		else
-			return `<a target="_blank" rel="noopener noreferrer" href="${url}">${url}</a>`;
+		} else {
+			html = `<a target="_blank" rel="noopener noreferrer" href="${url}">${url}</a>`;
+		}
+		return p1+html;
 	})
 }
 
