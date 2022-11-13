@@ -33,6 +33,8 @@ TODO Write about the style guide.
 
 ## Terminology
 
- * Sign Out - Not "log out", "logout", "log off", etc.
- * Sign In  - Not "login", "log in", "signin", "sign-in", etc.
+ * Sign Out  - Not "log out", "logout", "log off", etc.
+ * Sign In   - Not "login", "log in", "signin", "sign-in", etc.
+ * Share     - Not "boosted", "retweeted", etc.
+ * Send      - Not "tweet", "toot", "post", etc.
 
