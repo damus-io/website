@@ -124,6 +124,34 @@ button.nav {
 	color: var(--clrBtn);
 	font-size: 24px;
 }
+#gnav {
+	display: none;
+	position: fixed;
+	bottom: 55px;
+	right: 55px;
+	z-index: 3;
+}
+#gnav button {
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 24px;
+	border-radius: 50%;
+	background: var(--clrText);
+	color: var(--clrBg);	
+	padding: 5px;
+	border: transparent 5px solid;
+	transition: top 0.05s linear;
+	transform: translateX(-50%) translateY(-50%);
+	z-index: 2;
+}
+#gnav button[role="open-gnav"] {
+	z-index: 3;
+	padding: 15px;
+}
+#gnav.open button[role="sign-out"] {
+	top: -75px;
+}
 
 /* Application Framework */
 #container {
@@ -134,6 +162,7 @@ button.nav {
 	flex: auto;
 	border-right: 1px solid var(--clrBorder);
 	width: 750px;
+	min-height: 100vh;
 }
 #view header {
 	position: sticky;
@@ -141,7 +170,7 @@ button.nav {
 	background: var(--clrBg);
 }
 #view header > label {
-	padding: 22px 15px;
+	padding: 15px;
 	font-size: 22px;
 	font-weight: 800;
 	display: block;

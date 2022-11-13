@@ -16,6 +16,9 @@
 	}
 
 	/* Application Framework */
+	#gnav {
+		display: initial;
+	}
 	#view {
 		width: initial;
 		border-right: none;
