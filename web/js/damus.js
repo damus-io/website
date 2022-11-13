@@ -1036,7 +1036,7 @@ function is_video_url(path) {
 const URL_REGEX = /(^|\s)(https?:\/\/[^\s]+)[,:)]?(\w|$)/g;
 function linkify(text, show_media) {
 	return text.replace(URL_REGEX, function(match, p1, p2, p3) {
-		const url = p2 
+		const url = p2+p3 
 		const parsed = new URL(url)
 		let html;
 		if (show_media && is_img_url(parsed.pathname)) {
