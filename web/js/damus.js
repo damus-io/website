@@ -129,7 +129,6 @@ async function damus_web_init()
 
 		if (!model.done_init) {
 			model.loading = false
-
 			send_initial_filters(ids.account, model.pubkey, relay)
 		} else {
 			send_home_filters(ids, model, relay)
@@ -514,8 +513,13 @@ function handle_profiles_loaded(profiles_id, model, relay) {
 	// stop asking for profiles
 	model.pool.unsubscribe(profiles_id, relay)
 	model.realtime = true
-
 	redraw_events(model)
+	redraw_my_pfp(model)
+}
+
+function redraw_my_pfp(model) {
+	const html = render_pfp(model.pubkey, model.profiles[model.pubkey]);
+	document.querySelector(".my-userpic").innerHTML = html;
 }
 
 function debounce(f, interval) {

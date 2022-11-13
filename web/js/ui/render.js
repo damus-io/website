@@ -8,7 +8,7 @@ function render_home_view(model) {
 		<label>Home</label>
 	</header>
 	<div id="newpost">
-		<div><!-- empty to accomodate profile pic --></div>
+		<div class="my-userpic vertical-hide"><!-- To be loaded. --></div>
 		<div>
 			<textarea placeholder="What's up?" oninput="post_input_changed(this)" class="post-input" id="post-input"></textarea>
 			<div class="post-tools">
@@ -128,12 +128,6 @@ function render_boost(model, ev, opts) {
 		profile: model.profiles[ev.pubkey]
 	}
 	return render_event(model, ev.json_content, opts)
-	//return `
-	//<div class="boost">
-	//<div class="boost-text">Reposted by ${render_name_plain(ev.pubkey, profile)}</div>
-	//${render_event(model, ev.json_content, opts)}
-	//</div>
-	//`
 }
 
 function render_comment_body(model, ev, opts) {
@@ -228,7 +222,7 @@ function render_event(model, ev, opts={}) {
 	`
 }
 
-function render_pfp(pk, profile, size="normal") {
+function render_pfp(pk, profile) {
 	const name = render_name_plain(pk, profile)
 	return `<img class="pfp" title="${name}" onerror="this.onerror=null;this.src='${robohash(pk)}';" src="${get_picture(pk, profile)}">`
 }
@@ -263,7 +257,7 @@ function render_reaction(model, reaction) {
 	if (reaction.content === "+" || reaction.content === "")
 		emoji = "❤️"
 
-	return render_pfp(reaction.pubkey, profile, "small")
+	return render_pfp(reaction.pubkey, profile)
 }
 
 function render_action_bar(ev, can_delete) {
