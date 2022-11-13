@@ -34,8 +34,9 @@
 	/* Z Layers */
 	--zDefault: 0;
 	--zPFP:     1;
+	--zHeader:  2;
 	--zGlobal:  3;
-	--zModal:   5;
+	--zModal:   4;
 }
 *:focus-visible {
 	/* Technically this is bad and something else should be done to indicate
@@ -179,6 +180,7 @@ button.nav {
 #view header {
 	position: sticky;
 	top: 0;
+	z-index: var(--zHeader);
 	background: var(--clrBg);
 }
 #view header > label {
