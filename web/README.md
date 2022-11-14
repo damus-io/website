@@ -54,3 +54,9 @@ TODO Write about the style guide.
  * Send      - Not "tweet", "toot", "post", etc.
  * Link      - Not "share".
 
+## Known Issues 
+
+ * You cannot send events when running from an IP address that is not secure. 
+   Work arounds are not known at this time.
+
+
