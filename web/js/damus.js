@@ -491,7 +491,7 @@ function get_referenced_events(model)
 	let evset = new Set()
 	for (const ev of model.events) {
 		for (const tag of ev.tags) {
-			if (tag.count >= 2 && tag[0] === "e") {
+			if (tag.length >= 2 && tag[0] === "e") {
 				const e = tag[1]
 				if (!model.all_events[e]) {
 					evset.add(e)
