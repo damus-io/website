@@ -328,6 +328,7 @@ button.nav {
 .action-bar button.heart:hover {
 	color: var(--clrHeart);
 }
+
 details.cw summary {
 	cursor: pointer;
 	outline: none;

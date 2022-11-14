@@ -54,7 +54,7 @@ function render_thread_collapsed(model, reply_ev, opts)
 	if (opts.is_composing)
 		return ""
 	return `<div onclick="expand_thread('${reply_ev.id}')" class="thread-collapsed">
-		<div class="thread-summary event-message">
+		<div class="thread-summary clickable event-message">
 		More messages in thread available. Click to expand.
 		</div>
 	</div>`
