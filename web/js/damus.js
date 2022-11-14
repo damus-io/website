@@ -39,19 +39,31 @@ function init_contacts() {
 	}
 }
 
+function init_timeline(name) {
+	return {
+		name,
+		events: [],
+		rendered: new Set(),
+		expanded: new Set(),
+	}
+}
+
 function init_home_model() {
 	return {
 		done_init: false,
-		loading: true,
 		notifications: 0,
-		rendered: {},
 		all_events: {},
-		expanded: new Set(),
 		reactions_to: {},
-		events: [],
 		chatrooms: {},
 		deletions: {},
 		cw_open: {},
+		views: {
+			home: init_timeline('home'),
+			explore: {
+				...init_timeline('explore'),
+				seen: new Set(),
+			}
+		},
 		deleted: {},
 		profiles: {},
 		profile_events: {},
@@ -106,6 +118,7 @@ async function damus_web_init()
 	const ids = {
 		comments: "comments",//uuidv4(),
 		profiles: "profiles",//uuidv4(),
+		explore: "explore",//uuidv4(),
 		refevents: "refevents",//uuidv4(),
 		account: "account",//uuidv4(),
 		home: "home",//uuidv4(),
@@ -116,7 +129,8 @@ async function damus_web_init()
 
 	model.pool = pool
 	model.view_el = document.querySelector("#view")
-	redraw_home_view(model)
+
+	switch_view('home')
 
 	document.addEventListener('visibilitychange', () => {
 		update_title(model)
@@ -128,7 +142,6 @@ async function damus_web_init()
 		log_debug("relay connected", relay.url)
 
 		if (!model.done_init) {
-			model.loading = false
 			send_initial_filters(ids.account, model.pubkey, relay)
 		} else {
 			send_home_filters(ids, model, relay)
@@ -142,9 +155,11 @@ async function damus_web_init()
 
 	pool.on('eose', async (relay, sub_id) => {
 		if (sub_id === ids.home) {
-			handle_comments_loaded(ids.profiles, model, relay)
+			const events = model.views.home.events
+			handle_comments_loaded(ids, model, events, relay)
 		} else if (sub_id === ids.profiles) {
-			handle_profiles_loaded(ids.profiles, model, relay)
+			const view = get_current_view()
+			handle_profiles_loaded(ids, model, view, relay)
 		}
 	})
 
@@ -262,6 +277,8 @@ function process_event(model, ev)
 		process_deletion_event(model, ev)
 	else if (ev.kind === 0)
 		process_profile_event(model, ev)
+	else if (ev.kind === 3)
+		process_contact_event(model, ev)
 
 	const last_notified = get_local_state('last_notified_date')
 	if (notified && (last_notified == null || ((ev.created_at*1000) > last_notified))) {
@@ -287,36 +304,70 @@ function was_pubkey_notified(pubkey, ev)
 	return false
 }
 
-function should_add_to_home(ev)
+function should_add_to_timeline(ev)
 {
 	return ev.kind === 1 || ev.kind === 42 || ev.kind === 6
 }
 
-let rerender_home_timer
+function should_add_to_explore_timeline(view, ev)
+{
+	if (!should_add_to_timeline(ev))
+		return false
+
+	if (view.seen.has(ev.pubkey))
+		return false
+	
+	return true
+}
+
+function get_current_view()
+{
+	return DAMUS.views[DAMUS.current_view]
+}
+
+function handle_redraw_logic(model, view_name)
+{
+	if (get_current_view().name === view_name) {
+		const view = model.views[view_name]
+		if (view.redraw_timer)
+			clearTimeout(view.redraw_timer)
+		view.redraw_timer = setTimeout(redraw_events.bind(null, model, view), 500)
+	}
+}
+
 function handle_home_event(ids, model, relay, sub_id, ev) {
 	// ignore duplicates
-	if (model.all_events[ev.id])
-		return
+	if (!model.all_events[ev.id]) {
+		model.all_events[ev.id] = ev
+		process_event(model, ev)
+	}
 
-	model.all_events[ev.id] = ev
-	process_event(model, ev)
+	ev = model.all_events[ev.id]
 
+	let is_new = false
 	switch (sub_id) {
-	case ids.home:
-		if (should_add_to_home(ev))
-			insert_event_sorted(model.events, ev)
+	case ids.explore:
+		const view = model.views.explore
 
-		if (model.realtime) {
-			if (rerender_home_timer)
-				clearTimeout(rerender_home_timer)
-			rerender_home_timer = setTimeout(redraw_events.bind(null, model), 500)
+		if (should_add_to_explore_timeline(view, ev)) {
+			view.seen.add(ev.pubkey)
+			is_new = insert_event_sorted(view.events, ev)
 		}
+
+		if (is_new)
+			handle_redraw_logic(model, 'explore')
+		break;
+
+	case ids.home:
+		if (should_add_to_timeline(ev))
+			is_new = insert_event_sorted(model.views.home.events, ev)
+
+		if (is_new)
+			handle_redraw_logic(model, 'home')
 		break;
 	case ids.account:
 		switch (ev.kind) {
 		case 3:
-			model.loading = false
-			process_contact_event(model, ev)
 			model.done_init = true
 			model.pool.unsubscribe(ids.account, [relay])
 			break
@@ -349,11 +400,15 @@ function send_home_filters(ids, model, relay) {
 	const friends = contacts_friend_list(model.contacts)
 	friends.push(model.pubkey)
 
+
 	const contacts_filter = {kinds: [0], authors: friends}
 	const dms_filter = {kinds: [4], limit: 500}
 	const our_dms_filter = {kinds: [4], authors: [ model.pubkey ], limit: 500}
-	const home_filter = {kinds: [1,42,5,6,7], authors: friends, limit: 500}
-	const notifications_filter = {kinds: [1,42,6,7], "#p": [model.pubkey], limit: 100}
+
+	const standard_kinds = [1,42,5,6,7]
+
+	const home_filter = {kinds: standard_kinds, authors: friends, limit: 500}
+	const notifications_filter = {kinds: standard_kinds, "#p": [model.pubkey], limit: 100}
 
 	let home_filters = [home_filter]
 	let notifications_filters = [notifications_filter]
@@ -422,6 +477,23 @@ function contacts_friend_list(contacts) {
 	return Array.from(contacts.friends)
 }
 
+function contacts_friendosphere(contacts) {
+	let s = new Set()
+	let fs = []
+
+	for (const friend of contacts.friends.keys()) {
+		fs.push(friend)
+		s.add(friend)
+	}
+
+	for (const friend of contacts.friend_of_friends.keys()) {
+		if (!s.has(friend))
+			fs.push(friend)
+	}
+
+	return fs
+}
+
 function process_contact_event(model, ev) {
 	load_our_contacts(model.contacts, model.pubkey, ev)
 	load_our_relays(model.pubkey, model.pool, ev)
@@ -429,9 +501,8 @@ function process_contact_event(model, ev) {
 }
 
 function add_contact_if_friend(contacts, ev) {
-	if (!contact_is_friend(contacts, ev.pubkey)) {
+	if (!contact_is_friend(contacts, ev.pubkey))
 		return
-	}
 
 	add_friend_contact(contacts, ev)
 }
@@ -441,13 +512,50 @@ function contact_is_friend(contacts, pk) {
 }
 
 function add_friend_contact(contacts, contact) {
-	contacts.friends[contact.pubkey] = true
+	contacts.friends.add(contact.pubkey)
 
-        for (const tag of contact.tags) {
-            if (tag.count >= 2 && tag[0] == "p") {
-                contacts.friend_of_friends.add(tag[1])
-            }
-        }
+	for (const tag of contact.tags) {
+		if (tag.length >= 2 && tag[0] == "p") {
+			if (!contact_is_friend(contacts, tag[1]))
+				contacts.friend_of_friends.add(tag[1])
+		}
+	}
+}
+
+function get_view_el(name)
+{
+	return DAMUS.view_el.querySelector(`#${name}-view`)
+}
+
+function switch_view(name, opts={})
+{
+	if (name === DAMUS.current_view) {
+		log_debug("Not switching to '%s', we are already there", name)
+		return
+	}
+
+	const last = get_current_view()
+	if (!last) {
+		// render initial
+		DAMUS.current_view = name
+		redraw_timeline_events(DAMUS, name)
+		return
+	}
+
+	log_debug("switching to '%s' by hiding '%s'", name, DAMUS.current_view)
+
+	DAMUS.current_view = name
+	const current = get_current_view()
+	const last_el = get_view_el(last.name)
+	const current_el = get_view_el(current.name)
+
+	if (last_el)
+		last_el.style.display = "none";
+
+	redraw_timeline_events(DAMUS, name)
+
+	if (current_el)
+		current_el.style.display = "block";
 }
 
 function load_our_relays(our_pubkey, pool, ev) {
@@ -486,10 +594,10 @@ function load_our_contacts(contacts, our_pubkey, ev) {
 	}
 }
 
-function get_referenced_events(model)
+function get_referenced_events(model, events)
 {
 	let evset = new Set()
-	for (const ev of model.events) {
+	for (const ev of events) {
 		for (const tag of ev.tags) {
 			if (tag.length >= 2 && tag[0] === "e") {
 				const e = tag[1]
@@ -509,12 +617,18 @@ function fetch_referenced_events(refevents_id, model, relay) {
 	model.pool.subscribe(refevents_id, [filter], relay)
 }
 
-function handle_profiles_loaded(profiles_id, model, relay) {
+function handle_profiles_loaded(ids, model, view, relay) {
 	// stop asking for profiles
-	model.pool.unsubscribe(profiles_id, relay)
-	model.realtime = true
-	redraw_events(model)
+	model.pool.unsubscribe(ids.profiles, relay)
+	redraw_events(model, view)
 	redraw_my_pfp(model)
+
+	const fofs = Array.from(model.contacts.friend_of_friends)
+	let explore_filters = [
+		{kinds: [1,42], authors: fofs, limit: 200},
+		{kinds: [1,42], ids: ["0000"], limit: 200}
+	]
+	model.pool.subscribe(ids.explore, explore_filters, relay)
 }
 
 function redraw_my_pfp(model) {
@@ -547,9 +661,9 @@ function get_unknown_chatroom_ids(state)
 }
 
 // load profiles after comment notes are loaded
-function handle_comments_loaded(profiles_id, model, relay)
+function handle_comments_loaded(ids, model, events, relay)
 {
-	const pubkeys = model.events.reduce((s, ev) => {
+	const pubkeys = events.reduce((s, ev) => {
 		s.add(ev.pubkey)
 		for (const tag of ev.tags) {
 			if (tag.length >= 2 && tag[0] === "p") {
@@ -563,49 +677,46 @@ function handle_comments_loaded(profiles_id, model, relay)
 
 	// load profiles and noticed chatrooms
 	const chatroom_ids = get_unknown_chatroom_ids(model)
-	const profile_filter = {kinds: [0], authors: authors}
+	const profile_filter = {kinds: [0,3], authors: authors}
 	const chatroom_filter = {kinds: [40], ids: chatroom_ids}
 
 	let filters = [profile_filter, chatroom_filter]
 
-	const ref_evids = get_referenced_events(model)
+	const ref_evids = get_referenced_events(model, events)
 	if (ref_evids.length > 0) {
-		log_debug("got %d new referenced events to pull after initial load", ref_evids.length)
+		log_debug("got %d new referenced events to pull from %s after initial load", ref_evids.length, relay.url)
 		filters.push({ids: ref_evids})
 		filters.push({"#e": ref_evids})
 	}
 
 	//console.log("subscribe", profiles_id, filter, relay)
-	model.pool.subscribe(profiles_id, filters, relay)
+	model.pool.subscribe(ids.profiles, filters, relay)
 }
 
-function redraw_events(model) {
-	//log_debug("rendering home view")
-	model.rendered = {}
-	model.events_el.innerHTML = render_events(model)
-	setup_home_event_handlers(model.events_el)
+function redraw_events(damus, view) {
+	//log_debug("redrawing events for", view)
+	view.rendered = new Set()
+
+	const events_el = damus.view_el.querySelector(`#${view.name}-view > .events`)
+	events_el.innerHTML = render_events(damus, view)
+
+	setup_timeline_event_handlers(events_el)
 }
 
-function setup_home_event_handlers(events_el)
+function setup_timeline_event_handlers(events_el)
 {
 	for (const el of events_el.querySelectorAll(".cw"))
 		el.addEventListener("toggle", toggle_content_warning.bind(null))
 }
 
-function redraw_home_view(model) {
-	model.view_el.innerHTML = render_home_view(model)
-	model.events_el = document.querySelector("#events")
-	if (model.events.length > 0) {
-		redraw_events(model)
+function redraw_timeline_events(damus, name) {
+	const view = DAMUS.views[name]
+	const events_el = damus.view_el.querySelector(`#${name}-view > .events`)
+
+	if (view.events.length > 0) {
+		redraw_events(damus, view)
 	} else {
-		model.events_el.innerHTML= `
-		<div class="loading-events">
-			<span class="loader" title="Loading...">
-				<i class="fa-solid fa-fw fa-spin fa-hurricane"
-				style="--fa-animation-duration: 0.5s;"></i>
-			</span>
-		</div>
-		`
+		events_el.innerHTML = render_loading_spinner()
 	}
 }
 
@@ -710,14 +821,15 @@ function* yield_etags(tags)
 
 function expand_thread(id) {
 	const ev = DAMUS.all_events[id]
+	const view = get_current_view()
 	if (ev) {
 		for (const tag of yield_etags(ev.tags))
-			DAMUS.expanded.add(tag[1])
+			view.expanded.add(tag[1])
 	} else {
 		log_debug("expand_thread, id not found?", id)
 	}
-	DAMUS.expanded.add(id)
-	redraw_events(DAMUS)
+	view.expanded.add(id)
+	redraw_events(DAMUS, view)
 }
 
 function delete_post_confirm(evid) {
@@ -732,11 +844,11 @@ function delete_post_confirm(evid) {
 	delete_post(evid, reason)
 }
 
-function shouldnt_render_event(model, ev, opts) {
+function shouldnt_render_event(view, ev, opts) {
 	return !opts.is_boost_event &&
 		!opts.is_composing &&
-		!model.expanded.has(ev.id) &&
-		model.rendered[ev.id]
+		!view.expanded.has(ev.id) &&
+		view.rendered.has(ev.id)
 }
 
 function press_logout() {

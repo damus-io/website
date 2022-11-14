@@ -2,42 +2,19 @@
 // is done by simple string manipulations & templates. If you need to write
 // loops simply write it in code and return strings.
 
-function render_home_view(model) {
-	return `
-	<header>
-		<label>Home</label>
-	</header>
-	<div id="newpost">
-		<div class="my-userpic vertical-hide"><!-- To be loaded. --></div>
-		<div>
-			<textarea placeholder="What's up?" oninput="post_input_changed(this)" class="post-input" id="post-input"></textarea>
-			<div class="post-tools">
-				<input id="content-warning-input" class="cw hide" type="text" placeholder="Reason"/>
-				<button title="Mark this message as sensitive." onclick="toggle_cw(this)" class="cw icon">
-					<i class="fa-solid fa-triangle-exclamation"></i>
-				</button>
-				<button onclick="send_post(this)" class="action" id="post-button" disabled>Send</button>
-			</div>
-		</div>
-	</div>
-	<div id="events"></div>
-	`
-}
-
-function render_home_event(model, ev)
+function render_timeline_event(damus, view, ev)
 {
 	let max_depth = 3
-	if (ev.refs && ev.refs.root && model.expanded.has(ev.refs.root)) {
+	if (ev.refs && ev.refs.root && view.expanded.has(ev.refs.root))
 		max_depth = null
-	}
 
-	return render_event(model, ev, {max_depth})
+	return render_event(damus, view, ev, {max_depth})
 }
 
-function render_events(model) {
-	return model.events
+function render_events(damus, view) {
+	return view.events
 		.filter((ev, i) => i < 140)
-		.map((ev) => render_home_event(model, ev)).join("\n")
+		.map((ev) => render_timeline_event(damus, view, ev)).join("\n")
 }
 
 function render_reply_line_top(has_top_line) {
@@ -60,29 +37,29 @@ function render_thread_collapsed(model, reply_ev, opts)
 	</div>`
 }
 
-function render_replied_events(model, ev, opts)
+function render_replied_events(damus, view, ev, opts)
 {
 	if (!(ev.refs && ev.refs.reply))
 		return ""
 
-	const reply_ev = model.all_events[ev.refs.reply]
+	const reply_ev = damus.all_events[ev.refs.reply]
 	if (!reply_ev)
 		return ""
 
 	opts.replies = opts.replies == null ? 1 : opts.replies + 1
-	const expanded = model.expanded.has(reply_ev.id)
+	const expanded = view.expanded.has(reply_ev.id)
 	if (!expanded && !(opts.max_depth == null || opts.replies < opts.max_depth))
-		return render_thread_collapsed(model, reply_ev, opts)
+		return render_thread_collapsed(damus, reply_ev, opts)
 
 	opts.is_reply = true
-	return render_event(model, reply_ev, opts)
+	return render_event(damus, view, reply_ev, opts)
 }
 
-function render_replying_to_chat(model, ev) {
-	const chatroom = (ev.refs.root && model.chatrooms[ev.refs.root]) || {}
+function render_replying_to_chat(damus, ev) {
+	const chatroom = (ev.refs.root && damus.chatrooms[ev.refs.root]) || {}
 	const roomname = chatroom.name || ev.refs.root || "??"
 	const pks = ev.refs.pubkeys || []
-	const names = pks.map(pk => render_mentioned_name(pk, model.profiles[pk])).join(", ")
+	const names = pks.map(pk => render_mentioned_name(pk, damus.profiles[pk])).join(", ")
 	const to_users = pks.length === 0 ? "" : ` to ${names}`
 
 	return `<div class="replying-to">replying${to_users} in <span class="chatroom-name">${roomname}</span></div>`
@@ -117,7 +94,7 @@ function render_unknown_event(model, ev) {
 	return "Unknown event"
 }
 
-function render_boost(model, ev, opts) {
+function render_boost(damus, view, ev, opts) {
 	//todo validate content
 	if (!ev.json_content)
 		return render_unknown_event(ev)
@@ -125,30 +102,30 @@ function render_boost(model, ev, opts) {
 	//const profile = model.profiles[ev.pubkey]
 	opts.boosted = {
 		pubkey: ev.pubkey,
-		profile: model.profiles[ev.pubkey]
+		profile: damus.profiles[ev.pubkey]
 	}
-	return render_event(model, ev.json_content, opts)
+	return render_event(damus, view, ev.json_content, opts)
 }
 
-function render_comment_body(model, ev, opts) {
-	const can_delete = model.pubkey === ev.pubkey;
-	const bar = !can_reply(ev) || opts.nobar? "" : render_action_bar(ev, can_delete)
+function render_comment_body(damus, ev, opts) {
+	const can_delete = damus.pubkey === ev.pubkey;
+	const bar = !can_reply(ev) || opts.nobar? "" : render_action_bar(damus, ev, can_delete)
 	const show_media = !opts.is_composing
 
 	return `
 	<div>
-	${render_replying_to(model, ev)}
-	${render_boosted_by(model, ev, opts)}
+	${render_replying_to(damus, ev)}
+	${render_boosted_by(ev, opts)}
 	</div>
 	<p>
 	${format_content(ev, show_media)}
 	</p>
-	${render_reactions(model, ev)}
+	${render_reactions(damus, ev)}
 	${bar}
 	`
 }
 
-function render_boosted_by(model, ev, opts) {
+function render_boosted_by(ev, opts) {
 	const b = opts.boosted
 	if (!b) {
 		return ""
@@ -177,23 +154,25 @@ function render_deleted_comment_body(ev, deleted) {
 	`
 }
 
-function render_event(model, ev, opts={}) {
+function render_event(damus, view, ev, opts={}) {
 	if (ev.kind === 6)
-		return render_boost(model, ev, opts)
-	if (shouldnt_render_event(model, ev, opts))
+		return render_boost(damus, view, ev, opts)
+	if (shouldnt_render_event(view, ev, opts))
 		return ""
-	model.rendered[ev.id] = true
-	const profile = model.profiles[ev.pubkey] || DEFAULT_PROFILE
+
+	view.rendered.add(ev.id)
+
+	const profile = damus.profiles[ev.pubkey] || DEFAULT_PROFILE
 	const delta = time_delta(new Date().getTime(), ev.created_at*1000)
 
 	const has_bot_line = opts.is_reply
 	const reply_line_bot = (has_bot_line && render_reply_line_bot()) || ""
 
-	const deleted = is_deleted(model, ev.id)
+	const deleted = is_deleted(damus, ev.id)
 	if (deleted && !opts.is_reply)
 		return ""
 
-	const replied_events = render_replied_events(model, ev, opts)
+	const replied_events = render_replied_events(damus, view, ev, opts)
 
 	let name = ""
 	if (!deleted) {
@@ -218,7 +197,7 @@ function render_event(model, ev, opts={}) {
 				<span class="timestamp">${delta}</span>
 			</div>
 			<div class="comment">
-				${deleted ? render_deleted_comment_body(ev, deleted) : render_comment_body(model, ev, opts)}
+				${deleted ? render_deleted_comment_body(ev, deleted) : render_comment_body(damus, ev, opts)}
 			</div>
 		</div>
 	</div>
@@ -258,15 +237,15 @@ function render_reaction(model, reaction) {
 	return render_pfp(reaction.pubkey, profile)
 }
 
-function render_action_bar(ev, can_delete) {
+function render_action_bar(damus, ev, can_delete) {
 	let delete_html = ""
 	if (can_delete)
 		delete_html = `<button class="icon" title="Delete" onclick="delete_post_confirm('${ev.id}')"><i class="fa fa-fw fa-trash"></i></a>`
 
-	const groups = get_reactions(DAMUS, ev.id)
+	const groups = get_reactions(damus, ev.id)
 	const like = "❤️"
 	const likes = groups[like] || {}
-	const react_onclick = render_react_onclick(DAMUS.pubkey, ev.id, like, likes)
+	const react_onclick = render_react_onclick(damus.pubkey, ev.id, like, likes)
 	return `
 	<div class="action-bar">
 		<button class="icon" title="Reply" onclick="reply_to('${ev.id}')"><i class="fa fa-fw fa-comment"></i></a>
@@ -342,4 +321,14 @@ function render_deleted_pfp() {
 	</div>`
 }
 
-
+function render_loading_spinner()
+{
+	return `
+	<div class="loading-events">
+		<span class="loader" title="Loading...">
+			<i class="fa-solid fa-fw fa-spin fa-hurricane"
+			style="--fa-animation-duration: 0.5s;"></i>
+		</span>
+	</div>
+	`
+}
