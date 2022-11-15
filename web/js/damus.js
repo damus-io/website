@@ -153,11 +153,17 @@ async function damus_web_init()
 		handle_home_event(ids, model, relay, sub_id, ev)
 	})
 
+	pool.on('notice', (relay, notice) => {
+		log_debug("NOTICE", relay, notice)
+	})
+
 	pool.on('eose', async (relay, sub_id) => {
 		if (sub_id === ids.home) {
+			log_debug("got home EOSE from %s", relay.url)
 			const events = model.views.home.events
 			handle_comments_loaded(ids, model, events, relay)
 		} else if (sub_id === ids.profiles) {
+			log_debug("got profiles EOSE from %s", relay.url)
 			const view = get_current_view()
 			handle_profiles_loaded(ids, model, view, relay)
 		}
@@ -370,6 +376,7 @@ function handle_home_event(ids, model, relay, sub_id, ev) {
 		case 3:
 			model.done_init[relay] = true
 			model.pool.unsubscribe(ids.account, relay)
+			send_home_filters(ids, model, relay)
 			break
 		}
 	case ids.profiles:
@@ -402,8 +409,8 @@ function send_home_filters(ids, model, relay) {
 
 
 	const contacts_filter = {kinds: [0], authors: friends}
-	const dms_filter = {kinds: [4], limit: 500}
-	const our_dms_filter = {kinds: [4], authors: [ model.pubkey ], limit: 500}
+	const dms_filter = {kinds: [4], limit: 100}
+	const our_dms_filter = {kinds: [4], authors: [ model.pubkey ], limit: 100}
 
 	const standard_kinds = [1,42,5,6,7]
 
@@ -625,9 +632,13 @@ function handle_profiles_loaded(ids, model, view, relay) {
 
 	const fofs = Array.from(model.contacts.friend_of_friends)
 	let explore_filters = [
-		{kinds: [1,42], authors: fofs, limit: 200},
-		{kinds: [1,42], ids: ["0000"], limit: 200}
+		{kinds: [1,42], ids: ["00000"], limit: 200}
 	]
+
+	if (fofs.length > 0) {
+		explore_filters.push({kinds: [1,42], authors: fofs, limit: 200})
+	}
+
 	model.pool.subscribe(ids.explore, explore_filters, relay)
 }
 
@@ -680,7 +691,13 @@ function handle_comments_loaded(ids, model, events, relay)
 	const profile_filter = {kinds: [0,3], authors: authors}
 	const chatroom_filter = {kinds: [40], ids: chatroom_ids}
 
-	let filters = [profile_filter, chatroom_filter]
+	let filters = []
+
+	if (authors.length > 0)
+		filters.push(profile_filter)
+
+	if (chatroom_ids.length > 0)
+		filters.push(chatroom_filter)
 
 	const ref_evids = get_referenced_events(model, events)
 	if (ref_evids.length > 0) {
@@ -689,7 +706,13 @@ function handle_comments_loaded(ids, model, events, relay)
 		filters.push({"#e": ref_evids})
 	}
 
+	if (filters.length === 0) {
+		log_debug("No profiles filters to request...")
+		return
+	}
+
 	//console.log("subscribe", profiles_id, filter, relay)
+	log_debug("subscribing to profiles on %s", relay.url)
 	model.pool.subscribe(ids.profiles, filters, relay)
 }
 
