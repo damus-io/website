@@ -34,6 +34,10 @@
 			<button class="icon" role="explore" title="Explore" onclick="switch_view('explore')">
 				<img class="icon svg invert" src="icon/explore.svg"/>
 			</button>
+			<button class="icon" role="notifications" title="Notifications" onclick="switch_view('notifications')">
+				<img class="icon svg invert" src="icon/notifications.svg"/>
+				<div class="new-notifications hide"></div>
+			</button>
 			<button class="icon" role="sign-out" title="Sign Out" onclick="press_logout()">
 				<img class="icon svg invert" src="icon/sign-out.svg"/>
 			</button>
@@ -50,6 +54,10 @@
 					</button>
 					<button id="explore-button" class="nav icon" title="Explore" onclick="switch_view('explore')">
 						<img class="icon svg" src="icon/explore.svg"/>
+					</button>
+					<button role="notifications" class="nav icon" title="Notifications" onclick="switch_view('notifications')">
+						<img class="icon svg" src="icon/notifications.svg"/>
+						<div class="new-notifications hide"></div>
 					</button>
 					<button title="Sign Out" class="nav icon" onclick="press_logout()">
 						<img class="icon svg" src="icon/sign-out.svg"/>
@@ -76,9 +84,15 @@
 					</div>
 					<div class="events"></div>
 				</div>
-				<div style="display:none" id="explore-view">
+				<div id="explore-view" class="hide">
 					<header>
 						<label>Explore</label>
+					</header>
+					<div class="events"></div>
+				</div>
+				<div id="notifications-view" class="hide">
+					<header>
+						<label>Notifications</label>
 					</header>
 					<div class="events"></div>
 				</div>

@@ -63,7 +63,8 @@ function init_home_model() {
 				...init_timeline('explore'),
 				seen: new Set(),
 				pow: 25, // pow difficulty target
-			}
+			},
+			notifications: init_timeline('notifications'),
 		},
 		deleted: {},
 		profiles: {},
@@ -87,15 +88,28 @@ function update_favicon(path)
 	link.href = path;
 }
 
+// update_title updates the document title & visual indicators based on if the
+// number of notifications that are unseen by the user.
 function update_title(model) {
-	if (document.visibilityState === 'visible')
+	// TODO rename update_title to update_notification_state or similar
+	// TODO only clear notifications once they have seen all targeted events 
+	if (document.visibilityState === 'visible') {
 		model.notifications = 0
-	if (model.notifications === 0) {
-		document.title = "Damus"
-		update_favicon("img/damus.svg")
-	} else {
-		document.title = `(${model.notifications}) Damus`
-		update_favicon("img/damus_notif.svg")
+	}
+
+	const num = model.notifications
+	const has_notes = num !== 0
+	document.title = has_notes ? `(${num}) Damus` : "Damus";
+	update_favicon(has_notes ? "img/damus_notif.svg" : "img/damus.svg");
+	update_notification_markers(has_notes)
+}
+
+// update_notification_markers will find all markers and hide or show them
+// based on the passed in state of 'active'.
+function update_notification_markers(active) {
+	let els = document.querySelectorAll(".new-notifications")
+	for (const el of els) {
+		el.classList.toggle("hide", !active)
 	}
 }
 
@@ -334,6 +348,11 @@ function should_add_to_explore_timeline(contacts, view, ev)
 
 function get_current_view()
 {
+	// TODO resolve memory & html descriptencies
+	// Currently there is tracking of which divs are visible in HTML/CSS and
+	// which is active in memory, simply resolve this by finding the visible
+	// element instead of tracking it in memory (or remove dom elements). This
+	// would simplify state tracking IMO - Thomas
 	return DAMUS.views[DAMUS.current_view]
 }
 
@@ -563,12 +582,14 @@ function switch_view(name, opts={})
 	const current_el = get_view_el(current.name)
 
 	if (last_el)
-		last_el.style.display = "none";
+		last_el.classList.add("hide");
 
+	// TODO accomodate views that do not render events
+	// TODO find out if having multiple event divs is slow
 	redraw_timeline_events(DAMUS, name)
 
 	if (current_el)
-		current_el.style.display = "block";
+		current_el.classList.remove("hide");
 }
 
 function load_our_relays(our_pubkey, pool, ev) {
@@ -796,6 +817,11 @@ function redraw_events(damus, view) {
 
 function setup_timeline_event_handlers(events_el)
 {
+	// TODO use ontoggle instead for cw?
+	// TODO check if CW state needs to be stored in memory
+	// Is there a way we can just use the HTML/CSS state instead does it matter
+	// if we have them closed by default. I think this is only a problem
+	// because we draw the entire timeline.
 	for (const el of events_el.querySelectorAll(".cw"))
 		el.addEventListener("toggle", toggle_content_warning.bind(null))
 }

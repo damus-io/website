@@ -136,6 +136,7 @@ img.invert {
 #nav > div > * {
 	margin-bottom: 20px;
 	padding: 10px;
+	position: relative;
 }
 #app-icon-logo > img {
 	width: 36px;
@@ -174,14 +175,32 @@ button.nav > img.icon {
 	z-index: var(--zGlobal);
 	padding: 15px;
 }
+#gnav.open button[role="home"] {
+	top: -300px;
+}
+#gnav.open button[role="explore"] {
+	top: -225px;
+}
+#gnav.open button[role="notifications"] {
+	top: -150px;
+}
+#gnav.open button[role="notifications"] .new-notifications {
+	right: 9px;
+}
 #gnav.open button[role="sign-out"] {
 	top: -75px;
 }
-#gnav.open button[role="explore"] {
-	top: -150px;
-}
-#gnav.open button[role="home"] {
-	top: -225px;
+
+.new-notifications {
+	position: absolute;
+	top: 10px;
+	right: 13px;
+	border-radius: 13px;
+	background: #20ff00;
+	color: white;
+	font-weight: 800;
+	width: 5px;
+	height: 5px;
 }
 
 /* Application Framework */
