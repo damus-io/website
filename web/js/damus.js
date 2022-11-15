@@ -62,6 +62,7 @@ function init_home_model() {
 			explore: {
 				...init_timeline('explore'),
 				seen: new Set(),
+				pow: 25, // pow difficulty target
 			}
 		},
 		deleted: {},
@@ -271,6 +272,8 @@ function process_event(model, ev)
 	const notified = was_pubkey_notified(model.pubkey, ev)
 	ev.notified = notified
 
+	ev.pow = calculate_pow(ev)
+
 	if (ev.kind === 7)
 		process_reaction_event(model, ev)
 	else if (ev.kind === 42 && ev.refs && ev.refs.root)
@@ -315,15 +318,18 @@ function should_add_to_timeline(ev)
 	return ev.kind === 1 || ev.kind === 42 || ev.kind === 6
 }
 
-function should_add_to_explore_timeline(view, ev)
+function should_add_to_explore_timeline(contacts, view, ev)
 {
 	if (!should_add_to_timeline(ev))
 		return false
 
 	if (view.seen.has(ev.pubkey))
 		return false
-	
-	return true
+
+	if (contacts.friend_of_friends.has(ev.pubkey))
+		return true
+
+	return ev.pow >= view.pow
 }
 
 function get_current_view()
@@ -354,7 +360,7 @@ function handle_home_event(ids, model, relay, sub_id, ev) {
 	case ids.explore:
 		const view = model.views.explore
 
-		if (should_add_to_explore_timeline(view, ev)) {
+		if (should_add_to_explore_timeline(model.contacts, view, ev)) {
 			view.seen.add(ev.pubkey)
 			insert_event_sorted(view.events, ev)
 		}
@@ -621,15 +627,77 @@ function fetch_referenced_events(refevents_id, model, relay) {
 	model.pool.subscribe(refevents_id, [filter], relay)
 }
 
+function zero_bits(b)
+{
+        let n = 0;
+
+        if (b == 0)
+                return 8;
+
+        while (b >>= 1)
+                n++;
+
+        return 7-n;
+}
+
+function leading_zero_bits(id)
+{
+	const buf = nostrjs.hex_decode(id)
+
+	let i
+	for (i = 0, total = 0; i < 32; i++) {
+		bits = zero_bits(buf[i])
+		total += bits
+		if (bits != 8)
+			break
+	}
+
+	return total
+}
+
+function min(a, b) { 
+	return a < b ? a : b;
+} 
+
+function difficulty_to_prefix(d)
+{
+	const n = Math.floor(d / 4)
+	let s = ""
+	for (i = 0; i < n; i++) {
+		s += "0"
+	}
+	return s
+}
+
+function calculate_pow(ev)
+{
+	const id_bits = leading_zero_bits(ev.id)
+	for (const tag of ev.tags) {
+		if (tag.length >= 3 && tag[0] === "nonce") {
+			const target = +tag[2]
+			if (isNaN(target))
+				return 0
+
+			// if our nonce target is smaller than the difficulty,
+			// then we use the nonce target as the actual difficulty
+			return min(target, id_bits)
+		}
+	}
+
+	// not a valid pow if we don't have a difficulty target
+	return 0
+}
+
 function handle_profiles_loaded(ids, model, view, relay) {
 	// stop asking for profiles
 	model.pool.unsubscribe(ids.profiles, relay)
 	redraw_events(model, view)
 	redraw_my_pfp(model)
 
+	const prefix = difficulty_to_prefix(view.pow)
 	const fofs = Array.from(model.contacts.friend_of_friends)
 	let explore_filters = [
-		{kinds: [1,42], ids: ["00000"], limit: 200}
+		{kinds: [1,42], ids: [prefix], limit: 200}
 	]
 
 	if (fofs.length > 0) {
