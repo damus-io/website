@@ -50,7 +50,7 @@ function init_timeline(name) {
 
 function init_home_model() {
 	return {
-		done_init: false,
+		done_init: {},
 		notifications: 0,
 		all_events: {},
 		reactions_to: {},
@@ -141,7 +141,7 @@ async function damus_web_init()
 		// TODO: fetch contact list
 		log_debug("relay connected", relay.url)
 
-		if (!model.done_init) {
+		if (!model.done_init[relay]) {
 			send_initial_filters(ids.account, model.pubkey, relay)
 		} else {
 			send_home_filters(ids, model, relay)
@@ -368,8 +368,8 @@ function handle_home_event(ids, model, relay, sub_id, ev) {
 	case ids.account:
 		switch (ev.kind) {
 		case 3:
-			model.done_init = true
-			model.pool.unsubscribe(ids.account, [relay])
+			model.done_init[relay] = true
+			model.pool.unsubscribe(ids.account, relay)
 			break
 		}
 	case ids.profiles:
