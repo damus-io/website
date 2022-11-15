@@ -350,26 +350,23 @@ function handle_home_event(ids, model, relay, sub_id, ev) {
 
 	ev = model.all_events[ev.id]
 
-	let is_new = false
 	switch (sub_id) {
 	case ids.explore:
 		const view = model.views.explore
 
 		if (should_add_to_explore_timeline(view, ev)) {
 			view.seen.add(ev.pubkey)
-			is_new = insert_event_sorted(view.events, ev)
+			insert_event_sorted(view.events, ev)
 		}
 
-		if (is_new)
-			handle_redraw_logic(model, 'explore')
+		handle_redraw_logic(model, 'explore')
 		break;
 
 	case ids.home:
 		if (should_add_to_timeline(ev))
-			is_new = insert_event_sorted(model.views.home.events, ev)
+			insert_event_sorted(model.views.home.events, ev)
 
-		if (is_new)
-			handle_redraw_logic(model, 'home')
+		handle_redraw_logic(model, 'home')
 		break;
 	case ids.account:
 		switch (ev.kind) {
