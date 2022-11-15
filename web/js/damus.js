@@ -62,10 +62,10 @@ function init_home_model() {
 			explore: {
 				...init_timeline('explore'),
 				seen: new Set(),
-				pow: 25, // pow difficulty target
 			},
 			notifications: init_timeline('notifications'),
 		},
+		pow: 0, // pow difficulty target
 		deleted: {},
 		profiles: {},
 		profile_events: {},
@@ -332,7 +332,7 @@ function should_add_to_timeline(ev)
 	return ev.kind === 1 || ev.kind === 42 || ev.kind === 6
 }
 
-function should_add_to_notification_timeline(our_pk, contacts, ev)
+function should_add_to_notification_timeline(our_pk, contacts, ev, pow)
 {
 	if (!should_add_to_timeline(ev))
 		return false
@@ -346,10 +346,10 @@ function should_add_to_notification_timeline(our_pk, contacts, ev)
 	// TODO: add items that don't pass spam filter to "message requests"
 	// Then we will need a way to whitelist people as an alternative to
 	// following them
-	return passes_spam_filter(contacts, ev)
+	return passes_spam_filter(contacts, ev, pow)
 }
 
-function should_add_to_explore_timeline(contacts, view, ev)
+function should_add_to_explore_timeline(contacts, view, ev, pow)
 {
 	if (!should_add_to_timeline(ev))
 		return false
@@ -357,7 +357,7 @@ function should_add_to_explore_timeline(contacts, view, ev)
 	if (view.seen.has(ev.pubkey))
 		return false
 
-	return passes_spam_filter(contacts, ev)
+	return passes_spam_filter(contacts, ev, pow)
 }
 
 function get_current_view()
@@ -394,7 +394,8 @@ function handle_home_event(ids, model, relay, sub_id, ev) {
 	case ids.explore:
 		const view = model.views.explore
 
-		if (should_add_to_explore_timeline(model.contacts, view, ev)) {
+		// show more things in explore timeline
+		if (should_add_to_explore_timeline(model.contacts, view, ev, model.pow)) {
 			view.seen.add(ev.pubkey)
 			is_new = insert_event_sorted(view.events, ev)
 		}
@@ -404,7 +405,7 @@ function handle_home_event(ids, model, relay, sub_id, ev) {
 		break;
 
 	case ids.notifications:
-		if (should_add_to_notification_timeline(model.pubkey, model.contacts, ev))
+		if (should_add_to_notification_timeline(model.pubkey, model.contacts, ev, model.pow))
 			is_new = insert_event_sorted(model.views.notifications.events, ev)
 
 		if (is_new)
@@ -742,14 +743,17 @@ function handle_profiles_loaded(ids, model, view, relay) {
 	redraw_events(model, view)
 	redraw_my_pfp(model)
 
-	const prefix = difficulty_to_prefix(view.pow)
+	const prefix = difficulty_to_prefix(model.pow)
 	const fofs = Array.from(model.contacts.friend_of_friends)
-	let explore_filters = [
-		{kinds: [1,42], ids: [prefix], limit: 200}
-	]
+	const standard_kinds = [1,42,5,6,7]
+	let pow_filter = {kinds: standard_kinds, limit: 200}
+	if (model.pow > 0)
+		pow_filter.ids = [ prefix ]
+
+	let explore_filters = [ pow_filter ]
 
 	if (fofs.length > 0) {
-		explore_filters.push({kinds: [1,42], authors: fofs, limit: 200})
+		explore_filters.push({kinds: standard_kinds, authors: fofs, limit: 200})
 	}
 
 	model.pool.subscribe(ids.explore, explore_filters, relay)
@@ -1449,11 +1453,11 @@ function time_delta(current, previous) {
     }
 }
 
-function passes_spam_filter(contacts, ev)
+function passes_spam_filter(contacts, ev, pow)
 {
 	if (contacts.friend_of_friends.has(ev.pubkey))
 		return true
 
-	return ev.pow >= view.pow
+	return ev.pow >= pow
 }
 
