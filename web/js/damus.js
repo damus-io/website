@@ -1283,6 +1283,8 @@ function robohash(pk) {
 }
 
 function get_picture(pk, profile) {
+	if (!profile)
+		return robohash(pk)
 	if (profile.resolved_picture)
 		return profile.resolved_picture
 	profile.resolved_picture = sanitize(profile.picture) || robohash(pk)

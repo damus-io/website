@@ -162,7 +162,7 @@ function render_event(damus, view, ev, opts={}) {
 
 	view.rendered.add(ev.id)
 
-	const profile = damus.profiles[ev.pubkey] || DEFAULT_PROFILE
+	const profile = damus.profiles[ev.pubkey]
 	const delta = time_delta(new Date().getTime(), ev.created_at*1000)
 
 	const has_bot_line = opts.is_reply
@@ -229,7 +229,7 @@ function render_reaction_group(model, emoji, reactions, reacting_to) {
 }
 
 function render_reaction(model, reaction) {
-	const profile = model.profiles[reaction.pubkey] || DEFAULT_PROFILE
+	const profile = model.profiles[reaction.pubkey]
 	let emoji = reaction.content[0]
 	if (reaction.content === "+" || reaction.content === "")
 		emoji = "❤️"
