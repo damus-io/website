@@ -250,7 +250,7 @@ button.nav > img.icon {
 	position: relative;
 	border-radius: 50%;
 	z-index: var(--zPFP);
-	object-fit: fill;
+	object-fit: cover;
 }
 .pfp.deleted {
 	font-size: 32px;
