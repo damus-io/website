@@ -7,12 +7,12 @@
 		<link rel="stylesheet" href="css/styles.css?v=120">
 		<link rel="stylesheet" href="css/responsive.css?v=10">
 		<link rel="stylesheet" href="css/fontawesome.css?v=2">
-		<script defer src="js/ui/util.js?v=5"></script>
+		<script defer src="js/ui/util.js?v=6"></script>
 		<script defer src="js/ui/render.js?v=11"></script>
 		<script defer src="js/noble-secp256k1.js?v=1"></script>
 		<script defer src="js/bech32.js?v=1"></script>
 		<script defer src="js/nostr.js?v=6"></script>
-		<script defer src="js/damus.js?v=84"></script>
+		<script defer src="js/damus.js?v=86"></script>
 	</head>
 	<body>
 		<script>
@@ -22,6 +22,7 @@
 		addEventListener('DOMContentLoaded', (ev) => {
 			// TODO fix race condition where profile doesn't load fast enough.
 			damus_web_init();
+			init_message_textareas();
 		});
 		</script>
 		<nav id="gnav" class="">
@@ -70,7 +71,9 @@
 						<label>Home</label>
 					</header>
 					<div id="newpost">
-						<div class="my-userpic vertical-hide"><!-- To be loaded. --></div>
+						<div class="my-userpic vertical-hide">
+							<!-- To be loaded dynamically. -->
+						</div>
 						<div>
 							<textarea placeholder="What's up?" oninput="post_input_changed(this)" class="post-input" id="post-input"></textarea>
 							<div class="post-tools">
@@ -78,7 +81,7 @@
 								<button title="Mark this message as sensitive." onclick="toggle_cw(this)" class="cw icon">
 									<i class="fa-solid fa-triangle-exclamation"></i>
 								</button>
-								<button onclick="send_post(this)" class="action" id="post-button" disabled>Send</button>
+								<button onclick="send_post(this)" class="action" role="send" id="post-button" disabled>Send</button>
 							</div>
 						</div>
 					</div>
@@ -109,7 +112,7 @@
 				</header>
 				<div id="replying-to"></div>
 				<div id="replybox">
-					<textarea id="reply-content" class="post-input" 
+					<textarea id="reply-content" class="post-input" oninput="post_input_changed(this)"
 						placeholder="Write your reply here..."></textarea>
 					<div class="post-tools">
 						<button id="reply-button" class="action" onclick="do_send_reply()">

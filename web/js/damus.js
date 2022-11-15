@@ -908,11 +908,6 @@ async function sign_event(ev) {
 	return ev
 }
 
-function post_input_changed(el)
-{
-	document.querySelector("#post-button").disabled = el.value === ""
-}
-
 function determine_event_refs_positionally(pubkeys, ids)
 {
 	if (ids.length === 1)
