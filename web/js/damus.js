@@ -1130,7 +1130,8 @@ function reply_to(evid) {
 	replying_to.dataset.evid = evid
 
 	const ev = DAMUS.all_events[evid]
-	replying_to.innerHTML = render_event(DAMUS, ev, {is_composing: true, nobar: true, max_depth: 1})
+	const view = get_current_view()
+	replying_to.innerHTML = render_event(DAMUS, view, ev, {is_composing: true, nobar: true, max_depth: 1})
 
 	replybox.focus()
 }
