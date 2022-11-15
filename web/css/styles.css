@@ -172,7 +172,7 @@ button.nav {
 	flex-flow: row;
 }
 #view {
-	flex: auto;
+	flex-shrink: 0;
 	border-right: 1px solid var(--clrBorder);
 	width: 750px;
 	min-height: 100vh;
