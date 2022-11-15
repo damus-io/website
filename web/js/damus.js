@@ -332,6 +332,23 @@ function should_add_to_timeline(ev)
 	return ev.kind === 1 || ev.kind === 42 || ev.kind === 6
 }
 
+function should_add_to_notification_timeline(our_pk, contacts, ev)
+{
+	if (!should_add_to_timeline(ev))
+		return false
+
+	if (our_pk === ev.pubkey)
+		return false
+
+	if (our_pk !== ev.pubkey && contacts.friends.has(ev.pubkey))
+		return true
+
+	// TODO: add items that don't pass spam filter to "message requests"
+	// Then we will need a way to whitelist people as an alternative to
+	// following them
+	return passes_spam_filter(contacts, ev)
+}
+
 function should_add_to_explore_timeline(contacts, view, ev)
 {
 	if (!should_add_to_timeline(ev))
@@ -340,10 +357,7 @@ function should_add_to_explore_timeline(contacts, view, ev)
 	if (view.seen.has(ev.pubkey))
 		return false
 
-	if (contacts.friend_of_friends.has(ev.pubkey))
-		return true
-
-	return ev.pow >= view.pow
+	return passes_spam_filter(contacts, ev)
 }
 
 function get_current_view()
@@ -387,6 +401,14 @@ function handle_home_event(ids, model, relay, sub_id, ev) {
 
 		if (is_new)
 			handle_redraw_logic(model, 'explore')
+		break;
+
+	case ids.notifications:
+		if (should_add_to_notification_timeline(model.pubkey, model.contacts, ev))
+			is_new = insert_event_sorted(model.views.notifications.events, ev)
+
+		if (is_new)
+			handle_redraw_logic(model, 'notifications')
 		break;
 
 	case ids.home:
@@ -440,6 +462,8 @@ function send_home_filters(ids, model, relay) {
 	const standard_kinds = [1,42,5,6,7]
 
 	const home_filter = {kinds: standard_kinds, authors: friends, limit: 500}
+
+	// TODO: include pow+fof spam filtering in notifications query
 	const notifications_filter = {kinds: standard_kinds, "#p": [model.pubkey], limit: 100}
 
 	let home_filters = [home_filter]
@@ -961,7 +985,13 @@ function delete_post_confirm(evid) {
 	delete_post(evid, reason)
 }
 
-function shouldnt_render_event(view, ev, opts) {
+function shouldnt_render_event(our_pk, view, ev, opts) {
+	if (view.name === 'notifications') {
+		// never show our stuff on the notifications tab
+		if (our_pk === ev.pubkey)
+			return true
+	}
+
 	return !opts.is_boost_event &&
 		!opts.is_composing &&
 		!view.expanded.has(ev.id) &&
@@ -1417,5 +1447,13 @@ function time_delta(current, previous) {
     else {
         return Math.round(elapsed/msPerYear ) + ' years ago';
     }
+}
+
+function passes_spam_filter(contacts, ev)
+{
+	if (contacts.friend_of_friends.has(ev.pubkey))
+		return true
+
+	return ev.pow >= view.pow
 }
 

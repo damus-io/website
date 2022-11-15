@@ -157,7 +157,7 @@ function render_deleted_comment_body(ev, deleted) {
 function render_event(damus, view, ev, opts={}) {
 	if (ev.kind === 6)
 		return render_boost(damus, view, ev, opts)
-	if (shouldnt_render_event(view, ev, opts))
+	if (shouldnt_render_event(damus.pubkey, view, ev, opts))
 		return ""
 
 	view.rendered.add(ev.id)
