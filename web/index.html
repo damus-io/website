@@ -24,12 +24,18 @@
 			damus_web_init();
 		});
 		</script>
-		<nav id="gnav">
+		<nav id="gnav" class="">
 			<button class="icon" role="open-gnav" title="Open Menu" onclick="toggle_gnav(this)">
-				<i class="fa fa-fw fa-hand-peace"></i>
+				<img class="icon svg invert" src="icon/logo.svg"/>
+			</button>
+			<button class="icon" role="home" title="Home" onclick="switch_view('home')">
+				<img class="icon svg invert" src="icon/home.svg"/>
+			</button>
+			<button class="icon" role="explore" title="Explore" onclick="switch_view('explore')">
+				<img class="icon svg invert" src="icon/explore.svg"/>
 			</button>
 			<button class="icon" role="sign-out" title="Sign Out" onclick="press_logout()">
-				<i class="fa fa-fw fa-arrow-right-from-bracket"></i>
+				<img class="icon svg invert" src="icon/sign-out.svg"/>
 			</button>
 		</nav>
 		<div id="container">
@@ -37,17 +43,16 @@
 			<div id="nav" class="flex-noshrink vertical-hide">
 				<div>
 					<div id="app-icon-logo">
-						<!--<img src="https://damus.io/img/damus.svg">-->
-						<i class="fa-regular fa-fw fa-hand-peace"></i>
+						<img class="icon svg" title="Damus" src="icon/logo.svg"/>
 					</div>
-					<button id="home-button" onclick="switch_view('home')" class="nav icon" title="Home">
-						<i class="fa fa-fw fa-home"></i><span class="hide">Home</span>
+					<button id="home-button" class="nav icon" title="Home" onclick="switch_view('home')">
+						<img class="icon svg" src="icon/home.svg"/>
 					</button>
-					<button id="explore-button" onclick="switch_view('explore')" class="nav icon" title="Explore">
-						<i class="fa fa-fw fa-globe"></i><span class="hide">Explore</span>
+					<button id="explore-button" class="nav icon" title="Explore" onclick="switch_view('explore')">
+						<img class="icon svg" src="icon/explore.svg"/>
 					</button>
-					<button onclick="press_logout()" title="Sign Out" class="nav icon">
-						<i class="fa fa-fw fa-arrow-right-from-bracket"></i><span class="hide">Sign Out</span>
+					<button title="Sign Out" class="nav icon" onclick="press_logout()">
+						<img class="icon svg" src="icon/sign-out.svg"/>
 					</button>
 				</div>
 			</div>

@@ -81,6 +81,11 @@ button.icon {
 	padding: 0;
 	margin: 0;
 }
+button.icon > img.icon {
+	/* Remove the space below the image. */
+	display: block;
+	margin: 0 auto;
+}
 button.action {
 	border: none;
 	border-radius: 50px;
@@ -110,10 +115,17 @@ button.action {
 	color: #444;
 }
 
+/* Icon */
+
+img.invert {
+	/* This class is good for white on black icons; */
+	filter: invert(1);
+}
+
 /* Navigation */
 #nav {
 	border-right: 1px solid var(--clrBorder);
-	padding: 16px;
+	padding: 10px;
 }
 #nav > div {
 	position: sticky;
@@ -122,20 +134,16 @@ button.action {
 	flex-flow: column;
 }
 #nav > div > * {
-	margin-bottom: 38px;
-}
-#app-icon-logo {
-	font-size: 28px;
-	text-align: center;
+	margin-bottom: 20px;
+	padding: 10px;
 }
 #app-icon-logo > img {
-	border-radius: 50%;
-	width: 42px;
-	height: 42px;
+	width: 36px;
+	height: 36px;
 }
-button.nav {
-	color: var(--clrBtn);
-	font-size: 24px;
+button.nav > img.icon {
+	width: 28px;
+	height: 28px;
 }
 #gnav {
 	display: none;
@@ -152,11 +160,15 @@ button.nav {
 	border-radius: 50%;
 	background: var(--clrText);
 	color: var(--clrBg);	
-	padding: 5px;
+	padding: 10px;
 	border: transparent 5px solid;
 	transition: top 0.05s linear;
 	transform: translateX(-50%) translateY(-50%);
 	z-index: calc(var(--zGlobal) - 1);
+}
+#gnav button > .icon {
+	width: 28px;
+	height: 28px;
 }
 #gnav button[role="open-gnav"] {
 	z-index: var(--zGlobal);
@@ -164,6 +176,12 @@ button.nav {
 }
 #gnav.open button[role="sign-out"] {
 	top: -75px;
+}
+#gnav.open button[role="explore"] {
+	top: -150px;
+}
+#gnav.open button[role="home"] {
+	top: -225px;
 }
 
 /* Application Framework */
@@ -213,13 +231,12 @@ button.nav {
 	position: relative;
 	border-radius: 50%;
 	z-index: var(--zPFP);
-	font-size: 3.25em;
 	object-fit: fill;
 }
 .pfp.deleted {
-	background: var(--clrText);
 	font-size: 32px;
 	color: var(--clrBg);
+	background: var(--clrText);
 }
 .pfp.deleted > i {
 	top: 40%;
