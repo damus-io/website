@@ -90,14 +90,14 @@ function render_replying_to(model, ev) {
 	`
 }
 
-function render_unknown_event(model, ev) {
-	return "Unknown event"
+function render_unknown_event(damus, ev) {
+	return "Unknown event " + ev.kind
 }
 
 function render_boost(damus, view, ev, opts) {
 	//todo validate content
 	if (!ev.json_content)
-		return render_unknown_event(ev)
+		return ""
 	
 	//const profile = model.profiles[ev.pubkey]
 	opts.boosted = {
