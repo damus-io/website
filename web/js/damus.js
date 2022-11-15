@@ -357,6 +357,10 @@ function should_add_to_explore_timeline(contacts, view, ev, pow)
 	if (view.seen.has(ev.pubkey))
 		return false
 
+	// hide friends for 0-pow situations
+	if (pow === 0 && contacts.friends.has(ev.pubkey))
+		return false
+
 	return passes_spam_filter(contacts, ev, pow)
 }
 
