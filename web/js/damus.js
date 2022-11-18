@@ -1234,9 +1234,10 @@ async function get_pubkey() {
 
 	console.log("window.nostr", window.nostr)
 	if (window.nostr && window.nostr.getPublicKey) {
+		console.log("calling window.nostr.getPublicKey()...")
 		const pubkey = await window.nostr.getPublicKey()
 		console.log("got %s pubkey from nos2x", pubkey)
-		return pubkey
+		return handle_pubkey(pubkey)
 	}
 
 	pubkey = prompt("Enter pubkey (hex or npub)")
