@@ -8,7 +8,6 @@
 		<link rel="stylesheet" href="css/utils.css?v=1">
 		<link rel="stylesheet" href="css/styles.css?v=13">
 		<link rel="stylesheet" href="css/responsive.css?v=10">
-		<link rel="stylesheet" href="css/fontawesome.css?v=2">
 		<script defer src="js/util.js?v=1"></script>
 		<script defer src="js/ui/util.js?v=6"></script>
 		<script defer src="js/ui/render.js?v=13"></script>
@@ -90,7 +89,7 @@
 								<input id="content-warning-input" class="cw hide" type="text" placeholder="Reason"/>
 								<button title="Mark this message as sensitive." 
 									onclick="toggle_cw(this)" class="cw icon">
-									<i class="fa-solid fa-triangle-exclamation"></i>
+									<img class="icon small" src="icon/content-warning.svg"/>
 								</button>
 								<button onclick="send_post(this)" class="action" 
 									role="send" id="post-button" disabled>Send</button>
@@ -152,7 +151,7 @@
 				<header>
 					<label>Reply To</label>
 					<button class="icon" onclick="close_reply()">
-						<i class="fa fa-xmark"></i>
+						<img class="icon" src="icon/close-modal.svg"/>
 					</button>
 				</header>
 				<div id="replying-to"></div>

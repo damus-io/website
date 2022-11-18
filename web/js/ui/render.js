@@ -238,7 +238,10 @@ function render_reaction(model, reaction) {
 function render_action_bar(damus, ev, can_delete) {
 	let delete_html = ""
 	if (can_delete)
-		delete_html = `<button class="icon" title="Delete" onclick="delete_post_confirm('${ev.id}')"><i class="fa fa-fw fa-trash"></i></a>`
+		delete_html = `
+	<button class="icon" title="Delete" onclick="delete_post_confirm('${ev.id}')">
+		<img class="icon small" src="icon/event-delete.svg"/>
+	</button>`
 
 	const groups = get_reactions(damus, ev.id)
 	const like = "❤️"
@@ -246,8 +249,12 @@ function render_action_bar(damus, ev, can_delete) {
 	const react_onclick = render_react_onclick(damus.pubkey, ev.id, like, likes)
 	return `
 	<div class="action-bar">
-		<button class="icon" title="Reply" onclick="reply_to('${ev.id}')"><i class="fa fa-fw fa-comment"></i></a>
-		<button class="icon react heart" ${react_onclick} title="Like"><i class="fa fa-fw fa-heart"></i></a>
+		<button class="icon" title="Reply" onclick="reply_to('${ev.id}')">
+			<img class="icon small" src="icon/event-reply.svg"/>
+		</button>
+		<button class="icon react heart" ${react_onclick} title="Like">
+			<img class="icon small" src="icon/event-like.svg"/>
+		</button>
 		<!--<button class="icon" title="Share" onclick=""><i class="fa fa-fw fa-link"></i></a>-->
 		${delete_html}	
 		<!--<button class="icon" title="View raw Nostr event." onclick=""><i class="fa-solid fa-fw fa-code"></i></a>-->

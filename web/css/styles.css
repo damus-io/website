@@ -224,12 +224,9 @@ button.nav > img.icon {
 	object-fit: contain;
 }
 
-.action-bar {
-}
 .action-bar > button {
 	margin-right: 25px;
-	color: var(--clrTextLighter);
-	font-size: var(--fsNormal);
+	opacity: 0.5;
 }
 .reactions {
 	margin-bottom: 15px;
@@ -261,13 +258,13 @@ button.nav > img.icon {
 }
 
 .action-bar button.icon {
-	transition:	color 0.3s linear;
+	transition:	opacity 0.3s linear;
 }
 .action-bar button.icon:hover {
-	color: var(--clrText);
+	opacity: 1;
 }
 .action-bar button.heart:hover {
-	color: var(--clrHeart);
+	/* TODO fix heart color */
 }
 
 details.cw summary {
@@ -351,11 +348,10 @@ textarea.post-input {
 }
 .post-tools > button.icon {
 	margin-right: 10px;
-	font-size: var(--fsEnlarged);
-	color: var(--clrTextLight);
+	opacity: 0.5;
 }
 .post-tools > button.icon.cw.active {
-	color: var(--clrWarn);
+	opacity: 1.0;
 }
 input[type="text"].cw {
 	border: none;

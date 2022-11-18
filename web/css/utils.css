@@ -42,10 +42,16 @@ button.action {
 	color: white;
 	font-weight: 800;
 }
+
 img.icon {
 	width: var(--iconSize);
 	height: var(--iconSize);
 }
+img.icon.small {
+	width: var(--iconSizeSmall);
+	height: var(--iconSizeSmall);
+}
+
 .float-right {
 	float: right;
 }
