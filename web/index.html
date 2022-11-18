@@ -4,7 +4,9 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Damus</title>
-		<link rel="stylesheet" href="css/styles.css?v=120">
+		<link rel="stylesheet" href="css/vars.css?v=1">
+		<link rel="stylesheet" href="css/utils.css?v=1">
+		<link rel="stylesheet" href="css/styles.css?v=13">
 		<link rel="stylesheet" href="css/responsive.css?v=10">
 		<link rel="stylesheet" href="css/fontawesome.css?v=2">
 		<script defer src="js/util.js?v=1"></script>
@@ -46,18 +48,24 @@
 		<div id="container">
 			<div class="flex-fill vertical-hide"></div>
 			<div id="nav" class="flex-noshrink vertical-hide">
-				<div>
+				<div data-active="home">
 					<div id="app-icon-logo">
-						<img class="icon svg" title="Damus" src="icon/logo.svg"/>
+						<img class="icon svg" title="Damus" src="icon/logo-inverted.svg"/>
 					</div>
-					<button id="home-button" class="nav icon" title="Home" onclick="switch_view('home')">
-						<img class="icon svg" src="icon/home.svg"/>
+					<button role="home" class="nav icon" 
+						title="Home" onclick="switch_view('home')">
+						<img class="icon svg inactive" src="icon/home.svg"/>
+						<img class="icon svg active" src="icon/home-active.svg"/>
 					</button>
-					<button id="explore-button" class="nav icon" title="Explore" onclick="switch_view('explore')">
-						<img class="icon svg" src="icon/explore.svg"/>
+					<button role="explore" class="nav icon" 
+						title="Explore" onclick="switch_view('explore')">
+						<img class="icon svg inactive" src="icon/explore.svg"/>
+						<img class="icon svg active" src="icon/explore-active.svg"/>
 					</button>
-					<button role="notifications" class="nav icon" title="Notifications" onclick="switch_view('notifications')">
-						<img class="icon svg" src="icon/notifications.svg"/>
+					<button role="notifications" class="nav icon" 
+						title="Notifications" onclick="switch_view('notifications')">
+						<img class="icon svg inactive" src="icon/notifications.svg"/>
+						<img class="icon svg active" src="icon/notifications-active.svg"/>
 						<div class="new-notifications hide"></div>
 					</button>
 					<button title="Sign Out" class="nav icon" onclick="press_logout()">
@@ -75,13 +83,17 @@
 							<!-- To be loaded dynamically. -->
 						</div>
 						<div>
-							<textarea placeholder="What's up?" oninput="post_input_changed(this)" class="post-input" id="post-input"></textarea>
+							<textarea placeholder="What's up?" 
+									  oninput="post_input_changed(this)" 
+									  class="post-input" id="post-input"></textarea>
 							<div class="post-tools">
 								<input id="content-warning-input" class="cw hide" type="text" placeholder="Reason"/>
-								<button title="Mark this message as sensitive." onclick="toggle_cw(this)" class="cw icon">
+								<button title="Mark this message as sensitive." 
+									onclick="toggle_cw(this)" class="cw icon">
 									<i class="fa-solid fa-triangle-exclamation"></i>
 								</button>
-								<button onclick="send_post(this)" class="action" role="send" id="post-button" disabled>Send</button>
+								<button onclick="send_post(this)" class="action" 
+									role="send" id="post-button" disabled>Send</button>
 							</div>
 						</div>
 					</div>

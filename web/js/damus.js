@@ -631,6 +631,8 @@ function switch_view(name, opts={})
 	// TODO find out if having multiple event divs is slow
 	redraw_timeline_events(DAMUS, name)
 
+	find_node("#nav > div[data-active]").dataset.active = name;
+
 	if (current_el)
 		current_el.classList.remove("hide");
 }
@@ -659,7 +661,7 @@ function log_error(fmt, ...args) {
 }
 
 function log_debug(fmt, ...args) {
-	console.log("[debug] " + fmt, ...args)
+	console.debug(fmt, ...args)
 }
 
 function load_our_contacts(contacts, our_pubkey, ev) {

@@ -1,52 +1,10 @@
-/* Hello welcome to my styles. Here are some notes.
- *
- *  - I use Noto Sans because it supports most languages.
- *  - I will implement light mode first and then attempt dark.
- *  - All variables should be declared at the top.
- *  - Use as little as possible, write from scratch, and utilize helper 
- *    classes.
- *  - No transpilers!
- */
-
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;800&display=swap');
-
-:root {
-	/* Colors */
-	--clrBg:          #fff;
-	--clrPanel:       #f9f9f9;
-	--clrBorder:      #f2f2f2;
-	--clrBtn:         #202020;
-	--clrText:        #202020;
-	--clrTextLight:   #868686;
-	--clrTextLighter: #abb4ca;
-	--clrHeart:       #ff5050;
-	--clrWarn:        #fbc560;
-
-	/* Font Sizes */
-	--fsSmall:    12px;
-	--fsNormal:   16px;
-	--fsReduced:  14px;
-	--fsEnlarged: 18px;
-
-	/* Font Families */
-	--ffDefault: "Noto Sans", sans-serif;
-
-	/* Z Layers */
-	--zDefault: 0;
-	--zPFP:     1;
-	--zHeader:  2;
-	--zGlobal:  3;
-	--zModal:   4;
-
-	/* Icon */
-	--iconSize: 24px;
-}
 *:focus-visible {
 	/* Technically this is bad and something else should be done to indicate
 	 * that something is in focus.
 	 */
 	outline: none;
 }
+
 body {
 	background: var(--clrBg);
 	color: var(--clrText);
@@ -54,82 +12,6 @@ body {
 	font-size: var(--fsNormal);
 	margin: 0;
 	padding: 0;
-}
-
-/* Utilities */
-.flex-fill {
-	flex: auto;
-}
-.flex-noshrink {
-	/*flex-shrink: 0;*/
-	flex: none;
-}
-.hide {
-	display: none !important;
-}
-.loader {
-	font-size: 24px;
-}
-button.action:disabled {
-	cursor: default;
-	background-color: var(--clrTextLight);
-}
-button {
-	background: #171717;
-	cursor: pointer;
-}
-button.icon {
-	border: none;
-	background: transparent;
-	padding: 0;
-	margin: 0;
-}
-button.icon > img.icon {
-	/* Remove the space below the image. */
-	display: block;
-	margin: 0 auto;
-}
-button.action {
-	border: none;
-	border-radius: 50px;
-	background: #171717;
-	padding: 10px 15px;
-	font-size: 16px;
-	color: white;
-	font-weight: 800;
-}
-img.icon {
-	width: var(--iconSize);
-	height: var(--iconSize);
-}
-.float-right {
-	float: right;
-}
-.clickable {
-	cursor: pointer;
-}
-.bottom-border { /* TODO rename to bdr-bottom */
-	border-bottom: solid 1px var(--clrBorder);
-}
-.sticky {
-	position: sticky;
-	top: 0;
-}
-.event-message {
-	background: #f2f2f2;
-	padding: 10px;
-	border-radius: 12px;
-	color: #444;
-}
-.flex {
-	display: flex;
-}
-
-/* Icon */
-
-img.invert {
-	/* This class is good for white on black icons; */
-	filter: invert(1);
 }
 
 /* Navigation */
@@ -147,6 +29,19 @@ img.invert {
 	margin-bottom: 20px;
 	padding: 10px;
 	position: relative;
+}
+#nav > div[data-active] img.active {
+	display: none;
+}
+#nav > div[data-active="home"] [role="home"] img.inactive,
+#nav > div[data-active="explore"] [role="explore"] img.inactive,
+#nav > div[data-active="notifications"] [role="notifications"] img.inactive {
+	display: none;
+}
+#nav > div[data-active="home"] [role="home"] img.active,
+#nav > div[data-active="explore"] [role="explore"] img.active,
+#nav > div[data-active="notifications"] [role="notifications"] img.active {
+	display: block;
 }
 #app-icon-logo > img {
 	width: 36px;

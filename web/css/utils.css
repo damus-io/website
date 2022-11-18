@@ -1,0 +1,77 @@
+.flex-fill {
+	flex: auto;
+}
+.flex-noshrink {
+	/*flex-shrink: 0;*/
+	flex: none;
+}
+
+.hide {
+	display: none !important;
+}
+
+.loader {
+	font-size: 24px;
+}
+
+button.action:disabled {
+	cursor: default;
+	background-color: var(--clrTextLight);
+}
+button {
+	background: #171717;
+	cursor: pointer;
+}
+button.icon {
+	border: none;
+	background: transparent;
+	padding: 0;
+	margin: 0;
+}
+button.icon > img.icon {
+	/* Remove the space below the image. */
+	display: block;
+	margin: 0 auto;
+}
+button.action {
+	border: none;
+	border-radius: 50px;
+	background: #171717;
+	padding: 10px 15px;
+	font-size: 16px;
+	color: white;
+	font-weight: 800;
+}
+img.icon {
+	width: var(--iconSize);
+	height: var(--iconSize);
+}
+.float-right {
+	float: right;
+}
+.clickable {
+	cursor: pointer;
+}
+.bottom-border { /* TODO rename to bdr-bottom */
+	border-bottom: solid 1px var(--clrBorder);
+}
+.sticky {
+	position: sticky;
+	top: 0;
+}
+.event-message {
+	background: #f2f2f2;
+	padding: 10px;
+	border-radius: 12px;
+	color: #444;
+}
+.flex {
+	display: flex;
+}
+
+/* Icon */
+
+img.invert {
+	/* This class is good for white on black icons; */
+	filter: invert(1);
+}
