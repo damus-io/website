@@ -1078,9 +1078,12 @@ function gather_reply_tags(pubkey, from) {
 	for (const tag of from.tags) {
 		if (tag.length >= 2) {
 			if (tag[0] === "e") {
-				tags.push(tag)
+				if (tag.length >= 4 && tag[3] == "root")
+					tags.push(tag)
+				else
+					tags.push(["e", tag[1]])
 			} else if (tag[0] === "p" && tag[1] !== pubkey) {
-				tags.push(tag)
+				tags.push(["p", tag[1]])
 			}
 		}
 	}
