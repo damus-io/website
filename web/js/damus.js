@@ -92,7 +92,7 @@ function update_favicon(path)
 // number of notifications that are unseen by the user.
 function update_title(model) {
 	// TODO rename update_title to update_notification_state or similar
-	// TODO only clear notifications once they have seen all targeted events 
+	// TODO only clear notifications once they have seen all targeted events
 	if (document.visibilityState === 'visible') {
 		model.notifications = 0
 	}
@@ -640,6 +640,10 @@ function load_our_relays(our_pubkey, pool, ev) {
 	}
 }
 
+function log_error(fmt, ...args) {
+	console.log("[ERROR] " + fmt, ...args)
+}
+
 function log_debug(fmt, ...args) {
 	console.log("[debug] " + fmt, ...args)
 }
@@ -708,9 +712,9 @@ function leading_zero_bits(id)
 	return total
 }
 
-function min(a, b) { 
+function min(a, b) {
 	return a < b ? a : b;
-} 
+}
 
 function difficulty_to_prefix(d)
 {
@@ -1212,9 +1216,28 @@ function get_qs(loc=location.href) {
 	return new URL(loc).searchParams
 }
 
-function handle_pubkey(pubkey) {
+async function get_nip05_pubkey(email) {
+	const [user, host] = email.split("@")
+	const url = `https://${host}/.well-known/nostr.json?name=${user}`
+
+	try {
+		const res = await fetch(url)
+		const json = await res.json()
+
+		log_debug("nip05 data", json)
+		return json.names[user]
+	} catch (e) {
+		log_error("fetching nip05 entry for %s", email, e)
+		throw e
+	}
+}
+
+async function handle_pubkey(pubkey) {
 	if (pubkey[0] === "n")
 		pubkey = bech32_decode(pubkey)
+
+	if (pubkey.includes("@"))
+		pubkey = await get_nip05_pubkey(pubkey)
 
 	set_local_state('pubkey', pubkey)
 
@@ -1227,7 +1250,7 @@ async function get_pubkey() {
 	// qs pk overrides stored key
 	const qs_pk = get_qs().get("pk")
 	if (qs_pk)
-		return handle_pubkey(qs_pk)
+		return await handle_pubkey(qs_pk)
 
 	if (pubkey)
 		return pubkey
@@ -1237,15 +1260,15 @@ async function get_pubkey() {
 		console.log("calling window.nostr.getPublicKey()...")
 		const pubkey = await window.nostr.getPublicKey()
 		console.log("got %s pubkey from nos2x", pubkey)
-		return handle_pubkey(pubkey)
+		return await handle_pubkey(pubkey)
 	}
 
-	pubkey = prompt("Enter pubkey (hex or npub)")
+	pubkey = prompt("Enter nostr id (eg: jb55@jb55.com) or pubkey (hex or npub)")
 
 	if (!pubkey)
 		throw new Error("Need pubkey to continue")
 
-	return handle_pubkey(pubkey)
+	return await handle_pubkey(pubkey)
 }
 
 function get_privkey() {
@@ -1304,7 +1327,7 @@ function is_video_url(path) {
 const URL_REGEX = /(^|\s)(https?:\/\/[^\s]+)[,:)]?(\w|$)/g;
 function linkify(text, show_media) {
 	return text.replace(URL_REGEX, function(match, p1, p2, p3) {
-		const url = p2+p3 
+		const url = p2+p3
 		const parsed = new URL(url)
 		let html;
 		if (show_media && is_img_url(parsed.pathname)) {
