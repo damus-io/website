@@ -1041,16 +1041,7 @@ function delete_post_confirm(evid) {
 }
 
 function shouldnt_render_event(our_pk, view, ev, opts) {
-	if (view.name === 'notifications') {
-		// never show our stuff on the notifications tab
-		if (our_pk === ev.pubkey)
-			return true
-	}
-
-	return !opts.is_boost_event &&
-		!opts.is_composing &&
-		!view.expanded.has(ev.id) &&
-		view.rendered.has(ev.id)
+	return opts.is_boost_event || opts.is_composing
 }
 
 function press_logout() {
