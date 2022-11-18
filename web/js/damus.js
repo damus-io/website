@@ -44,6 +44,7 @@ function init_timeline(name) {
 		name,
 		events: [],
 		rendered: new Set(),
+		depths: {},
 		expanded: new Set(),
 	}
 }
@@ -52,6 +53,7 @@ function init_home_model() {
 	return {
 		done_init: {},
 		notifications: 0,
+		max_depth: 2,
 		all_events: {},
 		reactions_to: {},
 		chatrooms: {},
@@ -194,11 +196,11 @@ async function damus_web_init_ready()
 
 	pool.on('eose', async (relay, sub_id) => {
 		if (sub_id === ids.home) {
-			log_debug("got home EOSE from %s", relay.url)
+			//log_debug("got home EOSE from %s", relay.url)
 			const events = model.views.home.events
 			handle_comments_loaded(ids, model, events, relay)
 		} else if (sub_id === ids.profiles) {
-			log_debug("got profiles EOSE from %s", relay.url)
+			//log_debug("got profiles EOSE from %s", relay.url)
 			const view = get_current_view()
 			handle_profiles_loaded(ids, model, view, relay)
 		}
@@ -951,10 +953,12 @@ function determine_event_refs(tags) {
 
 	for (const tag of tags) {
 		if (tag.length >= 4 && tag[0] == "e") {
-			if (tag[3] === "root")
+			positional_ids.push(tag[1])
+			if (tag[3] === "root") {
 				root = tag[1]
-			else if (tag[3] === "reply")
+			} else if (tag[3] === "reply") {
 				reply = tag[1]
+			}
 		} else if (tag.length >= 2 && tag[0] == "e") {
 			positional_ids.push(tag[1])
 		} else if (tag.length >= 2 && tag[0] == "p") {
@@ -964,8 +968,13 @@ function determine_event_refs(tags) {
 		i++
 	}
 
-	if (!root && !reply && positional_ids.length > 0)
+	if (!(root && reply) && positional_ids.length > 0)
 		return determine_event_refs_positionally(pubkeys, positional_ids)
+
+	/*
+	if (reply && !root)
+		root = reply
+		*/
 
 	return {root, reply, pubkeys}
 }
@@ -988,16 +997,35 @@ function* yield_etags(tags)
 }
 
 function expand_thread(id) {
-	const ev = DAMUS.all_events[id]
 	const view = get_current_view()
-	if (ev) {
-		for (const tag of yield_etags(ev.tags))
-			view.expanded.add(tag[1])
-	} else {
-		log_debug("expand_thread, id not found?", id)
+	const root_id = get_thread_root_id(DAMUS, id)
+	if (!root_id) {
+		log_debug("could not get root_id for", DAMUS.all_events[id])
+		return
 	}
-	view.expanded.add(id)
+
+	view.depths[root_id] = get_thread_max_depth(DAMUS, view, root_id) + 1
+
 	redraw_events(DAMUS, view)
+}
+
+function get_thread_root_id(damus, id)
+{
+	const ev = damus.all_events[id]
+	if (!ev) {
+		log_debug("expand_thread: no event found?", id)
+		return null
+	}
+
+	return ev.refs && ev.refs.root
+}
+
+function get_thread_max_depth(damus, view, root_id)
+{
+	if (!view.depths[root_id])
+		return damus.max_depth
+
+	return view.depths[root_id]
 }
 
 function delete_post_confirm(evid) {

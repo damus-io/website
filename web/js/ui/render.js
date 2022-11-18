@@ -4,7 +4,9 @@
 
 function render_timeline_event(damus, view, ev)
 {
-	let max_depth = 3
+	const root_id = get_thread_root_id(damus, ev.id)
+	const max_depth = root_id ? get_thread_max_depth(damus, view, root_id) : damus.max_depth
+
 	if (ev.refs && ev.refs.root && view.expanded.has(ev.refs.root))
 		max_depth = null
 
@@ -26,13 +28,13 @@ function render_reply_line_bot() {
 	return `<div class="line-bot"></div>`
 }
 
-function render_thread_collapsed(model, reply_ev, opts)
+function render_thread_collapsed(model, ev, opts)
 {
 	if (opts.is_composing)
 		return ""
-	return `<div onclick="expand_thread('${reply_ev.id}')" class="thread-collapsed">
-		<div class="thread-summary clickable event-message">
-		More messages in thread available. Click to expand.
+	return `<div onclick="expand_thread('${ev.id}')" class="thread-collapsed">
+		<div class="thread-summary clickable">
+		⮝ More
 		</div>
 	</div>`
 }
@@ -47,9 +49,8 @@ function render_replied_events(damus, view, ev, opts)
 		return ""
 
 	opts.replies = opts.replies == null ? 1 : opts.replies + 1
-	const expanded = view.expanded.has(reply_ev.id)
-	if (!expanded && !(opts.max_depth == null || opts.replies < opts.max_depth))
-		return render_thread_collapsed(damus, reply_ev, opts)
+	if (!(opts.max_depth == null || opts.replies < opts.max_depth))
+		return render_thread_collapsed(damus, ev, opts)
 
 	opts.is_reply = true
 	return render_event(damus, view, reply_ev, opts)
