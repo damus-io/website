@@ -996,7 +996,7 @@ function* yield_etags(tags)
 	}
 }
 
-function expand_thread(id) {
+function expand_thread(id, reply_id) {
 	const view = get_current_view()
 	const root_id = get_thread_root_id(DAMUS, id)
 	if (!root_id) {
@@ -1004,6 +1004,7 @@ function expand_thread(id) {
 		return
 	}
 
+	view.expanded.add(reply_id)
 	view.depths[root_id] = get_thread_max_depth(DAMUS, view, root_id) + 1
 
 	redraw_events(DAMUS, view)
@@ -1041,7 +1042,10 @@ function delete_post_confirm(evid) {
 }
 
 function shouldnt_render_event(our_pk, view, ev, opts) {
-	return !opts.is_boost_event && !opts.is_composing && view.rendered.has(ev.id)
+	return !opts.is_boost_event &&
+		!opts.is_composing &&
+		!view.expanded.has(ev.id) &&
+		view.rendered.has(ev.id)
 }
 
 function press_logout() {
@@ -1118,21 +1122,29 @@ function close_reply() {
 
 function gather_reply_tags(pubkey, from) {
 	let tags = []
+	let ids = new Set()
+
+	if (from.refs && from.refs.root) {
+		tags.push(["e", from.refs.root, "", "root"])
+		ids.add(from.refs.root)
+	}
+
+	tags.push(["e", from.id, "", "reply"])
+	ids.add(from.id)
+
 	for (const tag of from.tags) {
 		if (tag.length >= 2) {
-			if (tag[0] === "e") {
-				if (tag.length >= 4 && tag[3] == "root")
-					tags.push(tag)
-				else
-					tags.push(["e", tag[1]])
-			} else if (tag[0] === "p" && tag[1] !== pubkey) {
-				tags.push(["p", tag[1]])
+			if (tag[0] === "p" && tag[1] !== pubkey) {
+				if (!ids.has(tag[1])) {
+					tags.push(["p", tag[1]])
+					ids.add(tag[1])
+				}
 			}
 		}
 	}
-	tags.push(["e", from.id, "", "reply"])
-	if (from.pubkey !== pubkey)
+	if (from.pubkey !== pubkey && !ids.has(from.pubkey)) {
 		tags.push(["p", from.pubkey])
+	}
 	return tags
 }
 
