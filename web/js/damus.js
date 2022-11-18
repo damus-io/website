@@ -66,6 +66,7 @@ function init_home_model() {
 				seen: new Set(),
 			},
 			notifications: init_timeline('notifications'),
+			profile: init_timeline('profile'),
 		},
 		pow: 0, // pow difficulty target
 		deleted: {},
@@ -104,15 +105,6 @@ function update_title(model) {
 	document.title = has_notes ? `(${num}) Damus` : "Damus";
 	update_favicon(has_notes ? "img/damus_notif.svg" : "img/damus.svg");
 	update_notification_markers(has_notes)
-}
-
-// update_notification_markers will find all markers and hide or show them
-// based on the passed in state of 'active'.
-function update_notification_markers(active) {
-	let els = document.querySelectorAll(".new-notifications")
-	for (const el of els) {
-		el.classList.toggle("hide", !active)
-	}
 }
 
 function notice_chatroom(state, id)

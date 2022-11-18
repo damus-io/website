@@ -37,6 +37,9 @@
 	--zHeader:  2;
 	--zGlobal:  3;
 	--zModal:   4;
+
+	/* Icon */
+	--iconSize: 24px;
 }
 *:focus-visible {
 	/* Technically this is bad and something else should be done to indicate
@@ -62,7 +65,7 @@ body {
 	flex: none;
 }
 .hide {
-	display: none;
+	display: none !important;
 }
 .loader {
 	font-size: 24px;
@@ -95,6 +98,10 @@ button.action {
 	color: white;
 	font-weight: 800;
 }
+img.icon {
+	width: var(--iconSize);
+	height: var(--iconSize);
+}
 .float-right {
 	float: right;
 }
@@ -113,6 +120,9 @@ button.action {
 	padding: 10px;
 	border-radius: 12px;
 	color: #444;
+}
+.flex {
+	display: flex;
 }
 
 /* Icon */
@@ -456,5 +466,34 @@ input[type="text"].cw {
 	border: none;
 	border-bottom: solid 2px var(--clrWarn);
 	font-size: var(--fsReduced);
+}
+
+/* Profile */
+
+.pfp.jumbo {
+	width: 128px;
+	height: 128px;
+}
+[role="profile-info"] {
+	padding: 15px;
+	padding-top: 0;
+}
+.profile-tools {
+	flex: 1;
+	text-align: right;
+}
+.profile-tools > button {
+	vertical-align: middle;
+}
+.profile-tools > button.icon {
+	margin-right: 20px;
+}
+p[role="profile-desc"] {
+	margin-bottom: 0;
+}
+label[role="profile-nip5"] {
+	margin-top: 15px;
+	font-weight: 800;
+	display: block;
 }
 

@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="css/styles.css?v=120">
 		<link rel="stylesheet" href="css/responsive.css?v=10">
 		<link rel="stylesheet" href="css/fontawesome.css?v=2">
+		<script defer src="js/util.js?v=1"></script>
 		<script defer src="js/ui/util.js?v=6"></script>
 		<script defer src="js/ui/render.js?v=13"></script>
 		<script defer src="js/noble-secp256k1.js?v=1"></script>
@@ -22,6 +23,7 @@
 			damus_web_init()
 		});
 		</script>
+
 		<nav id="gnav" class="">
 			<button class="icon" role="open-gnav" title="Open Menu" onclick="toggle_gnav(this)">
 				<img class="icon svg invert" src="icon/logo.svg"/>
@@ -40,6 +42,7 @@
 				<img class="icon svg invert" src="icon/sign-out.svg"/>
 			</button>
 		</nav>
+
 		<div id="container">
 			<div class="flex-fill vertical-hide"></div>
 			<div id="nav" class="flex-noshrink vertical-hide">
@@ -96,9 +99,42 @@
 					</header>
 					<div class="events"></div>
 				</div>
+				<div id="thread-view" class="hide">
+					<header>
+						<label>Thread</label>
+					</header>
+					<div class="events"></div>
+				</div>
+				<div id="profile-view" class="hide">
+					<header>
+						<label role="profile-name">Profile</label>
+					</header>
+					<div role="profile-info" class="bottom-border">
+						<div class="flex">
+							<img role="profile-image" class="pfp jumbo" src="" />
+							<div class="profile-tools">
+								<!--
+								<button class="icon" title="Message User" role="message-user">
+									<img class="icon" src="icon/message-user.svg"/></button>
+								-->
+								<button class="icon" role="copy-pk"
+									data-pk="" onclick="click_copy_pk(this)" title="Copy Public Key">
+									<img class="icon" src="icon/pubkey.svg"/></button>
+								<button class="action" role="follow-user" data-pk=""
+									onclick="click_toggle_follow_user(this)">Follow</button>
+							</div>
+						</div>
+						<div>
+							<label role="profile-nip5"></label>
+							<p role="profile-desc"></p>
+						</div>
+					</div>
+					<div class="events"></div>
+				</div>
 			</div>
 			<div class="flex-fill vertical-hide"></div>
 		</div>
+
 		<div class="modal closed" id="reply-modal">
 			<div id="reply-modal-content" class="modal-content">
 				<header>

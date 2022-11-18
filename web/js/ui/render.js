@@ -131,12 +131,11 @@ function render_boosted_by(ev, opts) {
 	if (!b) {
 		return ""
 	}
-	// TODO encapsulate username as link/button!
 	return `
-	<div class="boosted-by">Shared by 
-		<span class="username" data-pubkey="${b.pubkey}">${render_name_plain(b.pubkey, b.profile)}</span>
- 	</div>
-	`	
+	<div class="boosted-by">
+		Shared by ${render_name(b.pubkey, b.profile)}
+	</div>
+	`
 }
 
 function render_deleted_comment_body(ev, deleted) {
@@ -177,7 +176,7 @@ function render_event(damus, view, ev, opts={}) {
 
 	let name = ""
 	if (!deleted) {
-		name = render_name_plain(ev.pubkey, profile)
+		name = render_name_plain(profile)
 	}
 
 	const has_top_line = replied_events !== ""
@@ -192,9 +191,7 @@ function render_event(damus, view, ev, opts={}) {
 		</div>	
 		<div class="event-content">
 			<div class="info">
-				<span class="username" data-pubkey="${ev.pubkey}" data-name="${name}">
-					${name}
-				</span>
+				${render_name(ev.pubkey, profile)}
 				<span class="timestamp">${delta}</span>
 			</div>
 			<div class="comment">
@@ -275,8 +272,10 @@ function render_reactions(model, ev) {
 
 // Utility Methods
 
-function render_name_plain(pk, profile=DEFAULT_PROFILE)
-{
+/* render_name_plain takes in a profile and tries it's best to return a string
+ * that is best suited for the profile.
+ */
+function render_name_plain(profile=DEFAULT_PROFILE) {
 	if (profile.sanitized_name)
 		return profile.sanitized_name
 
@@ -299,11 +298,15 @@ function render_username(pk, profile)
 }
 
 function render_mentioned_name(pk, profile) {
-	return `<span class="username">@${render_username(pk, profile)}</span>`
+	return render_name(pk, profile, "@");
+	//return `<span class="username">@${render_username(pk, profile)}</span>`
 }
 
-function render_name(pk, profile) {
-	return `<div class="username">${render_name_plain(pk, profile)}</div>`
+function render_name(pk, profile, prefix="") {
+	return `
+	<span class="username clickable" onclick="show_profile('${pk}')" 
+		data-pk="${pk}">${prefix}${render_name_plain(profile)}
+	</span>`
 }
 
 function render_deleted_name() {
@@ -311,8 +314,10 @@ function render_deleted_name() {
 }
 
 function render_pfp(pk, profile) {
-	const name = render_name_plain(pk, profile)
-	return `<img class="pfp" title="${name}" onerror="this.onerror=null;this.src='${robohash(pk)}';" src="${get_picture(pk, profile)}">`
+	const name = render_name_plain(profile)
+	return `<img class="pfp" title="${name}" 
+	onerror="this.onerror=null;this.src='${robohash(pk)}';" 
+	src="${get_picture(pk, profile)}">`
 }
 
 function render_deleted_pfp() {
