@@ -121,6 +121,26 @@ function notice_chatroom(state, id)
 
 async function damus_web_init()
 {
+	init_message_textareas();
+
+	let tries = 0;
+	function init() {
+		// only wait for 500ms max
+		const max_wait = 500
+		const interval = 20
+		if (window.nostr || tries >= (max_wait/interval)) {
+			console.info("init after", tries);
+			damus_web_init_ready();
+			return;
+		}
+		tries++;
+		setTimeout(init, interval);
+	}
+	init();
+}
+
+async function damus_web_init_ready()
+{
 	const model = init_home_model()
 	DAMUS = model
 	model.pubkey = await get_pubkey()
