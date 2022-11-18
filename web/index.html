@@ -16,9 +16,9 @@
 	</head>
 	<body>
 		<script>
-		const relay = 0; // relay is declared for backwards compatibibility.
 		// This is our main entry.
 		// https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event
+			console.log("window.nostr", window.nostr)
 		addEventListener('DOMContentLoaded', (ev) => {
 			// TODO fix race condition where profile doesn't load fast enough.
 			damus_web_init();

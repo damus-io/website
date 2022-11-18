@@ -1232,6 +1232,7 @@ async function get_pubkey() {
 	if (pubkey)
 		return pubkey
 
+	console.log("window.nostr", window.nostr)
 	if (window.nostr && window.nostr.getPublicKey) {
 		const pubkey = await window.nostr.getPublicKey()
 		console.log("got %s pubkey from nos2x", pubkey)

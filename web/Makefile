@@ -9,7 +9,7 @@ emojiregex: fake
 	@curl -sL 'https://raw.githubusercontent.com/mathiasbynens/emoji-test-regex-pattern/main/dist/latest/javascript.txt'
 
 dist:
-	rsync -avzP ./ charon:/www/damus.io/web/
+	rsync -avzP --delete ./ charon:/www/damus.io/web/
 
 dist-staging:
 	rsync -avzP ./ charon:/www/damus.io/web-staging/
