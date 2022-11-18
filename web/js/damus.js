@@ -1041,7 +1041,7 @@ function delete_post_confirm(evid) {
 }
 
 function shouldnt_render_event(our_pk, view, ev, opts) {
-	return opts.is_boost_event || opts.is_composing
+	return !opts.is_boost_event && !opts.is_composing && view.rendered.has(ev.id)
 }
 
 function press_logout() {
