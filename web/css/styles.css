@@ -277,6 +277,14 @@ details.cw summary {
 .thread-collapsed {
 	padding: 15px; 
 }
+.thread-summary {
+	text-align: center; 
+}
+.thread-summary img.icon {
+	opacity: 0.6;
+	position: relative;
+	top: 1px;
+}
 
 /* Modal */
 .modal {

@@ -33,8 +33,9 @@ function render_thread_collapsed(model, ev, opts)
 	if (opts.is_composing)
 		return ""
 	return `<div onclick="expand_thread('${ev.id}')" class="thread-collapsed">
-		<div class="thread-summary clickable">
-		▲ More
+		<div class="thread-summary clickable event-message">
+			Read More  
+			<img class="icon small" src="icon/read-more.svg"/>
 		</div>
 	</div>`
 }
