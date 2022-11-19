@@ -194,6 +194,9 @@ function render_event(damus, view, ev, opts={}) {
 			<div class="info">
 				${render_name(ev.pubkey, profile)}
 				<span class="timestamp">${delta}</span>
+				<button class="icon" title="View Thread" role="view-event" data-eid="${ev.id}" onclick="click_event(this)">
+					<img class="icon small" src="icon/open-thread.svg"/>
+				</button>
 			</div>
 			<div class="comment">
 				${deleted ? render_deleted_comment_body(ev, deleted) : render_comment_body(damus, ev, opts)}

@@ -105,3 +105,11 @@ function click_copy_pk(el) {
 function click_toggle_follow_user(el) {
 	alert("sorry not implemented");
 }
+
+/* click_event opens the thread view from the element's specified element id
+ * "dataset.eid".
+ */
+function click_event(el) {
+	console.info(`thread to open: ${el.dataset.eid}`);
+	switch_view("thread");
+}

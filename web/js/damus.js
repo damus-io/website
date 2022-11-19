@@ -67,6 +67,7 @@ function init_home_model() {
 			},
 			notifications: init_timeline('notifications'),
 			profile: init_timeline('profile'),
+			thread: init_timeline('thread'),
 		},
 		pow: 0, // pow difficulty target
 		deleted: {},

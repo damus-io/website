@@ -183,6 +183,14 @@ button.nav > img.icon {
 .event-content > .info {
 	display: inline-block;
 }
+.event-content > .info button[role="view-event"] {
+	margin-left: 10px;
+	opacity: 0;
+	transition: opacity 0.2s linear;
+}
+.event:hover .event-content > .info button[role="view-event"] {
+	opacity: 0.6;
+}
 .username {
 	font-weight: 800;
 	font-size: var(--fsReduced);
