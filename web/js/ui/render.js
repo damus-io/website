@@ -34,7 +34,7 @@ function render_thread_collapsed(model, ev, opts)
 		return ""
 	return `<div onclick="expand_thread('${ev.id}')" class="thread-collapsed">
 		<div class="thread-summary clickable">
-		⮝ More
+		▲ More
 		</div>
 	</div>`
 }
