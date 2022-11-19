@@ -342,10 +342,8 @@ function render_loading_spinner()
 {
 	return `
 	<div class="loading-events">
-		<span class="loader" title="Loading...">
-			<i class="fa-solid fa-fw fa-spin fa-hurricane"
-			style="--fa-animation-duration: 0.5s;"></i>
-		</span>
-	</div>
-	`
+		<div class="loader" title="Loading...">
+			<img src="icon/loader-fragment.svg"/>
+		</div>
+	</div>`
 }
