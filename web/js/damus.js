@@ -346,12 +346,6 @@ function should_add_to_notification_timeline(our_pk, contacts, ev, pow)
 	if (!should_add_to_timeline(ev))
 		return false
 
-	if (our_pk === ev.pubkey)
-		return false
-
-	if (our_pk !== ev.pubkey && contacts.friends.has(ev.pubkey))
-		return true
-
 	// TODO: add items that don't pass spam filter to "message requests"
 	// Then we will need a way to whitelist people as an alternative to
 	// following them
