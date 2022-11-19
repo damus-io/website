@@ -5,7 +5,7 @@
 function render_timeline_event(damus, view, ev)
 {
 	const root_id = get_thread_root_id(damus, ev.id)
-	const max_depth = root_id ? get_thread_max_depth(damus, view, root_id) : damus.max_depth
+	const max_depth = root_id ? get_thread_max_depth(damus, view, root_id) : get_default_max_depth(damus, view)
 
 	if (ev.refs && ev.refs.root && view.expanded.has(ev.refs.root))
 		max_depth = null

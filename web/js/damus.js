@@ -64,7 +64,10 @@ function init_home_model() {
 				...init_timeline('explore'),
 				seen: new Set(),
 			},
-			notifications: init_timeline('notifications'),
+			notifications: {
+				...init_timeline('notifications'),
+				max_depth: 1,
+			},
 			profile: init_timeline('profile'),
 			thread: init_timeline('thread'),
 		},
@@ -916,10 +919,15 @@ function get_thread_root_id(damus, id)
 	return ev.refs && ev.refs.root
 }
 
+function get_default_max_depth(damus, view)
+{
+	return view.max_depth || damus.max_depth
+}
+
 function get_thread_max_depth(damus, view, root_id)
 {
 	if (!view.depths[root_id])
-		return damus.max_depth
+		return get_default_max_depth(damus, view)
 
 	return view.depths[root_id]
 }
