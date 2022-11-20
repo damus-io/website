@@ -246,16 +246,18 @@ function process_deletion_event(model, ev)
 		if (tag.length >= 2 && tag[0] === "e") {
 			const evid = tag[1]
 
-			// we've already recorded this one as a valid deleted event
-			// we can just ignore it
+			// we've already recorded this one as a valid deleted
+			// event we can just ignore it
 			if (model.deleted[evid])
 				continue
 
-			let ds = model.deletions[evid] = (model.deletions[evid] || new Set())
+			let ds = model.deletions[evid] =
+				(model.deletions[evid] || new Set())
 
-			// add the deletion event id to the deletion set of this event
-			// we will use this to determine if this event is valid later in
-			// case we don't have the deleted event yet.
+			// add the deletion event id to the deletion set of
+			// this event we will use this to determine if this
+			// event is valid later in case we don't have the
+			// deleted event yet.
 			ds.add(ev.id)
 		}
 	}
