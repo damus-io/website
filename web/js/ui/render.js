@@ -96,17 +96,19 @@ function render_unknown_event(damus, ev) {
 	return "Unknown event " + ev.kind
 }
 
-function render_boost(damus, view, ev, opts) {
+function render_share(damus, view, ev, opts) {
 	//todo validate content
-	if (!ev.json_content)
+	const shared_ev = damus.all_events[ev.refs && ev.refs.root]
+	// share isn't resolved yet. that's ok, we can render this when we have
+	// the event
+	if (!shared_ev)
 		return ""
 	
-	//const profile = model.profiles[ev.pubkey]
-	opts.boosted = {
+	opts.shared = {
 		pubkey: ev.pubkey,
 		profile: damus.profiles[ev.pubkey]
 	}
-	return render_event(damus, view, ev.json_content, opts)
+	return render_event(damus, view, shared_ev, opts)
 }
 
 function render_comment_body(damus, ev, opts) {
@@ -117,7 +119,7 @@ function render_comment_body(damus, ev, opts) {
 	return `
 	<div>
 	${render_replying_to(damus, ev)}
-	${render_boosted_by(ev, opts)}
+	${render_shared_by(ev, opts)}
 	</div>
 	<p>
 	${format_content(ev, show_media)}
@@ -127,13 +129,13 @@ function render_comment_body(damus, ev, opts) {
 	`
 }
 
-function render_boosted_by(ev, opts) {
-	const b = opts.boosted
+function render_shared_by(ev, opts) {
+	const b = opts.shared
 	if (!b) {
 		return ""
 	}
 	return `
-	<div class="boosted-by">
+	<div class="shared-by">
 		Shared by ${render_name(b.pubkey, b.profile)}
 	</div>
 	`
@@ -157,7 +159,7 @@ function render_deleted_comment_body(ev, deleted) {
 
 function render_event(damus, view, ev, opts={}) {
 	if (ev.kind === 6)
-		return render_boost(damus, view, ev, opts)
+		return render_share(damus, view, ev, opts)
 	if (shouldnt_render_event(damus.pubkey, view, ev, opts))
 		return ""
 

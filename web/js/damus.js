@@ -947,8 +947,7 @@ function delete_post_confirm(evid) {
 }
 
 function shouldnt_render_event(our_pk, view, ev, opts) {
-	return !opts.is_boost_event &&
-		!opts.is_composing &&
+	return !opts.is_composing &&
 		!view.expanded.has(ev.id) &&
 		view.rendered.has(ev.id)
 }

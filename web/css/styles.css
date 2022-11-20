@@ -243,7 +243,7 @@ button.nav > img.icon {
 	border-top: 1px solid var(--clrBorder);
 }
 
-.timestamp, .replying-to, .boosted-by {
+.timestamp, .replying-to, .shared-by {
 	font-size: var(--fsSmall);
 	color: var(--clrTextLight);
 }
