@@ -233,6 +233,7 @@ Relay.prototype.close = function relayClose() {
 }
 
 Relay.prototype.subscribe = function relay_subscribe(sub_id, filters) {
+	//console.debug("[%s] %s %s", this.url, sub_id, filters)
 	if (Array.isArray(filters))
 		this.send(["REQ", sub_id, ...filters])
 	else
@@ -240,6 +241,7 @@ Relay.prototype.subscribe = function relay_subscribe(sub_id, filters) {
 }
 
 Relay.prototype.unsubscribe = function relay_unsubscribe(sub_id) {
+	//console.debug("[%s] CLOSE %s", this.url, sub_id)
 	this.send(["CLOSE", sub_id])
 }
 
