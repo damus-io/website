@@ -924,19 +924,6 @@ function redraw_events(damus, view) {
 
 	const events_el = damus.view_el.querySelector(`#${view.name}-view > .events`)
 	events_el.innerHTML = render_events(damus, view)
-
-	setup_timeline_event_handlers(events_el)
-}
-
-function setup_timeline_event_handlers(events_el)
-{
-	// TODO use ontoggle instead for cw?
-	// TODO check if CW state needs to be stored in memory
-	// Is there a way we can just use the HTML/CSS state instead does it matter
-	// if we have them closed by default. I think this is only a problem
-	// because we draw the entire timeline.
-	for (const el of events_el.querySelectorAll(".cw"))
-		el.addEventListener("toggle", toggle_content_warning.bind(null))
 }
 
 function redraw_timeline_events(damus, name) {
@@ -1421,9 +1408,8 @@ function get_content_warning(tags)
 	return null
 }
 
-function toggle_content_warning(e)
+function toggle_content_warning(el)
 {
-	const el = e.target
 	const id = el.id.split("_")[1]
 	const ev = DAMUS.all_events[id]
 
@@ -1456,7 +1442,7 @@ function format_content(ev, show_media)
 		}
 		const open = !!DAMUS.cw_open[ev.id]? "open" : ""
 		return `
-		<details class="cw" id="cw_${ev.id}" ${open}>
+		<details ontoggle="toggle_content_warning(this)" class="cw" id="cw_${ev.id}" ${open}>
 		  <summary class="event-message">${cwHTML}</summary>
 		  ${body}
 		</details>
