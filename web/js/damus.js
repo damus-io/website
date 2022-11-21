@@ -166,6 +166,7 @@ async function damus_web_init_ready()
 	model.ids = ids
 
 	model.pool = pool
+	model.all_events = load_events(model)
 	model.view_el = document.querySelector("#view")
 
 	switch_view('home')
@@ -393,7 +394,7 @@ function get_non_expired_unknowns(unks, type)
 
 	let new_expired = 0
 	const ids = Object.keys(unks).sort(sort_parent_created).reduce((ids, unk_id) => {
-		if (ids.length >= 128)
+		if (ids.length >= 255)
 			return ids
 
 		const unk = unks[unk_id]
@@ -434,8 +435,9 @@ function fetch_unknown_events(damus)
 	}
 
 	if (evids.length !== 0) {
-		filters.push({ids: evids})
-		filters.push({"#e": evids, limit: 100})
+		const unk_kinds = [1,5,6,7,40,42]
+		filters.push({ids: evids, kinds: unk_kinds})
+		filters.push({"#e": evids, kinds: [1,42], limit: 100})
 	}
 
 	if (pks.length !== 0)
@@ -461,7 +463,7 @@ function shuffle(arr)
 
 function schedule_unknown_refetch(damus)
 {
-	const INTERVAL = 10000
+	const INTERVAL = 5000
 	if (!damus.unknown_timer) {
 		log_debug("fetching unknown events now and in %d seconds", INTERVAL / 1000)
 
@@ -578,6 +580,88 @@ function handle_redraw_logic(model, view_name)
 	}
 }
 
+function schedule_save_events(damus)
+{
+	if (damus.save_timer)
+		clearTimeout(damus.save_timer)
+	damus.save_timer = setTimeout(save_events.bind(null, damus), 5000)
+}
+
+function is_valid_time(now_sec, created_at)
+{
+	// don't count events far in the future
+	if (created_at - now_sec >= 120) {
+		return false
+	}
+	return true
+}
+
+function max(a, b) {
+	return a > b ? a : b
+}
+
+function calculate_last_of_kind(evs)
+{
+	const now_sec = new Date().getTime() / 1000
+	return Object.keys(evs).reduce((obj, evid) => {
+		const ev = evs[evid]
+		if (!is_valid_time(now_sec, ev.created_at))
+			return obj
+		const prev = obj[ev.kind] || 0
+		obj[ev.kind] = max(ev.created_at, prev)
+		return obj
+	}, {})
+}
+
+function load_events(damus)
+{
+	if (!('event_cache' in localStorage))
+		return {}
+	const cached = JSON.parse(localStorage.getItem('event_cache'))
+
+	return cached.reduce((obj, ev) => {
+		obj[ev.id] = ev
+		process_event(damus, ev)
+		return obj
+	}, {})
+}
+
+
+function save_events(damus)
+{
+	const keys = Object.keys(damus.all_events)
+	const MAX_KINDS = {
+		1: 2000,
+		0: 2000,
+
+		6: 100,
+		4: 100,
+		5: 100,
+		7: 100,
+	}
+
+	let counts = {}
+
+	let cached = keys.map((key) => {
+		const ev = damus.all_events[key]
+		const {pubkey, content, tags, kind, created_at, id} = ev
+		return {pubkey, content, tags, kind, created_at, id}
+	})
+
+	cached.sort((a,b) => b.created_at - a.created_at)
+	cached = cached.reduce((cs, ev) => {
+		counts[ev.kind] = (counts[ev.kind] || 0)+1
+		if (counts[ev.kind] < MAX_KINDS[ev.kind])
+			cs.push(ev)
+		return cs
+	}, [])
+
+	log_debug('saving all events to local storage', cached.length)
+
+	localStorage.setItem('event_cache', JSON.stringify(cached))
+}
+
+
 function handle_home_event(model, relay, sub_id, ev) {
 	const ids = model.ids
 
@@ -585,6 +669,7 @@ function handle_home_event(model, relay, sub_id, ev) {
 	if (!has_event(model, ev.id)) {
 		model.all_events[ev.id] = ev
 		process_event(model, ev)
+		schedule_save_events(model)
 	}
 
 	ev = model.all_events[ev.id]
@@ -658,7 +743,7 @@ function send_home_filters(model, relay) {
 	friends.push(model.pubkey)
 
 	const contacts_filter = {kinds: [0], authors: friends}
-	const dms_filter = {kinds: [4], limit: 100}
+	const dms_filter = {kinds: [4], "#p": [ model.pubkey ], limit: 100}
 	const our_dms_filter = {kinds: [4], authors: [ model.pubkey ], limit: 100}
 
 	const standard_kinds = [1,42,5,6,7]
@@ -677,7 +762,9 @@ function send_home_filters(model, relay) {
 	if (relay) {
 		last_of_kind =
 			model.last_event_of_kind[relay] =
-			model.last_event_of_kind[relay] || {}
+			model.last_event_of_kind[relay] || calculate_last_of_kind(model.all_events)
+
+		console.log("last_of_kind", last_of_kind)
 	}
 
         update_filters_with_since(last_of_kind, home_filters)
@@ -696,8 +783,8 @@ function update_filter_with_since(last_of_kind, filter) {
 	const kinds = filter.kinds || []
 	let initial = null
 	let earliest = kinds.reduce((earliest, kind) => {
-		const last = last_of_kind[kind]
-		let since = get_since_time(last)
+		const last_created_at = last_of_kind[kind]
+		let since = get_since_time(last_created_at)
 
 		if (!earliest) {
 			if (since === null)

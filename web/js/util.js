@@ -40,11 +40,10 @@ function bech32_decode(pubkey) {
 /* get_since_time returns null or an int of...
  * TODO don't know what this does plz help
  */
-function get_since_time(last_event) {
-	if (!last_event) {
+function get_since_time(created_at) {
+	if (created_at == null) 
 		return null
-	}
-	return last_event.created_at - 60 * 10
+	return created_at - 60 * 10
 }
 
 function zero_bits(b) {
