@@ -14,6 +14,7 @@ function render_timeline_event(damus, view, ev)
 }
 
 function render_events(damus, view) {
+	log_debug("rendering events")
 	return view.events
 		.filter((ev, i) => i < 140)
 		.map((ev) => render_timeline_event(damus, view, ev)).join("\n")

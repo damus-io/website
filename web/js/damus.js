@@ -573,12 +573,10 @@ function get_current_view()
 
 function handle_redraw_logic(model, view_name)
 {
-	if (get_current_view().name === view_name) {
-		const view = model.views[view_name]
-		if (view.redraw_timer)
-			clearTimeout(view.redraw_timer)
-		view.redraw_timer = setTimeout(redraw_events.bind(null, model, view), 500)
-	}
+	const view = model.views[view_name]
+	if (view.redraw_timer)
+		clearTimeout(view.redraw_timer)
+	view.redraw_timer = setTimeout(redraw_events.bind(null, model, view), 600)
 }
 
 function schedule_save_events(damus)
@@ -927,7 +925,7 @@ function switch_view(name, opts={})
 
 	// TODO accomodate views that do not render events
 	// TODO find out if having multiple event divs is slow
-	redraw_timeline_events(DAMUS, name)
+	//redraw_timeline_events(DAMUS, name)
 
 	find_node("#nav > div[data-active]").dataset.active = name;
 
@@ -971,20 +969,21 @@ function load_our_contacts(contacts, our_pubkey, ev) {
 function handle_profiles_loaded(ids, model, view, relay) {
 	// stop asking for profiles
 	model.pool.unsubscribe(ids.profiles, relay)
-	redraw_events(model, view)
-	redraw_my_pfp(model)
+
+	//redraw_events(model, view)
+	//redraw_my_pfp(model)
 
 	const prefix = difficulty_to_prefix(model.pow)
 	const fofs = Array.from(model.contacts.friend_of_friends)
 	const standard_kinds = [1,42,5,6,7]
-	let pow_filter = {kinds: standard_kinds, limit: 200}
+	let pow_filter = {kinds: standard_kinds, limit: 50}
 	if (model.pow > 0)
 		pow_filter.ids = [ prefix ]
 
 	let explore_filters = [ pow_filter ]
 
 	if (fofs.length > 0) {
-		explore_filters.push({kinds: standard_kinds, authors: fofs, limit: 200})
+		explore_filters.push({kinds: standard_kinds, authors: fofs, limit: 50})
 	}
 
 	model.pool.subscribe(ids.explore, explore_filters, relay)
