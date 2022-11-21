@@ -37,9 +37,6 @@ function bech32_decode(pubkey) {
 	return nostrjs.hex_encode(bytes)
 }
 
-/* get_since_time returns null or an int of...
- * TODO don't know what this does plz help
- */
 function get_since_time(created_at) {
 	if (created_at == null) 
 		return null

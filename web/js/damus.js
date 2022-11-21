@@ -166,7 +166,8 @@ async function damus_web_init_ready()
 	model.ids = ids
 
 	model.pool = pool
-	model.all_events = load_events(model)
+
+	load_cache(model)
 	model.view_el = document.querySelector("#view")
 
 	switch_view('home')
@@ -584,7 +585,7 @@ function schedule_save_events(damus)
 {
 	if (damus.save_timer)
 		clearTimeout(damus.save_timer)
-	damus.save_timer = setTimeout(save_events.bind(null, damus), 5000)
+	damus.save_timer = setTimeout(save_cache.bind(null, damus), 3000)
 }
 
 function is_valid_time(now_sec, created_at)
@@ -608,7 +609,7 @@ function calculate_last_of_kind(evs)
 		if (!is_valid_time(now_sec, ev.created_at))
 			return obj
 		const prev = obj[ev.kind] || 0
-		obj[ev.kind] = max(ev.created_at, prev)
+		obj[ev.kind] = get_since_time(max(ev.created_at, prev))
 		return obj
 	}, {})
 }
@@ -626,6 +627,17 @@ function load_events(damus)
 	}, {})
 }
 
+function load_cache(damus)
+{
+	damus.all_events = load_events(damus)
+	load_timelines(damus)
+}
+
+function save_cache(damus)
+{
+	save_events(damus)
+	save_timelines(damus)
+}
 
 function save_events(damus)
 {
@@ -644,8 +656,8 @@ function save_events(damus)
 
 	let cached = keys.map((key) => {
 		const ev = damus.all_events[key]
-		const {pubkey, content, tags, kind, created_at, id} = ev
-		return {pubkey, content, tags, kind, created_at, id}
+		const {sig, pubkey, content, tags, kind, created_at, id} = ev
+		return {sig, pubkey, content, tags, kind, created_at, id}
 	})
 
 	cached.sort((a,b) => b.created_at - a.created_at)
@@ -661,6 +673,30 @@ function save_events(damus)
 	localStorage.setItem('event_cache', JSON.stringify(cached))
 }
 
+function save_timelines(damus)
+{
+	const views = Object.keys(damus.views).reduce((obj, view_name) => {
+		const view = damus.views[view_name]
+		obj[view_name] = view.events.map(e => e.id).slice(0,100)
+		return obj
+	}, {})
+	localStorage.setItem('views', JSON.stringify(views))
+}
+
+function load_timelines(damus)
+{
+	if (!('views' in localStorage))
+		return
+	const stored_views = JSON.parse(localStorage.getItem('views'))
+	for (const view_name of Object.keys(damus.views)) {
+		const view = damus.views[view_name]
+		view.events = (stored_views[view_name] || []).reduce((evs, evid) => {
+			const ev = damus.all_events[evid]
+			if (ev) evs.push(ev)
+			return evs
+		}, [])
+	}
+}
 
 function handle_home_event(model, relay, sub_id, ev) {
 	const ids = model.ids
@@ -764,7 +800,7 @@ function send_home_filters(model, relay) {
 			model.last_event_of_kind[relay] =
 			model.last_event_of_kind[relay] || calculate_last_of_kind(model.all_events)
 
-		console.log("last_of_kind", last_of_kind)
+		log_debug("last_of_kind", last_of_kind)
 	}
 
         update_filters_with_since(last_of_kind, home_filters)
