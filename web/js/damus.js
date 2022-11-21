@@ -385,7 +385,7 @@ function gather_unknown_hints(damus, pks, evids)
 
 function get_non_expired_unknowns(unks, type)
 {
-	const MAX_ATTEMPTS = 3
+	const MAX_ATTEMPTS = 2
 
 	function sort_parent_created(a_id, b_id) {
 		const a = unks[a_id]
