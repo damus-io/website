@@ -971,7 +971,7 @@ function handle_profiles_loaded(ids, model, view, relay) {
 	model.pool.unsubscribe(ids.profiles, relay)
 
 	//redraw_events(model, view)
-	//redraw_my_pfp(model)
+	redraw_my_pfp(model)
 
 	const prefix = difficulty_to_prefix(model.pow)
 	const fofs = Array.from(model.contacts.friend_of_friends)
@@ -989,9 +989,14 @@ function handle_profiles_loaded(ids, model, view, relay) {
 	model.pool.subscribe(ids.explore, explore_filters, relay)
 }
 
-function redraw_my_pfp(model) {
-	const html = render_pfp(model.pubkey, model.profiles[model.pubkey]);
-	document.querySelector(".my-userpic").innerHTML = html;
+function redraw_my_pfp(model, force = false) {
+	const p = model.profiles[model.pubkey]
+	if (!p) return;
+	const html = render_pfp(model.pubkey, p);
+	const el = document.querySelector(".my-userpic")
+	if (!force && el.dataset.loaded) return;
+	el.dataset.loaded = true;
+	el.innerHTML = html;
 }
 
 function debounce(f, interval) {
