@@ -11,6 +11,14 @@
 	--clrTextLighter: #abb4ca;
 	--clrHeart:       #ff5050;
 	--clrWarn:        #fbc560;
+	--clrLink:        blue;
+	--clrLinkVisited: purple;
+	
+	/* TODO I don't like these and simply did it for dark mode. To rename. */
+	--clrEvMsg:       #f4f4f4; 
+	--clrTextEvMsg:   #444;
+	--clrBgAction:    #171717;
+	--clrTextAction:  white;
 
 	/* Font Sizes */
 	--fsSmall:    12px;
@@ -31,4 +39,19 @@
 	/* Icon */
 	--iconSize: 24px;
 	--iconSizeSmall: 15px;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--clrBg: #0f0f0f;
+		--clrText: #fff;
+		--clrPanel: #1f1f1f;
+		--clrBorder: #282828;
+		--clrLink: #fb5151;
+		--clrLinkVisited: #f77;
+		--clrEvMsg: #353535;
+		--clrTextEvMsg: white;
+		--clrBgAction: white;
+		--clrTextAction: #1f1f1f;
+	}
 }

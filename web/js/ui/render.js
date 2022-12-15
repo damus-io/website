@@ -36,7 +36,7 @@ function render_thread_collapsed(model, ev, opts)
 	return `<div onclick="expand_thread('${ev.id}')" class="thread-collapsed">
 		<div class="thread-summary clickable event-message">
 			Read More  
-			<img class="icon small" src="icon/read-more.svg"/>
+			<img class="icon svg small" src="icon/read-more.svg"/>
 		</div>
 	</div>`
 }
@@ -198,7 +198,7 @@ function render_event(damus, view, ev, opts={}) {
 				${render_name(ev.pubkey, profile)}
 				<span class="timestamp">${delta}</span>
 				<button class="icon" title="View Thread" role="view-event" data-eid="${ev.id}" onclick="click_event(this)">
-					<img class="icon small" src="icon/open-thread.svg"/>
+					<img class="icon svg small" src="icon/open-thread.svg"/>
 				</button>
 			</div>
 			<div class="comment">
@@ -247,7 +247,7 @@ function render_action_bar(damus, ev, can_delete) {
 	if (can_delete)
 		delete_html = `
 	<button class="icon" title="Delete" onclick="delete_post_confirm('${ev.id}')">
-		<img class="icon small" src="icon/event-delete.svg"/>
+		<img class="icon svg small" src="icon/event-delete.svg"/>
 	</button>`
 
 	const groups = get_reactions(damus, ev.id)
@@ -257,10 +257,10 @@ function render_action_bar(damus, ev, can_delete) {
 	return `
 	<div class="action-bar">
 		<button class="icon" title="Reply" onclick="reply_to('${ev.id}')">
-			<img class="icon small" src="icon/event-reply.svg"/>
+			<img class="icon svg small" src="icon/event-reply.svg"/>
 		</button>
 		<button class="icon react heart" ${react_onclick} title="Like">
-			<img class="icon small" src="icon/event-like.svg"/>
+			<img class="icon svg small" src="icon/event-like.svg"/>
 		</button>
 		<!--<button class="icon" title="Share" onclick=""><i class="fa fa-fw fa-link"></i></a>-->
 		${delete_html}	
@@ -346,7 +346,7 @@ function render_loading_spinner()
 	return `
 	<div class="loading-events">
 		<div class="loader" title="Loading...">
-			<img src="icon/loader-fragment.svg"/>
+			<img class="dark-invert" src="icon/loader-fragment.svg"/>
 		</div>
 	</div>`
 }

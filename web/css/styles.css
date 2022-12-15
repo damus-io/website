@@ -14,6 +14,13 @@ body {
 	padding: 0;
 }
 
+a {
+	color: var(--clrLink);
+}
+a:visited {
+	color: var(--clrLinkVisited);
+}
+
 #gsticker {
 	position: absolute;
 	top: 0;
@@ -398,6 +405,8 @@ input[type="text"].cw {
 	border: none;
 	border-bottom: solid 2px var(--clrWarn);
 	font-size: var(--fsReduced);
+	background: transparent;
+	color: var(--clrText);
 }
 
 /* Profile */
@@ -427,5 +436,11 @@ label[role="profile-nip5"] {
 	margin-top: 15px;
 	font-weight: 800;
 	display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+	.icon.svg {
+		filter: invert(1);
+	}
 }
 
