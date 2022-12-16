@@ -290,15 +290,11 @@ function render_reactions(model, ev) {
  * that is best suited for the profile.
  */
 function render_name_plain(profile=DEFAULT_PROFILE) {
-	if (profile.sanitized_name)
-		return profile.sanitized_name
-
 	const display_name = profile.display_name || profile.user
 	const username = profile.name || "anon"
 	const name = display_name || username
 
-	profile.sanitized_name = sanitize(name)
-	return profile.sanitized_name
+	return profile.name
 }
 
 function render_pubkey(pk)

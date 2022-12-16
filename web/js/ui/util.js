@@ -87,7 +87,7 @@ function show_profile(pk) {
  */
 function newlines_to_br(str="") {
 	return str.split("\n").reduce((acc, part, index) => {
-		return acc + sanitize(part) + "<br/>";
+		return acc + part + "<br/>";
 	}, "");
 }
 
