@@ -1583,7 +1583,7 @@ function sanitize(content)
 {
 	if (!content)
 		return ""
-	return content.replaceAll("<","&lt;").replaceAll(">","&gt;")
+	return DOMPurify.sanitize(content)
 }
 
 function robohash(pk) {
