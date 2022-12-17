@@ -975,7 +975,9 @@ function handle_profiles_loaded(ids, model, view, relay) {
 	const prefix = difficulty_to_prefix(model.pow)
 	const fofs = Array.from(model.contacts.friend_of_friends)
 	const standard_kinds = [1,42,5,6,7]
-	let pow_filter = {kinds: standard_kinds, limit: 50}
+	const now = new Date().getTime() / 1000;
+
+	let pow_filter = {kinds: standard_kinds, limit: 50, until: now}
 	if (model.pow > 0)
 		pow_filter.ids = [ prefix ]
 
