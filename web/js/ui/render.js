@@ -33,7 +33,7 @@ function render_thread_collapsed(model, ev, opts)
 {
 	if (opts.is_composing)
 		return ""
-	return `<div onclick="expand_thread('${ev.id}')" class="thread-collapsed">
+	return `<div data-action="expand_thread" data-target="${ev.id}" class="thread-collapsed">
 		<div class="thread-summary clickable event-message">
 			Read More  
 			<img class="icon svg small" src="icon/read-more.svg"/>
@@ -197,7 +197,7 @@ function render_event(damus, view, ev, opts={}) {
 			<div class="info">
 				${render_name(ev.pubkey, profile)}
 				<span class="timestamp">${delta}</span>
-				<button class="icon" title="View Thread" role="view-event" data-eid="${ev.id}" onclick="click_event(this)">
+				<button class="icon" title="View Thread" role="view-event" data-eid="${ev.id}" data-target="${ev.id}" data-action="click_event">
 					<img class="icon svg small" src="icon/open-thread.svg"/>
 				</button>
 			</div>
@@ -212,19 +212,19 @@ function render_event(damus, view, ev, opts={}) {
 function render_react_onclick(our_pubkey, reacting_to, emoji, reactions) {
 	const reaction = reactions[our_pubkey]
 	if (!reaction) {
-		return `onclick="send_reply('${emoji}', '${reacting_to}')"`
+		return `data-action="send_reply" data-reacting-to="${reacting_to}" data-emoji="${emoji}"`
 	} else {
-		return `onclick="delete_post('${reaction.id}')"`
+		return `data-action="delete_post" data-target="${reaction.id}"`
 	}
 }
 
 function render_reaction_group(model, emoji, reactions, reacting_to) {
 	const pfps = Object.keys(reactions).map((pk) => render_reaction(model, reactions[pk]))
 
-	let onclick = render_react_onclick(model.pubkey, reacting_to.id, emoji, reactions)
+	let react_onclick = render_react_onclick(model.pubkey, reacting_to.id, emoji, reactions)
 
 	return `
-	<span ${onclick} class="reaction-group clickable">
+	<span ${react_onclick} class="reaction-group clickable">
 	  <span class="reaction-emoji">
 	  ${emoji}
 	  </span>
@@ -246,7 +246,7 @@ function render_action_bar(damus, ev, can_delete) {
 	let delete_html = ""
 	if (can_delete)
 		delete_html = `
-	<button class="icon" title="Delete" onclick="delete_post_confirm('${ev.id}')">
+	<button class="icon" title="Delete" data-action="delete_post_confirm" data-target="${ev.id}">
 		<img class="icon svg small" src="icon/event-delete.svg"/>
 	</button>`
 
@@ -256,15 +256,13 @@ function render_action_bar(damus, ev, can_delete) {
 	const react_onclick = render_react_onclick(damus.pubkey, ev.id, like, likes)
 	return `
 	<div class="action-bar">
-		<button class="icon" title="Reply" onclick="reply_to('${ev.id}')">
+		<button class="icon" title="Reply" data-action="reply_to" data-target="${ev.id}">
 			<img class="icon svg small" src="icon/event-reply.svg"/>
 		</button>
 		<button class="icon react heart" ${react_onclick} title="Like">
 			<img class="icon svg small" src="icon/event-like.svg"/>
 		</button>
-		<!--<button class="icon" title="Share" onclick=""><i class="fa fa-fw fa-link"></i></a>-->
 		${delete_html}	
-		<!--<button class="icon" title="View raw Nostr event." onclick=""><i class="fa-solid fa-fw fa-code"></i></a>-->
 	</div>
 	`
 }
@@ -314,7 +312,7 @@ function render_mentioned_name(pk, profile) {
 
 function render_name(pk, profile, prefix="") {
 	return `
-	<span class="username clickable" onclick="show_profile('${pk}')" 
+	<span class="username clickable" data-action="show_profile" data-target="${pk}" 
 		data-pk="${pk}">${prefix}${render_name_plain(profile)}
 	</span>`
 }
@@ -326,7 +324,6 @@ function render_deleted_name() {
 function render_pfp(pk, profile) {
 	const name = render_name_plain(profile)
 	return `<img class="pfp" title="${name}" 
-	onerror="this.onerror=null;this.src='${robohash(pk)}';" 
 	src="${get_picture(pk, profile)}">`
 }
 

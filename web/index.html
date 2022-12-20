@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' fonts.googleapis.com; img-src * data:; font-src 'self' fonts.gstatic.com; connect-src 'self' ws: wss:; media-src *" />
 		<title>Damus</title>
 		<link rel="stylesheet" href="css/vars.css?v=2">
 		<link rel="stylesheet" href="css/utils.css?v=2">
@@ -18,30 +19,24 @@
 		<script defer src="js/damus.js?v=94"></script>
 	</head>
 	<body>
-		<script>
-		// This is our main entry.
-		// https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event
-		addEventListener('DOMContentLoaded', (ev) => {
-			damus_web_init();
-		});
-		</script>
+		<script src="js/main.js"></script>
 		<div id="gsticker" title="This is alpha software.">αlpha</div>
 
 		<nav id="gnav" class="">
-			<button class="icon" role="open-gnav" title="Open Menu" onclick="toggle_gnav(this)">
+			<button class="icon" role="open-gnav" title="Open Menu" data-action="toggle_gnav">
 				<img class="icon svg invert" src="icon/logo.svg"/>
 			</button>
-			<button class="icon" role="home" title="Home" onclick="switch_view('home')">
+			<button class="icon" role="home" title="Home" data-action="switch_view" data-target="home">
 				<img class="icon svg invert" src="icon/home.svg"/>
 			</button>
-			<button class="icon" role="explore" title="Explore" onclick="switch_view('explore')">
+			<button class="icon" role="explore" title="Explore" data-action="switch_view" data-target="explore">
 				<img class="icon svg invert" src="icon/explore.svg"/>
 			</button>
-			<button class="icon" role="notifications" title="Notifications" onclick="switch_view('notifications')">
+			<button class="icon" role="notifications" title="Notifications" data-action="switch_view" data-target="notifications">
 				<img class="icon svg invert" src="icon/notifications.svg"/>
 				<div class="new-notifications hide"></div>
 			</button>
-			<button class="icon" role="sign-out" title="Sign Out" onclick="press_logout()">
+			<button class="icon" role="sign-out" title="Sign Out" data-action="press_logout">
 				<img class="icon svg invert" src="icon/sign-out.svg"/>
 			</button>
 		</nav>
@@ -54,22 +49,22 @@
 						<img class="icon svg" title="Damus" src="icon/logo-inverted.svg"/>
 					</div>
 					<button role="home" class="nav icon" 
-						title="Home" onclick="switch_view('home')">
+						title="Home" data-action="switch_view" data-target="home">
 						<img class="icon svg inactive" src="icon/home.svg"/>
 						<img class="icon svg active" src="icon/home-active.svg"/>
 					</button>
 					<button role="explore" class="nav icon" 
-						title="Explore" onclick="switch_view('explore')">
+						title="Explore" data-action="switch_view" data-target="explore">
 						<img class="icon svg inactive" src="icon/explore.svg"/>
 						<img class="icon svg active" src="icon/explore-active.svg"/>
 					</button>
 					<button role="notifications" class="nav icon" 
-						title="Notifications" onclick="switch_view('notifications')">
+						title="Notifications" data-action="switch_view" data-target="notifications">
 						<img class="icon svg inactive" src="icon/notifications.svg"/>
 						<img class="icon svg active" src="icon/notifications-active.svg"/>
 						<div class="new-notifications hide"></div>
 					</button>
-					<button title="Sign Out" class="nav icon" onclick="press_logout()">
+					<button title="Sign Out" class="nav icon" data-action="press_logout">
 						<img class="icon svg" src="icon/sign-out.svg"/>
 					</button>
 				</div>
@@ -84,16 +79,17 @@
 							<!-- To be loaded dynamically. -->
 						</div>
 						<div>
-							<textarea placeholder="What's up?" 
-									  oninput="post_input_changed(this)" 
+							<textarea placeholder="What's up?"
+									  data-on-input="post_input_changed"
 									  class="post-input" id="post-input"></textarea>
 							<div class="post-tools">
 								<input id="content-warning-input" class="cw hide" type="text" placeholder="Reason"/>
 								<button title="Mark this message as sensitive." 
-									onclick="toggle_cw(this)" class="cw icon">
+									data-action="toggle_cw"
+									class="cw icon">
 									<img class="icon svg small" src="icon/content-warning.svg"/>
 								</button>
-								<button onclick="send_post(this)" class="action" 
+								<button data-action="send_post" class="action"
 									role="send" id="post-button" disabled>Send</button>
 							</div>
 						</div>
@@ -131,10 +127,11 @@
 									<img class="icon" src="icon/message-user.svg"/></button>
 								-->
 								<button class="icon" role="copy-pk"
-									data-pk="" onclick="click_copy_pk(this)" title="Copy Public Key">
+									data-action="click_copy_pk"
+									data-pk="" title="Copy Public Key">
 									<img class="icon svg" src="icon/pubkey.svg"/></button>
 								<button class="action" role="follow-user" data-pk=""
-									onclick="click_toggle_follow_user(this)">Follow</button>
+									data-action="click_toggle_follow_user">Follow</button>
 							</div>
 						</div>
 						<div>
@@ -152,16 +149,16 @@
 			<div id="reply-modal-content" class="modal-content">
 				<header>
 					<label>Reply To</label>
-					<button class="icon" onclick="close_reply()">
+					<button class="icon" data-action="close_reply">
 						<img class="icon svg" src="icon/close-modal.svg"/>
 					</button>
 				</header>
 				<div id="replying-to"></div>
 				<div id="replybox">
-					<textarea id="reply-content" class="post-input" oninput="post_input_changed(this)"
+					<textarea id="reply-content" class="post-input" data-on-input="post_input_changed"
 						placeholder="Write your reply here..."></textarea>
 					<div class="post-tools">
-						<button id="reply-button" class="action" onclick="do_send_reply()">
+						<button id="reply-button" class="action" data-action="do_send_reply">
 							Reply
 						</button>
 					</div>
