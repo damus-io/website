@@ -3,6 +3,7 @@ let DAMUS
 
 const BOOTSTRAP_RELAYS = [
 	"wss://relay.damus.io",
+	"wss://nostr-pub.semisol.dev",
 	"wss://nostr-relay.wlvs.space",
 	"wss://nostr-pub.wellorder.net"
 ]
@@ -1050,6 +1051,8 @@ function redraw_events(damus, view) {
 
 	const events_el = damus.view_el.querySelector(`#${view.name}-view > .events`)
 	events_el.innerHTML = render_events(damus, view)
+
+	bind_buttons(events_el)
 }
 
 function redraw_timeline_events(damus, name) {
@@ -1498,7 +1501,7 @@ function reply_to(evid) {
 	const ev = DAMUS.all_events[evid]
 	const view = get_current_view()
 	replying_to.innerHTML = render_event(DAMUS, view, ev, {is_composing: true, nobar: true, max_depth: 1})
-
+	bind_buttons(replying_to)
 	replybox.focus()
 }
 
