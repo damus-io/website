@@ -166,23 +166,23 @@ function linkify(text, show_media) {
 	return text.replace(URL_REGEX, function(match, p1, p2, p3) {
 		const url = p2+p3
 		const parsed = new URL(url)
-		let html;
+		let markup;
 		if (show_media && is_img_url(parsed.pathname)) {
-			html = `
+			markup = html`
 			<a target="_blank" href="${url}">
 				<img class="inline-img" src="${url}"/>
 			</a>
 			`;
 		} else if (show_media && is_video_url(parsed.pathname)) {
-			html = `
+			markup = html`
 			<video controls class="inline-img" />
 			  <source src="${url}">
 			</video>
 			`;
 		} else {
-			html = `<a target="_blank" rel="noopener noreferrer" href="${url}">${url}</a>`;
+			markup = html`<a target="_blank" rel="noopener noreferrer" href="${url}">${url}</a>`;
 		}
-		return p1+html;
+		return p1+markup;
 	})
 }
 
