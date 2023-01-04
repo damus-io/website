@@ -141,6 +141,17 @@ async function damus_web_init()
 
 async function damus_web_init_ready()
 {
+	history.replaceState({ page: "home" }, null, '');
+	window.onpopstate = (event) => {
+		if (event.state.page === "profile") {
+			show_profile(event.state.opts.pk);
+		}
+
+		// in case page is null or undefined, fallback to the home view
+		switch_view(event.state.page || 'home');
+	}
+	
+
 	const model = init_home_model()
 	DAMUS = model
 	model.pubkey = await get_pubkey()
@@ -170,7 +181,7 @@ async function damus_web_init_ready()
 	load_cache(model)
 	model.view_el = document.querySelector("#view")
 
-	switch_view('home')
+	switch_view('home');
 
 	document.addEventListener('visibilitychange', () => {
 		update_title(model)
@@ -897,8 +908,29 @@ function get_view_el(name)
 	return DAMUS.view_el.querySelector(`#${name}-view`)
 }
 
+function change_url(name, opts = {}) {
+	let pushStateUrl = `/${name}`;
+	if (opts.pk) {
+		pushStateUrl = `${pushStateUrl}/${opts.pk}`;
+	}
+	window.history.pushState({ page: name, opts }, '', pushStateUrl);
+}
+
+function navigate(name, pk) {
+	if (name === 'profile') {
+		show_profile(pk);
+		change_url(name, { pk });
+	} else {
+		change_url(name);
+	}
+
+
+	switch_view(name);
+}
+
 function switch_view(name, opts={})
 {
+	// change_url(name, opts);
 	if (name === DAMUS.current_view) {
 		log_debug("Not switching to '%s', we are already there", name)
 		return
