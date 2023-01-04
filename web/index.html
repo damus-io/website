@@ -31,13 +31,13 @@
 			<button class="icon" role="open-gnav" title="Open Menu" onclick="toggle_gnav(this)">
 				<img class="icon svg invert" src="icon/logo.svg"/>
 			</button>
-			<button class="icon" role="home" title="Home" onclick="switch_view('home')">
+			<button class="icon" role="home" title="Home" onclick="navigate('home')">
 				<img class="icon svg invert" src="icon/home.svg"/>
 			</button>
-			<button class="icon" role="explore" title="Explore" onclick="switch_view('explore')">
+			<button class="icon" role="explore" title="Explore" onclick="navigate('explore')">
 				<img class="icon svg invert" src="icon/explore.svg"/>
 			</button>
-			<button class="icon" role="notifications" title="Notifications" onclick="switch_view('notifications')">
+			<button class="icon" role="notifications" title="Notifications" onclick="navigate('notifications')">
 				<img class="icon svg invert" src="icon/notifications.svg"/>
 				<div class="new-notifications hide"></div>
 			</button>
@@ -54,17 +54,17 @@
 						<img class="icon svg" title="Damus" src="icon/logo-inverted.svg"/>
 					</div>
 					<button role="home" class="nav icon" 
-						title="Home" onclick="switch_view('home')">
+						title="Home" onclick="navigate('home')">
 						<img class="icon svg inactive" src="icon/home.svg"/>
 						<img class="icon svg active" src="icon/home-active.svg"/>
 					</button>
 					<button role="explore" class="nav icon" 
-						title="Explore" onclick="switch_view('explore')">
+						title="Explore" onclick="navigate('explore')">
 						<img class="icon svg inactive" src="icon/explore.svg"/>
 						<img class="icon svg active" src="icon/explore-active.svg"/>
 					</button>
 					<button role="notifications" class="nav icon" 
-						title="Notifications" onclick="switch_view('notifications')">
+						title="Notifications" onclick="navigate('notifications')">
 						<img class="icon svg inactive" src="icon/notifications.svg"/>
 						<img class="icon svg active" src="icon/notifications-active.svg"/>
 						<div class="new-notifications hide"></div>

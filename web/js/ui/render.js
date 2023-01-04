@@ -314,7 +314,7 @@ function render_mentioned_name(pk, profile) {
 
 function render_name(pk, profile, prefix="") {
 	return `
-	<span class="username clickable" onclick="show_profile('${pk}')" 
+	<span class="username clickable" onclick="navigate('profile', '${pk}')" 
 		data-pk="${pk}">${prefix}${render_name_plain(profile)}
 	</span>`
 }

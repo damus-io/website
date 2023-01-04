@@ -56,7 +56,6 @@ function update_notification_markers(active) {
  * TODO handle async waiting for relay not yet connected
  */
 function show_profile(pk) {
-	switch_view("profile");
 	const profile = DAMUS.profiles[pk];
 	const el = find_node("#profile-view");
 	// TODO show loading indicator then render
