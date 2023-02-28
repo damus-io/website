@@ -15,7 +15,9 @@
         <link rel="stylesheet" href="/css/normalize.css">
         <link rel="stylesheet" href="/css/skeleton.css?v=3">
         <link rel="stylesheet" href="/css/custom.css?v=4">
-
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>
     </head>
     <body>
 	<section class="header">
@@ -29,7 +31,7 @@
 
 
 	<div class="container">
-		<h1>Key Converter</h2>
+		<h1>Key Converter</h1>
 		<p>Convert a damus key to an old-style hex key</p>
 	      <label for="bech32">damus key</label>
 	      <input type="text" class="u-full-width" placeholder="npub... OR nsec..." id="damus-key">
@@ -37,10 +39,19 @@
 	      <label for="bech32">hex key</label>
 	      <input type="text" class="u-full-width" placeholder="" id="hex-key">
 
+		<h1>NIP-05 Creation Tool</h1>
+		<p>The tool generates a .zip file. Inside you have a .htaccess file for your Apache server and a folder which contains a JSON called "nostr.json".<br/>
+			You simply need to paste the unzipped contents in the domain you prefer.</p>
+		<h2>Enter Nostr Public Key in HEX format</h2>
+		<input type="text" class="u-full-width" id="keyInput" placeholder="Enter Nostr HEX public key here"><br/>
+		<h2>Choose a name</h2>
+		<input type="text" class="u-full-width" id="nameInput" placeholder="Enter a name here"><br/>
+		<button id="createButton">Create</button>
 	      <div>
 		      <h2>Links</h2>
 		      <a id="note-link" href="">Damus Note Link</a><br/>
-		      <a id="profile-link" href="">Damus Profile Link</a>
+		      <a id="profile-link" href="">Damus Profile Link</a><br/>
+		      <a href="https://resources.davidcoen.it/nip05creator/" target="_blank">NIP-05 Creation Tool</a>
 	      </div>
 	</div>
 
