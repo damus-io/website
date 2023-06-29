@@ -1,0 +1,34 @@
+{
+  "applinks": {
+      "details": [
+           {
+             "appIDs": [ "XK7H4JAB3D.com.jb55.damus2" ],
+             "components": [
+               {
+                  "/": "/r/*",
+                  "comment": "npubs, events, profiles, etc"
+               },
+               {
+                  "/": "/note1*",
+                  "comment": "notes"
+               },
+               {
+                  "/": "/npub*",
+                  "comment": "pks"
+               },
+               {
+                  "/": "/nprofile*",
+                  "comment": "profiles"
+               },
+               {
+                  "/": "/nevent*",
+                  "comment": "events"
+               }
+             ]
+           }
+       ]
+   },
+   "webcredentials": {
+      "apps": [ "XK7H4JAB3D.com.jb55.damus2" ]
+   }
+}
