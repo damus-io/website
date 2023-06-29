@@ -22,21 +22,21 @@ function render_events(damus, view) {
 
 function render_reply_line_top(has_top_line) {
 	const classes = has_top_line ? "" : "invisible"
-	return `<div class="line-top ${classes}"></div>`
+	return html`<div class="line-top ${classes}"></div>`
 }
 
 function render_reply_line_bot() {
-	return `<div class="line-bot"></div>`
+	return html`<div class="line-bot"></div>`
 }
 
 function render_thread_collapsed(model, ev, opts)
 {
 	if (opts.is_composing)
 		return ""
-	return `<div onclick="expand_thread('${ev.id}')" class="thread-collapsed">
+	return html`<div onclick="expand_thread('${ev.id}')" class="thread-collapsed">
 		<div class="thread-summary clickable event-message">
 			Read More  
-			<img class="icon small" src="icon/read-more.svg"/>
+			<img class="icon svg small" src="icon/read-more.svg"/>
 		</div>
 	</div>`
 }
@@ -65,7 +65,7 @@ function render_replying_to_chat(damus, ev) {
 	const names = pks.map(pk => render_mentioned_name(pk, damus.profiles[pk])).join(", ")
 	const to_users = pks.length === 0 ? "" : ` to ${names}`
 
-	return `<div class="replying-to">replying${to_users} in <span class="chatroom-name">${roomname}</span></div>`
+	return html`<div class="replying-to">replying${to_users} in <span class="chatroom-name">${roomname}</span></div>`
 }
 
 function render_replying_to(model, ev) {
@@ -79,16 +79,16 @@ function render_replying_to(model, ev) {
 	if (pubkeys.length === 0 && ev.refs.reply) {
 		const replying_to = model.all_events[ev.refs.reply]
 		if (!replying_to)
-			return `<div class="replying-to small-txt">reply to ${ev.refs.reply}</div>`
+			return html`<div class="replying-to small-txt">reply to ${ev.refs.reply}</div>`
 
 		pubkeys = [replying_to.pubkey]
 	}
 
 	const names = ev.refs.pubkeys.map(pk => render_mentioned_name(pk, model.profiles[pk])).join(", ")
 
-	return `
+	return html`
 	<span class="replying-to small-txt">
-		replying to ${names}
+		replying to $${names}
 	</span>
 	`
 }
@@ -117,16 +117,16 @@ function render_comment_body(damus, ev, opts) {
 	const bar = !can_reply(ev) || opts.nobar? "" : render_action_bar(damus, ev, can_delete)
 	const show_media = !opts.is_composing
 
-	return `
+	return html`
 	<div>
-	${render_replying_to(damus, ev)}
-	${render_shared_by(ev, opts)}
+	$${render_replying_to(damus, ev)}
+	$${render_shared_by(ev, opts)}
 	</div>
 	<p>
-	${format_content(ev, show_media)}
+	$${format_content(ev, show_media)}
 	</p>
-	${render_reactions(damus, ev)}
-	${bar}
+	$${render_reactions(damus, ev)}
+	$${bar}
 	`
 }
 
@@ -135,23 +135,23 @@ function render_shared_by(ev, opts) {
 	if (!b) {
 		return ""
 	}
-	return `
+	return html`
 	<div class="shared-by">
-		Shared by ${render_name(b.pubkey, b.profile)}
+		Shared by $${render_name(b.pubkey, b.profile)}
 	</div>
 	`
 }
 
 function render_deleted_comment_body(ev, deleted) {
 	if (deleted.content) {
-		return `
+		return html`
 		<div class="deleted-comment event-message">
 			This content was deleted with reason: 	
 			<div class="quote">${format_content(deleted, false)}</div>
 		</div>
 		`
 	}
-	return `
+	return html`
 	<div class="deleted-comment event-message">
 		This content was deleted.
 	</div>
@@ -185,24 +185,24 @@ function render_event(damus, view, ev, opts={}) {
 
 	const has_top_line = replied_events !== ""
 	const border_bottom = opts.is_composing || has_bot_line ? "" : "bottom-border";
-	return `
-	${replied_events}
+	return html`
+	$${replied_events}
 	<div id="ev${ev.id}" class="event ${border_bottom}">
 		<div class="userpic">
-			${render_reply_line_top(has_top_line)}
-			${deleted ? render_deleted_pfp() : render_pfp(ev.pubkey, profile)}
-			${reply_line_bot}
+			$${render_reply_line_top(has_top_line)}
+			$${deleted ? render_deleted_pfp() : render_pfp(ev.pubkey, profile)}
+			$${reply_line_bot}
 		</div>	
 		<div class="event-content">
 			<div class="info">
-				${render_name(ev.pubkey, profile)}
+				$${render_name(ev.pubkey, profile)}
 				<span class="timestamp">${delta}</span>
 				<button class="icon" title="View Thread" role="view-event" data-eid="${ev.id}" onclick="click_event(this)">
-					<img class="icon small" src="icon/open-thread.svg"/>
+					<img class="icon svg small" src="icon/open-thread.svg"/>
 				</button>
 			</div>
 			<div class="comment">
-				${deleted ? render_deleted_comment_body(ev, deleted) : render_comment_body(damus, ev, opts)}
+				$${deleted ? render_deleted_comment_body(ev, deleted) : render_comment_body(damus, ev, opts)}
 			</div>
 		</div>
 	</div>
@@ -212,9 +212,9 @@ function render_event(damus, view, ev, opts={}) {
 function render_react_onclick(our_pubkey, reacting_to, emoji, reactions) {
 	const reaction = reactions[our_pubkey]
 	if (!reaction) {
-		return `onclick="send_reply('${emoji}', '${reacting_to}')"`
+		return html`onclick="send_reply('${emoji}', '${reacting_to}')"`
 	} else {
-		return `onclick="delete_post('${reaction.id}')"`
+		return html`onclick="delete_post('${reaction.id}')"`
 	}
 }
 
@@ -223,12 +223,12 @@ function render_reaction_group(model, emoji, reactions, reacting_to) {
 
 	let onclick = render_react_onclick(model.pubkey, reacting_to.id, emoji, reactions)
 
-	return `
-	<span ${onclick} class="reaction-group clickable">
+	return html`
+	<span $${onclick} class="reaction-group clickable">
 	  <span class="reaction-emoji">
 	  ${emoji}
 	  </span>
-	  ${pfps.join("\n")}
+	  $${pfps.join("\n")}
 	</span>
 	`
 }
@@ -245,25 +245,25 @@ function render_reaction(model, reaction) {
 function render_action_bar(damus, ev, can_delete) {
 	let delete_html = ""
 	if (can_delete)
-		delete_html = `
+		delete_html = html`
 	<button class="icon" title="Delete" onclick="delete_post_confirm('${ev.id}')">
-		<img class="icon small" src="icon/event-delete.svg"/>
+		<img class="icon svg small" src="icon/event-delete.svg"/>
 	</button>`
 
 	const groups = get_reactions(damus, ev.id)
 	const like = "❤️"
 	const likes = groups[like] || {}
 	const react_onclick = render_react_onclick(damus.pubkey, ev.id, like, likes)
-	return `
+	return html`
 	<div class="action-bar">
 		<button class="icon" title="Reply" onclick="reply_to('${ev.id}')">
-			<img class="icon small" src="icon/event-reply.svg"/>
+			<img class="icon svg small" src="icon/event-reply.svg"/>
 		</button>
-		<button class="icon react heart" ${react_onclick} title="Like">
-			<img class="icon small" src="icon/event-like.svg"/>
+		<button class="icon react heart" $${react_onclick} title="Like">
+			<img class="icon svg small" src="icon/event-like.svg"/>
 		</button>
 		<!--<button class="icon" title="Share" onclick=""><i class="fa fa-fw fa-link"></i></a>-->
-		${delete_html}	
+		$${delete_html}	
 		<!--<button class="icon" title="View raw Nostr event." onclick=""><i class="fa-solid fa-fw fa-code"></i></a>-->
 	</div>
 	`
@@ -277,9 +277,9 @@ function render_reactions(model, ev) {
 		str += render_reaction_group(model, emoji, groups[emoji], ev)
 	}
 
-	return `
+	return html`
 	<div class="reactions">
-	  ${str}
+	  $${str}
 	</div>
 	`
 }
@@ -290,15 +290,11 @@ function render_reactions(model, ev) {
  * that is best suited for the profile.
  */
 function render_name_plain(profile=DEFAULT_PROFILE) {
-	if (profile.sanitized_name)
-		return profile.sanitized_name
-
 	const display_name = profile.display_name || profile.user
 	const username = profile.name || "anon"
 	const name = display_name || username
 
-	profile.sanitized_name = sanitize(name)
-	return profile.sanitized_name
+	return profile.name
 }
 
 function render_pubkey(pk)
@@ -317,7 +313,7 @@ function render_mentioned_name(pk, profile) {
 }
 
 function render_name(pk, profile, prefix="") {
-	return `
+	return html`
 	<span class="username clickable" onclick="show_profile('${pk}')" 
 		data-pk="${pk}">${prefix}${render_name_plain(profile)}
 	</span>`
@@ -329,13 +325,13 @@ function render_deleted_name() {
 
 function render_pfp(pk, profile) {
 	const name = render_name_plain(profile)
-	return `<img class="pfp" title="${name}" 
+	return html`<img class="pfp" title="${name}" 
 	onerror="this.onerror=null;this.src='${robohash(pk)}';" 
 	src="${get_picture(pk, profile)}">`
 }
 
 function render_deleted_pfp() {
-	return `
+	return html`
 	<div class="pfp deleted">
 		<i class="fa-solid fa-fw fa-ghost"></i>
 	</div>`
@@ -343,10 +339,10 @@ function render_deleted_pfp() {
 
 function render_loading_spinner()
 {
-	return `
+	return html`
 	<div class="loading-events">
 		<div class="loader" title="Loading...">
-			<img src="icon/loader-fragment.svg"/>
+			<img class="dark-invert" src="icon/loader-fragment.svg"/>
 		</div>
 	</div>`
 }

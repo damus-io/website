@@ -235,18 +235,9 @@ function process_reaction_event(model, ev)
 function process_chatroom_event(model, ev)
 {
 	try {
-		model.chatrooms[ev.id] = JSON.parse(ev.content)
+		model.chatrooms[ev.id] = sanitize_obj(JSON.parse(ev.content))
 	} catch (err) {
 		log_debug("error processing chatroom creation event", ev, err)
-	}
-}
-
-function process_json_content(ev)
-{
-	try {
-		ev.json_content = JSON.parse(ev.content)
-	} catch(e) {
-		log_debug("error parsing json content for", ev)
 	}
 }
 
@@ -752,6 +743,14 @@ function handle_home_event(model, relay, sub_id, ev) {
 	}
 }
 
+function sanitize_obj(obj) {
+	for (const key of Object.keys(obj)) {
+		obj[key] = sanitize(obj[key])
+	}
+
+	return obj
+}
+
 function process_profile_event(model, ev) {
 	const prev_ev = model.all_events[model.profile_events[ev.pubkey]]
 	if (prev_ev && prev_ev.created_at > ev.created_at)
@@ -759,7 +758,7 @@ function process_profile_event(model, ev) {
 
 	model.profile_events[ev.pubkey] = ev.id
 	try {
-		model.profiles[ev.pubkey] = JSON.parse(ev.content)
+		model.profiles[ev.pubkey] = sanitize_obj(JSON.parse(ev.content))
 	} catch(e) {
 		log_debug("failed to parse profile contents", ev)
 	}
@@ -971,12 +970,14 @@ function handle_profiles_loaded(ids, model, view, relay) {
 	model.pool.unsubscribe(ids.profiles, relay)
 
 	//redraw_events(model, view)
-	//redraw_my_pfp(model)
+	redraw_my_pfp(model)
 
 	const prefix = difficulty_to_prefix(model.pow)
 	const fofs = Array.from(model.contacts.friend_of_friends)
 	const standard_kinds = [1,42,5,6,7]
-	let pow_filter = {kinds: standard_kinds, limit: 50}
+	const now = new Date().getTime() / 1000;
+
+	let pow_filter = {kinds: standard_kinds, limit: 50, until: now}
 	if (model.pow > 0)
 		pow_filter.ids = [ prefix ]
 
@@ -989,9 +990,14 @@ function handle_profiles_loaded(ids, model, view, relay) {
 	model.pool.subscribe(ids.explore, explore_filters, relay)
 }
 
-function redraw_my_pfp(model) {
-	const html = render_pfp(model.pubkey, model.profiles[model.pubkey]);
-	document.querySelector(".my-userpic").innerHTML = html;
+function redraw_my_pfp(model, force = false) {
+	const p = model.profiles[model.pubkey]
+	if (!p) return;
+	const html = render_pfp(model.pubkey, p);
+	const el = document.querySelector(".my-userpic")
+	if (!force && el.dataset.loaded) return;
+	el.dataset.loaded = true;
+	el.innerHTML = html;
 }
 
 function debounce(f, interval) {
@@ -1524,7 +1530,7 @@ function get_content_warning(tags)
 {
 	for (const tag of tags) {
 		if (tag.length >= 1 && tag[0] === "content-warning")
-			return tag[1] || ""
+			return sanitize(tag[1]) || ""
 	}
 
 	return null
@@ -1578,7 +1584,7 @@ function sanitize(content)
 {
 	if (!content)
 		return ""
-	return content.replaceAll("<","&lt;").replaceAll(">","&gt;")
+	return DOMPurify.sanitize(content)
 }
 
 function robohash(pk) {
@@ -1590,7 +1596,7 @@ function get_picture(pk, profile) {
 		return robohash(pk)
 	if (profile.resolved_picture)
 		return profile.resolved_picture
-	profile.resolved_picture = sanitize(profile.picture) || robohash(pk)
+	profile.resolved_picture = profile.picture || robohash(pk)
 	return profile.resolved_picture
 }
 

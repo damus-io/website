@@ -36,10 +36,10 @@ button.icon > img.icon {
 button.action {
 	border: none;
 	border-radius: 50px;
-	background: #171717;
+	background: var(--clrBgAction);
 	padding: 10px 15px;
 	font-size: 16px;
-	color: white;
+	color: var(--clrTextAction);
 	font-weight: 800;
 }
 
@@ -66,10 +66,10 @@ img.icon.small {
 	top: 0;
 }
 .event-message {
-	background: #f4f4f4;
+	background: var(--clrEvMsg);
 	padding: 7px;
 	border-radius: 12px;
-	color: #444;
+	color: var(--clrTextEvMsg);
 }
 .flex {
 	display: flex;
@@ -80,4 +80,13 @@ img.icon.small {
 img.invert {
 	/* This class is good for white on black icons; */
 	filter: invert(1);
+}
+
+@media (prefers-color-scheme: dark) {
+	img.dark-invert {
+		filter: invert(1);
+	}
+	img.invert, img.svg.invert {
+		filter: initial;
+	}
 }
