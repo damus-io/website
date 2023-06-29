@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Damus ChangeLog</title>
+    </head>
+
+    <body>
+<h2 id="v1.4.3---2023-05-08">v1.4.3 - 2023-05-08</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Add #zaps and #onlyzaps to custom hashtags (William Casarin)</li>
+<li>Add OnlyZaps mode: disable reactions, only zaps! (William Casarin)</li>
+<li>Add QR Code in profiles (ericholguin)</li>
+<li>Add confirmation alert when clearing all bookmarks (Swift)</li>
+<li>Add deep links for local notifications (Swift)</li>
+<li>Add friends filter to DMs (William Casarin)</li>
+<li>Add image metadata to image uploads (William Casarin)</li>
+<li>Add nokyctranslate translation option (symbsrcool)</li>
+<li>Add partial support for different repost variants (William Casarin)</li>
+<li>Add paste button to login (Suhail Saqan)</li>
+<li>Add q tag to quoted renotes (William Casarin)</li>
+<li>Add setting to hide reactions (Terry Yiu)</li>
+<li>Add thread muting (Terry Yiu)</li>
+<li>Add unmute option in profile view (Joshua Jiang)</li>
+<li>Add webp image support (William Casarin)</li>
+<li>Added event preloading when scrolling (William Casarin)</li>
+<li>Colorize friend icons (William Casarin)</li>
+<li>Friends filter for notifications (William Casarin)</li>
+<li>Preload images so they don’t pop in (William Casarin)</li>
+<li>Preload profile pictures while scrolling (William Casarin)</li>
+<li>Preview media uploads when posting (Swift)</li>
+<li>Save keys when logging in and when creating new keypair (Bryan Montz)</li>
+<li>Show blurhash placeholders from image metadata (William Casarin)</li>
+<li>Top-level tab state restoration (Bryan Montz)</li>
+<li>You can now change the default zap type (William Casarin)</li>
+<li>new iconography (Roberto Agreda)</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Add number formatting for sats entry and use selected zaps amount from picker as placeholder (Terry Yiu)</li>
+<li>Adjust attachment images placement when posting (Swift)</li>
+<li>Always check signatures of profile events (William Casarin)</li>
+<li>Ask permission before uploading media (Swift)</li>
+<li>Cached various UI elements so its not as laggy (William Casarin)</li>
+<li>Change 500 custom zap to 420 (William Casarin)</li>
+<li>Changed look of Repost and Quote buttons (ericholguin)</li>
+<li>Enable like button on OnlyZaps profiles for people who don’t have OnlyZaps mode on (William Casarin)</li>
+<li>Load zaps instantly on events (William Casarin)</li>
+<li>New looks to the custom zaps view (ericholguin)</li>
+<li>Only show friends, not friend-of-friend in friend filter (William Casarin)</li>
+<li>Preload events when they are queued (William Casarin)</li>
+<li>Search hashtags automatically (William Casarin)</li>
+<li>Show DM message in local notification (William Casarin)</li>
+<li>replace Vault dependency with <span class="citation" data-cites="KeychainStorage">@KeychainStorage</span> property wrapper (Bryan Montz)</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Dismiss bookmarks view when switching tabs (William Casarin)</li>
+<li>Do not allow non-numeric characters for sats amount and fix numeric entry for other number systems for all locales (Terry Yiu)</li>
+<li>Do not translate own notes if logged in with private key (Terry Yiu)</li>
+<li>Don’t process blurhash if we already have image cached (William Casarin)</li>
+<li>Fix “translated from english” bugs (William Casarin)</li>
+<li>Fix Copy Link action does not dismiss ShareAction view (Bryan Montz)</li>
+<li>Fix auto-translations bug where languages in preferred language still gets translated (Terry Yiu)</li>
+<li>Fix bug where you could only mention users at the end of a post (Swift)</li>
+<li>Fix bug with reaction notifications referencing the wrong event (Terry Yiu)</li>
+<li>Fix buggy zap amounts and wallet selector settings (William Casarin)</li>
+<li>Fix camera not dismissing (Swift)</li>
+<li>Fix crash when loading DMs in the background (William Casarin)</li>
+<li>Fix crash when you have invalid relays in your relay list (William Casarin)</li>
+<li>Fix crash with LibreTranslate server setting selection and remove delisted vern server (Terry Yiu)</li>
+<li>Fix having to set onlyzaps mode every time on restart (William Casarin)</li>
+<li>Fix invalid DM author notifications (William Casarin)</li>
+<li>Fix issue where uploaded images were from someone else (Swift)</li>
+<li>Fix npub search fails on the first try (Bryan Montz)</li>
+<li>Fix parse mention without space in content (Joshua Jiang)</li>
+<li>Fix posts with no uploadedURLs always get two blank spaces at the end (Bryan Montz)</li>
+<li>Fix relay signal indicator, properly show how many relays you are connected to (William Casarin)</li>
+<li>Fix shuffling when choosing users to reply to (Joshua Jiang)</li>
+<li>Fix slow reconnection issues (Bryan Montz)</li>
+<li>Fix tap area when mentioning users (OlegAba)</li>
+<li>Fix thread incompatibility for clients that add more than one reply tag (William Casarin)</li>
+<li>Fix user notifications from old events immediately shown on install and login (Bryan Montz)</li>
+<li>Fix weird #[0] artifacts appearing in posts (William Casarin)</li>
+<li>Fix wrong relative times on events (William Casarin)</li>
+<li>Fixed blurhash appearing behind loaded images when swiping on carousel (William Casarin)</li>
+<li>Fixed glitchy preview (William Casarin)</li>
+<li>Fixed preview elements popping in (William Casarin)</li>
+<li>Fixed repost turning green too early and not reposting sometimes (Swift)</li>
+<li>Home now dismisses reactions view (William Casarin)</li>
+<li>Load missing profiles from boosts on home view (Gísli Kristjánsson)</li>
+<li>Load missing profiles from boosts on profile view (Gísli Kristjánsson)</li>
+<li>Load profiles in hashtag searched (William Casarin)</li>
+<li>Made DMs less poppy (William Casarin)</li>
+<li>Preserve order of bookmarks when saving (William Casarin)</li>
+<li>Properly scroll DM view when keyboard is open (William Casarin)</li>
+<li>Saved Jack’s soul. (Ben Weeks)</li>
+<li>Zap type selection on smaller phones (ericholguin)</li>
+</ul>
+    </body>
+</html>
