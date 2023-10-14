@@ -3,6 +3,7 @@ import { MeshGradient1 } from "../effects/MeshGradient.1";
 import { TopMenu } from "./TopMenu";
 import { Button } from "../ui/Button";
 import Image from "next/image"
+import { FormattedMessage } from "react-intl";
 
 export function Hero() {
     return (
@@ -18,8 +19,8 @@ export function Hero() {
                             Promote bounties page
                             <ChevronRight className="ml-2"/>
                         </div>
-                        <h1 className="my-6 text-7xl text-transparent bg-clip-text bg-gradient-to-r from-white from-40% to-100% to-[#2D175B] pb-6 font-semibold">
-                            The social network <br/>you control
+                        <h1 className="my-6 text-7xl text-transparent bg-clip-text bg-gradient-to-r from-white from-40% to-100% to-[#2D175B] pb-6 font-semibold whitespace-pre-line max-w-2xl">
+                            <FormattedMessage defaultMessage="The social network you control" id="home.hero.headline"/>
                         </h1>
                         <h2 className="text-white/80 text-xl">
                             Your very own social network for your friends or business. <br/>Available Now on iOS, iPad and MacOS (M1/M2)
