@@ -1,0 +1,29 @@
+{
+  "404.go_home": {
+    "string": "ホームに戻る"
+  },
+  "404.headline": {
+    "string": "ページが見つかりません"
+  },
+  "home.hero.available_in": {
+    "string": "利用可能な言語"
+  },
+  "home.hero.download_now": {
+    "string": "今すぐダウンロード"
+  },
+  "home.hero.headline": {
+    "string": "あなたがコントロールするソーシャルネットワーク"
+  },
+  "home.hero.join_testflight": {
+    "string": "TestFlightベータに参加する"
+  },
+  "home.hero.promote-bounties": {
+    "string": "バウンティページを宣伝する"
+  },
+  "home.hero.subheadline": {
+    "string": "あなた自身の友達やビジネスのためのソーシャルネットワーク。iOS、iPad、MacOS（M1/M2）で利用可能です。"
+  },
+  "topbar.download": {
+    "string": "ダウンロード"
+  }
+}

@@ -1,5 +1,29 @@
 {
+  "404.go_home": {
+    "string": "Go home"
+  },
+  "404.headline": {
+    "string": "Page not found"
+  },
+  "home.hero.available_in": {
+    "string": "Available in"
+  },
+  "home.hero.download_now": {
+    "string": "Download now"
+  },
   "home.hero.headline": {
     "string": "The social network you control"
+  },
+  "home.hero.join_testflight": {
+    "string": "Join TestFlight Beta"
+  },
+  "home.hero.promote-bounties": {
+    "string": "Promote bounties page"
+  },
+  "home.hero.subheadline": {
+    "string": "Your very own social network for your friends or business. Available Now on iOS, iPad and MacOS (M1/M2)"
+  },
+  "topbar.download": {
+    "string": "Download"
   }
 }

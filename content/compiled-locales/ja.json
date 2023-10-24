@@ -1,0 +1,56 @@
+{
+  "404.go_home": [
+    {
+      "type": 0,
+      "value": "ホームに戻る"
+    }
+  ],
+  "404.headline": [
+    {
+      "type": 0,
+      "value": "ページが見つかりません"
+    }
+  ],
+  "home.hero.available_in": [
+    {
+      "type": 0,
+      "value": "利用可能な言語"
+    }
+  ],
+  "home.hero.download_now": [
+    {
+      "type": 0,
+      "value": "今すぐダウンロード"
+    }
+  ],
+  "home.hero.headline": [
+    {
+      "type": 0,
+      "value": "あなたがコントロールするソーシャルネットワーク"
+    }
+  ],
+  "home.hero.join_testflight": [
+    {
+      "type": 0,
+      "value": "TestFlightベータに参加する"
+    }
+  ],
+  "home.hero.promote-bounties": [
+    {
+      "type": 0,
+      "value": "バウンティページを宣伝する"
+    }
+  ],
+  "home.hero.subheadline": [
+    {
+      "type": 0,
+      "value": "あなた自身の友達やビジネスのためのソーシャルネットワーク。iOS、iPad、MacOS（M1/M2）で利用可能です。"
+    }
+  ],
+  "topbar.download": [
+    {
+      "type": 0,
+      "value": "ダウンロード"
+    }
+  ]
+}

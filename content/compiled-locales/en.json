@@ -1,8 +1,56 @@
 {
+  "404.go_home": [
+    {
+      "type": 0,
+      "value": "Go home"
+    }
+  ],
+  "404.headline": [
+    {
+      "type": 0,
+      "value": "Page not found"
+    }
+  ],
+  "home.hero.available_in": [
+    {
+      "type": 0,
+      "value": "Available in"
+    }
+  ],
+  "home.hero.download_now": [
+    {
+      "type": 0,
+      "value": "Download now"
+    }
+  ],
   "home.hero.headline": [
     {
       "type": 0,
       "value": "The social network you control"
+    }
+  ],
+  "home.hero.join_testflight": [
+    {
+      "type": 0,
+      "value": "Join TestFlight Beta"
+    }
+  ],
+  "home.hero.promote-bounties": [
+    {
+      "type": 0,
+      "value": "Promote bounties page"
+    }
+  ],
+  "home.hero.subheadline": [
+    {
+      "type": 0,
+      "value": "Your very own social network for your friends or business. Available Now on iOS, iPad and MacOS (M1/M2)"
+    }
+  ],
+  "topbar.download": [
+    {
+      "type": 0,
+      "value": "Download"
     }
   ]
 }

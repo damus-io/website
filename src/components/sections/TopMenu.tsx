@@ -5,6 +5,7 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { Zap } from "lucide-react"
 import { Button } from "../ui/Button";
 import { DAMUS_APP_STORE_URL } from "@/lib/constants";
+import { useIntl } from "react-intl";
 
 let regularNavItems: { name: string, href: string }[] = [
     { name: "Media", href: "#media" },
@@ -18,6 +19,8 @@ const ENABLE_FULL_MENU = false
 
 export function TopMenu({ className }: { className?: string }) {
     let navItemDefaultStyles = "hover:opacity-80 transition-opacity duration-200 ease-in-out"
+
+    const intl = useIntl()
 
     return (
         <NavigationMenu.Root className={cn("flex justify-between items-center", className)}>
@@ -49,7 +52,7 @@ export function TopMenu({ className }: { className?: string }) {
             </NavigationMenu.List>
             <Link href={DAMUS_APP_STORE_URL} target="_blank">
                 <Button variant="accent">
-                    Download
+                    { intl.formatMessage({ id: "topbar.download", defaultMessage: "Download" }) }
                 </Button>
             </Link>
         </NavigationMenu.Root>
