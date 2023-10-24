@@ -6,11 +6,16 @@ import Image from "next/image"
 import { FormattedMessage, useIntl } from "react-intl";
 import Link from "next/link";
 import { DAMUS_APP_STORE_URL, DAMUS_TESTFLIGHT_URL } from "@/lib/constants";
+import Head from "next/head";
 
 export function Hero() {
     const intl = useIntl()
 
-    return (
+    return (<>
+        <Head>
+            <title>Damus</title>
+            <meta name="description" content={ intl.formatMessage({ id: "home.meta_description", defaultMessage: "Damus is a new social network that you control. Available now on iOS, iPad and MacOS (M1/M2)" }) }/>
+        </Head>
         <div className="bg-black overflow-hidden relative min-h-screen">
             <div className="absolute z-10 pointer-events-none">
                 <MeshGradient1 className="-translate-x-1/3"/>
@@ -75,5 +80,5 @@ export function Hero() {
                 </div>
             </div>
         </div>
-    )
+    </>)
 }

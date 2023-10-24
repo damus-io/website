@@ -23,6 +23,9 @@
   "home.hero.subheadline": {
     "string": "Your very own social network for your friends or business. Available Now on iOS, iPad and MacOS (M1/M2)"
   },
+  "home.meta_description": {
+    "string": "Damus is a new social network that you control. Available now on iOS, iPad and MacOS (M1/M2)"
+  },
   "topbar.download": {
     "string": "Download"
   }

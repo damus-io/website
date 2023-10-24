@@ -21,7 +21,10 @@
     "string": "バウンティページを宣伝する"
   },
   "home.hero.subheadline": {
-    "string": "あなた自身の友達やビジネスのためのソーシャルネットワーク。iOS、iPad、MacOS（M1/M2）で利用可能です。"
+    "string": "あなた自身の友達やビジネスのためのソーシャルネットワーク\niOS、iPad、MacOS（M1/M2）で利用可能です。"
+  },
+  "home.meta_description": {
+    "string": "Damusは、あなたがコントロールする新しいソーシャルネットワークです。iOS、iPad、MacOS（M1/M2）で利用可能です。"
   },
   "topbar.download": {
     "string": "ダウンロード"
