@@ -6,6 +6,7 @@ import { Zap } from "lucide-react"
 import { Button } from "../ui/Button";
 import { DAMUS_APP_STORE_URL } from "@/lib/constants";
 import { useIntl } from "react-intl";
+import { motion } from "framer-motion";
 
 let regularNavItems: { name: string, href: string }[] = [
     { name: "Media", href: "#media" },
@@ -23,38 +24,43 @@ export function TopMenu({ className }: { className?: string }) {
     const intl = useIntl()
 
     return (
-        <NavigationMenu.Root className={cn("flex justify-between items-center", className)}>
-            <div>
-                <NavigationMenu.Link className={cn(navItemDefaultStyles, "text-white")} href="/">
-                    <img src="/logo.png" className="h-12"/>
-                </NavigationMenu.Link>
-            </div>
-            <NavigationMenu.List className={cn("hidden lg:inline-flex space-x-6 items-center justify-self-center")}>
-                {ENABLE_FULL_MENU && (<>
-                    {regularNavItems.map((item, index) => (
-                        <NavigationMenu.Item key={index}>
-                            <Link href={item.href} legacyBehavior passHref>
-                                <NavigationMenu.Link className={cn(navItemDefaultStyles, "text-white")}>
-                                    {item.name}
+        <motion.div
+            style={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { delay: 1.5, duration: 1 } }}
+        >
+            <NavigationMenu.Root className={cn("flex justify-between items-center", className)}>
+                <div>
+                    <NavigationMenu.Link className={cn(navItemDefaultStyles, "text-white")} href="/">
+                        <img src="/logo.png" className="h-12"/>
+                    </NavigationMenu.Link>
+                </div>
+                <NavigationMenu.List className={cn("hidden lg:inline-flex space-x-6 items-center justify-self-center")}>
+                    {ENABLE_FULL_MENU && (<>
+                        {regularNavItems.map((item, index) => (
+                            <NavigationMenu.Item key={index}>
+                                <Link href={item.href} legacyBehavior passHref>
+                                    <NavigationMenu.Link className={cn(navItemDefaultStyles, "text-white")}>
+                                        {item.name}
+                                    </NavigationMenu.Link>
+                                </Link>
+                            </NavigationMenu.Item>
+                        ))}
+                        <NavigationMenu.Item>
+                            <Link href="#zap-us" legacyBehavior passHref>
+                                <NavigationMenu.Link className={cn("text-yellow-500 flex items-center")}>
+                                    <Zap className="h-4"/>
+                                    Zap Us
                                 </NavigationMenu.Link>
                             </Link>
                         </NavigationMenu.Item>
-                    ))}
-                    <NavigationMenu.Item>
-                        <Link href="#zap-us" legacyBehavior passHref>
-                            <NavigationMenu.Link className={cn("text-yellow-500 flex items-center")}>
-                                <Zap className="h-4"/>
-                                Zap Us
-                            </NavigationMenu.Link>
-                        </Link>
-                    </NavigationMenu.Item>
-                </>)}
-            </NavigationMenu.List>
-            <Link href={DAMUS_APP_STORE_URL} target="_blank">
-                <Button variant="accent">
-                    { intl.formatMessage({ id: "topbar.download", defaultMessage: "Download" }) }
-                </Button>
-            </Link>
-        </NavigationMenu.Root>
+                    </>)}
+                </NavigationMenu.List>
+                <Link href={DAMUS_APP_STORE_URL} target="_blank">
+                    <Button variant="accent">
+                        { intl.formatMessage({ id: "topbar.download", defaultMessage: "Download" }) }
+                    </Button>
+                </Link>
+            </NavigationMenu.Root>
+        </motion.div>
     )
 }
