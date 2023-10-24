@@ -4,19 +4,21 @@ import { TopMenu } from "./TopMenu";
 import { Button } from "../ui/Button";
 import Image from "next/image"
 import { FormattedMessage, useIntl } from "react-intl";
+import Link from "next/link";
+import { DAMUS_APP_STORE_URL, DAMUS_TESTFLIGHT_URL } from "@/lib/constants";
 
 export function Hero() {
     const intl = useIntl()
 
     return (
         <div className="bg-black overflow-hidden relative min-h-screen">
-            <div className="absolute z-10">
+            <div className="absolute z-10 pointer-events-none">
                 <MeshGradient1 className="-translate-x-1/3"/>
             </div>
             <div className="container mx-auto px-6 pb-32 pt-12">
                 <TopMenu className="w-full"/>
                 <div className="flex flex-col lg:flex-row items-center justify-center mt-32 lg:mt-16">
-                    <div className="w-full z-20">
+                    <div className="w-full z-20 mb-12">
                         <div className="inline-flex items-center text-sm md:text-normal rounded-full bg-white/20 p-1 px-4 md:p-2 md:px-6 text-white border border-white/30">
                             <FormattedMessage defaultMessage="Promote bounties page" id="home.hero.promote-bounties"/>
                             <ChevronRight className="ml-2"/>
@@ -28,19 +30,23 @@ export function Hero() {
                             { intl.formatMessage({ id: "home.hero.subheadline", defaultMessage: "Your very own social network for your friends or business.\n Available Now on iOS, iPad and MacOS (M1/M2)" }) }
                         </h2>
                         <div className="mt-10 md:mt-6 flex flex-col md:flex-row items-center md:items-center gap-y-4 gap-x-6">
-                            <Button variant="default" className="w-full md:w-auto">
-                                Download now
-                                <ArrowUpRight className="ml-2" />
-                            </Button>
-                            <Button variant="link" className="w-full md:w-auto">
-                                Join TestFlight Beta
-                                <ArrowUpRight className="text-damuspink-600 ml-2"/>
-                            </Button>
+                            <Link href={DAMUS_APP_STORE_URL} target="_blank">
+                                <Button variant="default" className="w-full md:w-auto">
+                                    { intl.formatMessage({ id: "home.hero.download_now", defaultMessage: "Download now" }) }
+                                    <ArrowUpRight className="ml-2" />
+                                </Button>
+                            </Link>
+                            <Link href={DAMUS_TESTFLIGHT_URL} target="_blank">
+                                <Button variant="link" className="w-full md:w-auto">
+                                    { intl.formatMessage({ id: "home.hero.join_testflight", defaultMessage: "Join TestFlight Beta" }) }
+                                    <ArrowUpRight className="text-damuspink-600 ml-2"/>
+                                </Button>
+                            </Link>
                         </div>
-                        <div className="text-white/80 text-sm flex flex-col md:flex-row justify-center md:justify-start items-center mt-8 gap-x-2 gap-y-4">
+                        <div className="text-white/80 text-sm flex flex-col md:flex-row justify-center md:justify-start items-center mt-12 md:mt-8 gap-x-2 gap-y-4">
                             <div className="flex items-center flex-wrap">
                                 <Globe2 className="text-green-500 h-4"/>
-                                <div>Available in</div>
+                                <div>{ intl.formatMessage({ id: "home.hero.available_in", defaultMessage: "Available in" }) }</div>
                             </div>
                             <div className="flex items-center flex-wrap justify-center gap-x-2 gap-y-4">
                                 <div className="text-white">English</div>
@@ -53,7 +59,7 @@ export function Hero() {
                             </div>
                         </div>
                     </div>
-                    <div className="relative w-full lg:w-3/4 h-[800px]">
+                    <div className="relative w-full lg:w-3/4 h-[400px] md:h-[800px]">
                         <Image 
                             src="/Hero.webp"
                             className="object-contain"
@@ -63,7 +69,7 @@ export function Hero() {
                         />
                         <div className="absolute z-0">
                             {/* Put a big circle with gradient in the very middle of the section */}
-                            <div className="hidden lg:block w-[800px] h-[800px] rounded-full bg-black lg:-translate-x-3/4 shadow-[0px_15px_30px_-15px_#5B1442] lg:shadow-[15px_0px_30px_-15px_#5B1442]" />
+                            <div className="hidden lg:block w-[600px] h-[600px] xl:w-[800px] xl:h-[800px] rounded-full bg-black lg:-translate-x-3/4 shadow-[0px_15px_30px_-15px_#5B1442] lg:shadow-[15px_0px_30px_-15px_#5B1442]" />
                         </div>
                     </div>
                 </div>
