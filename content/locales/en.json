@@ -5,6 +5,12 @@
   "404.headline": {
     "string": "Page not found"
   },
+  "banned_in_china.headline": {
+    "string": "Banned in China"
+  },
+  "damus_on_media.headline": {
+    "string": "Damus on media"
+  },
   "home.hero.available_in": {
     "string": "Available in"
   },

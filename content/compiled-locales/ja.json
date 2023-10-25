@@ -11,6 +11,18 @@
       "value": "ページが見つかりません"
     }
   ],
+  "banned_in_china.headline": [
+    {
+      "type": 0,
+      "value": "中国で禁止されています"
+    }
+  ],
+  "damus_on_media.headline": [
+    {
+      "type": 0,
+      "value": "メディアでのダムス"
+    }
+  ],
   "home.hero.available_in": [
     {
       "type": 0,
@@ -44,7 +56,13 @@
   "home.hero.subheadline": [
     {
       "type": 0,
-      "value": "あなた自身の友達やビジネスのためのソーシャルネットワーク。iOS、iPad、MacOS（M1/M2）で利用可能です。"
+      "value": "あなた自身の友達やビジネスのためのソーシャルネットワーク\niOS、iPad、MacOS（M1/M2）で利用可能です。"
+    }
+  ],
+  "home.meta_description": [
+    {
+      "type": 0,
+      "value": "Damusは、あなたがコントロールする新しいソーシャルネットワークです。iOS、iPad、MacOS（M1/M2）で利用可能です。"
     }
   ],
   "topbar.download": [

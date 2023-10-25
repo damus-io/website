@@ -11,6 +11,18 @@
       "value": "Page not found"
     }
   ],
+  "banned_in_china.headline": [
+    {
+      "type": 0,
+      "value": "Banned in China"
+    }
+  ],
+  "damus_on_media.headline": [
+    {
+      "type": 0,
+      "value": "Damus on media"
+    }
+  ],
   "home.hero.available_in": [
     {
       "type": 0,

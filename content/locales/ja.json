@@ -5,6 +5,12 @@
   "404.headline": {
     "string": "ページが見つかりません"
   },
+  "banned_in_china.headline": {
+    "string": "中国で禁止されています"
+  },
+  "damus_on_media.headline": {
+    "string": "メディアでのダムス"
+  },
   "home.hero.available_in": {
     "string": "利用可能な言語"
   },
