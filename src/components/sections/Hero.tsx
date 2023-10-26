@@ -26,7 +26,7 @@ export function Hero() {
                                 style={{ opacity: 0 }}
                                 animate={{ opacity: 1, transition: { delay: 1.5, duration: 1 } }}
                             >
-                                <FormattedMessage defaultMessage="Promote bounties page" id="home.hero.promote-bounties"/>
+                                <FormattedMessage defaultMessage="Developer bounties" id="home.hero.promote-bounties"/>
                                 <ChevronRight className="ml-2"/>
                             </motion.div>
                         </Link>

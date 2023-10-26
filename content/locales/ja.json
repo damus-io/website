@@ -47,10 +47,16 @@
   "roles.developer": {
     "string": "開発者"
   },
+  "meet_the_team.view_profile": {
+    "string": "フォローする"
+  },
   "roles.designer": {
     "string": "デザイナー"
   },
   "roles.first-business-intern": {
-    "string": "初めてのビジネスインターン"
+    "string": "ビジネスインターン"
+  },
+  "meet_the_team.headline": {
+    "string": "ダムスチームに会おう"
   }
 }

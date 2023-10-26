@@ -9,7 +9,7 @@ import Image from "next/image";
 
 const team = [
     {
-        profilePicture: "/team-photos/will-casarin.avif",
+        profilePicture: "/team-photos/will-casarin.webp",
         roleIntlString: "roles.founder-and-developer",
         fullName: "William Casarin",
         shortName: "Will",

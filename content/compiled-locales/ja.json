@@ -65,6 +65,18 @@
       "value": "Damusは、あなたがコントロールする新しいソーシャルネットワークです。iOS、iPad、MacOS（M1/M2）で利用可能です。"
     }
   ],
+  "meet_the_team.headline": [
+    {
+      "type": 0,
+      "value": "ダムスチームに会おう"
+    }
+  ],
+  "meet_the_team.view_profile": [
+    {
+      "type": 0,
+      "value": "フォローする"
+    }
+  ],
   "roles.designer": [
     {
       "type": 0,
@@ -80,7 +92,7 @@
   "roles.first-business-intern": [
     {
       "type": 0,
-      "value": "初めてのビジネスインターン"
+      "value": "ビジネスインターン"
     }
   ],
   "roles.founder-and-developer": [

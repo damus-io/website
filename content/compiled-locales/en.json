@@ -50,7 +50,7 @@
   "home.hero.promote-bounties": [
     {
       "type": 0,
-      "value": "Promote bounties page"
+      "value": "Developer bounties"
     }
   ],
   "home.hero.subheadline": [
@@ -71,6 +71,16 @@
       "value": "Meet the Damus team"
     }
   ],
+  "meet_the_team.view_profile": [
+    {
+      "type": 0,
+      "value": "Follow "
+    },
+    {
+      "type": 1,
+      "value": "shortName"
+    }
+  ],
   "roles.designer": [
     {
       "type": 0,
@@ -81,6 +91,12 @@
     {
       "type": 0,
       "value": "Developer"
+    }
+  ],
+  "roles.first-business-intern": [
+    {
+      "type": 0,
+      "value": "First Business Intern"
     }
   ],
   "roles.founder-and-developer": [

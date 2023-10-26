@@ -24,7 +24,7 @@
     "string": "Join TestFlight Beta"
   },
   "home.hero.promote-bounties": {
-    "string": "Promote bounties page"
+    "string": "Developer bounties"
   },
   "home.hero.subheadline": {
     "string": "Your very own social network for your friends or business. Available Now on iOS, iPad and MacOS (M1/M2)"
@@ -35,11 +35,17 @@
   "meet_the_team.headline": {
     "string": "Meet the Damus team"
   },
+  "meet_the_team.view_profile": {
+    "string": "Follow {shortName}"
+  },
   "roles.designer": {
     "string": "Designer"
   },
   "roles.developer": {
     "string": "Developer"
+  },
+  "roles.first-business-intern": {
+    "string": "First Business Intern"
   },
   "roles.founder-and-developer": {
     "string": "Founder & Developer"
