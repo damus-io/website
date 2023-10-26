@@ -129,7 +129,7 @@ export function MeetTheTeam({ className }: { className?: string }) {
     }
 
     return (<>
-        <div className={cn("bg-black overflow-visible relative min-h-screen", className)}>
+        <div className={cn("bg-black overflow-hidden relative min-h-screen", className)}>
             <div className="container mx-auto px-6 pb-32 pt-12">
                 <div className="flex flex-col items-center justify-center mt-32 lg:mt-16">
                     <div className="relative mb-32">
