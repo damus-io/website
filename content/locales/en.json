@@ -32,6 +32,24 @@
   "home.meta_description": {
     "string": "Damus is a new social network that you control. Available now on iOS, iPad and MacOS (M1/M2)"
   },
+  "meet_the_team.headline": {
+    "string": "Meet the Damus team"
+  },
+  "roles.designer": {
+    "string": "Designer"
+  },
+  "roles.developer": {
+    "string": "Developer"
+  },
+  "roles.founder-and-developer": {
+    "string": "Founder & Developer"
+  },
+  "roles.marketer": {
+    "string": "Marketer"
+  },
+  "roles.product-janitor": {
+    "string": "Product Janitor"
+  },
   "topbar.download": {
     "string": "Download"
   }

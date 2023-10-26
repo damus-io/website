@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 
-export function SpecialSquareIcon({ className, children }: { className?: string, children: React.ReactNode }) {
+export function RoundedContainerWithGradientBorder({ className, children }: { className?: string, children: React.ReactNode }) {
     return (
         <div className={cn("relative w-24 h-24 flex justify-center items-center backdrop-blur-sm", className)}>
             <div className="z-10 relative p-6 w-full h-full">

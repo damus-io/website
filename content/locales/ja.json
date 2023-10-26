@@ -34,5 +34,23 @@
   },
   "topbar.download": {
     "string": "ダウンロード"
+  },
+  "roles.founder-and-developer": {
+    "string": "創設者＆開発者"
+  },
+  "roles.marketer": {
+    "string": "マーケター"
+  },
+  "roles.product-janitor": {
+    "string": "プロダクト管理者"
+  },
+  "roles.developer": {
+    "string": "開発者"
+  },
+  "roles.designer": {
+    "string": "デザイナー"
+  },
+  "roles.first-business-intern": {
+    "string": "初めてのビジネスインターン"
   }
 }

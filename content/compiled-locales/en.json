@@ -65,6 +65,42 @@
       "value": "Damus is a new social network that you control. Available now on iOS, iPad and MacOS (M1/M2)"
     }
   ],
+  "meet_the_team.headline": [
+    {
+      "type": 0,
+      "value": "Meet the Damus team"
+    }
+  ],
+  "roles.designer": [
+    {
+      "type": 0,
+      "value": "Designer"
+    }
+  ],
+  "roles.developer": [
+    {
+      "type": 0,
+      "value": "Developer"
+    }
+  ],
+  "roles.founder-and-developer": [
+    {
+      "type": 0,
+      "value": "Founder & Developer"
+    }
+  ],
+  "roles.marketer": [
+    {
+      "type": 0,
+      "value": "Marketer"
+    }
+  ],
+  "roles.product-janitor": [
+    {
+      "type": 0,
+      "value": "Product Janitor"
+    }
+  ],
   "topbar.download": [
     {
       "type": 0,

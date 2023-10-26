@@ -50,7 +50,7 @@
   "home.hero.promote-bounties": [
     {
       "type": 0,
-      "value": "バウンティページを宣伝する"
+      "value": "開発者報酬"
     }
   ],
   "home.hero.subheadline": [
@@ -63,6 +63,42 @@
     {
       "type": 0,
       "value": "Damusは、あなたがコントロールする新しいソーシャルネットワークです。iOS、iPad、MacOS（M1/M2）で利用可能です。"
+    }
+  ],
+  "roles.designer": [
+    {
+      "type": 0,
+      "value": "デザイナー"
+    }
+  ],
+  "roles.developer": [
+    {
+      "type": 0,
+      "value": "開発者"
+    }
+  ],
+  "roles.first-business-intern": [
+    {
+      "type": 0,
+      "value": "初めてのビジネスインターン"
+    }
+  ],
+  "roles.founder-and-developer": [
+    {
+      "type": 0,
+      "value": "創設者＆開発者"
+    }
+  ],
+  "roles.marketer": [
+    {
+      "type": 0,
+      "value": "マーケター"
+    }
+  ],
+  "roles.product-janitor": [
+    {
+      "type": 0,
+      "value": "プロダクト管理者"
     }
   ],
   "topbar.download": [

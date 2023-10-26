@@ -13,11 +13,7 @@ const buttonVariants = cva(
         accent: "bg-gradient-to-r from-damuspink-600 to-damuspink-500 hover:brightness-110 text-white",
         destructive:
           "bg-red-500 text-white hover:bg-red-500/90",
-        outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        secondary: "rounded-full bg-white/10 text-white hover:bg-white/20 hover:scale-105 active:bg-white/5 active:scale-95",
         link: "text-transparent bg-clip-text bg-gradient-to-r from-damuspink-500 to-damuspink-600",
       },
       size: {

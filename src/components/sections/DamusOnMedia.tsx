@@ -3,7 +3,7 @@ import { Button } from "../ui/Button";
 import { FormattedMessage, useIntl } from "react-intl";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { SpecialSquareIcon } from "../ui/SpecialSquareIcon";
+import { RoundedContainerWithGradientBorder } from "../ui/SpecialSquareIcon";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -86,7 +86,7 @@ export function DamusOnMedia({ className }: { className?: string }) {
                     <div className="flex flex-wrap gap-x-8 gap-y-16 items-center justify-center">
                         {mediaCoverage.map((item, index) => (
                             <Link key={index} className="max-w-xs flex flex-col items-center justify-center" href={item.linkUrl} target="_blank">
-                                <SpecialSquareIcon className="hover:scale-105 active:scale-95 transition w-48">
+                                <RoundedContainerWithGradientBorder className="hover:scale-105 active:scale-95 transition w-48">
                                     <Image
                                         src={item.mediaLogo}
                                         className="p-6 object-contain"
@@ -94,7 +94,7 @@ export function DamusOnMedia({ className }: { className?: string }) {
                                         sizes="300px"
                                         alt=""
                                     />
-                                </SpecialSquareIcon>
+                                </RoundedContainerWithGradientBorder>
                                 <h3 className="text-white/70 text-center text-sm font-semibold mt-8 hover:underline">
                                     { intl.formatDate(item.date, { month: "short", year: "numeric" }) }
                                 </h3>
