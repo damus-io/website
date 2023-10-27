@@ -6,6 +6,8 @@ import { useIntl } from 'react-intl'
 import { BannedInChina } from '@/components/sections/BannedInChina'
 import { DamusOnMedia } from '@/components/sections/DamusOnMedia';
 import { MeetTheTeam } from '@/components/sections/MeetTheTeam';
+import { DamusAroundTheWorld } from '@/components/sections/DamusAroundTheWorld';
+import { Footer } from '@/components/sections/Footer';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,6 +24,8 @@ export default function Home() {
       <BannedInChina/>
       <DamusOnMedia/>
       <MeetTheTeam/>
+      <DamusAroundTheWorld/>
+      <Footer/>
     </main>
   </>)
 }
