@@ -3,7 +3,7 @@ import { Button } from "../ui/Button";
 import { FormattedMessage, useIntl } from "react-intl";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { RoundedContainerWithGradientBorder } from "../ui/SpecialSquareIcon";
+import { RoundedContainerWithGradientBorder } from "../ui/RoundedContainerWithGradientBorder";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
