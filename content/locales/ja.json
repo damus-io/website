@@ -6,10 +6,10 @@
     "string": "ページが見つかりません"
   },
   "banned_in_china.headline": {
-    "string": "中国で禁止されています"
+    "string": "中国では禁止されています"
   },
   "damus_on_media.headline": {
-    "string": "メディアでのダムス"
+    "string": "メディア掲載"
   },
   "home.hero.available_in": {
     "string": "利用可能な言語"
@@ -18,19 +18,19 @@
     "string": "今すぐダウンロード"
   },
   "home.hero.headline": {
-    "string": "あなたがコントロールするソーシャルネットワーク"
+    "string": "あなたが\nコントロールする\n新しいSNS"
   },
   "home.hero.join_testflight": {
     "string": "TestFlightベータに参加する"
   },
   "home.hero.promote-bounties": {
-    "string": "開発者報酬"
+    "string": "開発者向け報酬"
   },
   "home.hero.subheadline": {
-    "string": "あなた自身の友達やビジネスのためのソーシャルネットワーク\niOS、iPad、MacOS（M1/M2）で利用可能です。"
+    "string": "友人やビジネスのための、あなた自身のソーシャルネットワーク\niOS、iPad、macOS（M1/M2）で利用可能です。"
   },
   "home.meta_description": {
-    "string": "Damusは、あなたがコントロールする新しいソーシャルネットワークです。iOS、iPad、MacOS（M1/M2）で利用可能です。"
+    "string": "Damusは、あなたがコントロールする新しいソーシャルネットワークです。iOS、iPad、macOS（M1/M2）で利用可能です。"
   },
   "topbar.download": {
     "string": "ダウンロード"
@@ -57,6 +57,6 @@
     "string": "ビジネスインターン"
   },
   "meet_the_team.headline": {
-    "string": "ダムスチームに会おう"
+    "string": "Damusチーム"
   }
 }
