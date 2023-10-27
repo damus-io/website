@@ -8,6 +8,36 @@
   "banned_in_china.headline": {
     "string": "Banned in China"
   },
+  "damus_around_the_world.headline": {
+    "string": "Damus around the world"
+  },
+  "damus_around_the_world.photo_1_alt_text": {
+    "string": "An artistic illustration of a tropical beach with a sailing boat in the shape of the Damus logo"
+  },
+  "damus_around_the_world.photo_2_alt_text": {
+    "string": "Members of the Damus team and friends at a conference booth"
+  },
+  "damus_around_the_world.photo_3_alt_text": {
+    "string": "Members of the Damus team on a video call at the conference booth"
+  },
+  "damus_around_the_world.photo_4_alt_text": {
+    "string": "A picture of the Damus cap"
+  },
+  "damus_around_the_world.photo_5_alt_text": {
+    "string": "Derek Ross making a presentation at a conference"
+  },
+  "damus_around_the_world.photo_6_alt_text": {
+    "string": "A man standing next to a 'Welcome to colorful Colorado' sign"
+  },
+  "damus_around_the_world.photo_7_alt_text": {
+    "string": "A man wearing Damus merch"
+  },
+  "damus_around_the_world.subheadline": {
+    "string": "Damus store is available, be the cool one within your group of friends, share to the world your love for Damus. You might even appear here."
+  },
+  "damus_around_the_world.visit_damus_store_now": {
+    "string": "Visit Damus store now"
+  },
   "damus_on_media.headline": {
     "string": "Damus on media"
   },

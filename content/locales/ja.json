@@ -8,6 +8,36 @@
   "banned_in_china.headline": {
     "string": "中国では禁止されています"
   },
+  "damus_around_the_world.headline": {
+    "string": "世界中のDamus"
+  },
+  "damus_around_the_world.photo_1_alt_text": {
+    "string": "ダムスロゴの形をした帆船がある熱帯のビーチの芸術的なイラスト"
+  },
+  "damus_around_the_world.photo_2_alt_text": {
+    "string": "Damusチームと友人がカンファレンスブースで"
+  },
+  "damus_around_the_world.photo_3_alt_text": {
+    "string": "カンファレンスブースでビデオ通話をしているDamusチームのメンバー"
+  },
+  "damus_around_the_world.photo_4_alt_text": {
+    "string": "Damusの帽子の写真"
+  },
+  "damus_around_the_world.photo_5_alt_text": {
+    "string": "Derek Rossがカンファレンスでプレゼンテーションをしている写真"
+  },
+  "damus_around_the_world.photo_6_alt_text": {
+    "string": "男性が「カラフルなコロラドへようこそ」と書かれた看板の横に立っている写真"
+  },
+  "damus_around_the_world.photo_7_alt_text": {
+    "string": "Damusのグッズを着用した男性の写真"
+  },
+  "damus_around_the_world.subheadline": {
+    "string": "Damusストアが利用可能です。友人の中でクールな存在になり、世界にあなたのDamus愛を共有してください。あなた自身がここに現れるかもしれません。"
+  },
+  "damus_around_the_world.visit_damus_store_now": {
+    "string": "今すぐDamusストアを訪問"
+  },
   "damus_on_media.headline": {
     "string": "メディア掲載"
   },
