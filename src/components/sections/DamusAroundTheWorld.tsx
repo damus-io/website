@@ -32,16 +32,16 @@ export function DamusAroundTheWorld({ className }: { className?: string }) {
                     </div>
                     <div className="flex flex-col gap-y-4 md:gap-y-4 items-stretch justify-center">
                         <Ticker className="w-screen" timePeriod={20}>
-                            <TickerImage className="w-96 h-72" src="/around-the-world-photos/1.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_1_alt_text", defaultMessage: "An artistic illustration of a tropical beach with a sailing boat in the shape of the Damus logo" }) }/>
-                            <TickerImage className="w-96 h-72" src="/around-the-world-photos/2.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_2_alt_text", defaultMessage: "Members of the Damus team and friends at a conference booth" }) }/>
-                            <TickerImage className="w-96 h-72" src="/around-the-world-photos/3.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_3_alt_text", defaultMessage: "Members of the Damus team on a video call at the conference booth" }) }/>
-                            <TickerImage className="w-96 h-72" src="/around-the-world-photos/4.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_4_alt_text", defaultMessage: "A picture of the Damus cap" }) }/>
+                            <TickerImage className="w-72 h-48 md:w-96 md:h-72" src="/around-the-world-photos/1.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_1_alt_text", defaultMessage: "An artistic illustration of a tropical beach with a sailing boat in the shape of the Damus logo" }) }/>
+                            <TickerImage className="w-72 h-48 md:w-96 md:h-72" src="/around-the-world-photos/2.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_2_alt_text", defaultMessage: "Members of the Damus team and friends at a conference booth" }) }/>
+                            <TickerImage className="w-72 h-48 md:w-96 md:h-72" src="/around-the-world-photos/3.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_3_alt_text", defaultMessage: "Members of the Damus team on a video call at the conference booth" }) }/>
+                            <TickerImage className="w-72 h-48 md:w-96 md:h-72" src="/around-the-world-photos/4.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_4_alt_text", defaultMessage: "A picture of the Damus cap" }) }/>
                         </Ticker>
                         <Ticker className="w-screen" timePeriod={20} reverseDirection={true}>
-                            <TickerImage className="w-96 h-72" src="/around-the-world-photos/5.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_5_alt_text", defaultMessage: "Derek Ross making a presentation at a conference" }) }/>
-                            <TickerImage className="w-96 h-72" src="/around-the-world-photos/6.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_6_alt_text", defaultMessage: "A man standing next to a 'Welcome to colorful Colorado' sign" }) }/>
-                            <TickerImage className="w-96 h-72" src="/around-the-world-photos/7.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_7_alt_text", defaultMessage: "A man wearing Damus merch" }) }/>
-                            <TickerImage className="w-96 h-72" src="/around-the-world-photos/4.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_4_alt_text", defaultMessage: "A picture of the Damus cap" }) }/>
+                            <TickerImage className="w-72 h-48 md:w-96 md:h-72" src="/around-the-world-photos/5.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_5_alt_text", defaultMessage: "Derek Ross making a presentation at a conference" }) }/>
+                            <TickerImage className="w-72 h-48 md:w-96 md:h-72" src="/around-the-world-photos/6.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_6_alt_text", defaultMessage: "A man standing next to a 'Welcome to colorful Colorado' sign" }) }/>
+                            <TickerImage className="w-72 h-48 md:w-96 md:h-72" src="/around-the-world-photos/7.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_7_alt_text", defaultMessage: "A man wearing Damus merch" }) }/>
+                            <TickerImage className="w-72 h-48 md:w-96 md:h-72" src="/around-the-world-photos/4.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_4_alt_text", defaultMessage: "A picture of the Damus cap" }) }/>
                         </Ticker>
                     </div>
                 </div>
