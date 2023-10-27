@@ -49,7 +49,7 @@ export function Hero() {
                             style={{ opacity: 0 }}
                             animate={{ opacity: 1, transition: { delay: 1, duration: 1 } }}
                         >
-                            { intl.formatMessage({ id: "home.hero.subheadline", defaultMessage: "Your very own social network for your friends or business.\n Available Now on iOS, iPad and MacOS (M1/M2)" }) }
+                            { intl.formatMessage({ id: "home.hero.subheadline", defaultMessage: "Your very own social network for your friends or business.\n Available Now on iOS, iPad and macOS (M1/M2)" }) }
                         </motion.h2>
                         <motion.div
                             className="mt-10 md:mt-6 flex flex-col md:flex-row items-center md:items-center gap-y-4 gap-x-6"
