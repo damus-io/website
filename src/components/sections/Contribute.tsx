@@ -22,13 +22,13 @@ export function Contribute({ className }: { className?: string }) {
                             <MeshGradient4/>
                         </div>
                         <GithubIcon className="w-24 h-24 mb-8" />
-                        <motion.h2 className="mb-8 text-4xl md:text-5xl lg:text-6xl text-center text-transparent bg-clip-text bg-gradient-to-r from-white from-5% to-[#E0A4D3] to-100% font-semibold">
+                        <motion.h2 className="mb-8 text-3xl md:text-5xl lg:text-6xl text-center text-transparent bg-clip-text bg-gradient-to-r from-white from-5% to-[#E0A4D3] to-100% font-semibold">
                             { intl.formatMessage({ id: "contribute.headline", defaultMessage: "Contribute to Damus development" }) }
                         </motion.h2>
                         <motion.div className="text-xl text-center max-w-2xl mb-12 text-transparent bg-clip-text bg-gradient-to-br from-white from-5% to-[#8DEBF8] to-100%">
                             { intl.formatMessage({ id: "contribute.subheadline", defaultMessage: "Be part of the most popular Nostr client, start collaborating with an amazing team of developers, designers, product owners and more. Join us in our mission to make social media more healthy and free!" }) }
                         </motion.div>
-                        <div className="flex gap-8">
+                        <div className="flex flex-col md:flex-row gap-x-8 gap-y-4">
                             <Link href="https://github.com/damus-io/damus/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue+😌%22" target="_blank">
                                 <Button variant="default" className="w-full md:w-auto">
                                     <div className="mr-2">😌</div>

@@ -31,7 +31,7 @@ export function FinalCTA({ className }: { className?: string }) {
                                 aria-hidden
                             />
                         </div>
-                        <motion.h2 className="mb-8 text-4xl md:text-5xl lg:text-6xl text-center text-transparent bg-clip-text bg-gradient-to-r from-white from-5% to-[#E0A4D3] to-100% font-semibold pb-4">
+                        <motion.h2 className="mb-8 text-4xl md:text-5xl lg:text-6xl text-center text-transparent bg-clip-text bg-gradient-to-r from-white from-5% to-[#E0A4D3] to-100% font-semibold pb-4 whitespace-pre-line leading-relaxed">
                             { intl.formatMessage({ id: "final_cta.headline", defaultMessage: "Download Damus today!" }) }
                         </motion.h2>
                         <motion.div className="text-xl text-center max-w-2xl mb-12 text-transparent bg-clip-text bg-gradient-to-br from-white from-5% to-[#8DEBF8] to-100% whitespace-pre-line leading-loose">

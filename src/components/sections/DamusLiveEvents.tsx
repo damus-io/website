@@ -73,7 +73,7 @@ export function DamusLiveEvents({ className }: { className?: string }) {
                         </div>
                         <div className="flex flex-col lg:flex-row items-center justify-between p-4 md:p-6 px-4 md:px-12">
                             <motion.h1 
-                                className="my-6 text-6xl sm:text-5xl md:text-8xl !leading-relaxed text-transparent bg-clip-text pb-6 font-semibold whitespace-pre-line text-center lg:text-left"
+                                className="my-6 text-5xl sm:text-5xl md:text-8xl !leading-relaxed text-transparent bg-clip-text pb-6 font-semibold whitespace-pre-line text-center lg:text-left"
                                 style={{
                                     backgroundImage: "linear-gradient(to right, #ffffff -100%, #ffffff -40%, #2D175B 100%)",
                                     opacity: 0

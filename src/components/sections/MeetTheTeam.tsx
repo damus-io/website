@@ -141,7 +141,7 @@ export function MeetTheTeam({ className }: { className?: string }) {
             <div className="container mx-auto px-6 pb-32 pt-12">
                 <div className="flex flex-col items-center justify-center mt-32 lg:mt-16">
                     <div className="relative mb-32">
-                        <motion.h2 className="text-6xl md:text-7xl lg:text-8xl text-center text-transparent bg-clip-text bg-gradient-to-r from-white from-30% to-green-500 to-100% font-semibold">
+                        <motion.h2 className="text-5xl md:text-7xl lg:text-8xl text-center text-transparent bg-clip-text bg-gradient-to-r from-white from-30% to-green-500 to-100% font-semibold">
                             { intl.formatMessage({ id: "meet_the_team.headline", defaultMessage: "Meet the Damus team" }) }
                         </motion.h2>
                     </div>
