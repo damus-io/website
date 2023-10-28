@@ -106,7 +106,7 @@ export function DamusLiveEvents({ className }: { className?: string }) {
                                         </div>
                                         <Link href={item.linkUrl} target="_blank" className="mt-4">
                                             <Button variant="secondary" className="flex items-center rounded-lg px-6">
-                                                <span className="text-md">{intl.formatMessage({ id: "damus_live_events.visit_button.label", defaultMessage: "Visit" })}</span>
+                                                <span className="text-md whitespace-nowrap">{intl.formatMessage({ id: "damus_live_events.visit_button.label", defaultMessage: "Visit" })}</span>
                                             </Button>
                                         </Link>
                                     </div>

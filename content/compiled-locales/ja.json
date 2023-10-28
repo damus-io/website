@@ -77,10 +77,60 @@
       "value": "今すぐDamusストアを訪問"
     }
   ],
+  "damus_live_events.date_range": [
+    {
+      "type": 1,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": " – "
+    },
+    {
+      "type": 1,
+      "value": "endDate"
+    }
+  ],
+  "damus_live_events.headline": [
+    {
+      "type": 0,
+      "value": "Damus。\nライブ。\nイベント。"
+    }
+  ],
+  "damus_live_events.visit_button.label": [
+    {
+      "type": 0,
+      "value": "訪問する"
+    }
+  ],
   "damus_on_media.headline": [
     {
       "type": 0,
       "value": "メディア掲載"
+    }
+  ],
+  "events.location.amsterdam_netherlands": [
+    {
+      "type": 0,
+      "value": "オランダ、アムステルダム"
+    }
+  ],
+  "events.location.bali_indonesia": [
+    {
+      "type": 0,
+      "value": "インドネシア、バリ"
+    }
+  ],
+  "events.location.los_angeles_california": [
+    {
+      "type": 0,
+      "value": "アメリカ、カリフォルニア州ロサンゼルス"
+    }
+  ],
+  "events.location.tokyo_japan": [
+    {
+      "type": 0,
+      "value": "日本、東京"
     }
   ],
   "home.hero.available_in": [

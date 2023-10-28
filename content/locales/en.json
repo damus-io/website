@@ -38,8 +38,29 @@
   "damus_around_the_world.visit_damus_store_now": {
     "string": "Visit Damus store now"
   },
+  "damus_live_events.date_range": {
+    "string": "{startDate} – {endDate}"
+  },
+  "damus_live_events.headline": {
+    "string": "Damus.\nLive.\nEvents."
+  },
+  "damus_live_events.visit_button.label": {
+    "string": "Visit"
+  },
   "damus_on_media.headline": {
     "string": "Damus on media"
+  },
+  "events.location.amsterdam_netherlands": {
+    "string": "Amsterdam, Netherlands"
+  },
+  "events.location.bali_indonesia": {
+    "string": "Bali, Indonesia"
+  },
+  "events.location.los_angeles_california": {
+    "string": "Los Angeles, California"
+  },
+  "events.location.tokyo_japan": {
+    "string": "Tokyo, Japan"
   },
   "home.hero.available_in": {
     "string": "Available in"
@@ -57,7 +78,7 @@
     "string": "Developer bounties"
   },
   "home.hero.subheadline": {
-    "string": "Your very own social network for your friends or business. Available Now on iOS, iPad and macOS (M1/M2)"
+    "string": "Your very own social network for your friends or business.\n Available Now on iOS, iPad and macOS (M1/M2)"
   },
   "home.meta_description": {
     "string": "Damus is a new social network that you control. Available now on iOS, iPad and macOS (M1/M2)"

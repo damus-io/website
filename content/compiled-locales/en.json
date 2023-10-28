@@ -77,10 +77,60 @@
       "value": "Visit Damus store now"
     }
   ],
+  "damus_live_events.date_range": [
+    {
+      "type": 1,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": " – "
+    },
+    {
+      "type": 1,
+      "value": "endDate"
+    }
+  ],
+  "damus_live_events.headline": [
+    {
+      "type": 0,
+      "value": "Damus.\nLive.\nEvents."
+    }
+  ],
+  "damus_live_events.visit_button.label": [
+    {
+      "type": 0,
+      "value": "Visit"
+    }
+  ],
   "damus_on_media.headline": [
     {
       "type": 0,
       "value": "Damus on media"
+    }
+  ],
+  "events.location.amsterdam_netherlands": [
+    {
+      "type": 0,
+      "value": "Amsterdam, Netherlands"
+    }
+  ],
+  "events.location.bali_indonesia": [
+    {
+      "type": 0,
+      "value": "Bali, Indonesia"
+    }
+  ],
+  "events.location.los_angeles_california": [
+    {
+      "type": 0,
+      "value": "Los Angeles, California"
+    }
+  ],
+  "events.location.tokyo_japan": [
+    {
+      "type": 0,
+      "value": "Tokyo, Japan"
     }
   ],
   "home.hero.available_in": [
@@ -116,7 +166,7 @@
   "home.hero.subheadline": [
     {
       "type": 0,
-      "value": "Your very own social network for your friends or business. Available Now on iOS, iPad and macOS (M1/M2)"
+      "value": "Your very own social network for your friends or business.\n Available Now on iOS, iPad and macOS (M1/M2)"
     }
   ],
   "home.meta_description": [

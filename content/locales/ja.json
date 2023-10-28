@@ -38,6 +38,27 @@
   "damus_around_the_world.visit_damus_store_now": {
     "string": "今すぐDamusストアを訪問"
   },
+  "damus_live_events.date_range": {
+    "string": "{startDate} – {endDate}"
+  },
+  "damus_live_events.headline": {
+    "string": "Damus。\nライブ。\nイベント。"
+  },
+  "damus_live_events.visit_button.label": {
+    "string": "訪問する"
+  },
+  "events.location.amsterdam_netherlands": {
+    "string": "オランダ、アムステルダム"
+  },
+  "events.location.bali_indonesia": {
+    "string": "インドネシア、バリ"
+  },
+  "events.location.los_angeles_california": {
+    "string": "アメリカ、カリフォルニア州ロサンゼルス"
+  },
+  "events.location.tokyo_japan": {
+    "string": "日本、東京"
+  },
   "damus_on_media.headline": {
     "string": "メディア掲載"
   },
