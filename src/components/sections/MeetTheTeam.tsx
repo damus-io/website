@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { RoundedContainerWithGradientBorder } from "../ui/RoundedContainerWithGradientBorder";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { NostrIcon } from "../icons/NostrIcon";
 
 const team = [
     {
@@ -167,7 +168,7 @@ export function MeetTheTeam({ className }: { className?: string }) {
                                         </p>
                                         <Link href={"https://damus.io/" + item.nostrNpub} target="_blank" className="mt-4">
                                             <Button variant="secondary" className="flex items-center">
-                                                <img src="/nostrich.png" className="h-4 mr-2"/>
+                                                <NostrIcon className="h-6 mr-1 text-damuspink-600/80" aria-hidden="true"/>
                                                 <span className="text-xs">{ intl.formatMessage({ id: "meet_the_team.view_profile", defaultMessage: "Follow {shortName}"} , { shortName: item.shortName }) }</span>
                                             </Button>
                                         </Link>

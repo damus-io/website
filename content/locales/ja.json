@@ -179,6 +179,9 @@
   "topbar.events": {
     "string": "イベント"
   },
+  "topbar.logo_alt_text": {
+    "string": "Damusのロゴ"
+  },
   "topbar.store": {
     "string": "ストア"
   },

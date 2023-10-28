@@ -105,9 +105,9 @@ export function DamusLiveEvents({ className }: { className?: string }) {
                                                 <div className="text-white/70 text-center text-xs font-semibold">
                                                     {intl.formatMessage({ id: "damus_live_events.date_range", defaultMessage: "{startDate} – {endDate}" }, { startDate: intl.formatDate(item.startDate, { month: "short", day: "numeric" }), endDate: intl.formatDate(item.endDate, { month: "short", day: "numeric" }) })}
                                                 </div>
-                                                <h3 className="text-xl text-white font-bold mt-1 text-center md:text-left">
+                                                <div className="text-xl text-white font-bold mt-1 text-center md:text-left">
                                                     {item.name}
-                                                </h3>
+                                                </div>
                                                 <div className="text-white/70 text-center text-xs font-normal mt-1">
                                                     {locationIntlStrings[item.locationIntlString]}
                                                 </div>

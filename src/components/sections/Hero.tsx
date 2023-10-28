@@ -7,6 +7,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import Link from "next/link";
 import { DAMUS_APP_STORE_URL, DAMUS_TESTFLIGHT_URL } from "@/lib/constants";
 import { motion } from "framer-motion";
+import { NostrIcon } from "../icons/NostrIcon";
 
 export function Hero() {
     const intl = useIntl()
@@ -26,7 +27,7 @@ export function Hero() {
                                 style={{ opacity: 0 }}
                                 animate={{ opacity: 1, transition: { delay: 1.5, duration: 1 } }}
                             >
-                                <img src="/nostrich.png" className="h-6 mr-2"/>
+                                <NostrIcon className="h-6 mr-2 text-damuspink-600" aria-hidden="true"/>
                                 <FormattedMessage defaultMessage="Follow us on Nostr" id="home.hero.follow-us-on-nostr"/>
                                 <ChevronRight className="ml-2"/>
                             </motion.div>

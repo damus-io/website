@@ -37,7 +37,7 @@ export function TopMenu({ className }: { className?: string }) {
             <NavigationMenu.Root className={cn("flex justify-between items-center", className)}>
                 <div>
                     <NavigationMenu.Link className={cn(navItemDefaultStyles, "text-white")} href="/">
-                        <img src="/logo.png" className="h-12"/>
+                        <img src="/logo.png" className="h-12" alt={ intl.formatMessage({ id: "topbar.logo_alt_text", defaultMessage: "Damus logo" }) }/>
                     </NavigationMenu.Link>
                 </div>
                 <NavigationMenu.List className={cn("hidden lg:inline-flex space-x-6 items-center justify-self-center")}>

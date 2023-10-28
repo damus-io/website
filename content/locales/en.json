@@ -176,6 +176,9 @@
   "topbar.events": {
     "string": "Events"
   },
+  "topbar.logo_alt_text": {
+    "string": "Damus logo"
+  },
   "topbar.store": {
     "string": "Store"
   },

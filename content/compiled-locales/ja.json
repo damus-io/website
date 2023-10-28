@@ -367,6 +367,12 @@
       "value": "イベント"
     }
   ],
+  "topbar.logo_alt_text": [
+    {
+      "type": 0,
+      "value": "Damusのロゴ"
+    }
+  ],
   "topbar.store": [
     {
       "type": 0,

@@ -365,6 +365,12 @@
       "value": "Events"
     }
   ],
+  "topbar.logo_alt_text": [
+    {
+      "type": 0,
+      "value": "Damus logo"
+    }
+  ],
   "topbar.store": [
     {
       "type": 0,
