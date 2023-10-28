@@ -187,6 +187,12 @@
       "value": "Download now"
     }
   ],
+  "home.hero.follow-us-on-nostr": [
+    {
+      "type": 0,
+      "value": "Follow us on Nostr"
+    }
+  ],
   "home.hero.headline": [
     {
       "type": 0,
@@ -197,12 +203,6 @@
     {
       "type": 0,
       "value": "Join TestFlight Beta"
-    }
-  ],
-  "home.hero.promote-bounties": [
-    {
-      "type": 0,
-      "value": "Developer bounties"
     }
   ],
   "home.hero.subheadline": [

@@ -20,13 +20,14 @@ export function Hero() {
                 <TopMenu className="w-full"/>
                 <div className="flex flex-col lg:flex-row items-center justify-center mt-32 lg:mt-16">
                     <div className="w-full z-20 mb-12">
-                        <Link href="https://github.com/damus-io/damus/issues?q=is%3Aopen+is%3Aissue+label%3A%22Bounty+%F0%9F%8C%BD%22" target="_blank">
+                        <Link href="https://damus.io/npub18m76awca3y37hkvuneavuw6pjj4525fw90necxmadrvjg0sdy6qsngq955" target="_blank">
                             <motion.div
-                                className="inline-flex items-center text-sm md:text-normal rounded-full bg-white/20 p-1 px-4 md:p-2 md:px-6 text-white border border-white/30 active:scale-95 transition cursor-pointer"
+                                className="inline-flex items-center text-sm md:text-normal rounded-full bg-white/10 backdrop-blur-sm p-1 px-4 md:p-2 md:px-6 text-white border border-white/30 active:scale-95 transition cursor-pointer"
                                 style={{ opacity: 0 }}
                                 animate={{ opacity: 1, transition: { delay: 1.5, duration: 1 } }}
                             >
-                                <FormattedMessage defaultMessage="Developer bounties" id="home.hero.promote-bounties"/>
+                                <img src="/nostrich.png" className="h-6 mr-2"/>
+                                <FormattedMessage defaultMessage="Follow us on Nostr" id="home.hero.follow-us-on-nostr"/>
                                 <ChevronRight className="ml-2"/>
                             </motion.div>
                         </Link>

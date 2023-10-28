@@ -89,6 +89,9 @@
   "home.hero.download_now": {
     "string": "今すぐダウンロード"
   },
+  "home.hero.follow-us-on-nostr": {
+    "string": "Nostrでフォローする"
+  },
   "home.hero.headline": {
     "string": "あなたが\nコントロールする\n新しいSNS"
   },

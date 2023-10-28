@@ -187,6 +187,12 @@
       "value": "今すぐダウンロード"
     }
   ],
+  "home.hero.follow-us-on-nostr": [
+    {
+      "type": 0,
+      "value": "Nostrでフォローする"
+    }
+  ],
   "home.hero.headline": [
     {
       "type": 0,

@@ -89,14 +89,14 @@
   "home.hero.download_now": {
     "string": "Download now"
   },
+  "home.hero.follow-us-on-nostr": {
+    "string": "Follow us on Nostr"
+  },
   "home.hero.headline": {
     "string": "The social network you control"
   },
   "home.hero.join_testflight": {
     "string": "Join TestFlight Beta"
-  },
-  "home.hero.promote-bounties": {
-    "string": "Developer bounties"
   },
   "home.hero.subheadline": {
     "string": "Your very own social network for your friends or business.\n Available Now on iOS, iPad and macOS (M1/M2)"
