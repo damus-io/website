@@ -8,6 +8,21 @@
   "banned_in_china.headline": {
     "string": "Banned in China"
   },
+  "contribute.go_to_github": {
+    "string": "Go to Github"
+  },
+  "contribute.good_first_issues": {
+    "string": "Good first issues"
+  },
+  "contribute.headline": {
+    "string": "Contribute to Damus development"
+  },
+  "contribute.subheadline": {
+    "string": "Be part of the most popular Nostr client, start collaborating with an amazing team of developers, designers, product owners and more. Join us in our mission to make social media more healthy and free!"
+  },
+  "contribute.talk_to_a_team_member": {
+    "string": "Talk to a team member"
+  },
   "damus_around_the_world.headline": {
     "string": "Damus around the world"
   },
@@ -61,6 +76,12 @@
   },
   "events.location.tokyo_japan": {
     "string": "Tokyo, Japan"
+  },
+  "final_cta.headline": {
+    "string": "Download Damus today!"
+  },
+  "final_cta.subheadline": {
+    "string": "Damus is available on iOS, iPadOS and macOS (M1/M2).\nIt's free and open source."
   },
   "home.hero.available_in": {
     "string": "Available in"

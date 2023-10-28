@@ -9,6 +9,8 @@ import { MeetTheTeam } from '@/components/sections/MeetTheTeam';
 import { DamusAroundTheWorld } from '@/components/sections/DamusAroundTheWorld';
 import { Footer } from '@/components/sections/Footer';
 import { DamusLiveEvents } from '@/components/sections/DamusLiveEvents';
+import { Contribute } from '@/components/sections/Contribute';
+import { FinalCTA } from '@/components/sections/FinalCTA';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,7 +28,9 @@ export default function Home() {
       <BannedInChina/>
       <DamusOnMedia/>
       <MeetTheTeam/>
+      <Contribute/>
       <DamusAroundTheWorld/>
+      <FinalCTA/>
       <Footer/>
     </main>
   </>)

@@ -8,6 +8,21 @@
   "banned_in_china.headline": {
     "string": "中国では禁止されています"
   },
+  "contribute.go_to_github": {
+    "string": "Githubへ行く"
+  },
+  "contribute.good_first_issues": {
+    "string": "良い初めての問題"
+  },
+  "contribute.headline": {
+    "string": "Damus開発に貢献する"
+  },
+  "contribute.subheadline": {
+    "string": "最も人気のあるNostrクライアントの一部となり、開発者、デザイナー、プロダクトオーナーなどの素晴らしいチームと協力を始めましょう。私たちのミッションに参加して、ソーシャルメディアをより健康的で自由にするために協力してください！"
+  },
+  "contribute.talk_to_a_team_member": {
+    "string": "チームメンバーと話す"
+  },
   "damus_around_the_world.headline": {
     "string": "世界中のDamus"
   },
@@ -58,6 +73,12 @@
   },
   "events.location.tokyo_japan": {
     "string": "日本、東京"
+  },
+  "final_cta.headline": {
+    "string": "今すぐDamusをダウンロード！"
+  },
+  "final_cta.subheadline": {
+    "string": "DamusはiOS、iPadOS、macOS（M1/M2）で利用可能です。\n無料でオープンソースです。"
   },
   "damus_on_media.headline": {
     "string": "メディア掲載"

@@ -17,6 +17,36 @@
       "value": "中国では禁止されています"
     }
   ],
+  "contribute.go_to_github": [
+    {
+      "type": 0,
+      "value": "Githubへ行く"
+    }
+  ],
+  "contribute.good_first_issues": [
+    {
+      "type": 0,
+      "value": "良い初めての問題"
+    }
+  ],
+  "contribute.headline": [
+    {
+      "type": 0,
+      "value": "Damus開発に貢献する"
+    }
+  ],
+  "contribute.subheadline": [
+    {
+      "type": 0,
+      "value": "最も人気のあるNostrクライアントの一部となり、開発者、デザイナー、プロダクトオーナーなどの素晴らしいチームと協力を始めましょう。私たちのミッションに参加して、ソーシャルメディアをより健康的で自由にするために協力してください！"
+    }
+  ],
+  "contribute.talk_to_a_team_member": [
+    {
+      "type": 0,
+      "value": "チームメンバーと話す"
+    }
+  ],
   "damus_around_the_world.headline": [
     {
       "type": 0,
@@ -131,6 +161,18 @@
     {
       "type": 0,
       "value": "日本、東京"
+    }
+  ],
+  "final_cta.headline": [
+    {
+      "type": 0,
+      "value": "今すぐDamusをダウンロード！"
+    }
+  ],
+  "final_cta.subheadline": [
+    {
+      "type": 0,
+      "value": "DamusはiOS、iPadOS、macOS（M1/M2）で利用可能です。\n無料でオープンソースです。"
     }
   ],
   "home.hero.available_in": [
