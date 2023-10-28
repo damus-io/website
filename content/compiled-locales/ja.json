@@ -14,7 +14,7 @@
   "banned_in_china.headline": [
     {
       "type": 0,
-      "value": "中国では禁止されています"
+      "value": "中国も認めた自由度"
     }
   ],
   "benefits.benefit1.description": [
@@ -98,7 +98,7 @@
   "contribute.headline": [
     {
       "type": 0,
-      "value": "Damus開発に貢献する"
+      "value": "Damus開発に協力する"
     }
   ],
   "contribute.subheadline": [
@@ -202,7 +202,7 @@
   "damus_on_media.headline": [
     {
       "type": 0,
-      "value": "メディア掲載"
+      "value": "多数のメディアで話題"
     }
   ],
   "events.location.amsterdam_netherlands": [
@@ -268,7 +268,7 @@
   "home.hero.headline": [
     {
       "type": 0,
-      "value": "あなたが\nコントロールする\n新しいSNS"
+      "value": "じぶんで\nコントロールする\n自由なSNS"
     }
   ],
   "home.hero.join_testflight": [
@@ -286,7 +286,7 @@
   "home.hero.subheadline": [
     {
       "type": 0,
-      "value": "友人やビジネスのための、あなた自身のソーシャルネットワーク\niOS、iPad、macOS（M1/M2）で利用可能です。"
+      "value": "SNSをあなたに合わせて、友だちやビジネスともっと繋がろう\niOS、iPad、macOS（M1/M2）で利用可能です。"
     }
   ],
   "home.meta_description": [
