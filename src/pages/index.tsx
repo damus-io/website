@@ -21,6 +21,7 @@ export default function Home() {
     <Head>
       <title>Damus</title>
       <meta name="description" content={ intl.formatMessage({ id: "home.meta_description", defaultMessage: "Damus is a new social network that you control. Available now on iOS, iPad and macOS (M1/M2)" }) }/>
+      <meta name="apple-itunes-app" content="app-id=m1628663131"/>
     </Head>
     <main>
       <Hero/>
