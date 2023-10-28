@@ -8,6 +8,39 @@
   "banned_in_china.headline": {
     "string": "Banned in China"
   },
+  "benefits.benefit1.description": {
+    "string": "Built on open internet protocols, there is no platform that can ban or censor you. You are in control of your data & speech."
+  },
+  "benefits.benefit1.name": {
+    "string": "You are in control"
+  },
+  "benefits.benefit2.description": {
+    "string": "Creating an account doesn't require a phone number, email or name. Get started right away, and truly own your account — Thanks to advanced cryptography"
+  },
+  "benefits.benefit2.name": {
+    "string": "No registration required"
+  },
+  "benefits.benefit3.description": {
+    "string": "Traditional social media keeps you addicted in order to sell you ads, which is intoxicating society. Damus doesn't. The result? A healthier community."
+  },
+  "benefits.benefit3.name": {
+    "string": "No addictive algorithms"
+  },
+  "benefits.benefit4.description": {
+    "string": "Tip your friends, earn tips, support creators, and stack sats with Bitcoin & Lightning, the Free and open internet money."
+  },
+  "benefits.benefit4.name": {
+    "string": "Free speech meets Free money"
+  },
+  "benefits.description": {
+    "string": "Damus is built on Nostr, a decentralized and open social network protocol. Without ads, toxic algorithms, or censorship, Damus gives you access to the social network that a truly Free and healthy society needs — and deserves."
+  },
+  "benefits.headline": {
+    "string": "You deserve to be Free."
+  },
+  "benefits.subheadline": {
+    "string": "With Damus, you are in control."
+  },
   "contribute.go_to_github": {
     "string": "Go to Github"
   },

@@ -17,6 +17,72 @@
       "value": "Banned in China"
     }
   ],
+  "benefits.benefit1.description": [
+    {
+      "type": 0,
+      "value": "Built on open internet protocols, there is no platform that can ban or censor you. You are in control of your data & speech."
+    }
+  ],
+  "benefits.benefit1.name": [
+    {
+      "type": 0,
+      "value": "You are in control"
+    }
+  ],
+  "benefits.benefit2.description": [
+    {
+      "type": 0,
+      "value": "Creating an account doesn't require a phone number, email or name. Get started right away, and truly own your account — Thanks to advanced cryptography"
+    }
+  ],
+  "benefits.benefit2.name": [
+    {
+      "type": 0,
+      "value": "No registration required"
+    }
+  ],
+  "benefits.benefit3.description": [
+    {
+      "type": 0,
+      "value": "Traditional social media keeps you addicted in order to sell you ads, which is intoxicating society. Damus doesn't. The result? A healthier community."
+    }
+  ],
+  "benefits.benefit3.name": [
+    {
+      "type": 0,
+      "value": "No addictive algorithms"
+    }
+  ],
+  "benefits.benefit4.description": [
+    {
+      "type": 0,
+      "value": "Tip your friends, earn tips, support creators, and stack sats with Bitcoin & Lightning, the Free and open internet money."
+    }
+  ],
+  "benefits.benefit4.name": [
+    {
+      "type": 0,
+      "value": "Free speech meets Free money"
+    }
+  ],
+  "benefits.description": [
+    {
+      "type": 0,
+      "value": "Damus is built on Nostr, a decentralized and open social network protocol. Without ads, toxic algorithms, or censorship, Damus gives you access to the social network that a truly Free and healthy society needs — and deserves."
+    }
+  ],
+  "benefits.headline": [
+    {
+      "type": 0,
+      "value": "You deserve to be Free."
+    }
+  ],
+  "benefits.subheadline": [
+    {
+      "type": 0,
+      "value": "With Damus, you are in control."
+    }
+  ],
   "contribute.go_to_github": [
     {
       "type": 0,

@@ -8,6 +8,39 @@
   "banned_in_china.headline": {
     "string": "中国では禁止されています"
   },
+  "benefits.benefit1.description": {
+    "string": "オープンなインターネットプロトコルに基づいて構築されているため、あなたを禁止または検閲するプラットフォームは存在しません。あなたのデータと発言はあなたがコントロールしています。"
+  },
+  "benefits.benefit1.name": {
+    "string": "あなたがコントロールしています"
+  },
+  "benefits.benefit2.description": {
+    "string": "アカウントの作成には電話番号、メール、名前は必要ありません。すぐに始めて、高度な暗号化のおかげで本当にあなたのアカウントを所有することができます。"
+  },
+  "benefits.benefit2.name": {
+    "string": "登録不要"
+  },
+  "benefits.benefit3.description": {
+    "string": "伝統的なソーシャルメディアは、あなたに広告を売るためにあなたを中毒にしようとしますが、それは社会を毒することです。しかし、Damusはそうはしません。その結果？より健康的なコミュニティが生まれます。"
+  },
+  "benefits.benefit3.name": {
+    "string": "中毒性のあるアルゴリズムはありません"
+  },
+  "benefits.benefit4.description": {
+    "string": "友達にチップを送ったり、チップを獲得したり、クリエイターをサポートしたり、ビットコイン＆ライトニングという自由でオープンなインターネットマネーでsatsを積み上げることができます。"
+  },
+  "benefits.benefit4.name": {
+    "string": "自由な発言と自由なお金が出会う"
+  },
+  "benefits.description": {
+    "string": "DamusはNostrという分散型でオープンなソーシャルネットワークプロトコルに基づいて構築されています。広告、有害なアルゴリズム、検閲なしで、Damusは真に自由で健康的な社会が必要とする、そして当然のことながら得るべきソーシャルネットワークへのアクセスを提供します。"
+  },
+  "benefits.headline": {
+    "string": "あなたは自由であることを当然の権利としています。"
+  },
+  "benefits.subheadline": {
+    "string": "Damusを使えば、あなたがコントロールできます。"
+  },
   "contribute.go_to_github": {
     "string": "Githubへ行く"
   },
