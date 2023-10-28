@@ -157,6 +157,12 @@
       "value": "アメリカ、カリフォルニア州ロサンゼルス"
     }
   ],
+  "events.location.nashville_tennessee": [
+    {
+      "type": 0,
+      "value": "アメリカ、テネシー州ナッシュビル"
+    }
+  ],
   "events.location.tokyo_japan": [
     {
       "type": 0,

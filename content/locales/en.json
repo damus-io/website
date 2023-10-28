@@ -74,6 +74,9 @@
   "events.location.los_angeles_california": {
     "string": "Los Angeles, California"
   },
+  "events.location.nashville_tennessee": {
+    "string": "Nashville, Tennessee"
+  },
   "events.location.tokyo_japan": {
     "string": "Tokyo, Japan"
   },

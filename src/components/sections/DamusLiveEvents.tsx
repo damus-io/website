@@ -41,6 +41,14 @@ const events = [
         startDate: new Date("2023-11-01"),
         endDate: new Date("2023-11-03"),
     },
+    {
+        picture: "/event-logos/nostrville.webp",
+        linkUrl: "https://www.meetup.com/bitcoinpark/events/292518506/",
+        locationIntlString: "events.location.nashville_tennessee",
+        name: "Nostrville",
+        startDate: new Date("2023-11-09"),
+        endDate: new Date("2023-11-10"),
+    },
 ]
 
 export function DamusLiveEvents({ className }: { className?: string }) {
@@ -52,6 +60,7 @@ export function DamusLiveEvents({ className }: { className?: string }) {
         "events.location.bali_indonesia": intl.formatMessage({ id: "events.location.bali_indonesia", defaultMessage: "Bali, Indonesia" }),
         "events.location.amsterdam_netherlands": intl.formatMessage({ id: "events.location.amsterdam_netherlands", defaultMessage: "Amsterdam, Netherlands" }),
         "events.location.los_angeles_california": intl.formatMessage({ id: "events.location.los_angeles_california", defaultMessage: "Los Angeles, California" }),
+        "events.location.nashville_tennessee": intl.formatMessage({ id: "events.location.nashville_tennessee", defaultMessage: "Nashville, Tennessee" }),
     }
 
     return (<>

@@ -157,6 +157,12 @@
       "value": "Los Angeles, California"
     }
   ],
+  "events.location.nashville_tennessee": [
+    {
+      "type": 0,
+      "value": "Nashville, Tennessee"
+    }
+  ],
   "events.location.tokyo_japan": [
     {
       "type": 0,

@@ -74,6 +74,9 @@
   "events.location.tokyo_japan": {
     "string": "日本、東京"
   },
+  "events.location.nashville_tennessee": {
+    "string": "アメリカ、テネシー州ナッシュビル"
+  },
   "final_cta.headline": {
     "string": "今すぐDamusをダウンロード！"
   },
