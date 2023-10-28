@@ -79,6 +79,13 @@ const team = [
         nostrNpub: "npub1qlk0nqupxmlyxravg0aqscxmcc4q4tq898z6x003rykwwh3npj0syvyayc",
     },
     {
+        profilePicture: "/team-photos/mr-e.png",
+        roleIntlString: "roles.brand-ambassador",
+        fullName: "Mr. E.",
+        shortName: "Mr. E.",
+        nostrNpub: "npub1h50pnxqw9jg7dhr906fvy4mze2yzawf895jhnc3p7qmljdugm6gsrurqev",
+    },
+    {
         profilePicture: "/team-photos/ben-weeks.png",
         roleIntlString: "roles.developer",
         fullName: "Ben Weeks",
@@ -126,6 +133,7 @@ export function MeetTheTeam({ className }: { className?: string }) {
         "roles.designer": intl.formatMessage({ id: "roles.designer", defaultMessage: "Designer" }),
         "roles.developer": intl.formatMessage({ id: "roles.developer", defaultMessage: "Developer" }),
         "roles.first-business-intern": intl.formatMessage({ id: "roles.first-business-intern", defaultMessage: "First Business Intern" }),
+        "roles.brand-ambassador": intl.formatMessage({ id: "roles.brand-ambassador", defaultMessage: "Brand Ambassador" }),
     }
 
     return (<>

@@ -113,6 +113,9 @@
   "meet_the_team.view_profile": {
     "string": "Follow {shortName}"
   },
+  "roles.brand-ambassador": {
+    "string": "Brand Ambassador"
+  },
   "roles.designer": {
     "string": "Designer"
   },

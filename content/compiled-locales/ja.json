@@ -241,6 +241,12 @@
       "value": "フォローする"
     }
   ],
+  "roles.brand-ambassador": [
+    {
+      "type": 0,
+      "value": "ブランドアンバサダー"
+    }
+  ],
   "roles.designer": [
     {
       "type": 0,

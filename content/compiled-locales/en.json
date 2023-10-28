@@ -239,6 +239,12 @@
       "value": "shortName"
     }
   ],
+  "roles.brand-ambassador": [
+    {
+      "type": 0,
+      "value": "Brand Ambassador"
+    }
+  ],
   "roles.designer": [
     {
       "type": 0,

@@ -113,6 +113,9 @@
   "topbar.download": {
     "string": "ダウンロード"
   },
+  "roles.brand-ambassador": {
+    "string": "ブランドアンバサダー"
+  },
   "roles.founder-and-developer": {
     "string": "創設者＆開発者"
   },
