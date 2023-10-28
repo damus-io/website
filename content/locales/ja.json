@@ -139,5 +139,20 @@
   },
   "meet_the_team.headline": {
     "string": "Damusチーム"
+  },
+  "topbar.contribute": {
+    "string": "貢献する"
+  },
+  "topbar.events": {
+    "string": "イベント"
+  },
+  "topbar.store": {
+    "string": "ストア"
+  },
+  "topbar.team": {
+    "string": "チーム"
+  },
+  "topbar.zap_us": {
+    "string": "ザップ"
   }
 }

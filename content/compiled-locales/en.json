@@ -281,10 +281,40 @@
       "value": "Product Janitor"
     }
   ],
+  "topbar.contribute": [
+    {
+      "type": 0,
+      "value": "Contribute"
+    }
+  ],
   "topbar.download": [
     {
       "type": 0,
       "value": "Download"
+    }
+  ],
+  "topbar.events": [
+    {
+      "type": 0,
+      "value": "Events"
+    }
+  ],
+  "topbar.store": [
+    {
+      "type": 0,
+      "value": "Store"
+    }
+  ],
+  "topbar.team": [
+    {
+      "type": 0,
+      "value": "Our Team"
+    }
+  ],
+  "topbar.zap_us": [
+    {
+      "type": 0,
+      "value": "Zap Us"
     }
   ]
 }

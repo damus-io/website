@@ -134,7 +134,22 @@
   "roles.product-janitor": {
     "string": "Product Janitor"
   },
+  "topbar.contribute": {
+    "string": "Contribute"
+  },
   "topbar.download": {
     "string": "Download"
+  },
+  "topbar.events": {
+    "string": "Events"
+  },
+  "topbar.store": {
+    "string": "Store"
+  },
+  "topbar.team": {
+    "string": "Our Team"
+  },
+  "topbar.zap_us": {
+    "string": "Zap Us"
   }
 }

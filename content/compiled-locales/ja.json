@@ -283,10 +283,40 @@
       "value": "プロダクト管理者"
     }
   ],
+  "topbar.contribute": [
+    {
+      "type": 0,
+      "value": "貢献する"
+    }
+  ],
   "topbar.download": [
     {
       "type": 0,
       "value": "ダウンロード"
+    }
+  ],
+  "topbar.events": [
+    {
+      "type": 0,
+      "value": "イベント"
+    }
+  ],
+  "topbar.store": [
+    {
+      "type": 0,
+      "value": "ストア"
+    }
+  ],
+  "topbar.team": [
+    {
+      "type": 0,
+      "value": "チーム"
+    }
+  ],
+  "topbar.zap_us": [
+    {
+      "type": 0,
+      "value": "ザップ"
     }
   ]
 }

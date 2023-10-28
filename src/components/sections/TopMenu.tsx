@@ -4,24 +4,30 @@ import { cn } from "@/lib/utils"
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { Zap } from "lucide-react"
 import { Button } from "../ui/Button";
-import { DAMUS_APP_STORE_URL } from "@/lib/constants";
+import { DAMUS_APP_STORE_URL, DAMUS_MERCH_STORE_URL } from "@/lib/constants";
 import { useIntl } from "react-intl";
 import { motion } from "framer-motion";
 
-let regularNavItems: { name: string, href: string }[] = [
-    { name: "Media", href: "#media" },
-    { name: "Team", href: "#team" },
-    { name: "Gallery", href: "#gallery" },
-    { name: "History", href: "#history" },
-    { name: "Store", href: "#store" },
+let regularNavItems: { nameIntlId: string, href: string, target?: string }[] = [
+    { nameIntlId: "topbar.store", href: DAMUS_MERCH_STORE_URL, target: "_blank" },
+    { nameIntlId: "topbar.events", href: "#events" },
+    { nameIntlId: "topbar.team", href: "#team" },
+    { nameIntlId: "topbar.contribute", href: "#contribute" },
 ]
 
-const ENABLE_FULL_MENU = false
+const ENABLE_FULL_MENU = true
 
 export function TopMenu({ className }: { className?: string }) {
     let navItemDefaultStyles = "hover:opacity-80 transition-opacity duration-200 ease-in-out"
-
     const intl = useIntl()
+
+    // This is needed to allow intl commands to extract the strings
+    const topbarItemNameIntl: Record<string, string> = {
+        "topbar.store": intl.formatMessage({ id: "topbar.store", defaultMessage: "Store" }),
+        "topbar.events": intl.formatMessage({ id: "topbar.events", defaultMessage: "Events" }),
+        "topbar.team": intl.formatMessage({ id: "topbar.team", defaultMessage: "Our Team" }),
+        "topbar.contribute": intl.formatMessage({ id: "topbar.contribute", defaultMessage: "Contribute" }),
+    }
 
     return (
         <motion.div
@@ -38,20 +44,16 @@ export function TopMenu({ className }: { className?: string }) {
                     {ENABLE_FULL_MENU && (<>
                         {regularNavItems.map((item, index) => (
                             <NavigationMenu.Item key={index}>
-                                <Link href={item.href} legacyBehavior passHref>
-                                    <NavigationMenu.Link className={cn(navItemDefaultStyles, "text-white")}>
-                                        {item.name}
-                                    </NavigationMenu.Link>
-                                </Link>
+                                <NavigationMenu.Link className={cn(navItemDefaultStyles, "text-white")} href={item.href} target={item.target}>
+                                    {topbarItemNameIntl[item.nameIntlId]}
+                                </NavigationMenu.Link>
                             </NavigationMenu.Item>
                         ))}
                         <NavigationMenu.Item>
-                            <Link href="#zap-us" legacyBehavior passHref>
-                                <NavigationMenu.Link className={cn("text-yellow-500 flex items-center")}>
-                                    <Zap className="h-4"/>
-                                    Zap Us
-                                </NavigationMenu.Link>
-                            </Link>
+                            <NavigationMenu.Link className={cn("text-yellow-500 flex items-center")} href="https://getalby.com/p/jb55" target="_blank">
+                                <Zap className="h-4"/>
+                                { intl.formatMessage({ id: "topbar.zap_us", defaultMessage: "Zap Us" }) }
+                            </NavigationMenu.Link>
                         </NavigationMenu.Item>
                     </>)}
                 </NavigationMenu.List>
