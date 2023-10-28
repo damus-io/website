@@ -6,7 +6,7 @@
     "string": "ページが見つかりません"
   },
   "banned_in_china.headline": {
-    "string": "中国では禁止されています"
+    "string": "中国も認めた自由度"
   },
   "benefits.benefit1.description": {
     "string": "オープンなインターネットプロトコルに基づいて構築されているため、あなたを禁止または検閲するプラットフォームは存在しません。あなたのデータと発言はあなたがコントロールしています。"
@@ -48,7 +48,7 @@
     "string": "良い初めての問題"
   },
   "contribute.headline": {
-    "string": "Damus開発に貢献する"
+    "string": "Damus開発に協力する"
   },
   "contribute.subheadline": {
     "string": "最も人気のあるNostrクライアントの一部となり、開発者、デザイナー、プロダクトオーナーなどの素晴らしいチームと協力を始めましょう。私たちのミッションに参加して、ソーシャルメディアをより健康的で自由にするために協力してください！"
@@ -60,7 +60,7 @@
     "string": "世界中のDamus"
   },
   "damus_around_the_world.photo_1_alt_text": {
-    "string": "ダムスロゴの形をした帆船がある熱帯のビーチの芸術的なイラスト"
+    "string": "Damusロゴの形をした帆船がある熱帯のビーチの芸術的なイラスト"
   },
   "damus_around_the_world.photo_2_alt_text": {
     "string": "Damusチームと友人がカンファレンスブースで"
@@ -117,7 +117,7 @@
     "string": "DamusはiOS、iPadOS、macOS（M1/M2）で利用可能です。\n無料でオープンソースです。"
   },
   "damus_on_media.headline": {
-    "string": "メディア掲載"
+    "string": "多数のメディアで話題"
   },
   "home.hero.available_in": {
     "string": "利用可能な言語"
@@ -129,7 +129,7 @@
     "string": "Nostrでフォローする"
   },
   "home.hero.headline": {
-    "string": "あなたが\nコントロールする\n新しいSNS"
+    "string": "じぶんで\nコントロールする\n自由なSNS"
   },
   "home.hero.join_testflight": {
     "string": "TestFlightベータに参加する"
@@ -138,7 +138,7 @@
     "string": "開発者向け報酬"
   },
   "home.hero.subheadline": {
-    "string": "友人やビジネスのための、あなた自身のソーシャルネットワーク\niOS、iPad、macOS（M1/M2）で利用可能です。"
+    "string": "SNSをあなたに合わせて、友だちやビジネスともっと繋がろう\niOS、iPad、macOS（M1/M2）で利用可能です。"
   },
   "home.meta_description": {
     "string": "Damusは、あなたがコントロールする新しいソーシャルネットワークです。iOS、iPad、macOS（M1/M2）で利用可能です。"
