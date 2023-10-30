@@ -42,13 +42,13 @@ export function Benefits({ className }: { className?: string }) {
             <div className="container mx-auto px-6 pb-32 pt-20">
                 <div className="flex flex-col items-center justify-center mt-32 lg:mt-16">
                     <div className="relative mb-32 flex flex-col items-center">
-                        <motion.h2 className="text-4xl md:text-8xl text-center text-transparent bg-clip-text bg-gradient-to-r from-damuspink-500 from-30% to-damuspink-600 to-100% font-semibold pb-8">
+                        <motion.h2 className="text-4xl md:text-8xl text-center text-transparent bg-clip-text bg-gradient-to-r from-damuspink-500 from-30% to-damuspink-600 to-100% font-semibold pb-8 break-keep">
                             { intl.formatMessage({ id: "benefits.headline", defaultMessage: "You deserve to be Free." }) }
                         </motion.h2>
-                        <motion.h3 className="text-3xl md:text-5xl text-center text-transparent bg-clip-text bg-gradient-to-r from-damuspink-500 from-30% to-damuspink-600 to-100% font-semibold pb-8">
+                        <motion.h3 className="text-3xl md:text-5xl text-center text-transparent bg-clip-text bg-gradient-to-r from-damuspink-500 from-30% to-damuspink-600 to-100% font-semibold pb-8 break-keep">
                             { intl.formatMessage({ id: "benefits.subheadline", defaultMessage: "With Damus, you are in control." }) }
                         </motion.h3>
-                        <motion.div className="text-white/60 text-xl text-center max-w-2xl mb-6 mt-6">
+                        <motion.div className="text-white/60 text-xl text-center max-w-2xl mb-6 mt-6 break-keep">
                             { intl.formatMessage({ id: "benefits.description", defaultMessage: "Damus is built on Nostr, a decentralized and open social network protocol. Without ads, toxic algorithms, or censorship, Damus gives you access to the social network that a truly Free and healthy society needs — and deserves." }) }
                         </motion.div>
                     </div>

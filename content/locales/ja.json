@@ -33,13 +33,13 @@
     "string": "自由な発言と自由なお金が出会う"
   },
   "benefits.description": {
-    "string": "DamusはNostrという分散型でオープンなソーシャルネットワークプロトコルに基づいて構築されています。広告、有害なアルゴリズム、検閲なしで、Damusは真に自由で健康的な社会が必要とする、そして当然のことながら得るべきソーシャルネットワークへのアクセスを提供します。"
+    "string": "Damusは\u200B分散型で\u200Bオープンな\u200Bノスターを\u200B土台にしたSNSです。\u200BDamusでは、\u200B広告、\u200Bアルゴリズム、\u200Bセンサーシップなどは一切なく、\u200B全ての人が必要な、\u200Bそして全ての人が\u200B望む\u200B自由なSNSを提供します。"
   },
   "benefits.headline": {
-    "string": "あなたは自由であることを当然の権利としています。"
+    "string": "あなたが\u200B管理する\u200B自由な\u200B世界"
   },
   "benefits.subheadline": {
-    "string": "Damusを使えば、あなたがコントロールできます。"
+    "string": "Damusを使って\u200BSNSの\u200B主導権を握ろう！"
   },
   "contribute.go_to_github": {
     "string": "Githubへ行く"
@@ -171,7 +171,7 @@
     "string": "ビジネスインターン"
   },
   "meet_the_team.headline": {
-    "string": "Damusチーム"
+    "string": "Damus Team"
   },
   "topbar.contribute": {
     "string": "貢献する"

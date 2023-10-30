@@ -68,19 +68,19 @@
   "benefits.description": [
     {
       "type": 0,
-      "value": "DamusはNostrという分散型でオープンなソーシャルネットワークプロトコルに基づいて構築されています。広告、有害なアルゴリズム、検閲なしで、Damusは真に自由で健康的な社会が必要とする、そして当然のことながら得るべきソーシャルネットワークへのアクセスを提供します。"
+      "value": "Damusは​分散型で​オープンな​ノスターを​土台にしたSNSです。​Damusでは、​広告、​アルゴリズム、​センサーシップなどは一切なく、​全ての人が必要な、​そして全ての人が​望む​自由なSNSを提供します。"
     }
   ],
   "benefits.headline": [
     {
       "type": 0,
-      "value": "あなたは自由であることを当然の権利としています。"
+      "value": "あなたが​管理する​自由な​世界"
     }
   ],
   "benefits.subheadline": [
     {
       "type": 0,
-      "value": "Damusを使えば、あなたがコントロールできます。"
+      "value": "Damusを使って​SNSの​主導権を握ろう！"
     }
   ],
   "contribute.go_to_github": [
@@ -298,7 +298,7 @@
   "meet_the_team.headline": [
     {
       "type": 0,
-      "value": "Damusチーム"
+      "value": "Damus Team"
     }
   ],
   "meet_the_team.view_profile": [
