@@ -1,9 +1,9 @@
 {
   "404.go_home": {
-    "string": "ホームに戻る"
+    "string": "Go to the home page"
   },
   "404.headline": {
-    "string": "ページが見つかりません"
+    "string": "Page not found"
   },
   "banned_in_china.headline": {
     "string": "中国も認めた自由度"
@@ -42,7 +42,7 @@
     "string": "Damusを使って\u200BSNSの\u200B主導権を握ろう！"
   },
   "contribute.go_to_github": {
-    "string": "Githubへ行く"
+    "string": "Go to Github"
   },
   "contribute.good_first_issues": {
     "string": "良い初めての問題"
@@ -57,43 +57,43 @@
     "string": "チームメンバーと話す"
   },
   "damus_around_the_world.headline": {
-    "string": "世界中のDamus"
+    "string": "Damus around the world"
   },
   "damus_around_the_world.photo_1_alt_text": {
-    "string": "Damusロゴの形をした帆船がある熱帯のビーチの芸術的なイラスト"
+    "string": ""
   },
   "damus_around_the_world.photo_2_alt_text": {
-    "string": "Damusチームと友人がカンファレンスブースで"
+    "string": ""
   },
   "damus_around_the_world.photo_3_alt_text": {
-    "string": "カンファレンスブースでビデオ通話をしているDamusチームのメンバー"
+    "string": ""
   },
   "damus_around_the_world.photo_4_alt_text": {
-    "string": "Damusの帽子の写真"
+    "string": ""
   },
   "damus_around_the_world.photo_5_alt_text": {
-    "string": "Derek Rossがカンファレンスでプレゼンテーションをしている写真"
+    "string": ""
   },
   "damus_around_the_world.photo_6_alt_text": {
-    "string": "男性が「カラフルなコロラドへようこそ」と書かれた看板の横に立っている写真"
+    "string": ""
   },
   "damus_around_the_world.photo_7_alt_text": {
-    "string": "Damusのグッズを着用した男性の写真"
+    "string": ""
   },
   "damus_around_the_world.subheadline": {
     "string": "Damusストアが利用可能です。友人の中でクールな存在になり、世界にあなたのDamus愛を共有してください。あなた自身がここに現れるかもしれません。"
   },
   "damus_around_the_world.visit_damus_store_now": {
-    "string": "今すぐDamusストアを訪問"
+    "string": "Damus Store"
   },
   "damus_live_events.date_range": {
     "string": "{startDate} – {endDate}"
   },
   "damus_live_events.headline": {
-    "string": "Damus。\nライブ。\nイベント。"
+    "string": "Damus.\nLive.\nEvents."
   },
   "damus_live_events.visit_button.label": {
-    "string": "訪問する"
+    "string": "Go"
   },
   "events.location.amsterdam_netherlands": {
     "string": "オランダ、アムステルダム"
@@ -177,18 +177,18 @@
     "string": "貢献する"
   },
   "topbar.events": {
-    "string": "イベント"
+    "string": "Events"
   },
   "topbar.logo_alt_text": {
     "string": "Damusのロゴ"
   },
   "topbar.store": {
-    "string": "ストア"
+    "string": "Store"
   },
   "topbar.team": {
-    "string": "チーム"
+    "string": "Team"
   },
   "topbar.zap_us": {
-    "string": "ザップ"
+    "string": "Zap us"
   }
 }

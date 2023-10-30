@@ -35,7 +35,9 @@ export function FinalCTA({ className }: { className?: string }) {
                             { intl.formatMessage({ id: "final_cta.headline", defaultMessage: "Download Damus today!" }) }
                         </motion.h2>
                         <motion.div className="text-xl text-center max-w-2xl mb-12 text-transparent bg-clip-text bg-gradient-to-br from-white from-5% to-[#8DEBF8] to-100% whitespace-pre-line leading-loose">
-                            { intl.formatMessage({ id: "final_cta.subheadline", defaultMessage: "Damus is available on iOS, iPadOS and macOS (M1/M2).\nIt's free and open source." }) }
+                            {(intl.locale != "ja" || process.env.FORCE_LOAD_ALL_JA_SECTIONS) && (<>
+                                { intl.formatMessage({ id: "final_cta.subheadline", defaultMessage: "Damus is available on iOS, iPadOS and macOS (M1/M2).\nIt's free and open source." }) }
+                            </>)}
                         </motion.div>
                         <motion.div
                             className="mt-10 md:mt-6 flex flex-col md:flex-row items-center md:items-center gap-y-4 gap-x-6"

@@ -2,13 +2,13 @@
   "404.go_home": [
     {
       "type": 0,
-      "value": "ホームに戻る"
+      "value": "Go to the home page"
     }
   ],
   "404.headline": [
     {
       "type": 0,
-      "value": "ページが見つかりません"
+      "value": "Page not found"
     }
   ],
   "banned_in_china.headline": [
@@ -86,7 +86,7 @@
   "contribute.go_to_github": [
     {
       "type": 0,
-      "value": "Githubへ行く"
+      "value": "Go to Github"
     }
   ],
   "contribute.good_first_issues": [
@@ -116,50 +116,22 @@
   "damus_around_the_world.headline": [
     {
       "type": 0,
-      "value": "世界中のDamus"
+      "value": "Damus around the world"
     }
   ],
   "damus_around_the_world.photo_1_alt_text": [
-    {
-      "type": 0,
-      "value": "Damusロゴの形をした帆船がある熱帯のビーチの芸術的なイラスト"
-    }
   ],
   "damus_around_the_world.photo_2_alt_text": [
-    {
-      "type": 0,
-      "value": "Damusチームと友人がカンファレンスブースで"
-    }
   ],
   "damus_around_the_world.photo_3_alt_text": [
-    {
-      "type": 0,
-      "value": "カンファレンスブースでビデオ通話をしているDamusチームのメンバー"
-    }
   ],
   "damus_around_the_world.photo_4_alt_text": [
-    {
-      "type": 0,
-      "value": "Damusの帽子の写真"
-    }
   ],
   "damus_around_the_world.photo_5_alt_text": [
-    {
-      "type": 0,
-      "value": "Derek Rossがカンファレンスでプレゼンテーションをしている写真"
-    }
   ],
   "damus_around_the_world.photo_6_alt_text": [
-    {
-      "type": 0,
-      "value": "男性が「カラフルなコロラドへようこそ」と書かれた看板の横に立っている写真"
-    }
   ],
   "damus_around_the_world.photo_7_alt_text": [
-    {
-      "type": 0,
-      "value": "Damusのグッズを着用した男性の写真"
-    }
   ],
   "damus_around_the_world.subheadline": [
     {
@@ -170,7 +142,7 @@
   "damus_around_the_world.visit_damus_store_now": [
     {
       "type": 0,
-      "value": "今すぐDamusストアを訪問"
+      "value": "Damus Store"
     }
   ],
   "damus_live_events.date_range": [
@@ -190,13 +162,13 @@
   "damus_live_events.headline": [
     {
       "type": 0,
-      "value": "Damus。\nライブ。\nイベント。"
+      "value": "Damus.\nLive.\nEvents."
     }
   ],
   "damus_live_events.visit_button.label": [
     {
       "type": 0,
-      "value": "訪問する"
+      "value": "Go"
     }
   ],
   "damus_on_media.headline": [
@@ -364,7 +336,7 @@
   "topbar.events": [
     {
       "type": 0,
-      "value": "イベント"
+      "value": "Events"
     }
   ],
   "topbar.logo_alt_text": [
@@ -376,19 +348,19 @@
   "topbar.store": [
     {
       "type": 0,
-      "value": "ストア"
+      "value": "Store"
     }
   ],
   "topbar.team": [
     {
       "type": 0,
-      "value": "チーム"
+      "value": "Team"
     }
   ],
   "topbar.zap_us": [
     {
       "type": 0,
-      "value": "ザップ"
+      "value": "Zap us"
     }
   ]
 }

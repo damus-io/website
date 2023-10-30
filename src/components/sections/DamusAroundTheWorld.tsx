@@ -20,7 +20,9 @@ export function DamusAroundTheWorld({ className }: { className?: string }) {
                             { intl.formatMessage({ id: "damus_around_the_world.headline", defaultMessage: "Damus around the world" }) }
                         </motion.h2>
                         <motion.div className="text-white/80 text-xl text-center max-w-2xl mb-6">
-                            { intl.formatMessage({ id: "damus_around_the_world.subheadline", defaultMessage: "Damus store is available, be the cool one within your group of friends, share to the world your love for Damus. You might even appear here." }) }
+                            {(intl.locale != "ja" || process.env.FORCE_LOAD_ALL_JA_SECTIONS) && (<>
+                                { intl.formatMessage({ id: "damus_around_the_world.subheadline", defaultMessage: "Damus store is available, be the cool one within your group of friends, share to the world your love for Damus. You might even appear here." }) }
+                            </>)}
                         </motion.div>
                         <Link href={DAMUS_MERCH_STORE_URL} target="_blank">
                             <Button variant="default" className="w-full md:w-auto">
@@ -30,7 +32,7 @@ export function DamusAroundTheWorld({ className }: { className?: string }) {
                             </Button>
                         </Link>
                     </div>
-                    <div className="flex flex-col gap-y-4 md:gap-y-4 items-stretch justify-center">
+                    <div className="flex flex-col gap-y-4 md:gap-y-4 items-stretch justify-center" aria-hidden="true">
                         <Ticker className="w-screen" timePeriod={20}>
                             <TickerImage className="w-72 h-48 md:w-96 md:h-72" src="/around-the-world-photos/1.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_1_alt_text", defaultMessage: "An artistic illustration of a tropical beach with a sailing boat in the shape of the Damus logo" }) }/>
                             <TickerImage className="w-72 h-48 md:w-96 md:h-72" src="/around-the-world-photos/2.webp" altText={ intl.formatMessage({ id: "damus_around_the_world.photo_2_alt_text", defaultMessage: "Members of the Damus team and friends at a conference booth" }) }/>

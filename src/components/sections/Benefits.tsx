@@ -52,21 +52,23 @@ export function Benefits({ className }: { className?: string }) {
                             { intl.formatMessage({ id: "benefits.description", defaultMessage: "Damus is built on Nostr, a decentralized and open social network protocol. Without ads, toxic algorithms, or censorship, Damus gives you access to the social network that a truly Free and healthy society needs — and deserves." }) }
                         </motion.div>
                     </div>
-                    <div className="flex flex-wrap gap-x-8 gap-y-16 items-stretch justify-center">
-                        {benefits.map((item, index) => (
-                            <div key={index} className="max-w-xs flex flex-col items-center justify-between">
-                                <RoundedContainerWithGradientBorder className="">
-                                    {item.icon}
-                                </RoundedContainerWithGradientBorder>
-                                <h3 className="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-br from-white from-30% to-cyan-200 to-100% text-center text-normal mt-6">
-                                    {item.headline}
-                                </h3>
-                                <p className="text-white/80 text-center text-normal mt-4">
-                                    {item.description}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
+                    {(intl.locale != "ja" || process.env.FORCE_LOAD_ALL_JA_SECTIONS) && (
+                        <div className="flex flex-wrap gap-x-8 gap-y-16 items-stretch justify-center">
+                            {benefits.map((item, index) => (
+                                <div key={index} className="max-w-xs flex flex-col items-center justify-between">
+                                    <RoundedContainerWithGradientBorder className="">
+                                        {item.icon}
+                                    </RoundedContainerWithGradientBorder>
+                                    <h3 className="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-br from-white from-30% to-cyan-200 to-100% text-center text-normal mt-6">
+                                        {item.headline}
+                                    </h3>
+                                    <p className="text-white/80 text-center text-normal mt-4">
+                                        {item.description}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
