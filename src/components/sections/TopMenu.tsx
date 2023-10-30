@@ -10,9 +10,9 @@ import { motion } from "framer-motion";
 
 let regularNavItems: { nameIntlId: string, href: string, target?: string }[] = [
     { nameIntlId: "topbar.store", href: DAMUS_MERCH_STORE_URL, target: "_blank" },
-    { nameIntlId: "topbar.events", href: "#events" },
-    { nameIntlId: "topbar.team", href: "#team" },
-    { nameIntlId: "topbar.contribute", href: "#contribute" },
+    { nameIntlId: "topbar.events", href: "/#events" },
+    { nameIntlId: "topbar.team", href: "/#team" },
+    { nameIntlId: "topbar.contribute", href: "/#contribute" },
 ]
 
 const ENABLE_FULL_MENU = true
