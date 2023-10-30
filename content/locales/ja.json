@@ -9,49 +9,49 @@
     "string": "中国も\u200B認めた\u200B自由度"
   },
   "benefits.benefit1.description": {
-    "string": "オープンなインターネットプロトコルに基づいて構築されているため、あなたを禁止または検閲するプラットフォームは存在しません。あなたのデータと発言はあなたがコントロールしています。"
+    "string": "オープンなインターネットプロトコルに基づいて構築されているため、検閲したり排除するようなプラットフォームが存在しません。じぶんのデータと発言をコントロールできます。"
   },
   "benefits.benefit1.name": {
-    "string": "あなたがコントロールしています"
+    "string": "じぶんでコントロール"
   },
   "benefits.benefit2.description": {
-    "string": "アカウントの作成には電話番号、メール、名前は必要ありません。すぐに始めて、高度な暗号化のおかげで本当にあなたのアカウントを所有することができます。"
+    "string": "アカウントの作成には電話番号、メール、名前は必要ありません。すぐにはじめられます。高度な暗号技術のおかげで、自分のアカウントを本当の意味で所有できるのです。"
   },
   "benefits.benefit2.name": {
     "string": "登録不要"
   },
   "benefits.benefit3.description": {
-    "string": "伝統的なソーシャルメディアは、あなたに広告を売るためにあなたを中毒にしようとしますが、それは社会を毒することです。しかし、Damusはそうはしません。その結果？より健康的なコミュニティが生まれます。"
+    "string": "伝統的なソーシャルメディアは、広告を売るためにユーザを夢中にさせたがります。それは社会に悪い影響を与えます。Damusは違います。その結果、より健康的なコミュニティが生まれます。"
   },
   "benefits.benefit3.name": {
     "string": "中毒性のあるアルゴリズムはありません"
   },
   "benefits.benefit4.description": {
-    "string": "友達にチップを送ったり、チップを獲得したり、クリエイターをサポートしたり、ビットコイン＆ライトニングという自由でオープンなインターネットマネーでsatsを積み上げることができます。"
+    "string": "友だちに投げ銭したり、受け取ったり、クリエイターを支援したり。ビットコイン＆ライトニングという自由でオープンなインターネットマネーで、少額からsatsを貯めることもできます。"
   },
   "benefits.benefit4.name": {
     "string": "自由な発言と自由なお金が出会う"
   },
   "benefits.description": {
-    "string": "Damusは\u200B分散型で\u200Bオープンな\u200Bノスターを\u200B土台にしたSNSです。\u200BDamusでは、\u200B広告、\u200Bアルゴリズム、\u200Bセンサーシップなどは一切なく、\u200B全ての人が必要な、\u200Bそして全ての人が\u200B望む\u200B自由なSNSを提供します。"
+    "string": "Damusは、Nostrという\u200B非中央集権的で\u200Bオープンな\u200Bソーシャル\u200Bネットワーク\u200Bプロトコルに\u200B基づいて\u200B構築されて\u200Bいます。そこには、広告\u200Bも、中毒性\u200Bの\u200Bある\u200Bアルゴリズム\u200Bも、検閲\u200Bも\u200Bありません。自由\u200Bで\u200B健全\u200Bな\u200B社会\u200Bが\u200B必要\u200Bとする\u200B——\u200Bそして\u200Bそのような\u200B社会\u200Bに\u200Bふさわしい、\u200Bソーシャル\u200Bネットワーク\u200Bへの\u200Bアクセスを\u200BDamusは\u200B提供します。"
   },
   "benefits.headline": {
-    "string": "あなたが\u200B管理する\u200B自由な\u200B世界"
+    "string": "じぶん\u200Bで\u200Bコントロール"
   },
   "benefits.subheadline": {
-    "string": "Damusを使って\u200BSNSの\u200B主導権を握ろう！"
+    "string": "Damusを\u200B使えば、それが\u200Bできます。"
   },
   "contribute.go_to_github": {
     "string": "Go to Github"
   },
   "contribute.good_first_issues": {
-    "string": "良い初めての問題"
+    "string": "取り組みやすい開発課題"
   },
   "contribute.headline": {
-    "string": "Damus開発に協力する"
+    "string": "Damusの開発に参加する"
   },
   "contribute.subheadline": {
-    "string": "最も人気のあるNostrクライアントの一部となり、開発者、デザイナー、プロダクトオーナーなどの素晴らしいチームと協力を始めましょう。私たちのミッションに参加して、ソーシャルメディアをより健康的で自由にするために協力してください！"
+    "string": "素晴らしい開発者、デザイナー、プロダクトオーナーとともに、最も人気のあるNostrクライアントを開発しませんか。より健全で自由なソーシャルメディアの実現のために、私達と一緒に取り組みましょう！"
   },
   "contribute.talk_to_a_team_member": {
     "string": "チームメンバーと話す"
@@ -81,7 +81,7 @@
     "string": ""
   },
   "damus_around_the_world.subheadline": {
-    "string": "Damusストアが利用可能です。友人の中でクールな存在になり、世界にあなたのDamus愛を共有してください。あなた自身がここに現れるかもしれません。"
+    "string": "Damus Storeがオープンしました。友だちの注目を集め、Damusへの愛を世界に広めましょう。あなたもここに載ってみたくないですか？"
   },
   "damus_around_the_world.visit_damus_store_now": {
     "string": "Damus Store"
