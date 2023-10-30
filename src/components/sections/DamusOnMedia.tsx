@@ -79,7 +79,7 @@ export function DamusOnMedia({ className }: { className?: string }) {
             <div className="container mx-auto px-6 pb-32 pt-12">
                 <div className="flex flex-col items-center justify-center mt-32 lg:mt-16">
                     <div className="relative mb-32">
-                        <motion.h2 className="text-6xl md:text-8xl text-center text-transparent bg-clip-text bg-gradient-to-r from-white from-30% to-cyan-500 to-100% font-semibold">
+                        <motion.h2 className="text-6xl md:text-8xl text-center text-transparent bg-clip-text bg-gradient-to-r from-white from-30% to-cyan-500 to-100% font-semibold break-keep">
                             { intl.formatMessage({ id: "damus_on_media.headline", defaultMessage: "Damus on media" }) }
                         </motion.h2>
                     </div>

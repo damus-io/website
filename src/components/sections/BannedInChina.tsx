@@ -36,7 +36,7 @@ export function BannedInChina({ className }: { className?: string }) {
             <div className="container mx-auto px-6 pb-32 pt-20">
                 <div className="flex flex-col items-center justify-center mt-32 lg:mt-16">
                     <div className="relative mb-32">
-                        <motion.h2 className="text-6xl md:text-8xl text-center text-transparent bg-clip-text bg-gradient-to-r from-[#FF7979] from-30% to-[#9378FF] to-100% font-semibold">
+                        <motion.h2 className="text-6xl md:text-8xl text-center text-transparent bg-clip-text bg-gradient-to-r from-[#FF7979] from-30% to-[#9378FF] to-100% font-semibold break-keep">
                             { intl.formatMessage({ id: "banned_in_china.headline", defaultMessage: "Banned in China" }) }
                         </motion.h2>
                         <MeshGradient2 className="absolute top-0 left-0 -translate-x-[350px] md:-translate-x-[250px] -translate-y-[250px] scale-75 md:scale-100 pointer-events-none"/>

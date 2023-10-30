@@ -6,7 +6,7 @@
     "string": "Page not found"
   },
   "banned_in_china.headline": {
-    "string": "中国も認めた自由度"
+    "string": "中国も\u200B認めた\u200B自由度"
   },
   "benefits.benefit1.description": {
     "string": "オープンなインターネットプロトコルに基づいて構築されているため、あなたを禁止または検閲するプラットフォームは存在しません。あなたのデータと発言はあなたがコントロールしています。"
@@ -117,7 +117,7 @@
     "string": "DamusはiOS、iPadOS、macOS（M1/M2）で利用可能です。\n無料でオープンソースです。"
   },
   "damus_on_media.headline": {
-    "string": "多数のメディアで話題"
+    "string": "多数の\u200Bメディアで\u200B話題"
   },
   "home.hero.available_in": {
     "string": "利用可能な言語"
