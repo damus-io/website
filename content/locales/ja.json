@@ -1,0 +1,194 @@
+{
+  "404.go_home": {
+    "string": "Go to the home page"
+  },
+  "404.headline": {
+    "string": "Page not found"
+  },
+  "banned_in_china.headline": {
+    "string": "中国も\u200B認めた\u200B自由度"
+  },
+  "benefits.benefit1.description": {
+    "string": "オープンなインターネットプロトコルに基づいて構築されているため、検閲したり排除するようなプラットフォームが存在しません。じぶんのデータと発言をコントロールできます。"
+  },
+  "benefits.benefit1.name": {
+    "string": "じぶんでコントロール"
+  },
+  "benefits.benefit2.description": {
+    "string": "アカウントの作成には電話番号、メール、名前は必要ありません。すぐにはじめられます。高度な暗号技術のおかげで、自分のアカウントを本当の意味で所有できるのです。"
+  },
+  "benefits.benefit2.name": {
+    "string": "登録不要"
+  },
+  "benefits.benefit3.description": {
+    "string": "伝統的なソーシャルメディアは、広告を売るためにユーザを夢中にさせたがります。それは社会に悪い影響を与えます。Damusは違います。その結果、より健康的なコミュニティが生まれます。"
+  },
+  "benefits.benefit3.name": {
+    "string": "中毒性のあるアルゴリズムはありません"
+  },
+  "benefits.benefit4.description": {
+    "string": "友だちに投げ銭したり、受け取ったり、クリエイターを支援したり。ビットコイン＆ライトニングという自由でオープンなインターネットマネーで、少額からsatsを貯めることもできます。"
+  },
+  "benefits.benefit4.name": {
+    "string": "自由な発言と自由なお金が出会う"
+  },
+  "benefits.description": {
+    "string": "Damusは、Nostrという\u200B非中央集権的で\u200Bオープンな\u200Bソーシャル\u200Bネットワーク\u200Bプロトコルに\u200B基づいて\u200B構築されて\u200Bいます。そこには、広告\u200Bも、中毒性\u200Bの\u200Bある\u200Bアルゴリズム\u200Bも、検閲\u200Bも\u200Bありません。\u200BDamusは\u200B、\u200B全ての\u200B人\u200Bが\u200B必要\u200Bとする\u200B、\u200Bそして\u200B全て\u200Bの\u200B人\u200Bが\u200B望む\u200B、\u200B自由なSNSを提供します。"
+  },
+  "benefits.headline": {
+    "string": "じぶん\u200Bで\u200Bコントロール"
+  },
+  "benefits.subheadline": {
+    "string": "Damusを\u200B使えば、それが\u200Bできます。"
+  },
+  "contribute.go_to_github": {
+    "string": "Go to Github"
+  },
+  "contribute.good_first_issues": {
+    "string": "取り組みやすい開発課題"
+  },
+  "contribute.headline": {
+    "string": "Damusの開発に参加する"
+  },
+  "contribute.subheadline": {
+    "string": "素晴らしい開発者、デザイナー、プロダクトオーナーとともに、最も人気のあるNostrクライアントを開発しませんか。より健全で自由なソーシャルメディアの実現のために、私達と一緒に取り組みましょう！"
+  },
+  "contribute.talk_to_a_team_member": {
+    "string": "チームメンバーと話す"
+  },
+  "damus_around_the_world.headline": {
+    "string": "Damus around the world"
+  },
+  "damus_around_the_world.photo_1_alt_text": {
+    "string": ""
+  },
+  "damus_around_the_world.photo_2_alt_text": {
+    "string": ""
+  },
+  "damus_around_the_world.photo_3_alt_text": {
+    "string": ""
+  },
+  "damus_around_the_world.photo_4_alt_text": {
+    "string": ""
+  },
+  "damus_around_the_world.photo_5_alt_text": {
+    "string": ""
+  },
+  "damus_around_the_world.photo_6_alt_text": {
+    "string": ""
+  },
+  "damus_around_the_world.photo_7_alt_text": {
+    "string": ""
+  },
+  "damus_around_the_world.subheadline": {
+    "string": "Damus Storeがオープンしました。友だちの注目を集め、Damusへの愛を世界に広めましょう。あなたもここに載ってみたくないですか？"
+  },
+  "damus_around_the_world.visit_damus_store_now": {
+    "string": "Damus Store"
+  },
+  "damus_live_events.date_range": {
+    "string": "{startDate} – {endDate}"
+  },
+  "damus_live_events.headline": {
+    "string": "Damus.\nLive.\nEvents."
+  },
+  "damus_live_events.visit_button.label": {
+    "string": "Go"
+  },
+  "events.location.amsterdam_netherlands": {
+    "string": "オランダ、アムステルダム"
+  },
+  "events.location.bali_indonesia": {
+    "string": "インドネシア、バリ"
+  },
+  "events.location.los_angeles_california": {
+    "string": "アメリカ、カリフォルニア州ロサンゼルス"
+  },
+  "events.location.tokyo_japan": {
+    "string": "日本、東京"
+  },
+  "events.location.nashville_tennessee": {
+    "string": "アメリカ、テネシー州ナッシュビル"
+  },
+  "final_cta.headline": {
+    "string": "今すぐDamusを\nダウンロード！"
+  },
+  "final_cta.subheadline": {
+    "string": "DamusはiOS、iPadOS、macOS（M1/M2）で利用可能です。\n無料でオープンソースです。"
+  },
+  "damus_on_media.headline": {
+    "string": "多数の\u200Bメディアで\u200B話題"
+  },
+  "home.hero.available_in": {
+    "string": "利用可能な言語"
+  },
+  "home.hero.download_now": {
+    "string": "今すぐダウンロード"
+  },
+  "home.hero.follow-us-on-nostr": {
+    "string": "Nostrでフォローする"
+  },
+  "home.hero.headline": {
+    "string": "じぶんで\nコントロールする\n自由なSNS"
+  },
+  "home.hero.join_testflight": {
+    "string": "TestFlightベータに参加する"
+  },
+  "home.hero.promote-bounties": {
+    "string": "開発者向け報酬"
+  },
+  "home.hero.subheadline": {
+    "string": "SNSをあなたに合わせて、友だちやビジネスともっと繋がろう\niOS、iPad、macOS（M1/M2）で利用可能です。"
+  },
+  "home.meta_description": {
+    "string": "Damusは、あなたがコントロールする新しいソーシャルネットワークです。iOS、iPad、macOS（M1/M2）で利用可能です。"
+  },
+  "topbar.download": {
+    "string": "ダウンロード"
+  },
+  "roles.brand-ambassador": {
+    "string": "ブランドアンバサダー"
+  },
+  "roles.founder-and-developer": {
+    "string": "創設者＆開発者"
+  },
+  "roles.marketer": {
+    "string": "マーケター"
+  },
+  "roles.product-janitor": {
+    "string": "プロダクト管理者"
+  },
+  "roles.developer": {
+    "string": "開発者"
+  },
+  "meet_the_team.view_profile": {
+    "string": "フォローする"
+  },
+  "roles.designer": {
+    "string": "デザイナー"
+  },
+  "roles.first-business-intern": {
+    "string": "ビジネスインターン"
+  },
+  "meet_the_team.headline": {
+    "string": "Damus Team"
+  },
+  "topbar.contribute": {
+    "string": "貢献する"
+  },
+  "topbar.events": {
+    "string": "Events"
+  },
+  "topbar.logo_alt_text": {
+    "string": "Damusのロゴ"
+  },
+  "topbar.store": {
+    "string": "Store"
+  },
+  "topbar.team": {
+    "string": "Team"
+  },
+  "topbar.zap_us": {
+    "string": "Zap us"
+  }
+}

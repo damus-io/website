@@ -1,0 +1,392 @@
+{
+  "404.go_home": [
+    {
+      "type": 0,
+      "value": "Go home"
+    }
+  ],
+  "404.headline": [
+    {
+      "type": 0,
+      "value": "Page not found"
+    }
+  ],
+  "banned_in_china.headline": [
+    {
+      "type": 0,
+      "value": "Banned in China"
+    }
+  ],
+  "benefits.benefit1.description": [
+    {
+      "type": 0,
+      "value": "Built on open internet protocols, there is no platform that can ban or censor you. You are in control of your data & speech."
+    }
+  ],
+  "benefits.benefit1.name": [
+    {
+      "type": 0,
+      "value": "You are in control"
+    }
+  ],
+  "benefits.benefit2.description": [
+    {
+      "type": 0,
+      "value": "Creating an account doesn't require a phone number, email or name. Get started right away, and truly own your account — Thanks to advanced cryptography"
+    }
+  ],
+  "benefits.benefit2.name": [
+    {
+      "type": 0,
+      "value": "No registration required"
+    }
+  ],
+  "benefits.benefit3.description": [
+    {
+      "type": 0,
+      "value": "Traditional social media keeps you addicted in order to sell you ads, which is intoxicating society. Damus doesn't. The result? A healthier community."
+    }
+  ],
+  "benefits.benefit3.name": [
+    {
+      "type": 0,
+      "value": "No addictive algorithms"
+    }
+  ],
+  "benefits.benefit4.description": [
+    {
+      "type": 0,
+      "value": "Tip your friends, earn tips, support creators, and stack sats with Bitcoin & Lightning, the Free and open internet money."
+    }
+  ],
+  "benefits.benefit4.name": [
+    {
+      "type": 0,
+      "value": "Free speech meets Free money"
+    }
+  ],
+  "benefits.description": [
+    {
+      "type": 0,
+      "value": "Damus is built on Nostr, a decentralized and open social network protocol. Without ads, toxic algorithms, or censorship, Damus gives you access to the social network that a truly Free and healthy society needs — and deserves."
+    }
+  ],
+  "benefits.headline": [
+    {
+      "type": 0,
+      "value": "You deserve to be Free."
+    }
+  ],
+  "benefits.subheadline": [
+    {
+      "type": 0,
+      "value": "With Damus, you are in control."
+    }
+  ],
+  "contribute.go_to_github": [
+    {
+      "type": 0,
+      "value": "Go to Github"
+    }
+  ],
+  "contribute.good_first_issues": [
+    {
+      "type": 0,
+      "value": "Good first issues"
+    }
+  ],
+  "contribute.headline": [
+    {
+      "type": 0,
+      "value": "Contribute to Damus development"
+    }
+  ],
+  "contribute.subheadline": [
+    {
+      "type": 0,
+      "value": "Be part of the most popular Nostr client, start collaborating with an amazing team of developers, designers, product owners and more. Join us in our mission to make social media more healthy and free!"
+    }
+  ],
+  "contribute.talk_to_a_team_member": [
+    {
+      "type": 0,
+      "value": "Talk to a team member"
+    }
+  ],
+  "damus_around_the_world.headline": [
+    {
+      "type": 0,
+      "value": "Damus around the world"
+    }
+  ],
+  "damus_around_the_world.photo_1_alt_text": [
+    {
+      "type": 0,
+      "value": "An artistic illustration of a tropical beach with a sailing boat in the shape of the Damus logo"
+    }
+  ],
+  "damus_around_the_world.photo_2_alt_text": [
+    {
+      "type": 0,
+      "value": "Members of the Damus team and friends at a conference booth"
+    }
+  ],
+  "damus_around_the_world.photo_3_alt_text": [
+    {
+      "type": 0,
+      "value": "Members of the Damus team on a video call at the conference booth"
+    }
+  ],
+  "damus_around_the_world.photo_4_alt_text": [
+    {
+      "type": 0,
+      "value": "A picture of the Damus cap"
+    }
+  ],
+  "damus_around_the_world.photo_5_alt_text": [
+    {
+      "type": 0,
+      "value": "Derek Ross making a presentation at a conference"
+    }
+  ],
+  "damus_around_the_world.photo_6_alt_text": [
+    {
+      "type": 0,
+      "value": "A man standing next to a 'Welcome to colorful Colorado' sign"
+    }
+  ],
+  "damus_around_the_world.photo_7_alt_text": [
+    {
+      "type": 0,
+      "value": "A man wearing Damus merch"
+    }
+  ],
+  "damus_around_the_world.subheadline": [
+    {
+      "type": 0,
+      "value": "Damus store is available, be the cool one within your group of friends, share to the world your love for Damus. You might even appear here."
+    }
+  ],
+  "damus_around_the_world.visit_damus_store_now": [
+    {
+      "type": 0,
+      "value": "Visit Damus store now"
+    }
+  ],
+  "damus_live_events.date_range": [
+    {
+      "type": 1,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": " – "
+    },
+    {
+      "type": 1,
+      "value": "endDate"
+    }
+  ],
+  "damus_live_events.headline": [
+    {
+      "type": 0,
+      "value": "Damus.\nLive.\nEvents."
+    }
+  ],
+  "damus_live_events.visit_button.label": [
+    {
+      "type": 0,
+      "value": "Visit"
+    }
+  ],
+  "damus_on_media.headline": [
+    {
+      "type": 0,
+      "value": "Damus on media"
+    }
+  ],
+  "events.location.amsterdam_netherlands": [
+    {
+      "type": 0,
+      "value": "Amsterdam, Netherlands"
+    }
+  ],
+  "events.location.bali_indonesia": [
+    {
+      "type": 0,
+      "value": "Bali, Indonesia"
+    }
+  ],
+  "events.location.los_angeles_california": [
+    {
+      "type": 0,
+      "value": "Los Angeles, California"
+    }
+  ],
+  "events.location.nashville_tennessee": [
+    {
+      "type": 0,
+      "value": "Nashville, Tennessee"
+    }
+  ],
+  "events.location.tokyo_japan": [
+    {
+      "type": 0,
+      "value": "Tokyo, Japan"
+    }
+  ],
+  "final_cta.headline": [
+    {
+      "type": 0,
+      "value": "Download Damus today!"
+    }
+  ],
+  "final_cta.subheadline": [
+    {
+      "type": 0,
+      "value": "Damus is available on iOS, iPadOS and macOS (M1/M2).\nIt's free and open source."
+    }
+  ],
+  "home.hero.available_in": [
+    {
+      "type": 0,
+      "value": "Available in"
+    }
+  ],
+  "home.hero.download_now": [
+    {
+      "type": 0,
+      "value": "Download now"
+    }
+  ],
+  "home.hero.follow-us-on-nostr": [
+    {
+      "type": 0,
+      "value": "Follow us on Nostr"
+    }
+  ],
+  "home.hero.headline": [
+    {
+      "type": 0,
+      "value": "The social network you control"
+    }
+  ],
+  "home.hero.join_testflight": [
+    {
+      "type": 0,
+      "value": "Join TestFlight Beta"
+    }
+  ],
+  "home.hero.subheadline": [
+    {
+      "type": 0,
+      "value": "Your very own social network for your friends or business.\n Available Now on iOS, iPad and macOS (M1/M2)"
+    }
+  ],
+  "home.meta_description": [
+    {
+      "type": 0,
+      "value": "Damus is a new social network that you control. Available now on iOS, iPad and macOS (M1/M2)"
+    }
+  ],
+  "meet_the_team.headline": [
+    {
+      "type": 0,
+      "value": "Meet the Damus team"
+    }
+  ],
+  "meet_the_team.view_profile": [
+    {
+      "type": 0,
+      "value": "Follow "
+    },
+    {
+      "type": 1,
+      "value": "shortName"
+    }
+  ],
+  "roles.brand-ambassador": [
+    {
+      "type": 0,
+      "value": "Brand Ambassador"
+    }
+  ],
+  "roles.designer": [
+    {
+      "type": 0,
+      "value": "Designer"
+    }
+  ],
+  "roles.developer": [
+    {
+      "type": 0,
+      "value": "Developer"
+    }
+  ],
+  "roles.first-business-intern": [
+    {
+      "type": 0,
+      "value": "First Business Intern"
+    }
+  ],
+  "roles.founder-and-developer": [
+    {
+      "type": 0,
+      "value": "Founder & Developer"
+    }
+  ],
+  "roles.marketer": [
+    {
+      "type": 0,
+      "value": "Marketer"
+    }
+  ],
+  "roles.product-janitor": [
+    {
+      "type": 0,
+      "value": "Product Janitor"
+    }
+  ],
+  "topbar.contribute": [
+    {
+      "type": 0,
+      "value": "Contribute"
+    }
+  ],
+  "topbar.download": [
+    {
+      "type": 0,
+      "value": "Download"
+    }
+  ],
+  "topbar.events": [
+    {
+      "type": 0,
+      "value": "Events"
+    }
+  ],
+  "topbar.logo_alt_text": [
+    {
+      "type": 0,
+      "value": "Damus logo"
+    }
+  ],
+  "topbar.store": [
+    {
+      "type": 0,
+      "value": "Store"
+    }
+  ],
+  "topbar.team": [
+    {
+      "type": 0,
+      "value": "Our Team"
+    }
+  ],
+  "topbar.zap_us": [
+    {
+      "type": 0,
+      "value": "Zap Us"
+    }
+  ]
+}
