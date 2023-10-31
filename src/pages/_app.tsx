@@ -7,25 +7,10 @@ import { useMemo } from 'react';
 import { IntlProvider } from 'react-intl';
 
 export default function App({ Component, pageProps }: AppProps) {
-  const { locale } = useRouter();
-    const [shortLocale] = locale ? locale.split("-") : ["en"];
-
-    const messages = useMemo(() => {
-      switch (shortLocale) {
-          case "en":
-              return English;
-          case "ja":
-            return Japanese;
-          default:
-              return English;
-      }
-  }, [shortLocale]);
-    
   return (
     <IntlProvider
-            locale={shortLocale}
-            messages={messages}
-            onError={() => null}>
+      locale={"en"}
+      messages={English}>
       <Component {...pageProps} />
     </IntlProvider>
   )
