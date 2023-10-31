@@ -50,7 +50,7 @@ export function TopMenu({ className }: { className?: string }) {
                             </NavigationMenu.Item>
                         ))}
                         <NavigationMenu.Item>
-                            <NavigationMenu.Link className={cn("text-yellow-500 flex items-center")} href="lightning:damus@sendsats.lol" target="_blank">
+                            <NavigationMenu.Link className={cn("text-yellow-500 flex items-center")} href="lightning:lnurl1dp68gurn8ghj7um9dej8xct5wvhxcmmv9uh8wetvdskkkmn0wahz7mrww4excup0v3sk6atnjmrn5a" target="_blank">
                                 <Zap className="h-4"/>
                                 { intl.formatMessage({ id: "topbar.zap_us", defaultMessage: "Zap Us" }) }
                             </NavigationMenu.Link>
