@@ -49,6 +49,14 @@ const events = [
         startDate: new Date("2023-11-09"),
         endDate: new Date("2023-11-10"),
     },
+    {
+        picture: "https://cdn.jb55.com/s/4311bfac2b5367c9.png",
+        linkUrl: "https://unconfiscatable.com/",
+        locationIntlString: "events.location.las_vegas",
+        name: "Unconfiscatable",
+        startDate: new Date("2023-12-07"),
+        endDate: new Date("2023-12-09"),
+    },
 ]
 
 export function DamusLiveEvents({ className }: { className?: string }) {
@@ -61,6 +69,7 @@ export function DamusLiveEvents({ className }: { className?: string }) {
         "events.location.amsterdam_netherlands": intl.formatMessage({ id: "events.location.amsterdam_netherlands", defaultMessage: "Amsterdam, Netherlands" }),
         "events.location.los_angeles_california": intl.formatMessage({ id: "events.location.los_angeles_california", defaultMessage: "Los Angeles, California" }),
         "events.location.nashville_tennessee": intl.formatMessage({ id: "events.location.nashville_tennessee", defaultMessage: "Nashville, Tennessee" }),
+        "events.location.las_vegas": intl.formatMessage({ id: "events.location.las_vegas", defaultMessage: "Las Vegas, Nevada" }),
     }
 
     return (<>

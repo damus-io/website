@@ -189,6 +189,12 @@
       "value": "インドネシア、バリ"
     }
   ],
+  "events.location.las_vegas": [
+    {
+      "type": 0,
+      "value": "ラスベガス、ネバダ"
+    }
+  ],
   "events.location.los_angeles_california": [
     {
       "type": 0,

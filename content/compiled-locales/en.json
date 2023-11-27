@@ -205,6 +205,12 @@
       "value": "Bali, Indonesia"
     }
   ],
+  "events.location.las_vegas": [
+    {
+      "type": 0,
+      "value": "Las Vegas, Nevada"
+    }
+  ],
   "events.location.los_angeles_california": [
     {
       "type": 0,

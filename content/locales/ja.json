@@ -101,6 +101,9 @@
   "events.location.bali_indonesia": {
     "string": "インドネシア、バリ"
   },
+  "events.location.las_vegas": {
+    "string": "ラスベガス、ネバダ"
+  },
   "events.location.los_angeles_california": {
     "string": "アメリカ、カリフォルニア州ロサンゼルス"
   },
