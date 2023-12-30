@@ -21,6 +21,9 @@ const config: Config = {
         600: "#D34CD9",
         500: "#F869B6",
       },
+      "deeppurple": {
+        700: "#BF25ED",
+      }
     },
   },
   plugins: [],
