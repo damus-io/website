@@ -299,6 +299,96 @@
       "value": "shortName"
     }
   ],
+  "purple.benefits.benefit1.description": [
+    {
+      "type": 0,
+      "value": "Support Damus development to help build the future of decentralized communication on the web."
+    }
+  ],
+  "purple.benefits.benefit1.name": [
+    {
+      "type": 0,
+      "value": "Help Build The Future"
+    }
+  ],
+  "purple.benefits.benefit2.description": [
+    {
+      "type": 0,
+      "value": "Be the first to access upcoming premium features: Automatic translations, longer note storage, and more"
+    }
+  ],
+  "purple.benefits.benefit2.name": [
+    {
+      "type": 0,
+      "value": "Exclusive features"
+    }
+  ],
+  "purple.benefits.benefit3.description": [
+    {
+      "type": 0,
+      "value": "Get a special badge on your profile to show everyone your contribution to Freedom tech"
+    }
+  ],
+  "purple.benefits.benefit3.name": [
+    {
+      "type": 0,
+      "value": "Supporter Badge"
+    }
+  ],
+  "purple.benefits.description": [
+    {
+      "type": 0,
+      "value": "Help us stay independent in our mission for Freedom tech with our Purple subscription, and look cool doing it!"
+    }
+  ],
+  "purple.benefits.headline": [
+    {
+      "type": 0,
+      "value": "Get more from Damus."
+    }
+  ],
+  "purple.faq.answer.1.a": [
+    {
+      "type": 0,
+      "value": "Oh yeah! You can pay with Lightning if you register on the website. For the iOS app, you can pay with Apple Pay."
+    }
+  ],
+  "purple.faq.answer.2.a": [
+    {
+      "type": 0,
+      "value": "Unfortunately not. Apple doesn’t allow apps to accept Lightning payments. but you can register on the website and pay with Lightning there."
+    }
+  ],
+  "purple.faq.headline": [
+    {
+      "type": 0,
+      "value": "Frequent Questions"
+    }
+  ],
+  "purple.faq.question.1.q": [
+    {
+      "type": 0,
+      "value": "Can I pay with Lightning?"
+    }
+  ],
+  "purple.faq.question.2.q": [
+    {
+      "type": 0,
+      "value": "But can I pay with lightning via the app?"
+    }
+  ],
+  "purple.hero.learn-more": [
+    {
+      "type": 0,
+      "value": "Learn more"
+    }
+  ],
+  "purple.hero.subscribe": [
+    {
+      "type": 0,
+      "value": "Subscribe"
+    }
+  ],
   "roles.brand-ambassador": [
     {
       "type": 0,

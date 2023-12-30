@@ -143,6 +143,51 @@
   "meet_the_team.view_profile": {
     "string": "Follow {shortName}"
   },
+  "purple.benefits.benefit1.description": {
+    "string": "Support Damus development to help build the future of decentralized communication on the web."
+  },
+  "purple.benefits.benefit1.name": {
+    "string": "Help Build The Future"
+  },
+  "purple.benefits.benefit2.description": {
+    "string": "Be the first to access upcoming premium features: Automatic translations, longer note storage, and more"
+  },
+  "purple.benefits.benefit2.name": {
+    "string": "Exclusive features"
+  },
+  "purple.benefits.benefit3.description": {
+    "string": "Get a special badge on your profile to show everyone your contribution to Freedom tech"
+  },
+  "purple.benefits.benefit3.name": {
+    "string": "Supporter Badge"
+  },
+  "purple.benefits.description": {
+    "string": "Help us stay independent in our mission for Freedom tech with our Purple subscription, and look cool doing it!"
+  },
+  "purple.benefits.headline": {
+    "string": "Get more from Damus."
+  },
+  "purple.faq.answer.1.a": {
+    "string": "Oh yeah! You can pay with Lightning if you register on the website. For the iOS app, you can pay with Apple Pay."
+  },
+  "purple.faq.answer.2.a": {
+    "string": "Unfortunately not. Apple doesn’t allow apps to accept Lightning payments. but you can register on the website and pay with Lightning there."
+  },
+  "purple.faq.headline": {
+    "string": "Frequent Questions"
+  },
+  "purple.faq.question.1.q": {
+    "string": "Can I pay with Lightning?"
+  },
+  "purple.faq.question.2.q": {
+    "string": "But can I pay with lightning via the app?"
+  },
+  "purple.hero.learn-more": {
+    "string": "Learn more"
+  },
+  "purple.hero.subscribe": {
+    "string": "Subscribe"
+  },
   "roles.brand-ambassador": {
     "string": "Brand Ambassador"
   },
