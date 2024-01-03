@@ -14,6 +14,7 @@ import { FinalCTA } from '@/components/sections/FinalCTA';
 import { Benefits } from '@/components/sections/Benefits';
 import { PurpleBenefits } from '../sections/PurpleBenefits';
 import { PurpleFAQ } from '../sections/PurpleFAQ';
+import { PurpleFinalCTA } from '../sections/PurpleFinalCTA';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,9 +29,9 @@ export function Purple() {
     </Head>
     <main style={{ scrollBehavior: "smooth" }}>
       <PurpleHero />
-      <PurpleBenefits/>
-      <PurpleFAQ/>
-      <FinalCTA />
+      <PurpleBenefits />
+      <PurpleFAQ />
+      <PurpleFinalCTA />
       <Footer />
     </main>
   </>)

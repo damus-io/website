@@ -8,6 +8,7 @@ import { DAMUS_APP_STORE_URL, DAMUS_TESTFLIGHT_URL } from "@/lib/constants";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { RoundedContainerWithColorGradientBorder } from "../ui/RoundedContainerWithGradientBorder";
+import { PurpleIcon } from "../icons/PurpleIcon";
 
 export function PurpleHero() {
   const intl = useIntl()
@@ -24,9 +25,7 @@ export function PurpleHero() {
         <TopMenu className="w-full" />
         <div className="relative mb-32 flex flex-col items-center justify-center min-h-screen">
           <div className="flex gap-x-4 items-center mb-6">
-            <RoundedContainerWithColorGradientBorder className="w-24 h-24 p-[1px]">
-              <Image src="logo-icon-dark.png" fill className="overflow-hidden w-full h-full object-fill shadow-xl rounded-2xl" alt="Damus Purple logo" />
-            </RoundedContainerWithColorGradientBorder>
+            <PurpleIcon />
             <motion.h2 className="text-4xl md:text-8xl text-center text-transparent bg-clip-text bg-gradient-to-r from-damuspink-500 from-30% to-damuspink-600 to-100% font-semibold break-keep tracking-tight">
               Purple
             </motion.h2>
