@@ -32,10 +32,10 @@ export default function HomePage() {
   useEffect(() => {
     switch (language) {
       case "en":
-        setMessages(English);
+        setMessages(English as any);
         break;
       case "ja":
-        setMessages(Japanese);
+        setMessages(Japanese as any);
         break;
       default:
         setMessages(English);
@@ -45,10 +45,10 @@ export default function HomePage() {
 
   return (<>
     <IntlProvider
-            locale={language}
-            messages={messages}
-            onError={() => null}>
-      <Home/>
+      locale={language}
+      messages={messages}
+      onError={() => null}>
+      <Home />
     </IntlProvider>
   </>)
 }
