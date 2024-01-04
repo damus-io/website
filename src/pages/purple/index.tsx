@@ -21,7 +21,8 @@ export default function HomePage() {
         setMessages(English);
         break;
       case "ja":
-        setMessages(Japanese);
+        // TODO: Add Japanese translations and then switch to "Japanese" below
+        setMessages(English);
         break;
       default:
         setMessages(English);

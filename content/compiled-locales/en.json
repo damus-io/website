@@ -347,16 +347,100 @@
       "value": "Get more from Damus."
     }
   ],
-  "purple.faq.answer.1.a": [
+  "purple.faq.1.a": [
     {
       "type": 0,
-      "value": "Oh yeah! You can pay with Lightning if you register on the website. For the iOS app, you can pay with Apple Pay."
+      "value": "Yes! You can pay with Lightning if you register on the website. For the iOS app, you can pay with Apple Pay."
     }
   ],
-  "purple.faq.answer.2.a": [
+  "purple.faq.1.q": [
+    {
+      "type": 0,
+      "value": "Can I pay with Lightning?"
+    }
+  ],
+  "purple.faq.2.a": [
     {
       "type": 0,
       "value": "Unfortunately not. Apple doesn’t allow apps to accept Lightning payments. but you can register on the website and pay with Lightning there."
+    }
+  ],
+  "purple.faq.2.q": [
+    {
+      "type": 0,
+      "value": "Can I pay with lightning via the app?"
+    }
+  ],
+  "purple.faq.3.a": [
+    {
+      "type": 0,
+      "value": "Damus Purple is a paid subscription to Damus that gives you access to exclusive features, and helps us fund the project"
+    }
+  ],
+  "purple.faq.3.q": [
+    {
+      "type": 0,
+      "value": "What is Damus Purple?"
+    }
+  ],
+  "purple.faq.4.a": [
+    {
+      "type": 0,
+      "value": "Currently we offer automatic translations of posts. We are working to add more features as soon as possible."
+    }
+  ],
+  "purple.faq.4.q": [
+    {
+      "type": 0,
+      "value": "What are the exclusive features?"
+    }
+  ],
+  "purple.faq.5.a": [
+    {
+      "type": 0,
+      "value": "Please see the section below for pricing."
+    }
+  ],
+  "purple.faq.5.q": [
+    {
+      "type": 0,
+      "value": "How much does it cost?"
+    }
+  ],
+  "purple.faq.6.a": [
+    {
+      "type": 0,
+      "value": "Yes! You can pay with fiat if you register on the iOS app, via Apple Pay."
+    }
+  ],
+  "purple.faq.6.q": [
+    {
+      "type": 0,
+      "value": "Can I pay with fiat?"
+    }
+  ],
+  "purple.faq.7.a": [
+    {
+      "type": 0,
+      "value": "Sorry, we do not accept any cryptographic currencies other than Bitcoin via Lightning network."
+    }
+  ],
+  "purple.faq.7.q": [
+    {
+      "type": 0,
+      "value": "Can I pay with crypto?"
+    }
+  ],
+  "purple.faq.8.a": [
+    {
+      "type": 0,
+      "value": "Yes! You can donate to Damus via the Lightning network. Please click on 'Zap us' on the top menu."
+    }
+  ],
+  "purple.faq.8.q": [
+    {
+      "type": 0,
+      "value": "Can I simply donate to Damus?"
     }
   ],
   "purple.faq.headline": [
@@ -365,16 +449,28 @@
       "value": "Frequent Questions"
     }
   ],
-  "purple.faq.question.1.q": [
+  "purple.final_cta.headline": [
     {
       "type": 0,
-      "value": "Can I pay with Lightning?"
+      "value": "Get Purple today!"
     }
   ],
-  "purple.faq.question.2.q": [
+  "purple.final_cta.open_app": [
     {
       "type": 0,
-      "value": "But can I pay with lightning via the app?"
+      "value": "Open in Damus"
+    }
+  ],
+  "purple.final_cta.subheadline": [
+    {
+      "type": 0,
+      "value": "Contribute to the future of the free internet, and look cool doing it."
+    }
+  ],
+  "purple.final_cta.subscribe": [
+    {
+      "type": 0,
+      "value": "Subscribe"
     }
   ],
   "purple.hero.learn-more": [

@@ -11,28 +11,43 @@ import {
   AccordionTrigger,
 } from "@/components/ui/Accordion"
 
-const faq = [
-  {
-    questionIntlString: "purple.faq.1.q",
-    answerIntlString: "purple.faq.1.a",
-  },
-  {
-    questionIntlString: "purple.faq.2.q",
-    answerIntlString: "purple.faq.2.a",
-  }
-]
-
-
 export function PurpleFAQ({ className }: { className?: string }) {
   const intl = useIntl()
 
-  // This type of structure is necessary in this case to make strings get picked up by `npm run i18n`
-  const faqIntlStrings: Record<string, string> = {
-    "purple.faq.1.q": intl.formatMessage({ id: "purple.faq.question.1.q", defaultMessage: "Can I pay with Lightning?" }),
-    "purple.faq.1.a": intl.formatMessage({ id: "purple.faq.answer.1.a", defaultMessage: "Oh yeah! You can pay with Lightning if you register on the website. For the iOS app, you can pay with Apple Pay." }),
-    "purple.faq.2.q": intl.formatMessage({ id: "purple.faq.question.2.q", defaultMessage: "But can I pay with lightning via the app?" }),
-    "purple.faq.2.a": intl.formatMessage({ id: "purple.faq.answer.2.a", defaultMessage: "Unfortunately not. Apple doesn’t allow apps to accept Lightning payments. but you can register on the website and pay with Lightning there." }),
-  }
+  const faq = [
+    {
+      question: intl.formatMessage({ id: "purple.faq.3.q", defaultMessage: "What is Damus Purple?" }),
+      answer: intl.formatMessage({ id: "purple.faq.3.a", defaultMessage: "Damus Purple is a paid subscription to Damus that gives you access to exclusive features, and helps us fund the project" }),
+    },
+    {
+      question: intl.formatMessage({ id: "purple.faq.4.q", defaultMessage: "What are the exclusive features?" }),
+      answer: intl.formatMessage({ id: "purple.faq.4.a", defaultMessage: "Currently we offer automatic translations of posts. We are working to add more features as soon as possible." }),
+    },
+    {
+      question: intl.formatMessage({ id: "purple.faq.5.q", defaultMessage: "How much does it cost?" }),
+      answer: intl.formatMessage({ id: "purple.faq.5.a", defaultMessage: "Please see the section below for pricing." }),
+    },
+    {
+      question: intl.formatMessage({ id: "purple.faq.1.q", defaultMessage: "Can I pay with Lightning?" }),
+      answer: intl.formatMessage({ id: "purple.faq.1.a", defaultMessage: "Yes! You can pay with Lightning if you register on the website. For the iOS app, you can pay with Apple Pay." }),
+    },
+    {
+      question: intl.formatMessage({ id: "purple.faq.6.q", defaultMessage: "Can I pay with fiat?" }),
+      answer: intl.formatMessage({ id: "purple.faq.6.a", defaultMessage: "Yes! You can pay with fiat if you register on the iOS app, via Apple Pay." }),
+    },
+    {
+      question: intl.formatMessage({ id: "purple.faq.7.q", defaultMessage: "Can I pay with crypto?" }),
+      answer: intl.formatMessage({ id: "purple.faq.7.a", defaultMessage: "Sorry, we do not accept any cryptographic currencies other than Bitcoin via Lightning network." }),
+    },
+    {
+      question: intl.formatMessage({ id: "purple.faq.2.q", defaultMessage: "Can I pay with lightning via the app?" }),
+      answer: intl.formatMessage({ id: "purple.faq.2.a", defaultMessage: "Unfortunately not. Apple doesn’t allow apps to accept Lightning payments. but you can register on the website and pay with Lightning there." }),
+    },
+    {
+      question: intl.formatMessage({ id: "purple.faq.8.q", defaultMessage: "Can I simply donate to Damus?" }),
+      answer: intl.formatMessage({ id: "purple.faq.8.a", defaultMessage: "Yes! You can donate to Damus via the Lightning network. Please click on \'Zap us\' on the top menu." }),
+    }
+  ]
 
   return (<>
     <div className={cn("bg-black overflow-hidden relative", className)}>
@@ -48,9 +63,9 @@ export function PurpleFAQ({ className }: { className?: string }) {
         <Accordion type="single" collapsible className="w-full text-white max-w-3xl mx-auto">
           {faq.map((item, index) => (
             <AccordionItem value={`item-${index}`} key={index}>
-              <AccordionTrigger>{faqIntlStrings[item.questionIntlString]}</AccordionTrigger>
+              <AccordionTrigger>{item.question}</AccordionTrigger>
               <AccordionContent>
-                {faqIntlStrings[item.answerIntlString]}
+                {item.answer}
               </AccordionContent>
             </AccordionItem>
           ))}
