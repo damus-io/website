@@ -53,14 +53,14 @@ export function PurpleFAQ({ className }: { className?: string }) {
     <div className={cn("bg-black overflow-hidden relative", className)}>
       <MeshGradient3 className="absolute top-0 left-0 pointer-events-none translate-y-3/4 overflow-visible scale-150" />
       <div className="container mx-auto px-6 pb-32 pt-20">
-        <div className="flex flex-col items-center justify-center mt-32 lg:mt-16">
-          <div className="relative mb-32 flex flex-col items-center">
-            <motion.h2 className="text-4xl md:text-8xl text-center text-transparent bg-clip-text bg-gradient-to-r from-damuspink-500 from-30% to-damuspink-600 to-100% font-semibold pb-8 break-keep">
+        <div className="flex flex-col items-center justify-center mt-16">
+          <div className="relative mb-12 flex flex-col items-center">
+            <motion.h2 className="text-5xl md:text-8xl text-center text-transparent bg-clip-text bg-gradient-to-r from-damuspink-500 from-30% to-damuspink-600 to-100% font-semibold pb-8 break-keep">
               {intl.formatMessage({ id: "purple.faq.headline", defaultMessage: "Frequent Questions" })}
             </motion.h2>
           </div>
         </div>
-        <Accordion type="single" collapsible className="w-full text-white max-w-3xl mx-auto">
+        <Accordion type="single" collapsible className="w-full text-white max-w-2xl mx-auto">
           {faq.map((item, index) => (
             <AccordionItem value={`item-${index}`} key={index}>
               <AccordionTrigger>{item.question}</AccordionTrigger>

@@ -225,10 +225,13 @@
     "string": "Open in Damus"
   },
   "purple.final_cta.subheadline": {
-    "string": "Contribute to the future of the free internet, and look cool doing it."
+    "string": "for as little as U$6.99/month"
   },
   "purple.final_cta.subscribe": {
     "string": "Subscribe"
+  },
+  "purple.final_cta.text": {
+    "string": "Contribute to the future of the free internet, access exclusive features, and look cool doing it."
   },
   "purple.hero.learn-more": {
     "string": "Learn more"
@@ -268,6 +271,9 @@
   },
   "topbar.logo_alt_text": {
     "string": "Damus logo"
+  },
+  "topbar.purple": {
+    "string": "Purple"
   },
   "topbar.store": {
     "string": "Store"

@@ -464,13 +464,19 @@
   "purple.final_cta.subheadline": [
     {
       "type": 0,
-      "value": "Contribute to the future of the free internet, and look cool doing it."
+      "value": "for as little as U$6.99/month"
     }
   ],
   "purple.final_cta.subscribe": [
     {
       "type": 0,
       "value": "Subscribe"
+    }
+  ],
+  "purple.final_cta.text": [
+    {
+      "type": 0,
+      "value": "Contribute to the future of the free internet, access exclusive features, and look cool doing it."
     }
   ],
   "purple.hero.learn-more": [
@@ -549,6 +555,12 @@
     {
       "type": 0,
       "value": "Damus logo"
+    }
+  ],
+  "topbar.purple": [
+    {
+      "type": 0,
+      "value": "Purple"
     }
   ],
   "topbar.store": [

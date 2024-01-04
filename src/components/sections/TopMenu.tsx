@@ -9,6 +9,7 @@ import { useIntl } from "react-intl";
 import { motion } from "framer-motion";
 
 let regularNavItems: { nameIntlId: string, href: string, target?: string }[] = [
+    { nameIntlId: "topbar.purple", href: "/purple" },
     { nameIntlId: "topbar.store", href: DAMUS_MERCH_STORE_URL, target: "_blank" },
     { nameIntlId: "topbar.events", href: "/#events" },
     { nameIntlId: "topbar.team", href: "/#team" },
@@ -23,6 +24,7 @@ export function TopMenu({ className }: { className?: string }) {
 
     // This is needed to allow intl commands to extract the strings
     const topbarItemNameIntl: Record<string, string> = {
+        "topbar.purple": intl.formatMessage({ id: "topbar.purple", defaultMessage: "Purple" }),
         "topbar.store": intl.formatMessage({ id: "topbar.store", defaultMessage: "Store" }),
         "topbar.events": intl.formatMessage({ id: "topbar.events", defaultMessage: "Events" }),
         "topbar.team": intl.formatMessage({ id: "topbar.team", defaultMessage: "Our Team" }),
