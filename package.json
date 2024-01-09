@@ -23,11 +23,13 @@
     "lucide-react": "^0.287.0",
     "next": "13.5.4",
     "nostr-tools": "^2.1.2",
+    "qrcode.react": "^3.1.0",
     "react": "^18",
     "react-dom": "^18",
     "react-intl": "^6.4.7",
     "tailwind-merge": "^1.14.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "usehooks-ts": "^2.9.2"
   },
   "devDependencies": {
     "@formatjs/cli": "^6.2.0",

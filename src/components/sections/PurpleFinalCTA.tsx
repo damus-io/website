@@ -39,7 +39,7 @@ export function PurpleFinalCTA({ className }: { className?: string }) {
               style={{ opacity: 0 }}
               animate={{ opacity: 1, transition: { delay: 1.5, duration: 1 } }}
             >
-              <Link href="#" className="w-full md:w-auto">
+              <Link href="/purple/checkout" className="w-full md:w-auto">
                 <Button variant="default" className="w-full">
                   {intl.formatMessage({ id: "purple.final_cta.subscribe", defaultMessage: "Subscribe" })}
                 </Button>
