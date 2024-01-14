@@ -29,6 +29,9 @@ export function PurpleHero() {
               Purple
             </motion.h2>
           </div>
+          <div className="text-purple-200/70 text-md md:text-lg text-center max-w-2xl mb-2 break-keep">
+            {intl.formatMessage({ id: "purple.hero.description", defaultMessage: "For free-speech maximalists" })}
+          </div>
           <motion.div
             className="mt-10 md:mt-6 flex flex-col md:flex-row items-center md:items-center gap-y-4 gap-x-6 w-full md:w-auto"
             style={{ opacity: 0 }}
@@ -39,10 +42,9 @@ export function PurpleHero() {
                 {intl.formatMessage({ id: "purple.hero.subscribe", defaultMessage: "Subscribe" })}
               </Button>
             </Link>
-            <Link href="#" target="_blank" className="w-full md:w-auto">
+            <Link href="#benefits" className="w-full md:w-auto">
               <Button variant="link" className="w-full">
                 {intl.formatMessage({ id: "purple.hero.learn-more", defaultMessage: "Learn more" })}
-                <ArrowUpRight className="text-damuspink-600 ml-2" />
               </Button>
             </Link>
           </motion.div>

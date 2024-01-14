@@ -44,7 +44,7 @@ export function PurpleFinalCTA({ className }: { className?: string }) {
                   {intl.formatMessage({ id: "purple.final_cta.subscribe", defaultMessage: "Subscribe" })}
                 </Button>
               </Link>
-              <Link href="#" target="_blank" className="w-full md:w-auto">
+              <Link href="damus:purple:landing" target="_blank" className="w-full md:w-auto">
                 <Button variant="link" className="w-full">
                   {intl.formatMessage({ id: "purple.final_cta.open_app", defaultMessage: "Open in Damus" })}
                   <ArrowUpRight className="text-damuspink-600 ml-2" />

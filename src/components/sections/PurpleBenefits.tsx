@@ -32,7 +32,7 @@ export function PurpleBenefits({ className }: { className?: string }) {
   ]
 
   return (<>
-    <div className={cn("bg-black overflow-hidden relative min-h-screen", className)}>
+    <div className={cn("bg-black overflow-hidden relative min-h-screen", className)} id="benefits">
       <MeshGradient3 className="absolute top-0 left-0 pointer-events-none translate-y-3/4 overflow-visible scale-150" />
       <div className="container mx-auto px-6 pt-20">
         <div className="flex flex-col items-center justify-center lg:mt-16">
