@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import { NostrEvent, Relay, nip19 } from "nostr-tools"
 import { QRCodeSVG } from 'qrcode.react';
 import { useInterval } from 'usehooks-ts'
+import Lnmessage from 'lnmessage'
 
 
 export function PurpleCheckout() {
@@ -20,6 +21,8 @@ export function PurpleCheckout() {
   const [pubkey, setPubkey] = useState<string | null>(null) // The pubkey of the user, if verified
   const [profile, setProfile] = useState<Profile | undefined | null>(undefined) // The profile info fetched from the Damus relay
   const [continueShowQRCodes, setContinueShowQRCodes] = useState<boolean>(false)  // Whether the user wants to show a QR code for the final step
+  const [lnInvoicePaid, setLNInvoicePaid] = useState<boolean | undefined>(undefined) // Whether the ln invoice has been paid
+  const [waitingForInvoice, setWaitingForInvoice] = useState<boolean>(false) // Whether we are waiting for a response from the LN node about the invoice
 
   // MARK: - Functions
 
@@ -68,10 +71,67 @@ export function PurpleCheckout() {
     setLNCheckout(data)
   }
 
+  const checkLNInvoice = async () => {
+    console.log("Checking LN invoice...")
+    if (!lnCheckout?.invoice?.bolt11) {
+      return
+    }
+    const ln = new Lnmessage({
+      // The public key of the node you would like to connect to
+      remoteNodePublicKey: lnCheckout.invoice.connection_params.nodeid,
+      // The websocket proxy address of the node
+      wsProxy: `wss://${lnCheckout.invoice.connection_params.ws_proxy_address}`,
+      // The IP address of the node
+      ip: lnCheckout.invoice.connection_params.address,
+      // Protocol to use when connecting to the node
+      wsProtocol: 'wss:',
+      port: 9735,
+    })
+    // TODO: This is a workaround due to a limitation in LNMessage URL formatting: (https://github.com/aaronbarnardsound/lnmessage/issues/52)
+    ln.wsUrl = `wss://${lnCheckout.invoice.connection_params.ws_proxy_address}/${lnCheckout.invoice.connection_params.address}`
+    await ln.connect()
+    setWaitingForInvoice(true)  // Indicate that we are waiting for a response from the LN node
+    try {
+      const res: any = await ln.commando({
+        method: 'waitinvoice',
+        params: { label: lnCheckout.invoice.label },
+        rune: lnCheckout.invoice.connection_params.rune,
+      })
+      setWaitingForInvoice(false)  // Indicate that we are no longer waiting for a response from the LN node
+      setLNInvoicePaid(!res.error)
+    } catch (e) {
+      setWaitingForInvoice(false)  // Indicate that we are no longer waiting for a response from the LN node
+    }
+  }
+
+  const tellServerToCheckLNInvoice = async () => {
+    const response = await fetch(process.env.NEXT_PUBLIC_PURPLE_API_BASE_URL + "/ln-checkout/" + lnCheckout?.id + "/check-invoice", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    const data: LNCheckout = await response.json()
+    setLNCheckout(data)
+  }
+
+  const pollState = async () => {
+    if (!lnCheckout) {
+      return
+    }
+    if (!lnCheckout.verified_pubkey) {
+      refreshLNCheckout()
+    }
+    else if (!lnCheckout.invoice?.paid && !waitingForInvoice) {
+      checkLNInvoice()
+    }
+  }
+
+
   // MARK: - Effects and hooks
 
-  // Keep polling the LN checkout state when verifying pubkey or paying for the invoice
-  useInterval(refreshLNCheckout, lnCheckout && (!lnCheckout.verified_pubkey || !lnCheckout.invoice?.paid) ? 1000 : null)
+  // Keep checking the state of things when needed
+  useInterval(pollState, 1000)
 
   useEffect(() => {
     if (lnCheckout && lnCheckout.verified_pubkey) {
@@ -105,6 +165,13 @@ export function PurpleCheckout() {
     }
   }, [])
 
+  // Tell server to check the invoice as soon as we notice it has been paid
+  useEffect(() => {
+    if (lnInvoicePaid === true) {
+      tellServerToCheckLNInvoice()
+    }
+  }, [lnInvoicePaid])
+
   // MARK: - Render
 
   return (<>
@@ -127,9 +194,9 @@ export function PurpleCheckout() {
             <h2 className="text-2xl text-left text-purple-200 font-semibold break-keep mb-4">
               {intl.formatMessage({ id: "purple.checkout.title", defaultMessage: "Checkout" })}
             </h2>
-            <StepHeader 
-              stepNumber={1} 
-              title={intl.formatMessage({ id: "purple.checkout.step-1", defaultMessage: "Choose your plan" })} 
+            <StepHeader
+              stepNumber={1}
+              title={intl.formatMessage({ id: "purple.checkout.step-1", defaultMessage: "Choose your plan" })}
               done={lnCheckout?.product_template_name != null}
               active={true}
             />
@@ -201,7 +268,7 @@ export function PurpleCheckout() {
                   <div className="w-full text-sm text-purple-200/50 font-normal px-4 py-2 overflow-x-scroll">
                     {lnCheckout.invoice.bolt11}
                   </div>
-                  <button 
+                  <button
                     className="text-sm text-purple-200/50 font-normal px-4 py-2 active:text-purple-200/30 hover:text-purple-200/80 transition"
                     onClick={() => navigator.clipboard.writeText(lnCheckout?.invoice?.bolt11 || "")}
                   >
@@ -219,8 +286,9 @@ export function PurpleCheckout() {
                   {intl.formatMessage({ id: "purple.checkout.waiting-for-payment", defaultMessage: "Waiting for payment" })}
                 </div>
               </>
-            }            
-            {lnCheckout?.invoice?.paid && (
+            }
+            {/* We use the lnCheckout object to check payment status (NOT lnInvoicePaid) to display the confirmation message, because the server is the ultimate source of truth */}
+            {lnCheckout?.invoice?.paid && lnCheckout?.completed && (
               <div className="flex flex-col items-center justify-center gap-3 mt-6">
                 <CheckCircle className="w-16 h-16 text-green-500" />
                 <div className="mt-3 mb-6 text-sm text-center text-green-500 font-bold">
@@ -236,7 +304,7 @@ export function PurpleCheckout() {
                   </Button>
                 </Link>
                 <button className="w-full text-sm text-damuspink-500 flex justify-center" onClick={() => setContinueShowQRCodes(!continueShowQRCodes)}>
-                  {!continueShowQRCodes ? 
+                  {!continueShowQRCodes ?
                     intl.formatMessage({ id: "purple.checkout.continue.show-qr", defaultMessage: "Show QR code" })
                     : intl.formatMessage({ id: "purple.checkout.continue.hide-qr", defaultMessage: "Hide QR code" })
                   }
@@ -284,8 +352,16 @@ interface LNCheckout {
   product_template_name?: string,
   invoice?: {
     bolt11: string,
-    paid: boolean,
+    paid?: boolean,
+    label: string,
+    connection_params: {
+      nodeid: string,
+      address: string,
+      rune: string,
+      ws_proxy_address: string,
+    }
   }
+  completed: boolean,
 }
 
 interface ProductTemplate {
