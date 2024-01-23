@@ -120,6 +120,13 @@ const team = [
         fullName: "Jeroen",
         shortName: "Jeroen",
         nostrNpub: "npub17plqkxhsv66g8quxxc9p5t9mxazzn20m426exqnl8lxnh5a4cdns7jezx0"
+    },
+    {
+        profilePicture: "https://charlie.fish/images/author/fishcharlie/current/square/256.png",
+        roleIntlString: "roles.developer",
+        fullName: "Charlie Fish",
+        shortName: "@fishcharlie",
+        nostrNpub: "npub16amr0pgqzl8l57npcupjmv8j3055042g07w4qj4tu3zf4yd48nlsh96569"
     }
 ]
 
