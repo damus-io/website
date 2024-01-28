@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eou pipefail
+set -eo pipefail
 
 env=$1
 
@@ -19,5 +19,8 @@ npx next build
 rm -rf "$OUT_DIR"
 mv out "$OUT_DIR"
 
+
 # TODO: next doesn't seem to set this up properly. bug?
+mkdir -p "$OUT_DIR/purple/checkout"
 ln "$OUT_DIR/purple.html" "$OUT_DIR/purple/index.html"
+ln "$OUT_DIR/purple/checkout.html" "$OUT_DIR/purple/checkout/index.html"
