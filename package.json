@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run i18n && NEXT_PUBLIC_PURPLE_API_BASE_URL=https://api.damus.io next build && mv out out-production",
-    "build-staging": "npm run i18n && NEXT_PUBLIC_PURPLE_API_BASE_URL=https://api-staging.damus.io next build && mv out out-staging",
+    "build": "./build",
+    "build-staging": "./build staging",
     "start": "next start",
     "export": "npm run i18n && next export",
     "lint": "next lint",

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+env=$1
+
+npm run i18n
+
+if [ "$env" == "staging" ]
+then
+	export NEXT_PUBLIC_PURPLE_API_BASE_URL="https://api-staging.damus.io"
+	npx next build
+	mv out out-staging
+else
+	export NEXT_PUBLIC_PURPLE_API_BASE_URL="https://api.damus.io"
+	npx next build
+	mv out out-production
+fi
