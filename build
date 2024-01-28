@@ -1,16 +1,23 @@
 #!/usr/bin/env bash
 
+set -eou pipefail
+
 env=$1
 
 npm run i18n
 
 if [ "$env" == "staging" ]
 then
+	export OUT_DIR="$PWD/out-staging"
 	export NEXT_PUBLIC_PURPLE_API_BASE_URL="https://api-staging.damus.io"
-	npx next build
-	mv out out-staging
 else
+	export OUT_DIR="$PWD/out-production"
 	export NEXT_PUBLIC_PURPLE_API_BASE_URL="https://api.damus.io"
-	npx next build
-	mv out out-production
 fi
+
+npx next build
+rm -rf "$OUT_DIR"
+mv out "$OUT_DIR"
+
+# TODO: next doesn't seem to set this up properly. bug?
+ln "$OUT_DIR/purple.html" "$OUT_DIR/purple/index.html"
