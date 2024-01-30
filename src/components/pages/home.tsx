@@ -12,6 +12,7 @@ import { DamusLiveEvents } from '@/components/sections/DamusLiveEvents';
 import { Contribute } from '@/components/sections/Contribute';
 import { FinalCTA } from '@/components/sections/FinalCTA';
 import { Benefits } from '@/components/sections/Benefits';
+import { PurpleBanner } from '../sections/PurpleBanner';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,6 +28,7 @@ export function Home() {
     <main style={{ scrollBehavior: "smooth" }}>
       <Hero/>
       <Benefits/>
+      <PurpleBanner/>
       <BannedInChina/>
       <div id="events">
         <DamusLiveEvents/>
