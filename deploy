@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+./build
+./build staging
+
+rsync -avzP out-production/ purple:/www/damus.io/
+rsync -avzP out-staging/ purple:/www/staging.damus.io/
