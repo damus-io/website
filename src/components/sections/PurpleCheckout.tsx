@@ -13,6 +13,17 @@ import { QRCodeSVG } from 'qrcode.react';
 import { useInterval } from 'usehooks-ts'
 import Lnmessage from 'lnmessage'
 import { DAMUS_TESTFLIGHT_URL } from "@/lib/constants";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/AlertDialog";
 
 
 export function PurpleCheckout() {
@@ -24,6 +35,7 @@ export function PurpleCheckout() {
   const [continueShowQRCodes, setContinueShowQRCodes] = useState<boolean>(false)  // Whether the user wants to show a QR code for the final step
   const [lnInvoicePaid, setLNInvoicePaid] = useState<boolean | undefined>(undefined) // Whether the ln invoice has been paid
   const [waitingForInvoice, setWaitingForInvoice] = useState<boolean>(false) // Whether we are waiting for a response from the LN node about the invoice
+  const [error, setError] = useState<string|null>(null)  // An error message to display to the user
 
   // MARK: - Functions
 
@@ -31,45 +43,69 @@ export function PurpleCheckout() {
     if (!pubkey) {
       return
     }
-    const profile = await getProfile(pubkey)
-    setProfile(profile)
+    try {
+      const profile = await getProfile(pubkey)
+      setProfile(profile)
+    }
+    catch (e) {
+      console.error(e)
+      setError("Failed to get profile info from the relay. Please wait a few minutes and refresh the page. If the problem persists, please contact support.")
+    }
   }
 
   const fetchProductTemplates = async () => {
-    const response = await fetch(process.env.NEXT_PUBLIC_PURPLE_API_BASE_URL + "/products", {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-    const data = await response.json()
-    setProductTemplates(data)
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_PURPLE_API_BASE_URL + "/products", {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      const data = await response.json()
+      setProductTemplates(data)
+    }
+    catch (e) {
+      console.error(e)
+      setError("Failed to get product list from our servers, please try again later in a few minutes. If the problem persists, please contact support.")
+    }
   }
 
   const refreshLNCheckout = async (id?: string) => {
     if (!lnCheckout && !id) {
       return
     }
-    const response = await fetch(process.env.NEXT_PUBLIC_PURPLE_API_BASE_URL + "/ln-checkout/" + (id || lnCheckout?.id), {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-    const data: LNCheckout = await response.json()
-    setLNCheckout(data)
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_PURPLE_API_BASE_URL + "/ln-checkout/" + (id || lnCheckout?.id), {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      const data: LNCheckout = await response.json()
+      setLNCheckout(data)
+    }
+    catch (e) {
+      console.error(e)
+      setError("Failed to get checkout info from our servers, please wait a few minutes and try to refresh this page. If the problem persists, please contact support.")
+    }
   }
 
   const selectProduct = async (productTemplateName: string) => {
-    const response = await fetch(process.env.NEXT_PUBLIC_PURPLE_API_BASE_URL + "/ln-checkout", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ product_template_name: productTemplateName })
-    })
-    const data: LNCheckout = await response.json()
-    setLNCheckout(data)
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_PURPLE_API_BASE_URL + "/ln-checkout", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ product_template_name: productTemplateName })
+      })
+      const data: LNCheckout = await response.json()
+      setLNCheckout(data)
+    }
+    catch (e) {
+      console.error(e)
+      setError("Failed to begin the checkout process. Please wait a few minutes, refresh this page, and try again. If the problem persists, please contact support.")
+    }
   }
 
   const checkLNInvoice = async () => {
@@ -77,22 +113,32 @@ export function PurpleCheckout() {
     if (!lnCheckout?.invoice?.bolt11) {
       return
     }
-    const ln = new Lnmessage({
-      // The public key of the node you would like to connect to
-      remoteNodePublicKey: lnCheckout.invoice.connection_params.nodeid,
-      // The websocket proxy address of the node
-      wsProxy: `wss://${lnCheckout.invoice.connection_params.ws_proxy_address}`,
-      // The IP address of the node
-      ip: lnCheckout.invoice.connection_params.address,
-      // Protocol to use when connecting to the node
-      wsProtocol: 'wss:',
-      port: 9735,
-    })
-    // TODO: This is a workaround due to a limitation in LNMessage URL formatting: (https://github.com/aaronbarnardsound/lnmessage/issues/52)
-    ln.wsUrl = `wss://${lnCheckout.invoice.connection_params.ws_proxy_address}/${lnCheckout.invoice.connection_params.address}`
-    await ln.connect()
-    setWaitingForInvoice(true)  // Indicate that we are waiting for a response from the LN node
+    let ln = null
     try {
+      ln = new Lnmessage({
+        // The public key of the node you would like to connect to
+        remoteNodePublicKey: lnCheckout.invoice.connection_params.nodeid,
+        // The websocket proxy address of the node
+        wsProxy: `wss://${lnCheckout.invoice.connection_params.ws_proxy_address}`,
+        // The IP address of the node
+        ip: lnCheckout.invoice.connection_params.address,
+        // Protocol to use when connecting to the node
+        wsProtocol: 'wss:',
+        port: 9735,
+      })
+      // TODO: This is a workaround due to a limitation in LNMessage URL formatting: (https://github.com/aaronbarnardsound/lnmessage/issues/52)
+      ln.wsUrl = `wss://${lnCheckout.invoice.connection_params.ws_proxy_address}/${lnCheckout.invoice.connection_params.address}`
+      await ln.connect()
+      setWaitingForInvoice(true)  // Indicate that we are waiting for a response from the LN node
+    }
+    catch (e) {
+      console.error(e)
+      setError("Failed to connect to the Lightning node. Please refresh this page, and try again in a few minutes. If the problem persists, please contact support.")
+      return
+    }
+
+    try {
+      if (!ln) { return }
       const res: any = await ln.commando({
         method: 'waitinvoice',
         params: { label: lnCheckout.invoice.label },
@@ -100,20 +146,32 @@ export function PurpleCheckout() {
       })
       setWaitingForInvoice(false)  // Indicate that we are no longer waiting for a response from the LN node
       setLNInvoicePaid(!res.error)
+      if (res.error) {
+        console.error(res.error)
+        setError("The lightning payment failed. If you haven't paid yet, please start a new checkout from the beginning and try again. If you have already paid, please copy the reference ID shown below and contact support.")
+      }
     } catch (e) {
       setWaitingForInvoice(false)  // Indicate that we are no longer waiting for a response from the LN node
+      console.error(e)
+      setError("There was an error checking the lightning payment status. If you haven't paid yet, please wait a few minutes, refresh the page, and try again. If you have already paid, please copy the reference ID shown below and contact support.")
     }
   }
 
   const tellServerToCheckLNInvoice = async () => {
-    const response = await fetch(process.env.NEXT_PUBLIC_PURPLE_API_BASE_URL + "/ln-checkout/" + lnCheckout?.id + "/check-invoice", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-    const data: LNCheckout = await response.json()
-    setLNCheckout(data)
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_PURPLE_API_BASE_URL + "/ln-checkout/" + lnCheckout?.id + "/check-invoice", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      const data: LNCheckout = await response.json()
+      setLNCheckout(data)
+    }
+    catch (e) {
+      console.error(e)
+      setError("Failed to finalize checkout. Please try refreshing the page. If the error persists, please copy the reference ID shown below and contact support.")
+    }
   }
 
   const pollState = async () => {
@@ -176,6 +234,40 @@ export function PurpleCheckout() {
   // MARK: - Render
 
   return (<>
+    <AlertDialog open={error != null} onOpenChange={(open) => { if (!open) setError(null) }}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle><div className="text-red-700">Error</div></AlertDialogTitle>
+          <AlertDialogDescription>
+            <div className="text-left">
+              {error}
+            </div>
+            <div className="text-black/40 text-xs text-left mt-4 mb-6">
+              You can contact support by sending an email to <Link href="mailto:support@damus.io" className="text-damuspink-600 underline">support@damus.io</Link>
+            </div>
+            {lnCheckout && lnCheckout.id && (
+              <div className="flex items-center justify-between rounded-md bg-gray-200">
+                <div className="text-xs text-gray-400 font-normal px-4 py-2">
+                  Reference:
+                </div>
+                <div className="w-full text-xs text-gray-500 font-normal px-4 py-2 overflow-x-scroll">
+                  {lnCheckout?.id}
+                </div>
+                <button
+                  className="text-sm text-gray-500 font-normal px-4 py-2 active:text-gray-500/30 hover:text-gray-500/80 transition"
+                  onClick={() => navigator.clipboard.writeText(lnCheckout?.id || "")}
+                >
+                  <Copy />
+                </button>
+              </div>
+            )}
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <Button variant="default" onClick={() => setError(null)}>OK</Button>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
     <div
       className="bg-black overflow-hidden relative"
     >
