@@ -312,10 +312,18 @@ export function PurpleCheckout() {
               {productTemplates ? Object.entries(productTemplates).map(([name, productTemplate]) => (
                 <button
                   key={name}
-                  className={`flex flex-col items-center justify-center p-3 border rounded-lg ${name == lnCheckout?.product_template_name ? "border-green-500" : "border-purple-200/50"} disabled:opacity-50 disabled:cursor-not-allowed`}
+                  className={`relative flex flex-col items-center justify-center p-3 pt-4 border rounded-lg ${name == lnCheckout?.product_template_name ? "border-green-500" : "border-purple-200/50"} disabled:opacity-50 disabled:cursor-not-allowed`}
                   onClick={() => selectProduct(name)}
                   disabled={lnCheckout?.verified_pubkey != null}
                 >
+                  {productTemplate.special_label && (
+                    <div className="absolute top-0 right-0 -mt-4 -mr-2 bg-gradient-to-r from-damuspink-500 to-damuspink-600 rounded-full p-1 px-3">
+                      <div className="text-white text-xs font-semibold">
+                        {productTemplate.special_label}
+                      </div>
+                    </div>
+                  )}
+
                   <div className="text-purple-200/50 font-normal text-sm">
                     {productTemplate.description}
                   </div>
@@ -482,6 +490,7 @@ interface LNCheckout {
 
 interface ProductTemplate {
   description: string,
+  special_label?: string | null,
   amount_msat: number,
   expiry: number,
 }
