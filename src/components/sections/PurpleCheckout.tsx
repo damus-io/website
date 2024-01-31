@@ -12,6 +12,7 @@ import { NostrEvent, Relay, nip19 } from "nostr-tools"
 import { QRCodeSVG } from 'qrcode.react';
 import { useInterval } from 'usehooks-ts'
 import Lnmessage from 'lnmessage'
+import { DAMUS_TESTFLIGHT_URL } from "@/lib/constants";
 
 
 export function PurpleCheckout() {
@@ -231,12 +232,17 @@ export function PurpleCheckout() {
               active={lnCheckout?.product_template_name != null}
             />
             {lnCheckout && !lnCheckout.verified_pubkey && <>
+              
               <QRCodeSVG value={"damus:purple:verify?id=" + lnCheckout.id} className="mt-6 w-[300px] h-[300px] max-w-full max-h-full mx-auto mb-6" />
               <Link href={"damus:purple:verify?id=" + lnCheckout.id} className="w-full md:w-auto opacity-70 hover:opacity-100 transition">
                 <Button variant="link" className="w-full text-sm">
                   {intl.formatMessage({ id: "purple.checkout.open-in-app", defaultMessage: "Open in Damus" })}
                 </Button>
               </Link>
+              <div className="text-white/40 text-xs text-center mt-4 mb-6">
+                  {/* TODO: Localize later */}
+                  Issues with this step? Please ensure you are running the latest Damus iOS version from <Link href={DAMUS_TESTFLIGHT_URL} className="text-damuspink-500 underline" target="_blank">TestFlight</Link> — or <Link href="mailto:support@damus.io" className="text-damuspink-500 underline">contact us</Link>
+              </div>
             </>
             }
             {profile &&
@@ -313,10 +319,14 @@ export function PurpleCheckout() {
                     <QRCodeSVG value={"damus:purple:welcome?id=" + lnCheckout.id} className="mt-6 w-[300px] h-[300px] max-w-full max-h-full mx-auto mb-6" />
                   </>
                 )}
+                <div className="text-white/40 text-xs text-center mt-4 mb-6">
+                  {/* TODO: Localize later */}
+                  Issues with this step? Please ensure you are running the latest Damus iOS version from <Link href={DAMUS_TESTFLIGHT_URL} className="text-damuspink-500 underline" target="_blank">TestFlight</Link> — or <Link href="mailto:support@damus.io" className="text-damuspink-500 underline">contact us</Link>
+                </div>
               </div>
             )}
           </RoundedContainerWithGradientBorder>
-          <Link href="/purple" className="w-full md:w-auto opacity-70 hover:opacity-100 transition">
+          <Link href="/purple" className="w-full md:w-auto opacity-70 hover:opacity-100 transition mb-4">
             <Button variant="link" className="w-full text-sm">
               <ArrowLeft className="text-damuspink-600 mr-2" />
               {intl.formatMessage({ id: "purple.checkout.back", defaultMessage: "Go back" })}
