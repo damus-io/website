@@ -23,7 +23,7 @@ export function Hero() {
                     <div className="w-full z-20 mb-12">
                         <Link href="/purple">
                             <motion.div
-                                className="inline-flex items-center text-sm md:text-normal rounded-full bg-gradient-to-r from-damuspink-500/10 to-damuspink-600/10 backdrop-blur-sm shadow-lg shadow-damuspink-500/10  p-1 px-4 md:p-2 md:px-6 text-white border border-damuspink-500/30 active:scale-95 transition cursor-pointer"
+                                className="inline-flex items-center text-normal rounded-full bg-gradient-to-r from-damuspink-500/10 to-damuspink-600/10 backdrop-blur-sm shadow-lg shadow-damuspink-500/10  p-2 px-6 text-white border border-damuspink-500/30 active:scale-95 transition cursor-pointer"
                                 style={{ opacity: 0 }}
                                 animate={{ opacity: 1, transition: { delay: 1.5, duration: 1 } }}
                             >
@@ -34,7 +34,7 @@ export function Hero() {
                             </motion.div>
                         </Link>
                         <motion.h1 
-                            className="my-6 text-4xl sm:text-5xl md:text-7xl text-transparent bg-clip-text pb-6 font-semibold whitespace-pre-line max-w-2xl"
+                            className="my-6 text-5xl sm:text-5xl md:text-7xl text-transparent bg-clip-text pb-6 font-semibold whitespace-pre-line max-w-2xl"
                             style={{ 
                                 backgroundImage: "linear-gradient(to right, #ffffff -100%, #ffffff -40%, #2D175B 100%)",
                                 opacity: 0
