@@ -41,7 +41,7 @@ export function PurpleBenefits({ className }: { className?: string }) {
               {intl.formatMessage({ id: "purple.benefits.headline", defaultMessage: "Get more from Damus." })}
             </motion.h2>
             <motion.div className="text-white/60 text-xl text-center max-w-2xl mb-6 mt-6 break-keep">
-              {intl.formatMessage({ id: "purple.benefits.description", defaultMessage: "Help us stay independent in our mission for Freedom tech with our Purple subscription, and look cool doing it!" })}
+              {intl.formatMessage({ id: "purple.benefits.description", defaultMessage: "Help us stay independent in our mission for Freedom tech with our Purple membership, and look cool doing it!" })}
             </motion.div>
           </div>
           {(intl.locale != "ja" || process.env.FORCE_LOAD_ALL_JA_SECTIONS) && (

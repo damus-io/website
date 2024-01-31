@@ -41,7 +41,7 @@ export function PurpleFinalCTA({ className }: { className?: string }) {
             >
               <Link href="/purple/checkout" className="w-full md:w-auto">
                 <Button variant="default" className="w-full">
-                  {intl.formatMessage({ id: "purple.final_cta.subscribe", defaultMessage: "Subscribe" })}
+                  {intl.formatMessage({ id: "purple.final_cta.become-a-member", defaultMessage: "Become a member" })}
                 </Button>
               </Link>
               <Link href="damus:purple:landing" target="_blank" className="w-full md:w-auto">
