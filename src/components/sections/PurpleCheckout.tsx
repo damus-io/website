@@ -37,6 +37,11 @@ export function PurpleCheckout() {
   const [waitingForInvoice, setWaitingForInvoice] = useState<boolean>(false) // Whether we are waiting for a response from the LN node about the invoice
   const [error, setError] = useState<string|null>(null)  // An error message to display to the user
 
+  const [lnConnectionRetryCount, setLnConnectionRetryCount] = useState<number>(0)  // The number of times we have tried to connect to the LN node
+  const lnConnectionRetryLimit = 5  // The maximum number of times we will try to connect to the LN node before displaying an error
+  const [lnWaitinvoiceRetryCount, setLnWaitinvoiceRetryCount] = useState<number>(0)  // The number of times we have tried to check the invoice status
+  const lnWaitinvoiceRetryLimit = 5  // The maximum number of times we will try to check the invoice status before displaying an error
+
   // MARK: - Functions
 
   const fetchProfile = async () => {
@@ -133,7 +138,12 @@ export function PurpleCheckout() {
     }
     catch (e) {
       console.error(e)
-      setError("Failed to connect to the Lightning node. Please refresh this page, and try again in a few minutes. If the problem persists, please contact support.")
+      if (lnConnectionRetryCount >= lnConnectionRetryLimit) {
+        setError("Failed to connect to the Lightning node. Please refresh this page, and try again in a few minutes. If the problem persists, please contact support.")
+      }
+      else {
+        setLnConnectionRetryCount(lnConnectionRetryCount + 1)
+      }
       return
     }
 
@@ -153,7 +163,12 @@ export function PurpleCheckout() {
     } catch (e) {
       setWaitingForInvoice(false)  // Indicate that we are no longer waiting for a response from the LN node
       console.error(e)
-      setError("There was an error checking the lightning payment status. If you haven't paid yet, please wait a few minutes, refresh the page, and try again. If you have already paid, please copy the reference ID shown below and contact support.")
+      if (lnWaitinvoiceRetryCount >= lnWaitinvoiceRetryLimit) {
+        setError("There was an error checking the lightning payment status. If you haven't paid yet, please wait a few minutes, refresh the page, and try again. If you have already paid, please copy the reference ID shown below and contact support.")
+      }
+      else {
+        setLnWaitinvoiceRetryCount(lnWaitinvoiceRetryCount + 1)
+      }
     }
   }
 
