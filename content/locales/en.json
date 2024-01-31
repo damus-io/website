@@ -122,9 +122,6 @@
   "home.hero.download_now": {
     "string": "Download now"
   },
-  "home.hero.follow-us-on-nostr": {
-    "string": "Follow us on Nostr"
-  },
   "home.hero.headline": {
     "string": "The social network you control"
   },
@@ -162,10 +159,52 @@
     "string": "Supporter Badge"
   },
   "purple.benefits.description": {
-    "string": "Help us stay independent in our mission for Freedom tech with our Purple subscription, and look cool doing it!"
+    "string": "Help us stay independent in our mission for Freedom tech with our Purple membership, and look cool doing it!"
   },
   "purple.benefits.headline": {
     "string": "Get more from Damus."
+  },
+  "purple.checkout.back": {
+    "string": "Go back"
+  },
+  "purple.checkout.continue": {
+    "string": "Continue in the app to set it up"
+  },
+  "purple.checkout.continue.hide-qr": {
+    "string": "Hide QR code"
+  },
+  "purple.checkout.continue.show-qr": {
+    "string": "Show QR code"
+  },
+  "purple.checkout.open-in-app": {
+    "string": "Open in Damus"
+  },
+  "purple.checkout.open-in-wallet": {
+    "string": "Open in wallet"
+  },
+  "purple.checkout.payment-received": {
+    "string": "Payment received"
+  },
+  "purple.checkout.purchased-for": {
+    "string": "Purchased Damus Purple for:"
+  },
+  "purple.checkout.purchasing-for": {
+    "string": "Verified. Purchasing Damus Purple for:"
+  },
+  "purple.checkout.step-1": {
+    "string": "Choose your plan"
+  },
+  "purple.checkout.step-2": {
+    "string": "Verify your npub"
+  },
+  "purple.checkout.step-3": {
+    "string": "Lightning payment"
+  },
+  "purple.checkout.title": {
+    "string": "Checkout"
+  },
+  "purple.checkout.waiting-for-payment": {
+    "string": "Waiting for payment"
   },
   "purple.faq.1.a": {
     "string": "Yes! You can pay with Lightning if you register on the website. For the iOS app, you can pay with Apple Pay."
@@ -180,7 +219,7 @@
     "string": "Can I pay with lightning via the app?"
   },
   "purple.faq.3.a": {
-    "string": "Damus Purple is a paid subscription to Damus that gives you access to exclusive features, and helps us fund the project"
+    "string": "Damus Purple is a paid membership to Damus that gives you access to exclusive features, and helps us fund the project"
   },
   "purple.faq.3.q": {
     "string": "What is Damus Purple?"
@@ -218,6 +257,9 @@
   "purple.faq.headline": {
     "string": "Frequent Questions"
   },
+  "purple.final_cta.become-a-member": {
+    "string": "Become a member"
+  },
   "purple.final_cta.headline": {
     "string": "Get Purple today!"
   },
@@ -225,19 +267,19 @@
     "string": "Open in Damus"
   },
   "purple.final_cta.subheadline": {
-    "string": "for as little as U$6.99/month"
-  },
-  "purple.final_cta.subscribe": {
-    "string": "Subscribe"
+    "string": "for as little as 15k sats/month"
   },
   "purple.final_cta.text": {
     "string": "Contribute to the future of the free internet, access exclusive features, and look cool doing it."
   },
+  "purple.hero.become-a-member": {
+    "string": "Become a member"
+  },
+  "purple.hero.description": {
+    "string": "For free-speech maximalists"
+  },
   "purple.hero.learn-more": {
     "string": "Learn more"
-  },
-  "purple.hero.subscribe": {
-    "string": "Subscribe"
   },
   "roles.brand-ambassador": {
     "string": "Brand Ambassador"
