@@ -382,7 +382,7 @@ export function PurpleCheckout() {
             />
             {lnCheckout?.invoice?.bolt11 && !lnCheckout?.invoice?.paid &&
               <>
-                <QRCodeSVG value={"lightning:" + lnCheckout.invoice.bolt11} className="mt-6 w-[300px] h-[300px] max-w-full max-h-full mx-auto mb-6" />
+                <QRCodeSVG value={"lightning:" + lnCheckout.invoice.bolt11} className="mt-6 w-[300px] h-[300px] max-w-full max-h-full mx-auto mb-6 border-[5px] border-white" />
                 {/* Shows the bolt11 in for copy-paste with a copy and paste button */}
                 <div className="flex items-center justify-between rounded-md bg-purple-200/20">
                   <div className="w-full text-sm text-purple-200/50 font-normal px-4 py-2 overflow-x-scroll">
