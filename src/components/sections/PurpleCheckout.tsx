@@ -235,7 +235,6 @@ export function PurpleCheckout() {
               <Link href={"damus:purple:verify?id=" + lnCheckout.id} className="w-full md:w-auto opacity-70 hover:opacity-100 transition">
                 <Button variant="link" className="w-full text-sm">
                   {intl.formatMessage({ id: "purple.checkout.open-in-app", defaultMessage: "Open in Damus" })}
-                  <ChevronRight className="ml-2" />
                 </Button>
               </Link>
             </>
