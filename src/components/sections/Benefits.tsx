@@ -49,7 +49,7 @@ export function Benefits({ className }: { className?: string }) {
                             { intl.formatMessage({ id: "benefits.subheadline", defaultMessage: "With Damus, you are in control." }) }
                         </motion.h3>
                         <motion.div className="text-white/60 text-xl text-center max-w-2xl mb-6 mt-6 break-keep">
-                            { intl.formatMessage({ id: "benefits.description", defaultMessage: "Damus is built on Nostr, a decentralized and open social network protocol. Without ads, toxic algorithms, or censorship, Damus gives you access to the social network that a truly Free and healthy society needs — and deserves." }) }
+                            { intl.formatMessage({ id: "benefits.description", defaultMessage: "Damus is built on Nostr, a decentralized and open social network protocol. Without ads, toxic algorithms, or censorship, Damus gives you access to the social network that a truly free and healthy society needs — and deserves." }) }
                         </motion.div>
                     </div>
                     {(intl.locale != "ja" || process.env.FORCE_LOAD_ALL_JA_SECTIONS) && (
