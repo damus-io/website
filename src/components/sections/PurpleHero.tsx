@@ -39,7 +39,7 @@ export function PurpleHero() {
           >
             <Link href="/purple/checkout" className="w-full md:w-auto">
               <Button variant="default" className="w-full">
-                {intl.formatMessage({ id: "purple.hero.subscribe", defaultMessage: "Subscribe" })}
+                {intl.formatMessage({ id: "purple.hero.become-a-member", defaultMessage: "Become a member" })}
               </Button>
             </Link>
             <Link href="#benefits" className="w-full md:w-auto">

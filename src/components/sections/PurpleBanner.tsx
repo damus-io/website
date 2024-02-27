@@ -37,7 +37,7 @@ export function PurpleBanner() {
           </div>
           <div className="text-purple-200/70 text-md md:text-lg text-center max-w-2xl mb-2 break-keep">
             {/* TODO: Localize */}
-            Help us stay independent in our mission for Freedom tech with our Purple subscription, get exclusive benefits, and look cool doing it!
+            Help us stay independent in our mission for Freedom tech with our Purple membership, get exclusive benefits, and look cool doing it!
           </div>
           <motion.div
             className="mt-10 md:mt-6 flex flex-col md:flex-row items-center md:items-center gap-y-4 gap-x-6 w-full md:w-auto"
@@ -46,7 +46,7 @@ export function PurpleBanner() {
           >
             <Link href="/purple/checkout" className="w-full md:w-auto">
               <Button variant="default" className="w-full">
-                {intl.formatMessage({ id: "purple.hero.subscribe", defaultMessage: "Subscribe" })}
+                {intl.formatMessage({ id: "purple.hero.become-a-member", defaultMessage: "Become a member" })}
               </Button>
             </Link>
             <Link href="/purple" className="w-full md:w-auto">

@@ -17,7 +17,7 @@ export function PurpleFAQ({ className }: { className?: string }) {
   const faq = [
     {
       question: intl.formatMessage({ id: "purple.faq.3.q", defaultMessage: "What is Damus Purple?" }),
-      answer: intl.formatMessage({ id: "purple.faq.3.a", defaultMessage: "Damus Purple is a paid subscription to Damus that gives you access to exclusive features, and helps us fund the project" }),
+      answer: intl.formatMessage({ id: "purple.faq.3.a", defaultMessage: "Damus Purple is a paid membership to Damus that gives you access to exclusive features, and helps us fund the project" }),
     },
     {
       question: intl.formatMessage({ id: "purple.faq.4.q", defaultMessage: "What are the exclusive features?" }),

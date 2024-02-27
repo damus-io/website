@@ -253,12 +253,6 @@
       "value": "Download now"
     }
   ],
-  "home.hero.follow-us-on-nostr": [
-    {
-      "type": 0,
-      "value": "Follow us on Nostr"
-    }
-  ],
   "home.hero.headline": [
     {
       "type": 0,
@@ -338,13 +332,97 @@
   "purple.benefits.description": [
     {
       "type": 0,
-      "value": "Help us stay independent in our mission for Freedom tech with our Purple subscription, and look cool doing it!"
+      "value": "Help us stay independent in our mission for Freedom tech with our Purple membership, and look cool doing it!"
     }
   ],
   "purple.benefits.headline": [
     {
       "type": 0,
       "value": "Get more from Damus."
+    }
+  ],
+  "purple.checkout.back": [
+    {
+      "type": 0,
+      "value": "Go back"
+    }
+  ],
+  "purple.checkout.continue": [
+    {
+      "type": 0,
+      "value": "Continue in the app to set it up"
+    }
+  ],
+  "purple.checkout.continue.hide-qr": [
+    {
+      "type": 0,
+      "value": "Hide QR code"
+    }
+  ],
+  "purple.checkout.continue.show-qr": [
+    {
+      "type": 0,
+      "value": "Show QR code"
+    }
+  ],
+  "purple.checkout.open-in-app": [
+    {
+      "type": 0,
+      "value": "Open in Damus"
+    }
+  ],
+  "purple.checkout.open-in-wallet": [
+    {
+      "type": 0,
+      "value": "Open in wallet"
+    }
+  ],
+  "purple.checkout.payment-received": [
+    {
+      "type": 0,
+      "value": "Payment received"
+    }
+  ],
+  "purple.checkout.purchased-for": [
+    {
+      "type": 0,
+      "value": "Purchased Damus Purple for:"
+    }
+  ],
+  "purple.checkout.purchasing-for": [
+    {
+      "type": 0,
+      "value": "Verified. Purchasing Damus Purple for:"
+    }
+  ],
+  "purple.checkout.step-1": [
+    {
+      "type": 0,
+      "value": "Choose your plan"
+    }
+  ],
+  "purple.checkout.step-2": [
+    {
+      "type": 0,
+      "value": "Verify your npub"
+    }
+  ],
+  "purple.checkout.step-3": [
+    {
+      "type": 0,
+      "value": "Lightning payment"
+    }
+  ],
+  "purple.checkout.title": [
+    {
+      "type": 0,
+      "value": "Checkout"
+    }
+  ],
+  "purple.checkout.waiting-for-payment": [
+    {
+      "type": 0,
+      "value": "Waiting for payment"
     }
   ],
   "purple.faq.1.a": [
@@ -374,7 +452,7 @@
   "purple.faq.3.a": [
     {
       "type": 0,
-      "value": "Damus Purple is a paid subscription to Damus that gives you access to exclusive features, and helps us fund the project"
+      "value": "Damus Purple is a paid membership to Damus that gives you access to exclusive features, and helps us fund the project"
     }
   ],
   "purple.faq.3.q": [
@@ -449,6 +527,12 @@
       "value": "Frequent Questions"
     }
   ],
+  "purple.final_cta.become-a-member": [
+    {
+      "type": 0,
+      "value": "Become a member"
+    }
+  ],
   "purple.final_cta.headline": [
     {
       "type": 0,
@@ -464,13 +548,7 @@
   "purple.final_cta.subheadline": [
     {
       "type": 0,
-      "value": "for as little as U$6.99/month"
-    }
-  ],
-  "purple.final_cta.subscribe": [
-    {
-      "type": 0,
-      "value": "Subscribe"
+      "value": "for as little as 15k sats/month"
     }
   ],
   "purple.final_cta.text": [
@@ -479,16 +557,22 @@
       "value": "Contribute to the future of the free internet, access exclusive features, and look cool doing it."
     }
   ],
+  "purple.hero.become-a-member": [
+    {
+      "type": 0,
+      "value": "Become a member"
+    }
+  ],
+  "purple.hero.description": [
+    {
+      "type": 0,
+      "value": "For free-speech maximalists"
+    }
+  ],
   "purple.hero.learn-more": [
     {
       "type": 0,
       "value": "Learn more"
-    }
-  ],
-  "purple.hero.subscribe": [
-    {
-      "type": 0,
-      "value": "Subscribe"
     }
   ],
   "roles.brand-ambassador": [
