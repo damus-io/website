@@ -35,7 +35,7 @@ export function PurpleCheckout() {
   const [continueShowQRCodes, setContinueShowQRCodes] = useState<boolean>(false)  // Whether the user wants to show a QR code for the final step
   const [lnInvoicePaid, setLNInvoicePaid] = useState<boolean | undefined>(undefined) // Whether the ln invoice has been paid
   const [waitingForInvoice, setWaitingForInvoice] = useState<boolean>(false) // Whether we are waiting for a response from the LN node about the invoice
-  const [error, setError] = useState<string|null>(null)  // An error message to display to the user
+  const [error, setError] = useState<string | null>(null)  // An error message to display to the user
 
   const [lnConnectionRetryCount, setLnConnectionRetryCount] = useState<number>(0)  // The number of times we have tried to connect to the LN node
   const lnConnectionRetryLimit = 5  // The maximum number of times we will try to connect to the LN node before displaying an error
@@ -347,7 +347,6 @@ export function PurpleCheckout() {
               active={lnCheckout?.product_template_name != null}
             />
             {lnCheckout && !lnCheckout.verified_pubkey && <>
-              
               <QRCodeSVG value={"damus:purple:verify?id=" + lnCheckout.id} className="mt-6 w-[300px] h-[300px] max-w-full max-h-full mx-auto mb-6" />
               <Link href={"damus:purple:verify?id=" + lnCheckout.id} className="w-full md:w-auto opacity-70 hover:opacity-100 transition">
                 <Button variant="link" className="w-full text-sm">
@@ -355,8 +354,8 @@ export function PurpleCheckout() {
                 </Button>
               </Link>
               <div className="text-white/40 text-xs text-center mt-4 mb-6">
-                  {/* TODO: Localize later */}
-                  Issues with this step? Please ensure you are running the latest Damus iOS version from <Link href={DAMUS_TESTFLIGHT_URL} className="text-damuspink-500 underline" target="_blank">TestFlight</Link> — or <Link href="mailto:support@damus.io" className="text-damuspink-500 underline">contact us</Link>
+                {/* TODO: Localize later */}
+                Issues with this step? Please ensure you are running the latest Damus iOS version from <Link href={DAMUS_TESTFLIGHT_URL} className="text-damuspink-500 underline" target="_blank">TestFlight</Link> — or <Link href="mailto:support@damus.io" className="text-damuspink-500 underline">contact us</Link>
               </div>
             </>
             }
