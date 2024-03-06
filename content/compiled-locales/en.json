@@ -521,6 +521,18 @@
       "value": "Can I simply donate to Damus?"
     }
   ],
+  "purple.faq.9.a": [
+    {
+      "type": 0,
+      "value": "Currently we support Arabic*, Bulgarian, Chinese*, Czech, Danish, Dutch, English*, Estonian, Finnish, French, German, Greek, Hungarian, Indonesian, Italian, Japanese, Korean, Latvian, Lithuanian, Norwegian*, Polish, Portuguese*, Romanian, Russian, Slovak, Slovenian, Spanish, Swedish, Turkish, and Ukrainian.\n\n * Limitations apply"
+    }
+  ],
+  "purple.faq.9.q": [
+    {
+      "type": 0,
+      "value": "What languages are supported by the translator?"
+    }
+  ],
   "purple.faq.headline": [
     {
       "type": 0,
@@ -573,6 +585,12 @@
     {
       "type": 0,
       "value": "Learn more"
+    }
+  ],
+  "purple.hero.renew": [
+    {
+      "type": 0,
+      "value": "Already a member? Click here to renew!"
     }
   ],
   "roles.brand-ambassador": [

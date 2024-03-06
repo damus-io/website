@@ -24,6 +24,10 @@ export function PurpleFAQ({ className }: { className?: string }) {
       answer: intl.formatMessage({ id: "purple.faq.4.a", defaultMessage: "Currently we offer automatic translations of posts. We are working to add more features as soon as possible." }),
     },
     {
+      question: intl.formatMessage({ id: "purple.faq.9.q", defaultMessage: "What languages are supported by the translator?" }),
+      answer: intl.formatMessage({ id: "purple.faq.9.a", defaultMessage: "Currently we support Arabic*, Bulgarian, Chinese*, Czech, Danish, Dutch, English*, Estonian, Finnish, French, German, Greek, Hungarian, Indonesian, Italian, Japanese, Korean, Latvian, Lithuanian, Norwegian*, Polish, Portuguese*, Romanian, Russian, Slovak, Slovenian, Spanish, Swedish, Turkish, and Ukrainian.\n\n * Limitations apply" }),
+    },
+    {
       question: intl.formatMessage({ id: "purple.faq.5.q", defaultMessage: "How much does it cost?" }),
       answer: intl.formatMessage({ id: "purple.faq.5.a", defaultMessage: "Please see the section below for pricing." }),
     },
@@ -64,7 +68,7 @@ export function PurpleFAQ({ className }: { className?: string }) {
           {faq.map((item, index) => (
             <AccordionItem value={`item-${index}`} key={index}>
               <AccordionTrigger>{item.question}</AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="whitespace-pre-line">
                 {item.answer}
               </AccordionContent>
             </AccordionItem>
