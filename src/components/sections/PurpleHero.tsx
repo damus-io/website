@@ -1,4 +1,4 @@
-import { ArrowUpRight, ChevronRight, Globe2, LucideZapOff, Zap, ZapIcon, ZapOff } from "lucide-react";
+import { ArrowUpRight, ChevronRight, Globe2, LucideZapOff, Sparkles, Star, Zap, ZapIcon, ZapOff } from "lucide-react";
 import { MeshGradient1 } from "../effects/MeshGradient.1";
 import { TopMenu } from "./TopMenu";
 import { Button } from "../ui/Button";
@@ -23,6 +23,17 @@ export function PurpleHero() {
       <div className="container z-10 mx-auto px-6 pt-12 h-full min-h-screen flex flex-col justify-center">
         <TopMenu className="w-full" />
         <div className="flex flex-col items-center justify-center h-full grow">
+          <Link href="/purple/checkout">
+            <motion.div
+              className="inline-flex items-center text-xs rounded-full bg-purple-100/10 backdrop-blur-sm shadow-lg p-1 px-3 text-purple-100/80 border border-purple-100/30 active:scale-95 transition cursor-pointer mb-16"
+              style={{ opacity: 0 }}
+              animate={{ opacity: 1, transition: { delay: 1.5, duration: 1 } }}
+            >
+              <Sparkles className="h-4 mr-1 text-purple-50" aria-hidden="true" />
+              {intl.formatMessage({ id: "purple.hero.renew", defaultMessage: "Already a member? Click here to renew!" })}
+              <ChevronRight className="ml-2" />
+            </motion.div>
+          </Link>
           <div className="flex gap-x-4 items-center mb-12 md:mb-6">
             <PurpleIcon className="w-16 h-16 md:w-24 md:h-24" />
             <motion.h2 className="text-6xl md:text-8xl text-center text-transparent bg-clip-text bg-gradient-to-r from-damuspink-500 from-30% to-damuspink-600 to-100% font-semibold break-keep tracking-tight">

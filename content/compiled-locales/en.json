@@ -293,6 +293,18 @@
       "value": "shortName"
     }
   ],
+  "purple-checkout.account-will-renew": [
+    {
+      "type": 0,
+      "value": "Paying will renew or extend your membership."
+    }
+  ],
+  "purple-checkout.this-account-exists": [
+    {
+      "type": 0,
+      "value": "Yay! We found your account"
+    }
+  ],
   "purple.benefits.benefit1.description": [
     {
       "type": 0,
@@ -350,7 +362,7 @@
   "purple.checkout.continue": [
     {
       "type": 0,
-      "value": "Continue in the app to set it up"
+      "value": "Continue in the app"
     }
   ],
   "purple.checkout.continue.hide-qr": [
@@ -363,6 +375,18 @@
     {
       "type": 0,
       "value": "Show QR code"
+    }
+  ],
+  "purple.checkout.description": [
+    {
+      "type": 0,
+      "value": "New accounts and renewals"
+    }
+  ],
+  "purple.checkout.description-2": [
+    {
+      "type": 0,
+      "value": "Use this page to purchase a new account, or to renew an existing one. You will need the latest Damus version to complete the checkout."
     }
   ],
   "purple.checkout.open-in-app": [
@@ -393,6 +417,18 @@
     {
       "type": 0,
       "value": "Verified. Purchasing Damus Purple for:"
+    }
+  ],
+  "purple.checkout.renewed-for": [
+    {
+      "type": 0,
+      "value": "Renewed Damus Purple for:"
+    }
+  ],
+  "purple.checkout.renewing-for": [
+    {
+      "type": 0,
+      "value": "Verified. Renewing Damus Purple for:"
     }
   ],
   "purple.checkout.step-1": [

@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowUpRight, CheckCircle, ChevronRight, Copy, Globe2, Loader2, LucideZapOff, Zap, ZapIcon, ZapOff } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, CheckCircle, ChevronRight, Copy, Globe2, Loader2, LucideZapOff, Sparkles, Zap, ZapIcon, ZapOff } from "lucide-react";
 import { Button } from "../ui/Button";
 import { FormattedMessage, useIntl } from "react-intl";
 import Link from "next/link";
@@ -24,6 +24,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/AlertDialog";
+import { Info } from "lucide-react";
 
 
 export function PurpleCheckout() {
@@ -35,7 +36,8 @@ export function PurpleCheckout() {
   const [continueShowQRCodes, setContinueShowQRCodes] = useState<boolean>(false)  // Whether the user wants to show a QR code for the final step
   const [lnInvoicePaid, setLNInvoicePaid] = useState<boolean | undefined>(undefined) // Whether the ln invoice has been paid
   const [waitingForInvoice, setWaitingForInvoice] = useState<boolean>(false) // Whether we are waiting for a response from the LN node about the invoice
-  const [error, setError] = useState<string|null>(null)  // An error message to display to the user
+  const [error, setError] = useState<string | null>(null)  // An error message to display to the user
+  const [existingAccountInfo, setExistingAccountInfo] = useState<AccountInfo | null | undefined>(undefined)  // The account info fetched from the server
 
   const [lnConnectionRetryCount, setLnConnectionRetryCount] = useState<number>(0)  // The number of times we have tried to connect to the LN node
   const lnConnectionRetryLimit = 5  // The maximum number of times we will try to connect to the LN node before displaying an error
@@ -55,6 +57,21 @@ export function PurpleCheckout() {
     catch (e) {
       console.error(e)
       setError("Failed to get profile info from the relay. Please wait a few minutes and refresh the page. If the problem persists, please contact support.")
+    }
+  }
+
+  const fetchAccountInfo = async () => {
+    if (!pubkey) {
+      setExistingAccountInfo(undefined)
+      return
+    }
+    try {
+      const accountInfo = await getPurpleAccountInfo(pubkey)
+      setExistingAccountInfo(accountInfo)
+    }
+    catch (e) {
+      console.error(e)
+      setError("Failed to get account info from our servers. Please wait a few minutes and refresh the page. If the problem persists, please contact support.")
     }
   }
 
@@ -224,6 +241,7 @@ export function PurpleCheckout() {
   useEffect(() => {
     if (pubkey) {
       fetchProfile()
+      fetchAccountInfo()
     }
   }, [pubkey])
 
@@ -299,9 +317,20 @@ export function PurpleCheckout() {
                 Purple
               </motion.h2>
             </div>
-            <h2 className="text-2xl text-left text-purple-200 font-semibold break-keep mb-4">
+            <h2 className="text-2xl text-left text-purple-200 font-semibold break-keep mb-2">
               {intl.formatMessage({ id: "purple.checkout.title", defaultMessage: "Checkout" })}
             </h2>
+            <div className="text-purple-200/70 text-normal text-left mb-6 font-semibold flex flex-col md:flex-row gap-3 rounded-lg bg-purple-200/10 p-3 items-center md:items-start">
+              <Info className="w-6 h-6 shrink-0 mt-0 md:mt-1" />
+              <div className="flex flex-col text-center md:text-left">
+                <span className="text-normal md:text-lg mb-2">
+                  {intl.formatMessage({ id: "purple.checkout.description", defaultMessage: "New accounts and renewals" })}
+                </span>
+                <span className="text-xs text-purple-200/50">
+                  {intl.formatMessage({ id: "purple.checkout.description-2", defaultMessage: "Use this page to purchase a new account, or to renew an existing one. You will need the latest Damus version to complete the checkout." })}
+                </span>
+              </div>
+            </div>
             <StepHeader
               stepNumber={1}
               title={intl.formatMessage({ id: "purple.checkout.step-1", defaultMessage: "Choose your plan" })}
@@ -347,7 +376,6 @@ export function PurpleCheckout() {
               active={lnCheckout?.product_template_name != null}
             />
             {lnCheckout && !lnCheckout.verified_pubkey && <>
-              
               <QRCodeSVG value={"damus:purple:verify?id=" + lnCheckout.id} className="mt-6 w-[300px] h-[300px] max-w-full max-h-full mx-auto mb-6" />
               <Link href={"damus:purple:verify?id=" + lnCheckout.id} className="w-full md:w-auto opacity-70 hover:opacity-100 transition">
                 <Button variant="link" className="w-full text-sm">
@@ -355,22 +383,40 @@ export function PurpleCheckout() {
                 </Button>
               </Link>
               <div className="text-white/40 text-xs text-center mt-4 mb-6">
-                  {/* TODO: Localize later */}
-                  Issues with this step? Please ensure you are running the latest Damus iOS version from <Link href={DAMUS_TESTFLIGHT_URL} className="text-damuspink-500 underline" target="_blank">TestFlight</Link> — or <Link href="mailto:support@damus.io" className="text-damuspink-500 underline">contact us</Link>
+                {/* TODO: Localize later */}
+                Issues with this step? Please ensure you are running the latest Damus iOS version from <Link href={DAMUS_TESTFLIGHT_URL} className="text-damuspink-500 underline" target="_blank">TestFlight</Link> — or <Link href="mailto:support@damus.io" className="text-damuspink-500 underline">contact us</Link>
               </div>
             </>
             }
             {profile &&
               <div className="mt-2 mb-4 flex flex-col items-center">
                 <div className="text-purple-200/50 font-normal text-sm">
-                  {lnCheckout?.verified_pubkey && !lnCheckout?.invoice?.paid && intl.formatMessage({ id: "purple.checkout.purchasing-for", defaultMessage: "Verified. Purchasing Damus Purple for:" })}
-                  {lnCheckout?.invoice?.paid && intl.formatMessage({ id: "purple.checkout.purchased-for", defaultMessage: "Purchased Damus Purple for:" })}
+                  {existingAccountInfo === null || existingAccountInfo === undefined ? <>
+                    {lnCheckout?.verified_pubkey && !lnCheckout?.invoice?.paid && intl.formatMessage({ id: "purple.checkout.purchasing-for", defaultMessage: "Verified. Purchasing Damus Purple for:" })}
+                    {lnCheckout?.invoice?.paid && intl.formatMessage({ id: "purple.checkout.purchased-for", defaultMessage: "Purchased Damus Purple for:" })}
+                  </> : <>
+                    {lnCheckout?.verified_pubkey && !lnCheckout?.invoice?.paid && intl.formatMessage({ id: "purple.checkout.renewing-for", defaultMessage: "Verified. Renewing Damus Purple for:" })}
+                    {lnCheckout?.invoice?.paid && intl.formatMessage({ id: "purple.checkout.renewed-for", defaultMessage: "Renewed Damus Purple for:" })}
+                  </>}
                 </div>
                 <div className="mt-4 flex flex-col gap-1 items-center justify-center">
                   <Image src={profile.picture || "https://robohash.org/" + profile.pubkey} width={64} height={64} className="rounded-full" alt={profile.name} />
                   <div className="text-purple-100/90 font-semibold text-lg">
                     {profile.name}
                   </div>
+                  {existingAccountInfo !== null && existingAccountInfo !== undefined && (
+                    <div className="text-purple-200/50 font-normal flex items-center gap-2 bg-purple-300/10 rounded-full px-6 py-2 justify-center">
+                      <Sparkles className="w-4 h-4 shrink-0 text-purple-50" />
+                      <div className="flex flex-col">
+                        <div className="text-purple-200/90 font-semibold text-sm">
+                          {intl.formatMessage({ id: "purple-checkout.this-account-exists", defaultMessage: "Yay! We found your account" })}
+                        </div>
+                        <div className="text-purple-200/70 font-normal text-xs break-normal">
+                          {intl.formatMessage({ id: "purple-checkout.account-will-renew", defaultMessage: "Paying will renew or extend your membership." })}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             }
@@ -382,7 +428,7 @@ export function PurpleCheckout() {
             />
             {lnCheckout?.invoice?.bolt11 && !lnCheckout?.invoice?.paid &&
               <>
-                <QRCodeSVG value={"lightning:" + lnCheckout.invoice.bolt11} className="mt-6 w-[300px] h-[300px] max-w-full max-h-full mx-auto mb-6 border-[5px] border-white" />
+                <QRCodeSVG value={"lightning:" + lnCheckout.invoice.bolt11} className="mt-6 w-[300px] h-[300px] max-w-full max-h-full mx-auto mb-6 border-[5px] border-white bg-white" />
                 {/* Shows the bolt11 in for copy-paste with a copy and paste button */}
                 <div className="flex items-center justify-between rounded-md bg-purple-200/20">
                   <div className="w-full text-sm text-purple-200/50 font-normal px-4 py-2 overflow-x-scroll">
@@ -415,11 +461,11 @@ export function PurpleCheckout() {
                   {intl.formatMessage({ id: "purple.checkout.payment-received", defaultMessage: "Payment received" })}
                 </div>
                 <Link
-                  href={`damus:purple:welcome?id=${lnCheckout.id}`}
+                  href={existingAccountInfo !== null && existingAccountInfo !== undefined ? `damus:purple:landing` : `damus:purple:welcome?id=${lnCheckout.id}`}
                   className="w-full text-sm flex justify-center"
                 >
                   <Button variant="default" className="w-full text-sm">
-                    {intl.formatMessage({ id: "purple.checkout.continue", defaultMessage: "Continue in the app to set it up" })}
+                    {intl.formatMessage({ id: "purple.checkout.continue", defaultMessage: "Continue in the app" })}
                     <ChevronRight className="ml-1" />
                   </Button>
                 </Link>
@@ -431,7 +477,10 @@ export function PurpleCheckout() {
                 </button>
                 {continueShowQRCodes && (
                   <>
-                    <QRCodeSVG value={"damus:purple:welcome?id=" + lnCheckout.id} className="mt-6 w-[300px] h-[300px] max-w-full max-h-full mx-auto mb-6" />
+                    <QRCodeSVG
+                      value={existingAccountInfo !== null && existingAccountInfo !== undefined ? "damus:purple:landing" : "damus:purple:welcome?id=" + lnCheckout.id}
+                      className="mt-6 w-[300px] h-[300px] max-w-full max-h-full mx-auto mb-6"
+                    />
                   </>
                 )}
                 <div className="text-white/40 text-xs text-center mt-4 mb-6">
@@ -470,6 +519,14 @@ function StepHeader({ stepNumber, title, done, active }: { stepNumber: number, t
 
 // MARK: - Types
 
+
+interface AccountInfo {
+  pubkey: string,
+  created_at: number, // Unix timestamp in seconds
+  expiry: number | null, // Unix timestamp in seconds
+  active: boolean,
+}
+
 interface LNCheckout {
   id: string,
   verified_pubkey?: string,
@@ -505,6 +562,20 @@ interface Profile {
 }
 
 // MARK: - Helper functions
+
+const getPurpleAccountInfo = async (pubkey: string): Promise<AccountInfo | null> => {
+  const response = await fetch(process.env.NEXT_PUBLIC_PURPLE_API_BASE_URL + "/accounts/" + pubkey, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  })
+  if (response.status === 404) {
+    return null
+  }
+  const data: AccountInfo = await response.json()
+  return data
+}
 
 const getProfile = async (pubkey: string): Promise<Profile | null> => {
   const profile_event: NostrEvent | null = await getProfileEvent(pubkey)
