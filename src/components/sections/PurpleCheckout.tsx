@@ -25,6 +25,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/AlertDialog";
 import { Info } from "lucide-react";
+import { ErrorDialog } from "../ErrorDialog";
+import { PurpleLayout } from "../PurpleLayout";
 
 
 export function PurpleCheckout() {
@@ -267,238 +269,198 @@ export function PurpleCheckout() {
   // MARK: - Render
 
   return (<>
-    <AlertDialog open={error != null} onOpenChange={(open) => { if (!open) setError(null) }}>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle><div className="text-red-700">Error</div></AlertDialogTitle>
-          <AlertDialogDescription>
-            <div className="text-left">
-              {error}
-            </div>
-            <div className="text-black/40 text-xs text-left mt-4 mb-6">
-              You can contact support by sending an email to <Link href="mailto:support@damus.io" className="text-damuspink-600 underline">support@damus.io</Link>
-            </div>
-            {lnCheckout && lnCheckout.id && (
-              <div className="flex items-center justify-between rounded-md bg-gray-200">
-                <div className="text-xs text-gray-400 font-normal px-4 py-2">
-                  Reference:
-                </div>
-                <div className="w-full text-xs text-gray-500 font-normal px-4 py-2 overflow-x-scroll">
-                  {lnCheckout?.id}
-                </div>
-                <button
-                  className="text-sm text-gray-500 font-normal px-4 py-2 active:text-gray-500/30 hover:text-gray-500/80 transition"
-                  onClick={() => navigator.clipboard.writeText(lnCheckout?.id || "")}
-                >
-                  <Copy />
-                </button>
-              </div>
-            )}
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <Button variant="default" onClick={() => setError(null)}>OK</Button>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-    <div
-      className="bg-black overflow-hidden relative"
-    >
-      <div className="absolute z-0 w-full h-full pointer-events-none">
-        <Image src="/stars-bg.webp" fill className="absolute top-0 left-0 object-cover lg:object-contain object-center w-full h-full" alt="" aria-hidden="true" />
-        <MeshGradient5 className="translate-y-1/4 translate-x-32" />
-      </div>
-      <div className="container z-10 mx-auto px-6 pt-12 h-full min-h-screen flex flex-col justify-center">
-        <div className="flex flex-col items-center justify-center h-full grow">
-          <RoundedContainerWithGradientBorder className="w-full max-w-md h-full mb-4" innerContainerClassName="w-full">
-            <div className="flex gap-x-4 items-center mb-12 mx-auto justify-center">
-              <PurpleIcon className="w-16 h-16" />
-              <motion.h2 className="text-6xl text-center text-transparent bg-clip-text bg-gradient-to-r from-damuspink-500 from-30% to-damuspink-600 to-100% font-semibold break-keep tracking-tight">
-                Purple
-              </motion.h2>
-            </div>
-            <h2 className="text-2xl text-left text-purple-200 font-semibold break-keep mb-2">
-              {intl.formatMessage({ id: "purple.checkout.title", defaultMessage: "Checkout" })}
-            </h2>
-            <div className="text-purple-200/70 text-normal text-left mb-6 font-semibold flex flex-col md:flex-row gap-3 rounded-lg bg-purple-200/10 p-3 items-center md:items-start">
-              <Info className="w-6 h-6 shrink-0 mt-0 md:mt-1" />
-              <div className="flex flex-col text-center md:text-left">
-                <span className="text-normal md:text-lg mb-2">
-                  {intl.formatMessage({ id: "purple.checkout.description", defaultMessage: "New accounts and renewals" })}
-                </span>
-                <span className="text-xs text-purple-200/50">
-                  {intl.formatMessage({ id: "purple.checkout.description-2", defaultMessage: "Use this page to purchase a new account, or to renew an existing one. You will need the latest Damus version to complete the checkout." })}
-                </span>
-              </div>
-            </div>
-            <StepHeader
-              stepNumber={1}
-              title={intl.formatMessage({ id: "purple.checkout.step-1", defaultMessage: "Choose your plan" })}
-              done={lnCheckout?.product_template_name != null}
-              active={true}
-            />
-            <div className="mt-3 mb-4 flex gap-2 items-center">
-              {productTemplates ? Object.entries(productTemplates).map(([name, productTemplate]) => (
-                <button
-                  key={name}
-                  className={`relative flex flex-col items-center justify-center p-3 pt-4 border rounded-lg ${name == lnCheckout?.product_template_name ? "border-green-500" : "border-purple-200/50"} disabled:opacity-50 disabled:cursor-not-allowed`}
-                  onClick={() => selectProduct(name)}
-                  disabled={lnCheckout?.verified_pubkey != null}
-                >
-                  {productTemplate.special_label && (
-                    <div className="absolute top-0 right-0 -mt-4 -mr-2 bg-gradient-to-r from-damuspink-500 to-damuspink-600 rounded-full p-1 px-3">
-                      <div className="text-white text-xs font-semibold">
-                        {productTemplate.special_label}
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="text-purple-200/50 font-normal text-sm">
-                    {productTemplate.description}
-                  </div>
-                  <div className="mt-1 text-purple-100/90 font-semibold text-lg">
-                    {productTemplate.amount_msat / 1000} sats
-                  </div>
-                </button>
-              )) : (
-                <div className="flex flex-col items-center justify-center">
-                  <div className="text-purple-200/50 font-normal text-sm flex items-center">
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Loading...
-                  </div>
-                </div>
-              )}
-            </div>
-            <StepHeader
-              stepNumber={2}
-              title={intl.formatMessage({ id: "purple.checkout.step-2", defaultMessage: "Verify your npub" })}
-              done={lnCheckout?.verified_pubkey != null}
-              active={lnCheckout?.product_template_name != null}
-            />
-            {lnCheckout && !lnCheckout.verified_pubkey && <>
-              <QRCodeSVG value={"damus:purple:verify?id=" + lnCheckout.id} className="mt-6 w-[300px] h-[300px] max-w-full max-h-full mx-auto mb-6" />
-              <Link href={"damus:purple:verify?id=" + lnCheckout.id} className="w-full md:w-auto opacity-70 hover:opacity-100 transition">
-                <Button variant="link" className="w-full text-sm">
-                  {intl.formatMessage({ id: "purple.checkout.open-in-app", defaultMessage: "Open in Damus" })}
-                </Button>
-              </Link>
-              <div className="text-white/40 text-xs text-center mt-4 mb-6">
-                {/* TODO: Localize later */}
-                Issues with this step? Please ensure you are running the latest Damus iOS version from <Link href={DAMUS_TESTFLIGHT_URL} className="text-damuspink-500 underline" target="_blank">TestFlight</Link> — or <Link href="mailto:support@damus.io" className="text-damuspink-500 underline">contact us</Link>
-              </div>
-            </>
-            }
-            {profile &&
-              <div className="mt-2 mb-4 flex flex-col items-center">
-                <div className="text-purple-200/50 font-normal text-sm">
-                  {existingAccountInfo === null || existingAccountInfo === undefined ? <>
-                    {lnCheckout?.verified_pubkey && !lnCheckout?.invoice?.paid && intl.formatMessage({ id: "purple.checkout.purchasing-for", defaultMessage: "Verified. Purchasing Damus Purple for:" })}
-                    {lnCheckout?.invoice?.paid && intl.formatMessage({ id: "purple.checkout.purchased-for", defaultMessage: "Purchased Damus Purple for:" })}
-                  </> : <>
-                    {lnCheckout?.verified_pubkey && !lnCheckout?.invoice?.paid && intl.formatMessage({ id: "purple.checkout.renewing-for", defaultMessage: "Verified. Renewing Damus Purple for:" })}
-                    {lnCheckout?.invoice?.paid && intl.formatMessage({ id: "purple.checkout.renewed-for", defaultMessage: "Renewed Damus Purple for:" })}
-                  </>}
-                </div>
-                <div className="mt-4 flex flex-col gap-1 items-center justify-center">
-                  <Image src={profile.picture || "https://robohash.org/" + profile.pubkey} width={64} height={64} className="rounded-full" alt={profile.name} />
-                  <div className="text-purple-100/90 font-semibold text-lg">
-                    {profile.name}
-                  </div>
-                  {existingAccountInfo !== null && existingAccountInfo !== undefined && (
-                    <div className="text-purple-200/50 font-normal flex items-center gap-2 bg-purple-300/10 rounded-full px-6 py-2 justify-center">
-                      <Sparkles className="w-4 h-4 shrink-0 text-purple-50" />
-                      <div className="flex flex-col">
-                        <div className="text-purple-200/90 font-semibold text-sm">
-                          {intl.formatMessage({ id: "purple-checkout.this-account-exists", defaultMessage: "Yay! We found your account" })}
-                        </div>
-                        <div className="text-purple-200/70 font-normal text-xs break-normal">
-                          {intl.formatMessage({ id: "purple-checkout.account-will-renew", defaultMessage: "Paying will renew or extend your membership." })}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            }
-            <StepHeader
-              stepNumber={3}
-              title={intl.formatMessage({ id: "purple.checkout.step-3", defaultMessage: "Lightning payment" })}
-              done={lnCheckout?.invoice?.paid === true}
-              active={lnCheckout?.verified_pubkey != null}
-            />
-            {lnCheckout?.invoice?.bolt11 && !lnCheckout?.invoice?.paid &&
-              <>
-                <QRCodeSVG value={"lightning:" + lnCheckout.invoice.bolt11} className="mt-6 w-[300px] h-[300px] max-w-full max-h-full mx-auto mb-6 border-[5px] border-white bg-white" />
-                {/* Shows the bolt11 in for copy-paste with a copy and paste button */}
-                <div className="flex items-center justify-between rounded-md bg-purple-200/20">
-                  <div className="w-full text-sm text-purple-200/50 font-normal px-4 py-2 overflow-x-scroll">
-                    {lnCheckout.invoice.bolt11}
-                  </div>
-                  <button
-                    className="text-sm text-purple-200/50 font-normal px-4 py-2 active:text-purple-200/30 hover:text-purple-200/80 transition"
-                    onClick={() => navigator.clipboard.writeText(lnCheckout?.invoice?.bolt11 || "")}
-                  >
-                    <Copy />
-                  </button>
-                </div>
-                <Link href={"lightning:" + lnCheckout.invoice.bolt11} className="w-full md:w-auto opacity-70 hover:opacity-100 transition mt-4">
-                  <Button variant="link" className="w-full text-sm">
-                    {intl.formatMessage({ id: "purple.checkout.open-in-wallet", defaultMessage: "Open in wallet" })}
-                    <ArrowUpRight className="text-damuspink-600 ml-2" />
-                  </Button>
-                </Link>
-                <div className="mt-6 text-purple-200/50 font-normal text-sm text-center flex justify-center">
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  {intl.formatMessage({ id: "purple.checkout.waiting-for-payment", defaultMessage: "Waiting for payment" })}
-                </div>
-              </>
-            }
-            {/* We use the lnCheckout object to check payment status (NOT lnInvoicePaid) to display the confirmation message, because the server is the ultimate source of truth */}
-            {lnCheckout?.invoice?.paid && lnCheckout?.completed && (
-              <div className="flex flex-col items-center justify-center gap-3 mt-6">
-                <CheckCircle className="w-16 h-16 text-green-500" />
-                <div className="mt-3 mb-6 text-sm text-center text-green-500 font-bold">
-                  {intl.formatMessage({ id: "purple.checkout.payment-received", defaultMessage: "Payment received" })}
-                </div>
-                <Link
-                  href={existingAccountInfo !== null && existingAccountInfo !== undefined ? `damus:purple:landing` : `damus:purple:welcome?id=${lnCheckout.id}`}
-                  className="w-full text-sm flex justify-center"
-                >
-                  <Button variant="default" className="w-full text-sm">
-                    {intl.formatMessage({ id: "purple.checkout.continue", defaultMessage: "Continue in the app" })}
-                    <ChevronRight className="ml-1" />
-                  </Button>
-                </Link>
-                <button className="w-full text-sm text-damuspink-500 flex justify-center" onClick={() => setContinueShowQRCodes(!continueShowQRCodes)}>
-                  {!continueShowQRCodes ?
-                    intl.formatMessage({ id: "purple.checkout.continue.show-qr", defaultMessage: "Show QR code" })
-                    : intl.formatMessage({ id: "purple.checkout.continue.hide-qr", defaultMessage: "Hide QR code" })
-                  }
-                </button>
-                {continueShowQRCodes && (
-                  <>
-                    <QRCodeSVG
-                      value={existingAccountInfo !== null && existingAccountInfo !== undefined ? "damus:purple:landing" : "damus:purple:welcome?id=" + lnCheckout.id}
-                      className="mt-6 w-[300px] h-[300px] max-w-full max-h-full mx-auto mb-6"
-                    />
-                  </>
-                )}
-                <div className="text-white/40 text-xs text-center mt-4 mb-6">
-                  {/* TODO: Localize later */}
-                  Issues with this step? Please ensure you are running the latest Damus iOS version from <Link href={DAMUS_TESTFLIGHT_URL} className="text-damuspink-500 underline" target="_blank">TestFlight</Link> — or <Link href="mailto:support@damus.io" className="text-damuspink-500 underline">contact us</Link>
-                </div>
-              </div>
-            )}
-          </RoundedContainerWithGradientBorder>
-          <Link href="/purple" className="w-full md:w-auto opacity-70 hover:opacity-100 transition mb-4">
-            <Button variant="link" className="w-full text-sm">
-              <ArrowLeft className="text-damuspink-600 mr-2" />
-              {intl.formatMessage({ id: "purple.checkout.back", defaultMessage: "Go back" })}
-            </Button>
-          </Link>
+    <ErrorDialog error={error} setError={setError}>
+      {lnCheckout && lnCheckout.id && (
+        <div className="flex items-center justify-between rounded-md bg-gray-200">
+          <div className="text-xs text-gray-400 font-normal px-4 py-2">
+            Reference:
+          </div>
+          <div className="w-full text-xs text-gray-500 font-normal px-4 py-2 overflow-x-scroll">
+            {lnCheckout?.id}
+          </div>
+          <button
+            className="text-sm text-gray-500 font-normal px-4 py-2 active:text-gray-500/30 hover:text-gray-500/80 transition"
+            onClick={() => navigator.clipboard.writeText(lnCheckout?.id || "")}
+          >
+            <Copy />
+          </button>
+        </div>
+      )}
+    </ErrorDialog>
+    <PurpleLayout>
+      <h2 className="text-2xl text-left text-purple-200 font-semibold break-keep mb-2">
+        {intl.formatMessage({ id: "purple.checkout.title", defaultMessage: "Checkout" })}
+      </h2>
+      <div className="text-purple-200/70 text-normal text-left mb-6 font-semibold flex flex-col md:flex-row gap-3 rounded-lg bg-purple-200/10 p-3 items-center md:items-start">
+        <Info className="w-6 h-6 shrink-0 mt-0 md:mt-1" />
+        <div className="flex flex-col text-center md:text-left">
+          <span className="text-normal md:text-lg mb-2">
+            {intl.formatMessage({ id: "purple.checkout.description", defaultMessage: "New accounts and renewals" })}
+          </span>
+          <span className="text-xs text-purple-200/50">
+            {intl.formatMessage({ id: "purple.checkout.description-2", defaultMessage: "Use this page to purchase a new account, or to renew an existing one. You will need the latest Damus version to complete the checkout." })}
+          </span>
         </div>
       </div>
-    </div >
+      <StepHeader
+        stepNumber={1}
+        title={intl.formatMessage({ id: "purple.checkout.step-1", defaultMessage: "Choose your plan" })}
+        done={lnCheckout?.product_template_name != null}
+        active={true}
+      />
+      <div className="mt-3 mb-4 flex gap-2 items-center">
+        {productTemplates ? Object.entries(productTemplates).map(([name, productTemplate]) => (
+          <button
+            key={name}
+            className={`relative flex flex-col items-center justify-center p-3 pt-4 border rounded-lg ${name == lnCheckout?.product_template_name ? "border-green-500" : "border-purple-200/50"} disabled:opacity-50 disabled:cursor-not-allowed`}
+            onClick={() => selectProduct(name)}
+            disabled={lnCheckout?.verified_pubkey != null}
+          >
+            {productTemplate.special_label && (
+              <div className="absolute top-0 right-0 -mt-4 -mr-2 bg-gradient-to-r from-damuspink-500 to-damuspink-600 rounded-full p-1 px-3">
+                <div className="text-white text-xs font-semibold">
+                  {productTemplate.special_label}
+                </div>
+              </div>
+            )}
+
+            <div className="text-purple-200/50 font-normal text-sm">
+              {productTemplate.description}
+            </div>
+            <div className="mt-1 text-purple-100/90 font-semibold text-lg">
+              {productTemplate.amount_msat / 1000} sats
+            </div>
+          </button>
+        )) : (
+          <div className="flex flex-col items-center justify-center">
+            <div className="text-purple-200/50 font-normal text-sm flex items-center">
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              Loading...
+            </div>
+          </div>
+        )}
+      </div>
+      <StepHeader
+        stepNumber={2}
+        title={intl.formatMessage({ id: "purple.checkout.step-2", defaultMessage: "Verify your npub" })}
+        done={lnCheckout?.verified_pubkey != null}
+        active={lnCheckout?.product_template_name != null}
+      />
+      {lnCheckout && !lnCheckout.verified_pubkey && <>
+        <QRCodeSVG value={"damus:purple:verify?id=" + lnCheckout.id} className="mt-6 w-[300px] h-[300px] max-w-full max-h-full mx-auto mb-6" />
+        <Link href={"damus:purple:verify?id=" + lnCheckout.id} className="w-full md:w-auto opacity-70 hover:opacity-100 transition">
+          <Button variant="link" className="w-full text-sm">
+            {intl.formatMessage({ id: "purple.checkout.open-in-app", defaultMessage: "Open in Damus" })}
+          </Button>
+        </Link>
+        <div className="text-white/40 text-xs text-center mt-4 mb-6">
+          {/* TODO: Localize later */}
+          Issues with this step? Please ensure you are running the latest Damus iOS version from <Link href={DAMUS_TESTFLIGHT_URL} className="text-damuspink-500 underline" target="_blank">TestFlight</Link> — or <Link href="mailto:support@damus.io" className="text-damuspink-500 underline">contact us</Link>
+        </div>
+      </>
+      }
+      {profile &&
+        <div className="mt-2 mb-4 flex flex-col items-center">
+          <div className="text-purple-200/50 font-normal text-sm">
+            {existingAccountInfo === null || existingAccountInfo === undefined ? <>
+              {lnCheckout?.verified_pubkey && !lnCheckout?.invoice?.paid && intl.formatMessage({ id: "purple.checkout.purchasing-for", defaultMessage: "Verified. Purchasing Damus Purple for:" })}
+              {lnCheckout?.invoice?.paid && intl.formatMessage({ id: "purple.checkout.purchased-for", defaultMessage: "Purchased Damus Purple for:" })}
+            </> : <>
+              {lnCheckout?.verified_pubkey && !lnCheckout?.invoice?.paid && intl.formatMessage({ id: "purple.checkout.renewing-for", defaultMessage: "Verified. Renewing Damus Purple for:" })}
+              {lnCheckout?.invoice?.paid && intl.formatMessage({ id: "purple.checkout.renewed-for", defaultMessage: "Renewed Damus Purple for:" })}
+            </>}
+          </div>
+          <div className="mt-4 flex flex-col gap-1 items-center justify-center">
+            <Image src={profile.picture || "https://robohash.org/" + profile.pubkey} width={64} height={64} className="rounded-full" alt={profile.name} />
+            <div className="text-purple-100/90 font-semibold text-lg">
+              {profile.name}
+            </div>
+            {existingAccountInfo !== null && existingAccountInfo !== undefined && (
+              <div className="text-purple-200/50 font-normal flex items-center gap-2 bg-purple-300/10 rounded-full px-6 py-2 justify-center">
+                <Sparkles className="w-4 h-4 shrink-0 text-purple-50" />
+                <div className="flex flex-col">
+                  <div className="text-purple-200/90 font-semibold text-sm">
+                    {intl.formatMessage({ id: "purple-checkout.this-account-exists", defaultMessage: "Yay! We found your account" })}
+                  </div>
+                  <div className="text-purple-200/70 font-normal text-xs break-normal">
+                    {intl.formatMessage({ id: "purple-checkout.account-will-renew", defaultMessage: "Paying will renew or extend your membership." })}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      }
+      <StepHeader
+        stepNumber={3}
+        title={intl.formatMessage({ id: "purple.checkout.step-3", defaultMessage: "Lightning payment" })}
+        done={lnCheckout?.invoice?.paid === true}
+        active={lnCheckout?.verified_pubkey != null}
+      />
+      {lnCheckout?.invoice?.bolt11 && !lnCheckout?.invoice?.paid &&
+        <>
+          <QRCodeSVG value={"lightning:" + lnCheckout.invoice.bolt11} className="mt-6 w-[300px] h-[300px] max-w-full max-h-full mx-auto mb-6 border-[5px] border-white bg-white" />
+          {/* Shows the bolt11 in for copy-paste with a copy and paste button */}
+          <div className="flex items-center justify-between rounded-md bg-purple-200/20">
+            <div className="w-full text-sm text-purple-200/50 font-normal px-4 py-2 overflow-x-scroll">
+              {lnCheckout.invoice.bolt11}
+            </div>
+            <button
+              className="text-sm text-purple-200/50 font-normal px-4 py-2 active:text-purple-200/30 hover:text-purple-200/80 transition"
+              onClick={() => navigator.clipboard.writeText(lnCheckout?.invoice?.bolt11 || "")}
+            >
+              <Copy />
+            </button>
+          </div>
+          <Link href={"lightning:" + lnCheckout.invoice.bolt11} className="w-full md:w-auto opacity-70 hover:opacity-100 transition mt-4">
+            <Button variant="link" className="w-full text-sm">
+              {intl.formatMessage({ id: "purple.checkout.open-in-wallet", defaultMessage: "Open in wallet" })}
+              <ArrowUpRight className="text-damuspink-600 ml-2" />
+            </Button>
+          </Link>
+          <div className="mt-6 text-purple-200/50 font-normal text-sm text-center flex justify-center">
+            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+            {intl.formatMessage({ id: "purple.checkout.waiting-for-payment", defaultMessage: "Waiting for payment" })}
+          </div>
+        </>
+      }
+      {/* We use the lnCheckout object to check payment status (NOT lnInvoicePaid) to display the confirmation message, because the server is the ultimate source of truth */}
+      {lnCheckout?.invoice?.paid && lnCheckout?.completed && (
+        <div className="flex flex-col items-center justify-center gap-3 mt-6">
+          <CheckCircle className="w-16 h-16 text-green-500" />
+          <div className="mt-3 mb-6 text-sm text-center text-green-500 font-bold">
+            {intl.formatMessage({ id: "purple.checkout.payment-received", defaultMessage: "Payment received" })}
+          </div>
+          <Link
+            href={existingAccountInfo !== null && existingAccountInfo !== undefined ? `damus:purple:landing` : `damus:purple:welcome?id=${lnCheckout.id}`}
+            className="w-full text-sm flex justify-center"
+          >
+            <Button variant="default" className="w-full text-sm">
+              {intl.formatMessage({ id: "purple.checkout.continue", defaultMessage: "Continue in the app" })}
+              <ChevronRight className="ml-1" />
+            </Button>
+          </Link>
+          <button className="w-full text-sm text-damuspink-500 flex justify-center" onClick={() => setContinueShowQRCodes(!continueShowQRCodes)}>
+            {!continueShowQRCodes ?
+              intl.formatMessage({ id: "purple.checkout.continue.show-qr", defaultMessage: "Show QR code" })
+              : intl.formatMessage({ id: "purple.checkout.continue.hide-qr", defaultMessage: "Hide QR code" })
+            }
+          </button>
+          {continueShowQRCodes && (
+            <>
+              <QRCodeSVG
+                value={existingAccountInfo !== null && existingAccountInfo !== undefined ? "damus:purple:landing" : "damus:purple:welcome?id=" + lnCheckout.id}
+                className="mt-6 w-[300px] h-[300px] max-w-full max-h-full mx-auto mb-6"
+              />
+            </>
+          )}
+          <div className="text-white/40 text-xs text-center mt-4 mb-6">
+            {/* TODO: Localize later */}
+            Issues with this step? Please ensure you are running the latest Damus iOS version from <Link href={DAMUS_TESTFLIGHT_URL} className="text-damuspink-500 underline" target="_blank">TestFlight</Link> — or <Link href="mailto:support@damus.io" className="text-damuspink-500 underline">contact us</Link>
+          </div>
+        </div>
+      )}
+    </PurpleLayout>
   </>)
 }
 
