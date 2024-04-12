@@ -22,5 +22,9 @@ mv out "$OUT_DIR"
 
 # TODO: next doesn't seem to set this up properly. bug?
 mkdir -p "$OUT_DIR/purple/checkout"
+mkdir -p "$OUT_DIR/purple/account"
+mkdir -p "$OUT_DIR/purple/login"
 ln "$OUT_DIR/purple.html" "$OUT_DIR/purple/index.html"
 ln "$OUT_DIR/purple/checkout.html" "$OUT_DIR/purple/checkout/index.html"
+ln "$OUT_DIR/purple/account.html" "$OUT_DIR/purple/account/index.html"
+ln "$OUT_DIR/purple/login.html" "$OUT_DIR/purple/login/index.html"
