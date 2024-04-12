@@ -1,4 +1,4 @@
-import { Frown, Mail, Sparkles } from "lucide-react";
+import { CheckCircle, Frown, Mail, Sparkles } from "lucide-react";
 import { Button } from "../ui/Button";
 import { FormattedMessage, useIntl } from "react-intl";
 import Link from "next/link";
@@ -29,7 +29,9 @@ export function PurpleLogin() {
   const [existingAccountInfo, setExistingAccountInfo] = useState<AccountInfo | null | undefined>(undefined)  // The account info fetched from the server
   const [otpSent, setOTPSent] = useState<boolean>(false)
   const [otp, setOTP] = useState<string>("")
+  const [otpVerified, setOTPVerified] = useState<boolean>(false)
   const [otpInvalid, setOTPInvalid] = useState<boolean>(false)
+  const loginSuccessful = sessionToken !== null && otpVerified === true;
 
   // MARK: - Functions
 
@@ -99,10 +101,22 @@ export function PurpleLogin() {
     const json = await response.json()
     if (json.valid) {
       setSessionToken(json.session_token)
+      setOTPVerified(true)
     }
     else {
       setOTPInvalid(true)
     }
+  }
+
+  const getRedirectURL = () => {
+    const url = new URL(window.location.href)
+    // Get the redirect URL from the query parameters, or fallback to the account page as the default redirect URL
+    const redirect = url.searchParams.get("redirect") || "/purple/account"
+    // Make sure the redirect URL is within the same domain for security reasons
+    if (redirect && (redirect.startsWith(window.location.origin) || redirect.startsWith("/"))) {
+      return redirect
+    }
+    return null
   }
 
   // MARK: - Effects and hooks
@@ -117,18 +131,16 @@ export function PurpleLogin() {
 
   useEffect(() => {
     if (sessionToken) {
-      // Redirect to the address in the `redirect` query parameter
-      const url = new URL(window.location.href)
-      const redirect = url.searchParams.get("redirect")
-      // Make sure the redirect URL is within the same domain for security reasons
-      if (redirect && (redirect.startsWith(window.location.origin) || redirect.startsWith("/"))) {
-        window.location.href = redirect
+      const redirectUrl = getRedirectURL()
+      if (redirectUrl) {
+        window.location.href = redirectUrl
       }
     }
   }, [sessionToken])
 
   useEffect(() => {
     setOTPSent(false)
+    setOTPVerified(false)
     setOTP("")
     if (npub.length > 0 && !NPUB_REGEX.test(npub)) {
       setNpubValidationError(intl.formatMessage({ id: "purple.login.npub-validation-error", defaultMessage: "Please enter a valid npub" }))
@@ -155,6 +167,7 @@ export function PurpleLogin() {
   useEffect(() => {
     if (otp.length != 6) {
       setOTPInvalid(false)
+      setOTPVerified(false)
     }
   }, [otp])
 
@@ -175,7 +188,7 @@ export function PurpleLogin() {
       <Label htmlFor="npub" className="text-purple-200/70 font-normal">
         {intl.formatMessage({ id: "purple.login.npub-label", defaultMessage: "Please enter your public key (npub) below" })}
       </Label>
-      <Input id="npub" placeholder={intl.formatMessage({ id: "purple.login.npub-placeholder", defaultMessage: "npub…" })} type="text" className="mt-2" value={npub} onChange={(e) => setNpub(e.target.value)} required disabled={false} />
+      <Input id="npub" placeholder={intl.formatMessage({ id: "purple.login.npub-placeholder", defaultMessage: "npub…" })} type="text" className="mt-2" value={npub} onChange={(e) => setNpub(e.target.value)} required disabled={loginSuccessful} />
       {npubValidationError &&
         <Label htmlFor="npub" className="text-red-500 font-normal">
           {npubValidationError}
@@ -230,7 +243,7 @@ export function PurpleLogin() {
               </div>
             </div>
             <div className="mx-auto flex justify-center mb-4">
-              <InputOTP6Digits value={otp} onChange={setOTP} onComplete={() => completeOTP()} />
+              <InputOTP6Digits value={otp} onChange={setOTP} onComplete={() => completeOTP()} disabled={loginSuccessful} />
             </div>
             {otpInvalid && (<div className="my-4 w-full flex flex-col gap-2">
               <div className="text-red-500 font-normal text-sm text-center">
@@ -249,6 +262,20 @@ export function PurpleLogin() {
                 </span>
               </div>
             </div>
+            {loginSuccessful && (<>
+              <div className="flex flex-col justify-center items-center gap-2 mt-8">
+                <CheckCircle className="w-12 h-12 shrink-0 text-green-500" />
+                <div className="text-white text-sm text-center text-purple-200/80 mb-4">
+                  {intl.formatMessage({ id: "purple.login.login-successful", defaultMessage: "Login successful. You should be automatically redirected. If not, please click the button below." })}
+                </div>
+              </div>
+              {/* Continue link */}
+              <Link href={getRedirectURL() || "/purple/account"}>
+                <Button variant="default" className="w-full">
+                  {intl.formatMessage({ id: "purple.login.continue", defaultMessage: "Continue" })}
+                </Button>
+              </Link>
+            </>)}
           </>)}
         </div>
       </>)}
