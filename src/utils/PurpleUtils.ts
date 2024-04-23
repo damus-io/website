@@ -55,7 +55,7 @@ catch (e) {
 }
 
 const getProfileEvent = async (pubkey: string): Promise<NostrEvent | null> => {
-const relay = await Relay.connect('wss://relay.damus.io')
+const relay = await Relay.connect(process.env.NEXT_PUBLIC_NOSTR_RELAY || 'wss://relay.damus.io')
 
 const events: Array<NostrEvent> = []
 return new Promise((resolve, reject) => {

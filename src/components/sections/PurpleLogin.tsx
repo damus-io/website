@@ -65,7 +65,7 @@ export function PurpleLogin() {
   }
 
   const beginLogin = async () => {
-    if (!pubkey || !profile) {
+    if (!pubkey || !existingAccountInfo) {
       return
     }
     const response = await fetch(process.env.NEXT_PUBLIC_PURPLE_API_BASE_URL + "/accounts/" + pubkey + "/request-otp", {
@@ -84,7 +84,7 @@ export function PurpleLogin() {
   }
 
   const completeOTP = async () => {
-    if (!pubkey || !profile || !otp) {
+    if (!pubkey || !existingAccountInfo || !otp) {
       return
     }
     const response = await fetch(process.env.NEXT_PUBLIC_PURPLE_API_BASE_URL + "/accounts/" + pubkey + "/verify-otp", {
