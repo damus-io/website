@@ -13,6 +13,7 @@ export default function Document() {
         <meta name="twitter:image" content="https://damus.io/logo_icon.png"/>
         <meta name="twitter:description" content="Damus - A new social network that you control"/>
         <meta name="twitter:title" content="Damus"/>
+        <script async src="https://tally.so/widgets/embed.js"></script>
       </Head>
       <body>
         <Main />

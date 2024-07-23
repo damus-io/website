@@ -293,6 +293,36 @@
       "value": "shortName"
     }
   ],
+  "notedeck.hero.description": [
+    {
+      "type": 0,
+      "value": "The highest performance Nostr client. Period."
+    }
+  ],
+  "notedeck.hero.signup-for-the-waitlist": [
+    {
+      "type": 0,
+      "value": "Sign up for the waitlist"
+    }
+  ],
+  "notedeck.meta_description": [
+    {
+      "type": 0,
+      "value": "Notedeck is a powerful, performant Nostr client for Linux, Windows, and macOS"
+    }
+  ],
+  "notedeck.waitlist.headline": [
+    {
+      "type": 0,
+      "value": "Coming soon!"
+    }
+  ],
+  "notedeck.waitlist.subheadline": [
+    {
+      "type": 0,
+      "value": "Sign up for our waitlist and be the first to know when notedeck is ready"
+    }
+  ],
   "purple-checkout.account-will-renew": [
     {
       "type": 0,

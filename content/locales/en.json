@@ -140,6 +140,21 @@
   "meet_the_team.view_profile": {
     "string": "Follow {shortName}"
   },
+  "notedeck.hero.description": {
+    "string": "The highest performance Nostr client. Period."
+  },
+  "notedeck.hero.signup-for-the-waitlist": {
+    "string": "Sign up for the waitlist"
+  },
+  "notedeck.meta_description": {
+    "string": "Notedeck is a powerful, performant Nostr client for Linux, Windows, and macOS"
+  },
+  "notedeck.waitlist.headline": {
+    "string": "Coming soon!"
+  },
+  "notedeck.waitlist.subheadline": {
+    "string": "Sign up for our waitlist and be the first to know when notedeck is ready"
+  },
   "purple-checkout.account-will-renew": {
     "string": "Paying will renew or extend your membership."
   },
