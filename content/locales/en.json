@@ -146,6 +146,42 @@
   "purple-checkout.this-account-exists": {
     "string": "Yay! We found your account"
   },
+  "purple.account.account-creation": {
+    "string": "Account creation"
+  },
+  "purple.account.active": {
+    "string": "Active account"
+  },
+  "purple.account.back": {
+    "string": "Go back"
+  },
+  "purple.account.contact-support": {
+    "string": "Contact support"
+  },
+  "purple.account.email-support": {
+    "string": "Via email"
+  },
+  "purple.account.expired": {
+    "string": "Expired account"
+  },
+  "purple.account.expiry-date": {
+    "string": "Expiry date"
+  },
+  "purple.account.nostr-support": {
+    "string": "Via Nostr"
+  },
+  "purple.account.sign-out": {
+    "string": "Sign out"
+  },
+  "purple.account.subscriber-number": {
+    "string": "Subscriber number"
+  },
+  "purple.account.testflight-link": {
+    "string": "Join TestFlight"
+  },
+  "purple.account.unknown-user": {
+    "string": "Generic user avatar"
+  },
   "purple.benefits.benefit1.description": {
     "string": "Support Damus development to help build the future of decentralized communication on the web."
   },
@@ -169,9 +205,6 @@
   },
   "purple.benefits.headline": {
     "string": "Get more from Damus."
-  },
-  "purple.checkout.back": {
-    "string": "Go back"
   },
   "purple.checkout.continue": {
     "string": "Continue in the app"
@@ -307,6 +340,54 @@
   },
   "purple.hero.renew": {
     "string": "Already a member? Click here to renew!"
+  },
+  "purple.login.continue": {
+    "string": "Continue"
+  },
+  "purple.login.create-account": {
+    "string": "Join Purple today"
+  },
+  "purple.login.description": {
+    "string": "Use this page to access your Purple account details"
+  },
+  "purple.login.is-this-you": {
+    "string": "Is this you?"
+  },
+  "purple.login.login-successful": {
+    "string": "Login successful. You should be automatically redirected. If not, please click the button below."
+  },
+  "purple.login.npub-label": {
+    "string": "Please enter your public key (npub) below"
+  },
+  "purple.login.npub-placeholder": {
+    "string": "npub…"
+  },
+  "purple.login.npub-validation-error": {
+    "string": "Please enter a valid npub"
+  },
+  "purple.login.otp-invalid": {
+    "string": "Invalid or expired OTP. Please try again."
+  },
+  "purple.login.otp-sent": {
+    "string": "We sent you a code via a Nostr DM.\n Please enter it below"
+  },
+  "purple.login.stay-safe.message": {
+    "string": "We will never ask you for your nsec or any other sensitive information via Nostr DMs. Beware of impersonators. Please do not share your OTP code with anyone.\n\n If you don't see the OTP code, please check the DM requests tab in Damus."
+  },
+  "purple.login.stay-safe.title": {
+    "string": "Stay safe"
+  },
+  "purple.login.this-account-does-not-exist": {
+    "string": "This account does not exist"
+  },
+  "purple.login.this-account-exists": {
+    "string": "Yay! We found your account"
+  },
+  "purple.login.title": {
+    "string": "Access your account"
+  },
+  "purple.login.unknown-user": {
+    "string": "Generic user avatar"
   },
   "roles.brand-ambassador": {
     "string": "Brand Ambassador"
