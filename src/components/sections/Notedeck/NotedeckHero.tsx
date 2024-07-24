@@ -25,7 +25,7 @@ export function NotedeckHero({ className }: { className?: string }) {
         <StarField className="z-0 fixed top-0 left-0 object-cover object-center w-full h-full"/>
         <MeshGradient1 className="-translate-x-1/3" />
       </motion.div>
-      <motion.div className="container z-10 mx-auto px-6 pt-12 h-full min-h-screen flex flex-col justify-center" style={{ opacity: heroOpacity }}>
+      <motion.div className="container z-10 mx-auto px-6 pt-6 h-full min-h-screen flex flex-col justify-center" style={{ opacity: heroOpacity }}>
         <motion.div 
           className="w-full z-10 backdrop-blur-sm bg-black/20 rounded-xl p-4 shadow-xl border border-black/30"
           style={{ opacity: 0 }}
@@ -43,7 +43,7 @@ export function NotedeckHero({ className }: { className?: string }) {
           />
         </motion.div>
         <motion.div
-          className="flex flex-col items-center justify-center h-full grow mt-48 z-10"
+          className="flex flex-col items-center justify-center h-full grow mt-32 z-10"
           style={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { delay: 0.5, duration: 1 } }}
         >
@@ -56,10 +56,10 @@ export function NotedeckHero({ className }: { className?: string }) {
             />
           </div>
           <div className="text-purple-200/70 text-lg md:text-2xl text-center max-w-2xl mb-8 break-keep">
-            {intl.formatMessage({ id: "notedeck.hero.description", defaultMessage: "The highest performance Nostr client. Period." })}
+            {intl.formatMessage({ id: "notedeck.hero.description", defaultMessage: "Damus. Everywhere. The fastest native, customizable nostr experience, for all platforms." })}
           </div>
           <motion.div
-            className="mt-10 md:mt-4 mb-8 flex flex-col md:flex-row items-center md:items-center gap-y-4 gap-x-6 w-full md:w-auto"
+            className="mt-6 md:mt-4 mb-8 flex flex-col md:flex-row items-center md:items-center gap-y-4 gap-x-6 w-full md:w-auto"
             style={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { delay: 1.5, duration: 1 } }}
           >

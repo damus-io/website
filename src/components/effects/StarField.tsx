@@ -16,7 +16,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 const STAR_COUNT = 300;
 const STAR_MIN_SPEED = 0.005;
-const STAR_MAX_SPEED = 0.09;
+const STAR_MAX_SPEED = 0.02;
 const MIN_VISION_PERSISTENCE = 0.2;
 const MAX_VISION_PERSISTENCE = 0.99;
 
