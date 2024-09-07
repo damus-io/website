@@ -293,6 +293,36 @@
       "value": "shortName"
     }
   ],
+  "notedeck.hero.description": [
+    {
+      "type": 0,
+      "value": "The highest performance Nostr client. Period."
+    }
+  ],
+  "notedeck.hero.signup-for-the-waitlist": [
+    {
+      "type": 0,
+      "value": "Sign up for the waitlist"
+    }
+  ],
+  "notedeck.meta_description": [
+    {
+      "type": 0,
+      "value": "Notedeck is a powerful, performant Nostr client for Linux, Windows, and macOS"
+    }
+  ],
+  "notedeck.waitlist.headline": [
+    {
+      "type": 0,
+      "value": "Coming soon!"
+    }
+  ],
+  "notedeck.waitlist.subheadline": [
+    {
+      "type": 0,
+      "value": "Sign up for our waitlist and be the first to know when notedeck is ready"
+    }
+  ],
   "purple-checkout.account-will-renew": [
     {
       "type": 0,
@@ -303,6 +333,78 @@
     {
       "type": 0,
       "value": "Yay! We found your account"
+    }
+  ],
+  "purple.account.account-creation": [
+    {
+      "type": 0,
+      "value": "Account creation"
+    }
+  ],
+  "purple.account.active": [
+    {
+      "type": 0,
+      "value": "Active account"
+    }
+  ],
+  "purple.account.back": [
+    {
+      "type": 0,
+      "value": "Go back"
+    }
+  ],
+  "purple.account.contact-support": [
+    {
+      "type": 0,
+      "value": "Contact support"
+    }
+  ],
+  "purple.account.email-support": [
+    {
+      "type": 0,
+      "value": "Via email"
+    }
+  ],
+  "purple.account.expired": [
+    {
+      "type": 0,
+      "value": "Expired account"
+    }
+  ],
+  "purple.account.expiry-date": [
+    {
+      "type": 0,
+      "value": "Expiry date"
+    }
+  ],
+  "purple.account.nostr-support": [
+    {
+      "type": 0,
+      "value": "Via Nostr"
+    }
+  ],
+  "purple.account.sign-out": [
+    {
+      "type": 0,
+      "value": "Sign out"
+    }
+  ],
+  "purple.account.subscriber-number": [
+    {
+      "type": 0,
+      "value": "Subscriber number"
+    }
+  ],
+  "purple.account.testflight-link": [
+    {
+      "type": 0,
+      "value": "Join TestFlight"
+    }
+  ],
+  "purple.account.unknown-user": [
+    {
+      "type": 0,
+      "value": "Generic user avatar"
     }
   ],
   "purple.benefits.benefit1.description": [
@@ -351,12 +453,6 @@
     {
       "type": 0,
       "value": "Get more from Damus."
-    }
-  ],
-  "purple.checkout.back": [
-    {
-      "type": 0,
-      "value": "Go back"
     }
   ],
   "purple.checkout.continue": [
@@ -627,6 +723,102 @@
     {
       "type": 0,
       "value": "Already a member? Click here to renew!"
+    }
+  ],
+  "purple.login.continue": [
+    {
+      "type": 0,
+      "value": "Continue"
+    }
+  ],
+  "purple.login.create-account": [
+    {
+      "type": 0,
+      "value": "Join Purple today"
+    }
+  ],
+  "purple.login.description": [
+    {
+      "type": 0,
+      "value": "Use this page to access your Purple account details"
+    }
+  ],
+  "purple.login.is-this-you": [
+    {
+      "type": 0,
+      "value": "Is this you?"
+    }
+  ],
+  "purple.login.login-successful": [
+    {
+      "type": 0,
+      "value": "Login successful. You should be automatically redirected. If not, please click the button below."
+    }
+  ],
+  "purple.login.npub-label": [
+    {
+      "type": 0,
+      "value": "Please enter your public key (npub) below"
+    }
+  ],
+  "purple.login.npub-placeholder": [
+    {
+      "type": 0,
+      "value": "npub…"
+    }
+  ],
+  "purple.login.npub-validation-error": [
+    {
+      "type": 0,
+      "value": "Please enter a valid npub"
+    }
+  ],
+  "purple.login.otp-invalid": [
+    {
+      "type": 0,
+      "value": "Invalid or expired OTP. Please try again."
+    }
+  ],
+  "purple.login.otp-sent": [
+    {
+      "type": 0,
+      "value": "We sent you a code via a Nostr DM.\n Please enter it below"
+    }
+  ],
+  "purple.login.stay-safe.message": [
+    {
+      "type": 0,
+      "value": "We will never ask you for your nsec or any other sensitive information via Nostr DMs. Beware of impersonators. Please do not share your OTP code with anyone.\n\n If you don't see the OTP code, please check the DM requests tab in Damus."
+    }
+  ],
+  "purple.login.stay-safe.title": [
+    {
+      "type": 0,
+      "value": "Stay safe"
+    }
+  ],
+  "purple.login.this-account-does-not-exist": [
+    {
+      "type": 0,
+      "value": "This account does not exist"
+    }
+  ],
+  "purple.login.this-account-exists": [
+    {
+      "type": 0,
+      "value": "Yay! We found your account"
+    }
+  ],
+  "purple.login.title": [
+    {
+      "type": 0,
+      "value": "Access your account"
+    }
+  ],
+  "purple.login.unknown-user": [
+    {
+      "type": 0,
+      "value": "Generic user avatar"
     }
   ],
   "roles.brand-ambassador": [
