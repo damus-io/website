@@ -1,0 +1,226 @@
+import { MeshGradient5 } from "@/components/effects/MeshGradient.5";
+import { MotionValue, circOut, easeInOut, easeOut, motion, useMotionValue, useTime, useTransform } from "framer-motion";
+import Image from "next/image";
+import { PurpleIcon } from "../icons/PurpleIcon";
+import { Button } from "../ui/Button";
+import { useIntl } from "react-intl";
+import { MeshGradient1 } from "../effects/MeshGradient.1";
+import Link from "next/link";
+
+
+export function PurpleWelcome() {
+  const intl = useIntl()
+  const time = useTime()
+  const headingGradient = useTransform(
+    time,
+    [0, 3000],
+    [
+      "linear-gradient(to right, #000000 0%, #D34CD9 1000%, #F869B6 3000%)",
+      "linear-gradient(to right, #000000 -10%, #D34CD9 0%, #F869B6 100%)"
+    ],
+    { 
+      clamp: true,
+      ease: circOut
+    }
+  )
+  const headingOpacity = useTransform(
+    time,
+    [0, 3000],
+    [0, 1],
+    { 
+      clamp: true,
+      ease: easeInOut
+    }
+  )
+  const secondaryContentOpacity = useTransform(
+    time,
+    [3000, 5000],
+    [0, 1],
+    { 
+      clamp: true,
+      ease: easeInOut
+    }
+  )
+  const starsBgScale = useTransform(
+    time,
+    [0, 3000],
+    [1.2, 1.0],
+    { 
+      clamp: true,
+      ease: circOut
+    }
+  )
+  
+  return (
+    <motion.div
+      className="bg-black overflow-hidden relative"
+    >
+      <motion.div
+        className="absolute z-0 w-full h-full pointer-events-none"
+        style={{ scale: starsBgScale }}
+      >
+        <Image src="/stars-bg.webp" fill className="absolute top-0 left-0 object-cover lg:object-contain object-center w-full h-full" alt="" aria-hidden="true" />
+        <MeshGradient1 className="translate-y-1/4 translate-x-32 z-0" />
+      </motion.div>
+      <div className="container z-30 mx-auto px-6 pt-12 h-full min-h-screen flex flex-col gap-y-4 justify-center items-center">
+        <motion.div
+          style={{ opacity: secondaryContentOpacity }}
+        >
+          <PurpleIcon className="w-16 h-16" />
+        </motion.div>
+        <motion.h1
+          className="text-4xl md:text-6xl text-center text-transparent bg-clip-text font-semibold break-keep tracking-tight z-30"
+          style={{
+            backgroundImage: headingGradient,
+            opacity: headingOpacity,
+          }}
+        >
+          Welcome to Purple
+        </motion.h1>
+        <PurpleStarIcon className="w-32 h-32 z-40" time={time} />
+        <motion.div
+          className="text-center text-purple-200/80 text-lg max-w-lg p-6 space-y-4 z-30"
+          style={{ opacity: secondaryContentOpacity }}
+        >
+          <p>
+            Thank you very much for signing up for Damus&nbsp;Purple. Your contribution helps us continue our fight for a more Open and Free&nbsp;internet.
+          </p>
+          <p>
+            You will also get access to premium features, and a star badge on your profile.
+          </p>
+          <p>
+            Enjoy!
+          </p>
+          <div className="pt-8">
+            <Link href="/purple/account" className="w-full justify-center">
+              <Button variant="accent" className="w-48">
+                  { intl.formatMessage({ id: "purple.welcome.continue", defaultMessage: "Continue" }) }
+              </Button>
+            </Link>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  )
+}
+
+interface StarIconProps {
+    className?: string;
+    time: MotionValue<number>;
+}
+
+function PurpleStarIcon(props: StarIconProps) {
+  const { className, time } = props;
+  
+  const purple1Color = "#D34CD9";
+  const purple2Color = "#F869B6";
+  
+  const starScale = useTransform(
+    time,
+    [0, 3000], // For the first 3 seconds...
+    [3, 1.0], // ...scale from 3x to 1x
+    { 
+      clamp: true,
+      ease: circOut
+    }
+  )
+  
+  const starOpacity = useTransform(
+    time,
+    [0, 3000],
+    [0, 1],
+    { 
+      clamp: true,
+      ease: circOut
+    }
+  )
+  
+  const starShadowColor = useTransform(
+    time,
+    [0, 4000],
+    [
+      "#FFFFFF00",
+      "#FFFFFFFF",
+    ],
+    { 
+      clamp: true,
+      ease: circOut
+    }
+  )
+  
+  const gradientOffsetKeyframes = [0, 1000, 5000]
+  
+  const whiteGradientStopOffset = useTransform(
+    time,
+    gradientOffsetKeyframes,
+    ["0%", "0%", "70%"],
+    {
+      clamp: true,
+      ease: circOut
+    }
+  );
+  
+  const purple2GradientStopOffset = useTransform(
+    time,
+    gradientOffsetKeyframes,
+    ["1%", "1%", "100%"],
+    {
+      clamp: true,
+      ease: circOut
+    }
+  );
+  
+  const purple1GradientStopOffset = useTransform(
+    time,
+    gradientOffsetKeyframes,
+    ["2%", "2%", "125%"],
+    {
+      clamp: true,
+      ease: circOut
+    }
+  );
+  
+  const blackGradientStopOffset = useTransform(
+    time,
+    gradientOffsetKeyframes,
+    ["3%", "3%", "250%"],
+    {
+      clamp: true,
+      ease: circOut
+    }
+  );
+  
+  return (
+    // Generated by Pixelmator Pro 3.6.8
+    <motion.svg
+      className={className}
+      width="4267" height="4267" viewBox="0 0 4267 4267" xmlns="http://www.w3.org/2000/svg"
+      style={{
+        scale: starScale,
+        opacity: starOpacity
+      }}
+    >
+      <defs>
+        <radialGradient id="purpleGradient" cx="150%" cy="-50%" r="250%">
+          <motion.stop offset={whiteGradientStopOffset} style={{ stopColor: "#ffffff", stopOpacity: 1 }} />
+          <motion.stop offset={purple2GradientStopOffset} style={{ stopColor: purple2Color, stopOpacity: 1 }} />
+          <motion.stop offset={purple1GradientStopOffset} style={{ stopColor: purple1Color, stopOpacity: 1 }} />
+          <motion.stop offset={blackGradientStopOffset} style={{ stopColor: "#000000", stopOpacity: 1 }} />
+        </radialGradient>
+        <filter id="whiteShadow" x="-50%" y="-50%" width="200%" height="200%">
+          <motion.feDropShadow dx="0" dy="0" stdDeviation="500" floodColor={starShadowColor} />
+        </filter>
+      </defs>
+      <path
+        id="Star"
+        fill="url(#purpleGradient)"
+        stroke="url(#purpleGradient)"
+        fill-rule="evenodd"
+        stroke-width="400"
+        stroke-linejoin="round"
+        filter="url(#whiteShadow)"
+        d="M 2133.5 750 L 1812.484985 1691.660645 L 817.713318 1705.975098 L 1614.086914 2302.267578 L 1320.299072 3252.774902 L 2133.5 2679.643311 L 2946.700928 3252.774902 L 2652.913086 2302.267578 L 3449.286621 1705.975098 L 2454.515137 1691.660645 Z"
+      />
+    </motion.svg>
+  )
+}

@@ -53,7 +53,10 @@ export function CheckoutSuccess(props: SuccessViewProps) {
       </div>
     </>)}
     {selectedAuthMethod == "nostr-dm" && (
-      <Link href="/purple/account" className="w-full text-sm flex justify-center">
+      <Link
+        href={existingAccountInfo !== null && existingAccountInfo !== undefined ? "/purple/account" : "/purple/welcome"}
+        className="w-full text-sm flex justify-center"
+      >
         <Button variant="default" className="w-full text-sm">
           {intl.formatMessage({ id: "purple.checkout.continue.on-web", defaultMessage: "Continue" })}
           <ChevronRight className="ml-1" />
