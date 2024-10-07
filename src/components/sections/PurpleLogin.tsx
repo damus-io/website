@@ -13,6 +13,8 @@ import { AccountInfo, Profile, getProfile, getPurpleAccountInfo } from "@/utils/
 import { useLocalStorage } from "usehooks-ts";
 import { ErrorDialog } from "../ErrorDialog";
 import { PurpleLayout } from "../PurpleLayout";
+import { NostrUserInput } from "../NostrUserInput";
+import { OTPAuth } from "../OTPAuth";
 
 
 // TODO: Double-check this regex and make it more accurate
@@ -28,7 +30,6 @@ export function PurpleLogin() {
   const [npub, setNpub] = useState<string>("")
   const [existingAccountInfo, setExistingAccountInfo] = useState<AccountInfo | null | undefined>(undefined)  // The account info fetched from the server
   const [otpSent, setOTPSent] = useState<boolean>(false)
-  const [otp, setOTP] = useState<string>("")
   const [otpVerified, setOTPVerified] = useState<boolean>(false)
   const [otpInvalid, setOTPInvalid] = useState<boolean>(false)
   const loginSuccessful = sessionToken !== null && otpVerified === true;
@@ -80,10 +81,9 @@ export function PurpleLogin() {
     }
     setOTPSent(true)
     setOTPInvalid(false)
-    setOTP("")
   }
 
-  const completeOTP = async () => {
+  const completeOTP = async (otp: string) => {
     if (!pubkey || !existingAccountInfo || !otp) {
       return
     }
@@ -141,7 +141,6 @@ export function PurpleLogin() {
   useEffect(() => {
     setOTPSent(false)
     setOTPVerified(false)
-    setOTP("")
     if (npub.length > 0 && !NPUB_REGEX.test(npub)) {
       setNpubValidationError(intl.formatMessage({ id: "purple.login.npub-validation-error", defaultMessage: "Please enter a valid npub" }))
       setProfile(undefined)
@@ -164,14 +163,6 @@ export function PurpleLogin() {
     }
   }, [npub])
 
-  useEffect(() => {
-    if (otp.length != 6) {
-      setOTPInvalid(false)
-      setOTPVerified(false)
-    }
-  }, [otp])
-
-
   // MARK: - Render
 
   return (<>
@@ -185,17 +176,12 @@ export function PurpleLogin() {
           {intl.formatMessage({ id: "purple.login.description", defaultMessage: "Use this page to access your Purple account details" })}
         </span>
       </div>
-      <Label htmlFor="npub" className="text-purple-200/70 font-normal">
-        {intl.formatMessage({ id: "purple.login.npub-label", defaultMessage: "Please enter your public key (npub) below" })}
-      </Label>
-      <Input id="npub" placeholder={intl.formatMessage({ id: "purple.login.npub-placeholder", defaultMessage: "npub…" })} type="text" className="mt-2" value={npub} onChange={(e) => setNpub(e.target.value)} required disabled={loginSuccessful} />
-      {npubValidationError &&
-        <Label htmlFor="npub" className="text-red-500 font-normal">
-          {npubValidationError}
-        </Label>
-      }
-      {((profile || profile === null) && pubkey) && (<>
-        <div className="mt-2 mb-4 flex flex-col items-center">
+      <NostrUserInput
+        pubkey={pubkey}
+        setPubkey={setPubkey}
+        onProfileChange={setProfile}
+        disabled={loginSuccessful}
+        profileHeader={<>
           {existingAccountInfo !== null && existingAccountInfo !== undefined && otpSent !== true && (
             <div className="text-purple-200/50 font-normal flex items-center gap-2 rounded-full px-6 py-2 justify-center mt-2 mb-2">
               <Sparkles className="w-4 h-4 shrink-0 text-purple-50" />
@@ -206,17 +192,12 @@ export function PurpleLogin() {
               </div>
             </div>
           )}
-
           <div className="text-purple-200/50 font-normal text-sm">
             {otpSent ? intl.formatMessage({ id: "purple.login.otp-sent", defaultMessage: "Logging into:" })
               : intl.formatMessage({ id: "purple.login.is-this-you", defaultMessage: "Is this you?" })}
           </div>
-          <div className="mt-4 flex flex-col gap-1 items-center justify-center mb-4">
-            <Image src={profile?.picture || ("https://robohash.org/" + (profile?.pubkey || pubkey))} width={64} height={64} className="rounded-full" alt={profile?.name || intl.formatMessage({ id: "purple.login.unknown-user", defaultMessage: "Generic user avatar" })} />
-            <div className="text-purple-100/90 font-semibold text-lg">
-              {profile?.name || (npub.substring(0, 8) + ":" + npub.substring(npub.length - 8))}
-            </div>
-          </div>
+        </>}
+        profileFooter={<>
           {existingAccountInfo === null && (
             <div className="text-purple-200/50 font-normal flex items-center gap-2 bg-purple-300/10 rounded-full px-8 py-2 justify-center mt-2 mb-2 w-fit mx-auto">
               <Frown className="w-6 h-6 shrink-0 text-purple-50" />
@@ -230,38 +211,25 @@ export function PurpleLogin() {
               </div>
             </div>
           )}
+        </>}
+      />
+      {((profile || profile === null) && pubkey) && (<>
+        <div className="mt-2 mb-4 flex flex-col items-center">
           {existingAccountInfo !== null && !otpSent && (
             <Button variant="default" className="w-full" onClick={() => beginLogin()}>Continue</Button>
           )}
           {otpSent && (<>
-            <div className="text-purple-200/50 font-normal flex items-center gap-2 rounded-full px-6 py-2 justify-center mt-2 mb-2">
-              <div className="flex flex-col items-center">
-                <Mail className="w-10 h-10 shrink-0 text-purple-100 mb-3" />
-                <div className="text-purple-200/90 font-semibold text-md whitespace-pre-line text-center">
-                  {intl.formatMessage({ id: "purple.login.otp-sent", defaultMessage: "We sent you a code via a Nostr DM.\n Please enter it below" })}
-                </div>
-              </div>
-            </div>
-            <div className="mx-auto flex justify-center mb-4">
-              <InputOTP6Digits value={otp} onChange={setOTP} onComplete={() => completeOTP()} disabled={loginSuccessful} />
-            </div>
-            {otpInvalid && (<div className="my-4 w-full flex flex-col gap-2">
-              <div className="text-red-500 font-normal text-sm text-center">
-                {intl.formatMessage({ id: "purple.login.otp-invalid", defaultMessage: "Invalid or expired OTP. Please try again." })}
-              </div>
-              <Button variant="default" className="w-full" onClick={() => beginLogin()}>Resend OTP</Button>
-            </div>)}
-            <div className="text-purple-200/70 text-normal text-left font-semibold flex flex-col md:flex-row gap-3 rounded-lg bg-purple-200/10 p-3 items-center md:items-start">
-              <Info className="w-6 h-6 shrink-0 mt-0 md:mt-1" />
-              <div className="flex flex-col text-center md:text-left">
-                <span className="text-normal md:text-lg mb-2">
-                  {intl.formatMessage({ id: "purple.login.stay-safe.title", defaultMessage: "Stay safe" })}
-                </span>
-                <span className="text-xs text-purple-200/50 whitespace-pre-line">
-                  {intl.formatMessage({ id: "purple.login.stay-safe.message", defaultMessage: "We will never ask you for your nsec or any other sensitive information via Nostr DMs. Beware of impersonators. Please do not share your OTP code with anyone.\n\n If you don't see the OTP code, please check the DM requests tab in Damus." })}
-                </span>
-              </div>
-            </div>
+            <OTPAuth
+              pubkey={pubkey}
+              verifyOTP={completeOTP}
+              sendOTP={beginLogin}
+              otpVerified={otpVerified}
+              setOTPVerified={setOTPVerified}
+              otpInvalid={otpInvalid}
+              setOTPInvalid={setOTPInvalid}
+              setError={setError}
+              disabled={loginSuccessful}
+            />
             {loginSuccessful && (<>
               <div className="flex flex-col justify-center items-center gap-2 mt-8">
                 <CheckCircle className="w-12 h-12 shrink-0 text-green-500" />
