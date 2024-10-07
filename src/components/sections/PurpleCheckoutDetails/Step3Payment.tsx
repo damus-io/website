@@ -8,6 +8,7 @@ import { useInterval } from 'usehooks-ts'
 import Lnmessage from 'lnmessage'
 import { LNCheckout } from "./Types";
 import { StepHeader } from "./StepHeader";
+import CopiableUrl from "@/components/ui/CopiableUrl";
 
 export interface Step3PaymentProps {
   lnCheckout: LNCheckout | null
@@ -143,17 +144,7 @@ export function Step3Payment(props: Step3PaymentProps) {
         <>
           <QRCodeSVG value={"lightning:" + lnCheckout.invoice.bolt11} className="mt-6 w-[300px] h-[300px] max-w-full max-h-full mx-auto mb-6 border-[5px] border-white bg-white" />
           {/* Shows the bolt11 in for copy-paste with a copy and paste button */}
-          <div className="flex items-center justify-between rounded-md bg-purple-200/20">
-            <div className="w-full text-sm text-purple-200/50 font-normal px-4 py-2 overflow-x-scroll">
-              {lnCheckout.invoice.bolt11}
-            </div>
-            <button
-              className="text-sm text-purple-200/50 font-normal px-4 py-2 active:text-purple-200/30 hover:text-purple-200/80 transition"
-              onClick={() => navigator.clipboard.writeText(lnCheckout?.invoice?.bolt11 || "")}
-            >
-              <Copy />
-            </button>
-          </div>
+          <CopiableUrl url={lnCheckout.invoice.bolt11} />
           <Link href={"lightning:" + lnCheckout.invoice.bolt11} className="w-full md:w-auto opacity-70 hover:opacity-100 transition mt-4">
             <Button variant="link" className="w-full text-sm">
               {intl.formatMessage({ id: "purple.checkout.open-in-wallet", defaultMessage: "Open in wallet" })}

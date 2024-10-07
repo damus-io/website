@@ -384,7 +384,7 @@
     "string": "Invalid or expired OTP. Please try again."
   },
   "purple.login.otp-sent": {
-    "string": "We sent you a code via a Nostr DM.\n Please enter it below"
+    "string": "We sent you a code via a Nostr direct message.\n Please enter it below"
   },
   "purple.login.stay-safe.message": {
     "string": "We will never ask you for your nsec or any other sensitive information via Nostr DMs. Beware of impersonators. Please do not share your OTP code with anyone.\n\n If you don't see the OTP code, please check the DM requests tab in Damus."

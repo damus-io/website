@@ -782,7 +782,7 @@
   "purple.login.otp-sent": [
     {
       "type": 0,
-      "value": "We sent you a code via a Nostr DM.\n Please enter it below"
+      "value": "We sent you a code via a Nostr direct message.\n Please enter it below"
     }
   ],
   "purple.login.stay-safe.message": [
