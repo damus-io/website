@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Ticker, TickerImage } from "../ui/Ticker";
 import { ArrowUpRight, MessageCircleIcon, GitBranch, Github } from "lucide-react";
-import { DAMUS_APP_STORE_URL, DAMUS_MERCH_STORE_URL, DAMUS_TESTFLIGHT_URL } from "@/lib/constants";
+import { DAMUS_APP_STORE_URL } from "@/lib/constants";
 import { MeshGradient4 } from "../effects/MeshGradient.4";
 import { GithubIcon } from "../icons/GithubIcon";
 
@@ -50,9 +50,9 @@ export function FinalCTA({ className }: { className?: string }) {
                                     <ArrowUpRight className="ml-2" />
                                 </Button>
                             </Link>
-                            <Link href={DAMUS_TESTFLIGHT_URL} target="_blank">
+                            <Link href={"/notedeck"} target="_blank">
                                 <Button variant="link" className="w-full md:w-auto">
-                                    { intl.formatMessage({ id: "home.hero.join_testflight", defaultMessage: "Join TestFlight Beta" }) }
+                                    { intl.formatMessage({ id: "home.hero.check-out-notedeck", defaultMessage: "Check Notedeck, our cross-platform client" }) }
                                     <ArrowUpRight className="text-damuspink-600 ml-2"/>
                                 </Button>
                             </Link>

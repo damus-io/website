@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 
 let regularNavItems: { nameIntlId: string, href: string, target?: string }[] = [
     { nameIntlId: "topbar.purple", href: "/purple" },
+    { nameIntlId: "topbar.notedeck", href: "/notedeck" },
     { nameIntlId: "topbar.store", href: DAMUS_MERCH_STORE_URL, target: "_blank" },
     { nameIntlId: "topbar.events", href: "/#events" },
     { nameIntlId: "topbar.team", href: "/#team" },
@@ -18,13 +19,19 @@ let regularNavItems: { nameIntlId: string, href: string, target?: string }[] = [
 
 const ENABLE_FULL_MENU = true
 
-export function TopMenu({ className }: { className?: string }) {
+export interface TopMenuProps {
+    className?: string
+    customCTA?: React.ReactNode
+}
+
+export function TopMenu({ className, customCTA }: TopMenuProps) {
     let navItemDefaultStyles = "hover:opacity-80 transition-opacity duration-200 ease-in-out"
     const intl = useIntl()
 
     // This is needed to allow intl commands to extract the strings
     const topbarItemNameIntl: Record<string, string> = {
         "topbar.purple": intl.formatMessage({ id: "topbar.purple", defaultMessage: "Purple" }),
+        "topbar.notedeck": intl.formatMessage({ id: "topbar.notedeck", defaultMessage: "Notedeck" }),
         "topbar.store": intl.formatMessage({ id: "topbar.store", defaultMessage: "Store" }),
         "topbar.events": intl.formatMessage({ id: "topbar.events", defaultMessage: "Events" }),
         "topbar.team": intl.formatMessage({ id: "topbar.team", defaultMessage: "Our Team" }),
@@ -59,11 +66,13 @@ export function TopMenu({ className }: { className?: string }) {
                         </NavigationMenu.Item>
                     </>)}
                 </NavigationMenu.List>
-                <Link href={DAMUS_APP_STORE_URL} target="_blank">
+                {customCTA ? customCTA : <>
+                  <Link href={DAMUS_APP_STORE_URL} target="_blank">
                     <Button variant="accent">
-                        { intl.formatMessage({ id: "topbar.download", defaultMessage: "Download" }) }
+                      {intl.formatMessage({ id: "topbar.download", defaultMessage: "Download" })}
                     </Button>
-                </Link>
+                  </Link>
+                </>}
             </NavigationMenu.Root>
         </motion.div>
     )
