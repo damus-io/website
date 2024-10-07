@@ -247,6 +247,12 @@
       "value": "Available in"
     }
   ],
+  "home.hero.check-out-notedeck": [
+    {
+      "type": 0,
+      "value": "Check Notedeck, our cross-platform client"
+    }
+  ],
   "home.hero.download_now": [
     {
       "type": 0,
@@ -257,12 +263,6 @@
     {
       "type": 0,
       "value": "The social network you control"
-    }
-  ],
-  "home.hero.join_testflight": [
-    {
-      "type": 0,
-      "value": "Join TestFlight Beta"
     }
   ],
   "home.hero.subheadline": [
@@ -297,6 +297,12 @@
     {
       "type": 0,
       "value": "The highest performance Nostr client. Period."
+    }
+  ],
+  "notedeck.hero.menu.signup-for-the-waitlist": [
+    {
+      "type": 0,
+      "value": "Sign up"
     }
   ],
   "notedeck.hero.signup-for-the-waitlist": [
@@ -467,6 +473,12 @@
       "value": "Hide QR code"
     }
   ],
+  "purple.checkout.continue.on-web": [
+    {
+      "type": 0,
+      "value": "Continue"
+    }
+  ],
   "purple.checkout.continue.show-qr": [
     {
       "type": 0,
@@ -485,6 +497,18 @@
       "value": "Use this page to purchase a new account, or to renew an existing one. You will need the latest Damus version to complete the checkout."
     }
   ],
+  "purple.checkout.is-this-you": [
+    {
+      "type": 0,
+      "value": "Is this you?"
+    }
+  ],
+  "purple.checkout.logging-into": [
+    {
+      "type": 0,
+      "value": "Logging into:"
+    }
+  ],
   "purple.checkout.open-in-app": [
     {
       "type": 0,
@@ -495,6 +519,12 @@
     {
       "type": 0,
       "value": "Open in wallet"
+    }
+  ],
+  "purple.checkout.paying-for": [
+    {
+      "type": 0,
+      "value": "Purchasing membership for:"
     }
   ],
   "purple.checkout.payment-received": [
@@ -713,10 +743,34 @@
       "value": "For free-speech maximalists"
     }
   ],
+  "purple.hero.go-to-my-account": [
+    {
+      "type": 0,
+      "value": "Go to my account"
+    }
+  ],
   "purple.hero.learn-more": [
     {
       "type": 0,
       "value": "Learn more"
+    }
+  ],
+  "purple.hero.login": [
+    {
+      "type": 0,
+      "value": "Login to my account"
+    }
+  ],
+  "purple.hero.menu.go-to-my-account": [
+    {
+      "type": 0,
+      "value": "My Account"
+    }
+  ],
+  "purple.hero.menu.login": [
+    {
+      "type": 0,
+      "value": "Login"
     }
   ],
   "purple.hero.renew": [
@@ -743,10 +797,22 @@
       "value": "Use this page to access your Purple account details"
     }
   ],
+  "purple.login.fetching-profile": [
+    {
+      "type": 0,
+      "value": "Fetching profile info…"
+    }
+  ],
   "purple.login.is-this-you": [
     {
       "type": 0,
       "value": "Is this you?"
+    }
+  ],
+  "purple.login.logging-into": [
+    {
+      "type": 0,
+      "value": "Logging into:"
     }
   ],
   "purple.login.login-successful": [
@@ -788,7 +854,7 @@
   "purple.login.stay-safe.message": [
     {
       "type": 0,
-      "value": "We will never ask you for your nsec or any other sensitive information via Nostr DMs. Beware of impersonators. Please do not share your OTP code with anyone.\n\n If you don't see the OTP code, please check the DM requests tab in Damus."
+      "value": "We will never ask you for your nsec or any other sensitive information via Nostr DMs. Beware of impersonators. Please do not share your OTP code with anyone."
     }
   ],
   "purple.login.stay-safe.title": [
@@ -815,10 +881,40 @@
       "value": "Access your account"
     }
   ],
-  "purple.login.unknown-user": [
+  "purple.otp.troubleshooting.heading": [
+    {
+      "type": 0,
+      "value": "Didn't receive the OTP?"
+    }
+  ],
+  "purple.otp.troubleshooting.message": [
+    {
+      "type": 0,
+      "value": "If you don't see the OTP code, try the following steps:"
+    }
+  ],
+  "purple.otp.troubleshooting.step1": [
+    {
+      "type": 0,
+      "value": "Check your DM request tab (if you are on Damus)"
+    }
+  ],
+  "purple.otp.troubleshooting.step2": [
+    {
+      "type": 0,
+      "value": "Ensure your Nostr client is connected to our relay listed below:"
+    }
+  ],
+  "purple.profile.unknown-user": [
     {
       "type": 0,
       "value": "Generic user avatar"
+    }
+  ],
+  "purple.welcome.continue": [
+    {
+      "type": 0,
+      "value": "Continue"
     }
   ],
   "roles.brand-ambassador": [
@@ -885,6 +981,12 @@
     {
       "type": 0,
       "value": "Damus logo"
+    }
+  ],
+  "topbar.notedeck": [
+    {
+      "type": 0,
+      "value": "Notedeck"
     }
   ],
   "topbar.purple": [
