@@ -193,7 +193,7 @@ export function PurpleLogin() {
             </div>
           )}
           <div className="text-purple-200/50 font-normal text-sm">
-            {otpSent ? intl.formatMessage({ id: "purple.login.otp-sent", defaultMessage: "Logging into:" })
+            {otpSent ? intl.formatMessage({ id: "purple.login.logging-into", defaultMessage: "Logging into:" })
               : intl.formatMessage({ id: "purple.login.is-this-you", defaultMessage: "Is this you?" })}
           </div>
         </>}

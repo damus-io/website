@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import { useEffect, useState } from "react";
 import { AccountInfo, Profile, getProfile, getPurpleAccountInfo } from "@/utils/PurpleUtils";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import { StepHeader } from "./StepHeader";
 import { LNCheckout } from "./Types";
 import { Step2OTPVerification } from "./Step2OTPVerification";
@@ -12,6 +13,8 @@ import { AccountExistsNoteIfAccountExists } from "./AccountExistsNote";
 export interface Step2UserVerificationProps {
   lnCheckout: LNCheckout | null
   setLNCheckout: (checkout: LNCheckout) => void
+  selectedAuthMethod: string | "nostr-dm" | "damus-ios"
+  setSelectedAuthMethod: (method: string) => void
   setError: (error: string) => void
 }
 
@@ -65,6 +68,12 @@ export function Step2UserVerification(props: Step2UserVerificationProps) {
     }
   }, [pubkey])
   
+  // Reset pubkey if user switches tabs
+  useEffect(() => {
+    setPubkey(null)
+    setProfile(null)
+  }, [props.selectedAuthMethod])
+
   useEffect(() => {
     if (props.lnCheckout?.verified_pubkey) {
       setPubkey(props.lnCheckout.verified_pubkey)
@@ -80,16 +89,36 @@ export function Step2UserVerification(props: Step2UserVerificationProps) {
       done={step2Done}
       active={step1Done}
     />
-    {props.lnCheckout &&
-      <Step2DamusIOSVerification
-        lnCheckout={props.lnCheckout}
-        setLNCheckout={props.setLNCheckout}
-        pubkey={pubkey}
-        setPubkey={setPubkey}
-        profile={profile}
-        setProfile={setProfile}
-        setError={props.setError}
-      />
+    {props.lnCheckout && !step2Done &&
+      <Tabs defaultValue="nostr-dm" className="w-full flex flex-col items-center mb-6" value={props.selectedAuthMethod} onValueChange={(newValue: string) => { props.setSelectedAuthMethod(newValue) } }>
+        <TabsList className="mx-auto">
+          <TabsTrigger value="nostr-dm" disabled={step2Done}>via Nostr DMs</TabsTrigger>
+          <TabsTrigger value="damus-ios" disabled={step2Done}>via Damus iOS</TabsTrigger>
+        </TabsList>
+        <TabsContent value="nostr-dm">
+          <Step2OTPVerification
+            lnCheckout={props.lnCheckout}
+            setLNCheckout={props.setLNCheckout}
+            pubkey={pubkey}
+            setPubkey={setPubkey}
+            profile={profile}
+            setProfile={setProfile}
+            existingAccountInfo={existingAccountInfo}
+            setError={props.setError}
+          />
+        </TabsContent>
+        <TabsContent value="damus-ios">
+          <Step2DamusIOSVerification
+            lnCheckout={props.lnCheckout}
+            setLNCheckout={props.setLNCheckout}
+            pubkey={pubkey}
+            setPubkey={setPubkey}
+            profile={profile}
+            setProfile={setProfile}
+            setError={props.setError}
+          />
+        </TabsContent>
+      </Tabs>
     }
     {step2Done && profile && <>
       <NostrProfile

@@ -16,6 +16,7 @@ export function PurpleCheckout() {
   const intl = useIntl()
   const [lnCheckout, setLNCheckout] = useState<LNCheckout | null>(null) // The checkout object from the server
   const [error, setError] = useState<string | null>(null)  // An error message to display to the user
+  const [selectedAuthMethod, setSelectedAuthMethod] = useState<string | "nostr-dm" | "damus-ios">("nostr-dm")
   const [existingAccountInfo, setExistingAccountInfo] = useState<AccountInfo | null | undefined>(undefined)  // The account info fetched from the server
 
   // MARK: - Functions
@@ -104,6 +105,8 @@ export function PurpleCheckout() {
       <Step2UserVerification
         lnCheckout={lnCheckout}
         setLNCheckout={setLNCheckout}
+        selectedAuthMethod={selectedAuthMethod}
+        setSelectedAuthMethod={setSelectedAuthMethod}
         setError={setError}
       />
       
@@ -116,6 +119,7 @@ export function PurpleCheckout() {
             <CheckoutSuccess
               lnCheckout={lnCheckout}
               existingAccountInfo={existingAccountInfo}
+              selectedAuthMethod={selectedAuthMethod}
             />
           }
         </>}
