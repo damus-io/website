@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { ArrowUpRight, MessageCircleIcon, GitBranch, Github } from "lucide-react";
-import { DAMUS_APP_STORE_URL, DAMUS_MERCH_STORE_URL, DAMUS_TESTFLIGHT_URL } from "@/lib/constants";
 import { PurpleIcon } from "../icons/PurpleIcon";
 import { MeshGradient5 } from "../effects/MeshGradient.5";
 

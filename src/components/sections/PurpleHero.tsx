@@ -4,13 +4,18 @@ import { TopMenu } from "./TopMenu";
 import { Button } from "../ui/Button";
 import { FormattedMessage, useIntl } from "react-intl";
 import Link from "next/link";
-import { DAMUS_APP_STORE_URL, DAMUS_TESTFLIGHT_URL } from "@/lib/constants";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { PurpleIcon } from "../icons/PurpleIcon";
+import { AccountInfo } from "@/utils/PurpleUtils";
+import { usePurpleLoginSession } from "@/hooks/usePurpleLoginSession";
 
 export function PurpleHero() {
   const intl = useIntl()
+  const { accountInfo: loggedInAccountInfo, logout } = usePurpleLoginSession((error) => {
+    // Silently ignore errors, knowing whether the user is logged in is not essential in this context.
+    console.error("Error fetching account info", error)
+  })
 
   return (<>
     <div
@@ -21,7 +26,24 @@ export function PurpleHero() {
         <MeshGradient1 className="-translate-x-1/3" />
       </div>
       <div className="container z-10 mx-auto px-6 pt-12 h-full min-h-screen flex flex-col justify-center">
-        <TopMenu className="w-full" />
+        <TopMenu
+          className="w-full"
+          customCTA={<>
+            {loggedInAccountInfo ?
+              <Link href="/purple/account">
+                <Button variant="accent">
+                  {intl.formatMessage({ id: "purple.hero.menu.go-to-my-account", defaultMessage: "My Account" })}
+                </Button>
+              </Link>
+              :
+              <Link href="/purple/login">
+                <Button variant="accent">
+                  {intl.formatMessage({ id: "purple.hero.menu.login", defaultMessage: "Login" })}
+                </Button>
+              </Link>
+            }
+          </>}
+        />
         <div className="flex flex-col items-center justify-center h-full grow">
           <Link href="/purple/checkout">
             <motion.div
@@ -48,16 +70,33 @@ export function PurpleHero() {
             style={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { delay: 1.5, duration: 1 } }}
           >
-            <Link href="/purple/checkout" className="w-full md:w-auto">
-              <Button variant="default" className="w-full">
-                {intl.formatMessage({ id: "purple.hero.become-a-member", defaultMessage: "Become a member" })}
-              </Button>
-            </Link>
-            <Link href="#benefits" className="w-full md:w-auto">
-              <Button variant="link" className="w-full">
-                {intl.formatMessage({ id: "purple.hero.learn-more", defaultMessage: "Learn more" })}
-              </Button>
-            </Link>
+            {loggedInAccountInfo ?
+              <>
+                <Link href="/purple/account" className="w-full md:w-auto">
+                  <Button variant="default" className="w-full">
+                    {intl.formatMessage({ id: "purple.hero.go-to-my-account", defaultMessage: "Go to my account" })}
+                  </Button>
+                </Link>
+                <Link href="#benefits" className="w-full md:w-auto">
+                  <Button variant="link" className="w-full">
+                    {intl.formatMessage({ id: "purple.hero.learn-more", defaultMessage: "Learn more" })}
+                  </Button>
+                </Link>
+              </>
+              :
+              <>
+                <Link href="/purple/checkout" className="w-full md:w-auto">
+                  <Button variant="default" className="w-full">
+                    {intl.formatMessage({ id: "purple.hero.become-a-member", defaultMessage: "Become a member" })}
+                  </Button>
+                </Link>
+                <Link href="/purple/account" className="w-full md:w-auto">
+                  <Button variant="link" className="w-full">
+                    {intl.formatMessage({ id: "purple.hero.login", defaultMessage: "Login to my account" })}
+                  </Button>
+                </Link>
+              </>
+            }
           </motion.div>
         </div>
       </div>

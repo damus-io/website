@@ -13,6 +13,7 @@
 /out/
 /out-staging
 /out-production
+/out-dev
 
 # misc
 .DS_Store

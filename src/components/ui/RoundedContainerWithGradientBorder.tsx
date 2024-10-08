@@ -15,7 +15,7 @@ export function RoundedContainerWithGradientBorder({ className, allItemsClassNam
 
 export function RoundedContainerWithColorGradientBorder({ className, allItemsClassName, children }: { className?: string, allItemsClassName?: string, children: React.ReactNode }) {
     return (
-        <div className={cn("relative w-24 h-24 flex justify-center items-center backdrop-blur-sm", allItemsClassName, className)}>
+        <div className={cn("relative w-24 h-24 flex justify-center items-center", allItemsClassName, className)}>
             <div className="z-10 relative p-6 w-full h-full">
                 {children}
             </div>

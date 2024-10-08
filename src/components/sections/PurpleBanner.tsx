@@ -4,7 +4,6 @@ import { TopMenu } from "./TopMenu";
 import { Button } from "../ui/Button";
 import { FormattedMessage, useIntl } from "react-intl";
 import Link from "next/link";
-import { DAMUS_APP_STORE_URL, DAMUS_TESTFLIGHT_URL } from "@/lib/constants";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { PurpleIcon } from "../icons/PurpleIcon";
