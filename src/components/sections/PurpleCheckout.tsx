@@ -120,6 +120,7 @@ export function PurpleCheckout() {
               lnCheckout={lnCheckout}
               existingAccountInfo={existingAccountInfo}
               selectedAuthMethod={selectedAuthMethod}
+              setError={setError}
             />
           }
         </>}

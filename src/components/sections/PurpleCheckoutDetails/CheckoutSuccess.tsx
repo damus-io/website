@@ -6,24 +6,27 @@ import { useState } from "react";
 import { QRCodeSVG } from 'qrcode.react';
 import { LNCheckout } from "./Types";
 import { AccountInfo } from "@/utils/PurpleUtils";
+import { usePurpleLoginSession } from "@/hooks/usePurpleLoginSession";
 
 export interface SuccessViewProps {
   existingAccountInfo: AccountInfo | null | undefined
   selectedAuthMethod: string
   lnCheckout: LNCheckout
+  setError: (error: string) => void
 }
 
 export function CheckoutSuccess(props: SuccessViewProps) {
   const intl = useIntl()
   const [continueShowQRCodes, setContinueShowQRCodes] = useState<boolean>(false)  // Whether the user wants to show a QR code for the final step
   const { existingAccountInfo, selectedAuthMethod, lnCheckout } = props
+  const { accountInfo: loggedInAccount, logout } = usePurpleLoginSession(props.setError)
 
   // MARK: - Functions
 
   // MARK: - Render
 
   return (<>
-    {selectedAuthMethod == "damus-ios" && (<>
+    {(selectedAuthMethod == "damus-ios" || loggedInAccount == null) ? (<>
       <Link
         href={existingAccountInfo !== null && existingAccountInfo !== undefined ? `damus:purple:landing` : `damus:purple:welcome?id=${lnCheckout.id}`}
         className="w-full text-sm flex justify-center"
@@ -51,8 +54,8 @@ export function CheckoutSuccess(props: SuccessViewProps) {
         {/* TODO: Localize later */}
         Issues with this step? Please ensure you are running the latest Damus iOS version — or <Link href="mailto:support@damus.io" className="text-damuspink-500 underline">contact us</Link>
       </div>
-    </>)}
-    {selectedAuthMethod == "nostr-dm" && (
+    </>)
+    : selectedAuthMethod == "nostr-dm" && (
       <Link
         href={existingAccountInfo !== null && existingAccountInfo !== undefined ? "/purple/account" : "/purple/welcome"}
         className="w-full text-sm flex justify-center"
