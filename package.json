@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "./build",
     "build-staging": "./build staging",
+    "build-dev": "./build dev",
     "start": "next start",
     "export": "npm run i18n && next export",
     "lint": "next lint",

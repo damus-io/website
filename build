@@ -10,6 +10,10 @@ if [ "$env" == "staging" ]
 then
 	export OUT_DIR="$PWD/out-staging"
 	export NEXT_PUBLIC_PURPLE_API_BASE_URL="https://api-staging.damus.io"
+elif [ "$env" == "dev" ]
+then
+	export OUT_DIR="$PWD/out-dev"
+	# Do not modify env vars for dev
 else
 	export OUT_DIR="$PWD/out-production"
 	export NEXT_PUBLIC_PURPLE_API_BASE_URL="https://api.damus.io"
@@ -18,13 +22,3 @@ fi
 npx next build
 rm -rf "$OUT_DIR"
 mv out "$OUT_DIR"
-
-
-# TODO: next doesn't seem to set this up properly. bug?
-mkdir -p "$OUT_DIR/purple/checkout"
-mkdir -p "$OUT_DIR/purple/account"
-mkdir -p "$OUT_DIR/purple/login"
-ln "$OUT_DIR/purple.html" "$OUT_DIR/purple/index.html"
-ln "$OUT_DIR/purple/checkout.html" "$OUT_DIR/purple/checkout/index.html"
-ln "$OUT_DIR/purple/account.html" "$OUT_DIR/purple/account/index.html"
-ln "$OUT_DIR/purple/login.html" "$OUT_DIR/purple/login/index.html"
