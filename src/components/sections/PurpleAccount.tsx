@@ -8,13 +8,13 @@ import { AccountInfo, Profile, getProfile, getPurpleAccountInfo } from "@/utils/
 import { useLocalStorage } from "usehooks-ts";
 import { ErrorDialog } from "../ErrorDialog";
 import { PurpleLayout } from "../PurpleLayout";
+import { usePurpleLoginSession } from "@/hooks/usePurpleLoginSession";
 
 
 export function PurpleAccount() {
   const intl = useIntl()
-  const [sessionToken, setSessionToken] = useLocalStorage('session_token', null)
-  const [existingAccountInfo, setExistingAccountInfo] = useState<AccountInfo | null | undefined>(undefined)  // The account info fetched from the server
   const [error, setError] = useState<string | null>(null)
+  const { accountInfo: loggedInAccountInfo, logout } = usePurpleLoginSession(setError)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [pubkey, setPubkey] = useState<string | null>(null)
 
@@ -33,31 +33,7 @@ export function PurpleAccount() {
       setError("Failed to get profile info from the relay. Please wait a few minutes and refresh the page. If the problem persists, please contact support.")
     }
   }
-
-  const fetchAccountInfo = async () => {
-    try {
-      const response = await fetch(process.env.NEXT_PUBLIC_PURPLE_API_BASE_URL + "/sessions/account", {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + sessionToken
-        },
-      })
-      if (!response.ok) {
-        setError("Failed to get account info from our servers. Please wait a few minutes and refresh the page. If the problem persists, please contact support.")
-        return
-      }
-      const accountInfo = await response.json()
-      console.log(accountInfo)
-      setExistingAccountInfo(accountInfo)
-      setPubkey(accountInfo.pubkey)
-    }
-    catch (e) {
-      console.error(e)
-      setError("Failed to get account info from our servers. Please wait a few minutes and refresh the page. If the problem persists, please contact support.")
-    }
-  }
-
+  
   // MARK: - Effects and hooks
 
   // Load the profile when the pubkey changes
@@ -68,14 +44,14 @@ export function PurpleAccount() {
   }, [pubkey])
 
   useEffect(() => {
-    if (sessionToken) {
-      fetchAccountInfo()
+    if (loggedInAccountInfo) {
+      setPubkey(loggedInAccountInfo.pubkey)
     }
-    else if (sessionToken === null) {
+    else if (loggedInAccountInfo === null) {
       // Redirect to the login page
       window.location.href = "/purple/login?redirect=" + encodeURIComponent("/purple/account")
     }
-  }, [sessionToken])
+  }, [loggedInAccountInfo])
 
   // MARK: - Render
 
@@ -92,10 +68,10 @@ export function PurpleAccount() {
               </div>
               <div className="text-purple-200/70 font-normal text-xs flex gap-1">
                 <Star strokeWidth={1.75} className="w-4 h-4 shrink-0 text-amber-400" fill="currentColor" />
-                {existingAccountInfo?.created_at && unixTimestampToDateString(existingAccountInfo?.created_at)}
+                {loggedInAccountInfo?.created_at && unixTimestampToDateString(loggedInAccountInfo?.created_at)}
               </div>
             </div>
-            {existingAccountInfo?.active ? (
+            {loggedInAccountInfo?.active ? (
               <div className="flex gap-1 bg-gradient-to-r from-damuspink-500 to-damuspink-600 rounded-full px-3 py-1 items-center mt-3 mb-6">
                 <div className="w-4 h-4 rounded-full bg-white flex justify-center items-center">
                   <Check className="w-2 h-2 shrink-0 text-damuspink-500" strokeWidth={5} />
@@ -116,17 +92,17 @@ export function PurpleAccount() {
             )}
           </div>
           <div className="flex flex-col bg-purple-50/10 rounded-xl px-4 text-purple-50 w-full">
-            <AccountInfoRow label={intl.formatMessage({ id: "purple.account.expiry-date", defaultMessage: "Expiry date" })} value={(existingAccountInfo?.expiry && unixTimestampToDateString(existingAccountInfo?.expiry)) || "N/A"} />
-            <AccountInfoRow label={intl.formatMessage({ id: "purple.account.account-creation", defaultMessage: "Account creation" })} value={(existingAccountInfo?.created_at && unixTimestampToDateString(existingAccountInfo?.created_at)) || "N/A"} />
-            <AccountInfoRow label={intl.formatMessage({ id: "purple.account.subscriber-number", defaultMessage: "Subscriber number" })} value={(existingAccountInfo?.subscriber_number && "#" + existingAccountInfo?.subscriber_number) || "N/A"} last={existingAccountInfo?.testflight_url ? false : true} />
-            {existingAccountInfo?.testflight_url && <Link href={existingAccountInfo?.testflight_url} target="_blank">
+            <AccountInfoRow label={intl.formatMessage({ id: "purple.account.expiry-date", defaultMessage: "Expiry date" })} value={(loggedInAccountInfo?.expiry && unixTimestampToDateString(loggedInAccountInfo?.expiry)) || "N/A"} />
+            <AccountInfoRow label={intl.formatMessage({ id: "purple.account.account-creation", defaultMessage: "Account creation" })} value={(loggedInAccountInfo?.created_at && unixTimestampToDateString(loggedInAccountInfo?.created_at)) || "N/A"} />
+            <AccountInfoRow label={intl.formatMessage({ id: "purple.account.subscriber-number", defaultMessage: "Subscriber number" })} value={(loggedInAccountInfo?.subscriber_number && "#" + loggedInAccountInfo?.subscriber_number) || "N/A"} last={loggedInAccountInfo?.testflight_url ? false : true} />
+            {loggedInAccountInfo?.testflight_url && <Link href={loggedInAccountInfo?.testflight_url} target="_blank">
               <Button variant="link" className="w-full text-left my-2">
                 <ArrowUpRight className="text-damuspink-600 mr-2" />
                 {intl.formatMessage({ id: "purple.account.testflight-link", defaultMessage: "Join TestFlight" })}
               </Button>
             </Link>}
           </div>
-          <Button className="w-full md:w-auto opacity-70 hover:opacity-100 transition mt-4 text-sm" onClick={() => setSessionToken(null)} variant="link">
+          <Button className="w-full md:w-auto opacity-70 hover:opacity-100 transition mt-4 text-sm" onClick={() => logout()} variant="link">
             <LogOut className="text-damuspink-600 mr-2" />
             {intl.formatMessage({ id: "purple.account.sign-out", defaultMessage: "Sign out" })}
           </Button>

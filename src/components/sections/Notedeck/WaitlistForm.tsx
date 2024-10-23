@@ -11,6 +11,7 @@ import { MeshGradient5 } from "@/components/effects/MeshGradient.5";
 import { MeshGradient4 } from "@/components/effects/MeshGradient.4";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { NOTEDECK_WAITLIST_URL } from "@/lib/constants";
 
 export function NotedeckWaitlistForm({ className }: { className?: string }) {
     const intl = useIntl()
@@ -36,7 +37,7 @@ export function NotedeckWaitlistForm({ className }: { className?: string }) {
                             style={{ opacity: 0 }}
                             animate={{ opacity: 1, transition: { delay: 1.5, duration: 1 } }}
                         >
-                            <Link href="#tally-open=npVXbJ&tally-layout=modal&tally-align-left=1&tally-hide-title=1&tally-emoji-text=🚀&tally-emoji-animation=none&tally-auto-close=68000" className="w-full md:w-auto">
+                            <Link href={NOTEDECK_WAITLIST_URL} className="w-full md:w-auto">
                                 <Button variant="default" className="w-full">
                                     {intl.formatMessage({ id: "notedeck.hero.signup-for-the-waitlist", defaultMessage: "Sign up for the waitlist" })}
                                 </Button>

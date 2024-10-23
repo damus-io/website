@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import StarField from "@/components/effects/StarField";
 import { useScroll, useTransform } from "framer-motion";
+import { NOTEDECK_WAITLIST_URL } from "@/lib/constants";
 
 export function NotedeckHero({ className }: { className?: string }) {
   const intl = useIntl()
@@ -30,7 +31,16 @@ export function NotedeckHero({ className }: { className?: string }) {
           style={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { delay: 1.5, duration: 1 } }}
         >
-          <TopMenu className="w-full z-10" />
+          <TopMenu
+            className="w-full z-10"
+            customCTA={
+              <Link href={NOTEDECK_WAITLIST_URL}>
+                <Button variant="accent" className="w-full">
+                  {intl.formatMessage({ id: "notedeck.hero.menu.signup-for-the-waitlist", defaultMessage: "Sign up" })}
+                </Button>
+              </Link>
+            }
+          />
         </motion.div>
         <motion.div
           className="flex flex-col items-center justify-center h-full grow mt-48 z-10"
@@ -53,7 +63,7 @@ export function NotedeckHero({ className }: { className?: string }) {
             style={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { delay: 1.5, duration: 1 } }}
           >
-            <Link href="#tally-open=npVXbJ&tally-layout=modal&tally-align-left=1&tally-hide-title=1&tally-emoji-text=🚀&tally-emoji-animation=none&tally-auto-close=68000" className="w-full md:w-auto">
+            <Link href={NOTEDECK_WAITLIST_URL} className="w-full md:w-auto">
               <Button variant="default" className="w-full">
                 {intl.formatMessage({ id: "notedeck.hero.signup-for-the-waitlist", defaultMessage: "Sign up for the waitlist" })}
               </Button>

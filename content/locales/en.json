@@ -119,14 +119,14 @@
   "home.hero.available_in": {
     "string": "Available in"
   },
+  "home.hero.check-out-notedeck": {
+    "string": "Check Notedeck, our cross-platform client"
+  },
   "home.hero.download_now": {
     "string": "Download now"
   },
   "home.hero.headline": {
     "string": "The social network you control"
-  },
-  "home.hero.join_testflight": {
-    "string": "Join TestFlight Beta"
   },
   "home.hero.subheadline": {
     "string": "Your very own social network for your friends or business.\n Available Now on iOS, iPad and macOS (M1/M2)"
@@ -142,6 +142,9 @@
   },
   "notedeck.hero.description": {
     "string": "The highest performance Nostr client. Period."
+  },
+  "notedeck.hero.menu.signup-for-the-waitlist": {
+    "string": "Sign up"
   },
   "notedeck.hero.signup-for-the-waitlist": {
     "string": "Sign up for the waitlist"
@@ -227,6 +230,9 @@
   "purple.checkout.continue.hide-qr": {
     "string": "Hide QR code"
   },
+  "purple.checkout.continue.on-web": {
+    "string": "Continue"
+  },
   "purple.checkout.continue.show-qr": {
     "string": "Show QR code"
   },
@@ -236,11 +242,20 @@
   "purple.checkout.description-2": {
     "string": "Use this page to purchase a new account, or to renew an existing one. You will need the latest Damus version to complete the checkout."
   },
+  "purple.checkout.is-this-you": {
+    "string": "Is this you?"
+  },
+  "purple.checkout.logging-into": {
+    "string": "Logging into:"
+  },
   "purple.checkout.open-in-app": {
     "string": "Open in Damus"
   },
   "purple.checkout.open-in-wallet": {
     "string": "Open in wallet"
+  },
+  "purple.checkout.paying-for": {
+    "string": "Purchasing membership for:"
   },
   "purple.checkout.payment-received": {
     "string": "Payment received"
@@ -350,8 +365,20 @@
   "purple.hero.description": {
     "string": "For free-speech maximalists"
   },
+  "purple.hero.go-to-my-account": {
+    "string": "Go to my account"
+  },
   "purple.hero.learn-more": {
     "string": "Learn more"
+  },
+  "purple.hero.login": {
+    "string": "Login to my account"
+  },
+  "purple.hero.menu.go-to-my-account": {
+    "string": "My Account"
+  },
+  "purple.hero.menu.login": {
+    "string": "Login"
   },
   "purple.hero.renew": {
     "string": "Already a member? Click here to renew!"
@@ -365,8 +392,14 @@
   "purple.login.description": {
     "string": "Use this page to access your Purple account details"
   },
+  "purple.login.fetching-profile": {
+    "string": "Fetching profile info…"
+  },
   "purple.login.is-this-you": {
     "string": "Is this you?"
+  },
+  "purple.login.logging-into": {
+    "string": "Logging into:"
   },
   "purple.login.login-successful": {
     "string": "Login successful. You should be automatically redirected. If not, please click the button below."
@@ -384,10 +417,10 @@
     "string": "Invalid or expired OTP. Please try again."
   },
   "purple.login.otp-sent": {
-    "string": "We sent you a code via a Nostr DM.\n Please enter it below"
+    "string": "We sent you a code via a Nostr direct message.\n Please enter it below"
   },
   "purple.login.stay-safe.message": {
-    "string": "We will never ask you for your nsec or any other sensitive information via Nostr DMs. Beware of impersonators. Please do not share your OTP code with anyone.\n\n If you don't see the OTP code, please check the DM requests tab in Damus."
+    "string": "We will never ask you for your nsec or any other sensitive information via Nostr DMs. Beware of impersonators. Please do not share your OTP code with anyone."
   },
   "purple.login.stay-safe.title": {
     "string": "Stay safe"
@@ -401,8 +434,23 @@
   "purple.login.title": {
     "string": "Access your account"
   },
-  "purple.login.unknown-user": {
+  "purple.otp.troubleshooting.heading": {
+    "string": "Didn't receive the OTP?"
+  },
+  "purple.otp.troubleshooting.message": {
+    "string": "If you don't see the OTP code, try the following steps:"
+  },
+  "purple.otp.troubleshooting.step1": {
+    "string": "Check your DM request tab (if you are on Damus)"
+  },
+  "purple.otp.troubleshooting.step2": {
+    "string": "Ensure your Nostr client is connected to our relay listed below:"
+  },
+  "purple.profile.unknown-user": {
     "string": "Generic user avatar"
+  },
+  "purple.welcome.continue": {
+    "string": "Continue"
   },
   "roles.brand-ambassador": {
     "string": "Brand Ambassador"
@@ -436,6 +484,9 @@
   },
   "topbar.logo_alt_text": {
     "string": "Damus logo"
+  },
+  "topbar.notedeck": {
+    "string": "Notedeck"
   },
   "topbar.purple": {
     "string": "Purple"

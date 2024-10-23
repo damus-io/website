@@ -5,7 +5,7 @@ import { Button } from "../ui/Button";
 import Image from "next/image"
 import { FormattedMessage, useIntl } from "react-intl";
 import Link from "next/link";
-import { DAMUS_APP_STORE_URL, DAMUS_TESTFLIGHT_URL } from "@/lib/constants";
+import { DAMUS_APP_STORE_URL } from "@/lib/constants";
 import { motion } from "framer-motion";
 import { NostrIcon } from "../icons/NostrIcon";
 
@@ -65,9 +65,9 @@ export function Hero() {
                                     <ArrowUpRight className="ml-2" />
                                 </Button>
                             </Link>
-                            <Link href={DAMUS_TESTFLIGHT_URL} target="_blank">
+                            <Link href={"/notedeck"} target="_blank">
                                 <Button variant="link" className="w-full md:w-auto">
-                                    { intl.formatMessage({ id: "home.hero.join_testflight", defaultMessage: "Join TestFlight Beta" }) }
+                                    { intl.formatMessage({ id: "home.hero.check-out-notedeck", defaultMessage: "Check Notedeck, our cross-platform client" }) }
                                     <ArrowUpRight className="text-damuspink-600 ml-2"/>
                                 </Button>
                             </Link>
