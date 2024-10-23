@@ -91,8 +91,9 @@ export function NostrUserInput(props: { pubkey: string | null, setPubkey: (pubke
         </div>
       </div>
     )}
-    {profile && (<>
+    {((profile || profile === null) && props.pubkey) && (<>
       <NostrProfile
+        pubkey={props.pubkey}
         profile={profile}
         profileHeader={props.profileHeader}
         profileFooter={props.profileFooter}

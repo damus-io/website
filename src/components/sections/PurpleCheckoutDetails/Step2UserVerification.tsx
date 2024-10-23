@@ -120,8 +120,9 @@ export function Step2UserVerification(props: Step2UserVerificationProps) {
         </TabsContent>
       </Tabs>
     }
-    {step2Done && profile && <>
+    {step2Done && pubkey && (profile !== undefined)  && <>
       <NostrProfile
+        pubkey={pubkey}
         profile={profile}
         profileHeader={<>
           <div className="text-purple-200/50 font-normal text-sm">

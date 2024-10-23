@@ -27,6 +27,12 @@ export function usePurpleLoginSession(setError: (message: string) => void) {
             'Authorization': 'Bearer ' + sessionToken
           },
         });
+        
+        if (response.status === 401) {
+          setSessionToken(null);
+          setAccountInfo(null);
+          return;
+        }
 
         if (!response.ok) {
           setError("Failed to get account info from our servers. Please wait a few minutes and refresh the page. If the problem persists, please contact support.");
