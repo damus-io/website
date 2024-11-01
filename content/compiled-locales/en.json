@@ -455,6 +455,24 @@
       "value": "Get more from Damus."
     }
   ],
+  "purple.checkout-maintenance.description": [
+    {
+      "type": 0,
+      "value": "Under maintenance"
+    }
+  ],
+  "purple.checkout-maintenance.description-2": [
+    {
+      "type": 0,
+      "value": "We are working on some fixes, please come back later. Thank you for your patience."
+    }
+  ],
+  "purple.checkout-maintenance.title": [
+    {
+      "type": 0,
+      "value": "Checkout"
+    }
+  ],
   "purple.checkout.continue": [
     {
       "type": 0,
