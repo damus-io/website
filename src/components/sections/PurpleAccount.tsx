@@ -33,7 +33,7 @@ export function PurpleAccount() {
       setError("Failed to get profile info from the relay. Please wait a few minutes and refresh the page. If the problem persists, please contact support.")
     }
   }
-  
+
   // MARK: - Effects and hooks
 
   // Load the profile when the pubkey changes
@@ -96,11 +96,21 @@ export function PurpleAccount() {
             <AccountInfoRow label={intl.formatMessage({ id: "purple.account.account-creation", defaultMessage: "Account creation" })} value={(loggedInAccountInfo?.created_at && unixTimestampToDateString(loggedInAccountInfo?.created_at)) || "N/A"} />
             <AccountInfoRow label={intl.formatMessage({ id: "purple.account.subscriber-number", defaultMessage: "Subscriber number" })} value={(loggedInAccountInfo?.subscriber_number && "#" + loggedInAccountInfo?.subscriber_number) || "N/A"} last={loggedInAccountInfo?.testflight_url ? false : true} />
             {loggedInAccountInfo?.testflight_url && <Link href={loggedInAccountInfo?.testflight_url} target="_blank">
-              <Button variant="link" className="w-full text-left my-2">
-                <ArrowUpRight className="text-damuspink-600 mr-2" />
-                {intl.formatMessage({ id: "purple.account.testflight-link", defaultMessage: "Join TestFlight" })}
-              </Button>
+              <div className="py-2 border-b border-purple-200/20">
+                <Button variant="link" className="w-full text-left">
+                  <ArrowUpRight className="text-damuspink-600 mr-2" />
+                  {intl.formatMessage({ id: "purple.account.testflight-link", defaultMessage: "Join TestFlight" })}
+                </Button>
+              </div>
             </Link>}
+            <div className="py-2">
+              <Link href="/notedeck/install" target="_blank">
+                <Button variant="link" className="w-full text-left">
+                  <ArrowUpRight className="text-damuspink-600 mr-2" />
+                  {intl.formatMessage({ id: "purple.account.notedeck-install-link", defaultMessage: "Try Notedeck" })}
+                </Button>
+              </Link>
+            </div>
           </div>
           <Button className="w-full md:w-auto opacity-70 hover:opacity-100 transition mt-4 text-sm" onClick={() => logout()} variant="link">
             <LogOut className="text-damuspink-600 mr-2" />
