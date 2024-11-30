@@ -8,7 +8,7 @@
   "benefits.benefit1.description": [
     {
       "type": 0,
-      "value": "Built on open internet protocols, there is no platform that can ban or censor you. You are in control of your data & speech."
+      "value": "Built on open internet protocols, there is no platform that can ban or censor you. You are in control of your data & speech"
     }
   ],
   "benefits.benefit1.name": [
@@ -32,7 +32,7 @@
   "benefits.benefit3.description": [
     {
       "type": 0,
-      "value": "Traditional social media keeps you addicted in order to sell you ads, which is intoxicating society. Damus doesn't. The result? A healthier community."
+      "value": "Traditional social media keeps you addicted in order to sell you ads, which is intoxicating society. Damus doesn't. The result? A healthier community"
     }
   ],
   "benefits.benefit3.name": [
@@ -44,7 +44,7 @@
   "benefits.benefit4.description": [
     {
       "type": 0,
-      "value": "Tip your friends, earn tips, support creators, and stack sats with Bitcoin & Lightning, the Free and open internet money."
+      "value": "Tip your friends, earn tips, support creators, and stack sats with Bitcoin & Lightning, the Free and open internet money"
     }
   ],
   "benefits.benefit4.name": [
@@ -229,6 +229,114 @@
       "value": "Tokyo, Japan"
     }
   ],
+  "faq.buy.purple": [
+    {
+      "type": 0,
+      "value": "How can I buy purple if I am not a purple member?"
+    }
+  ],
+  "faq.buy.purple.a": [
+    {
+      "type": 0,
+      "value": "[https://damus.io/purple](https://damus.io/purple)"
+    }
+  ],
+  "faq.day.one": [
+    {
+      "type": 0,
+      "value": "What works on day one?"
+    }
+  ],
+  "faq.day.one.a": [
+    {
+      "type": 0,
+      "value": "- Login with public key (npub)\n- Login with private key (nsec)\n- Multiple accounts\n- Add profile columns\n- Add notifications columns\n- Add hashtag columns\n- Create post\n- Reply\n- Quote note\n- Log out`"
+    }
+  ],
+  "faq.need.purple": [
+    {
+      "type": 0,
+      "value": "Do I need purple to get notedeck on day one?"
+    }
+  ],
+  "faq.need.purple.a": [
+    {
+      "type": 0,
+      "value": "Yes!"
+    }
+  ],
+  "faq.not.work.day.one": [
+    {
+      "type": 0,
+      "value": "Important stuff that doesn't work on day one"
+    }
+  ],
+  "faq.not.work.day.one.a": [
+    {
+      "type": 0,
+      "value": "- Auto suggest tagging\n- Zaps\n- DMs\n- Reposts\n- Likes/reactions\n- Embedded video\n- Upload media\n- Modifying profile\n- Modifying relay list\n- See followers/following count\n- Search, and many more"
+    }
+  ],
+  "faq.purple.effect": [
+    {
+      "type": 0,
+      "value": "How does my purple membership affect notedeck?"
+    }
+  ],
+  "faq.purple.effect.a": [
+    {
+      "type": 0,
+      "value": "You get access to notedeck before anyone else!"
+    }
+  ],
+  "faq.start": [
+    {
+      "type": 0,
+      "value": "How do I get started (private key, public key)?"
+    }
+  ],
+  "faq.start.a": [
+    {
+      "type": 0,
+      "value": "**From iOS Damus:** `Go to side menu` -> `Tap on profile` -> Tap on the *Copy button* adjacent to npub field\n\n**Any public key:** Go to [nostr.band](https://nostr.band) in your browser, and search for a nostr user of interest (e.g. Terry Yiu) to find their npub (public key). Tap on npub to copy it.\n\n![Npub example](/notedeck/npub_example.png)\n\n**Private key:** From iOS Damus -> go to side menu -> settings -> keys -> copy \"secret account login key\" and use this to log in to notedeck."
+    }
+  ],
+  "faq.support.signer.extension": [
+    {
+      "type": 0,
+      "value": "Does notedeck support signer extension?"
+    }
+  ],
+  "faq.support.signer.extension.a": [
+    {
+      "type": 0,
+      "value": "No. Notedeck is a desktop app where key storage is local so a signer extension isn't required. Trust in third party apps is eliminated by using the desktop app Notedeck."
+    }
+  ],
+  "faq.supported.os": [
+    {
+      "type": 0,
+      "value": "Supported operating systems"
+    }
+  ],
+  "faq.supported.os.a": [
+    {
+      "type": 0,
+      "value": "**On day one:**\n\n- Linux\n- Ubuntu\n- Fedora\n- MacOS\n- Windows\n\n**In the future:**\n- Android\n- iOS\n- iPadOS"
+    }
+  ],
+  "faq.trouble.feedback": [
+    {
+      "type": 0,
+      "value": "Having trouble, or have feedback?"
+    }
+  ],
+  "faq.trouble.feedback.a": [
+    {
+      "type": 0,
+      "value": "Tag damus on nostr, or send an email to [support@damus.io](mailto:support@damus.io)."
+    }
+  ],
   "final_cta.headline": [
     {
       "type": 0,
@@ -293,10 +401,178 @@
       "value": "shortName"
     }
   ],
+  "notedeck.benefits.benefit1.description": [
+    {
+      "type": 0,
+      "value": "Access your account directly with your private key for enhanced security and privacy"
+    }
+  ],
+  "notedeck.benefits.benefit1.name": [
+    {
+      "type": 0,
+      "value": "Login with Private Key (nsec)"
+    }
+  ],
+  "notedeck.benefits.benefit2.description": [
+    {
+      "type": 0,
+      "value": "Login with any public key for a read-only view of any nostr account"
+    }
+  ],
+  "notedeck.benefits.benefit2.name": [
+    {
+      "type": 0,
+      "value": "Login with Public Key (npub)"
+    }
+  ],
+  "notedeck.benefits.benefit3.description": [
+    {
+      "type": 0,
+      "value": "Easily manage multiple accounts. Great for quickly switching between work and personal accounts"
+    }
+  ],
+  "notedeck.benefits.benefit3.name": [
+    {
+      "type": 0,
+      "value": "Multiple Accounts"
+    }
+  ],
+  "notedeck.benefits.benefit4.description": [
+    {
+      "type": 0,
+      "value": "Add columns to view profiles, hashtags, and notifications at a glance"
+    }
+  ],
+  "notedeck.benefits.benefit4.name": [
+    {
+      "type": 0,
+      "value": "Profile, Notification, and Hashtag columns"
+    }
+  ],
+  "notedeck.benefits.benefit5.description": [
+    {
+      "type": 0,
+      "value": "Create posts, reply to others, and quote notes to engage with the nostr community"
+    }
+  ],
+  "notedeck.benefits.benefit5.name": [
+    {
+      "type": 0,
+      "value": "Create and Interact with Posts"
+    }
+  ],
+  "notedeck.benefits.benefit6.description": [
+    {
+      "type": 0,
+      "value": "Easily log out of your account whenever needed for privacy"
+    }
+  ],
+  "notedeck.benefits.benefit6.name": [
+    {
+      "type": 0,
+      "value": "Log Out Securely"
+    }
+  ],
+  "notedeck.benefits.description": [
+    {
+      "type": 0,
+      "value": "These are currently the features you will receive immediately when you subscribe to Damus Purple"
+    }
+  ],
+  "notedeck.benefits.headline": [
+    {
+      "type": 0,
+      "value": "What’s included in Notedeck Alpha with your Damus Purple subscription?"
+    }
+  ],
+  "notedeck.feature.availability.description": [
+    {
+      "type": 0,
+      "value": "Nostriches can also switch between multiple accounts quickly and easily, drastically improving personal and business use cases"
+    }
+  ],
+  "notedeck.feature.availability.name": [
+    {
+      "type": 0,
+      "value": "Switch Between Accounts"
+    }
+  ],
+  "notedeck.feature.customization.description": [
+    {
+      "type": 0,
+      "value": "Add profile, hashtag, and notification columns of any nostr public or private key. Which means you can see the nostr landscape through other peoples' eyes"
+    }
+  ],
+  "notedeck.feature.customization.name": [
+    {
+      "type": 0,
+      "value": "Powerful Views"
+    }
+  ],
+  "notedeck.feature.speed.description": [
+    {
+      "type": 0,
+      "value": "The fastest nostr client. Built from the ground up with an ultra-fast database made exclusively for nostr, leveraging several state-of-the-art performance techniques not available on web clients"
+    }
+  ],
+  "notedeck.feature.speed.name": [
+    {
+      "type": 0,
+      "value": "Speed"
+    }
+  ],
+  "notedeck.feedback.headline": [
+    {
+      "type": 0,
+      "value": "Share your feedback with us"
+    }
+  ],
+  "notedeck.feedback.share-feedback": [
+    {
+      "type": 0,
+      "value": "Send Feedback"
+    }
+  ],
+  "notedeck.feedback.subheadline": [
+    {
+      "type": 0,
+      "value": "We encourage you to send feedback to our Damus npub over nostr or Github to we can take it in consideration in our Roadmap"
+    }
+  ],
+  "notedeck.feedback.view_github": [
+    {
+      "type": 0,
+      "value": "View our GitHub"
+    }
+  ],
+  "notedeck.hero.announcement": [
+    {
+      "type": 0,
+      "value": "Notedeck Alpha now available on Purple"
+    }
+  ],
   "notedeck.hero.description": [
     {
       "type": 0,
       "value": "Damus. Everywhere. The fastest native, customizable nostr experience, for all platforms."
+    }
+  ],
+  "notedeck.hero.headline": [
+    {
+      "type": 0,
+      "value": "Damus. Everywhere. The fastest native, customizable nostr experience, for all platforms."
+    }
+  ],
+  "notedeck.hero.install": [
+    {
+      "type": 0,
+      "value": "Install now"
+    }
+  ],
+  "notedeck.hero.learn-more": [
+    {
+      "type": 0,
+      "value": "Learn more"
     }
   ],
   "notedeck.hero.menu.signup-for-the-waitlist": [
@@ -317,6 +593,144 @@
       "value": "Notedeck is a powerful, performant Nostr client for Linux, Windows, and macOS"
     }
   ],
+  "notedeck.not-included.description": [
+    {
+      "type": 0,
+      "value": "We are working very hard to get these features out as soon as possible. If you want to collaborate please check out our [GitHub](https://github.com/damus-io/notedeck/issues)"
+    }
+  ],
+  "notedeck.not-included.feature1.badge": [
+    {
+      "type": 0,
+      "value": "Coming 2025 Q1"
+    }
+  ],
+  "notedeck.not-included.feature1.description": [
+    {
+      "type": 0,
+      "value": "Tip creators and friends on nostr, or get tips for posting content"
+    }
+  ],
+  "notedeck.not-included.feature1.name": [
+    {
+      "type": 0,
+      "value": "Zaps"
+    }
+  ],
+  "notedeck.not-included.feature2.badge": [
+    {
+      "type": 0,
+      "value": "Coming 2025 Q1"
+    }
+  ],
+  "notedeck.not-included.feature2.description": [
+    {
+      "type": 0,
+      "value": "Send direct messages to friends"
+    }
+  ],
+  "notedeck.not-included.feature2.name": [
+    {
+      "type": 0,
+      "value": "DMs"
+    }
+  ],
+  "notedeck.not-included.feature3.badge": [
+    {
+      "type": 0,
+      "value": "Coming 2025 Q1"
+    }
+  ],
+  "notedeck.not-included.feature3.description": [
+    {
+      "type": 0,
+      "value": "View videos directly from your feed"
+    }
+  ],
+  "notedeck.not-included.feature3.name": [
+    {
+      "type": 0,
+      "value": "Embedded video"
+    }
+  ],
+  "notedeck.not-included.feature4.badge": [
+    {
+      "type": 0,
+      "value": "Coming 2025 Q1"
+    }
+  ],
+  "notedeck.not-included.feature4.description": [
+    {
+      "type": 0,
+      "value": "React to posts from your friends"
+    }
+  ],
+  "notedeck.not-included.feature4.name": [
+    {
+      "type": 0,
+      "value": "Likes/reactions/reposts"
+    }
+  ],
+  "notedeck.not-included.feature5.badge": [
+    {
+      "type": 0,
+      "value": "Coming 2025 Q1"
+    }
+  ],
+  "notedeck.not-included.feature5.description": [
+    {
+      "type": 0,
+      "value": "Easily search for content on your feed or around the nostr network, and get suggestions when tagging users"
+    }
+  ],
+  "notedeck.not-included.feature5.name": [
+    {
+      "type": 0,
+      "value": "Search"
+    }
+  ],
+  "notedeck.not-included.feature6.badge": [
+    {
+      "type": 0,
+      "value": "Coming 2025 Q1"
+    }
+  ],
+  "notedeck.not-included.feature6.description": [
+    {
+      "type": 0,
+      "value": "Attach images or videos to your posts"
+    }
+  ],
+  "notedeck.not-included.feature6.name": [
+    {
+      "type": 0,
+      "value": "Upload media"
+    }
+  ],
+  "notedeck.not-included.headline": [
+    {
+      "type": 0,
+      "value": "What's NOT included so far, but we are building right now"
+    }
+  ],
+  "notedeck.recap.description": [
+    {
+      "type": 0,
+      "value": "Damus Notedeck is a lightning fast native app that allows you to explore the nostr social network in a completely new way, with several power features. **Try it today** with our [Purple](/purple) subscription"
+    }
+  ],
+  "notedeck.recap.headline": [
+    {
+      "type": 0,
+      "value": "Let’s recap"
+    }
+  ],
+  "notedeck.recap.try_it_today": [
+    {
+      "type": 0,
+      "value": "Install now"
+    }
+  ],
   "notedeck.waitlist.headline": [
     {
       "type": 0,
@@ -327,6 +741,30 @@
     {
       "type": 0,
       "value": "Sign up for our waitlist and be the first to know when notedeck is ready"
+    }
+  ],
+  "notedeck.what-is.description1": [
+    {
+      "type": 0,
+      "value": "**Nostr is the future of social media** and Notedeck is our latest innovation towards the **future of nostr**.\n\n"
+    }
+  ],
+  "notedeck.what-is.description2": [
+    {
+      "type": 0,
+      "value": "A **lightning fast native app** that allows you to explore the nostr social network in a **completely new way**! Notedeck includes several power features to both personal and business use cases, including:"
+    }
+  ],
+  "notedeck.what-is.description3": [
+    {
+      "type": 0,
+      "value": "This isn't a web app and it's not just \"another\" social client. This is nostr **like you've never seen it before!**\n\nNotedeck works on **Linux**, **macOS**, and **Windows** on day one. An Android version will be added in 2025, along with iOS and iPadOS eventually.\n\nFuture nostr apps **will run on Notedeck in 2025.**\n\nAn early Notedeck Alpha version is available **today** to our paid [Purple](/purple) subscribers."
+    }
+  ],
+  "notedeck.what-is.headline": [
+    {
+      "type": 0,
+      "value": "Introducing Notedeck"
     }
   ],
   "purple-checkout.account-will-renew": [
@@ -387,6 +825,12 @@
     {
       "type": 0,
       "value": "Via Nostr"
+    }
+  ],
+  "purple.account.notedeck-install-link": [
+    {
+      "type": 0,
+      "value": "Try Notedeck"
     }
   ],
   "purple.account.sign-out": [

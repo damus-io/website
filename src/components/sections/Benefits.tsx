@@ -17,7 +17,7 @@ export function Benefits({ className }: { className?: string }) {
         {
             icon: <Joystick className="h-12 w-12 text-white opacity-80"/>,
             headline: intl.formatMessage({ id: "benefits.benefit1.name", defaultMessage: "You are in control" }),
-            description: intl.formatMessage({ id: "benefits.benefit1.description", defaultMessage: "Built on open internet protocols, there is no platform that can ban or censor you. You are in control of your data & speech." }),
+            description: intl.formatMessage({ id: "benefits.benefit1.description", defaultMessage: "Built on open internet protocols, there is no platform that can ban or censor you. You are in control of your data & speech" }),
         },
         {
             icon: <KeyRound className="text-white h-12 w-12 opacity-80"/>,
@@ -27,12 +27,12 @@ export function Benefits({ className }: { className?: string }) {
         {
             icon: <Scale className="h-12 w-12 text-white opacity-80"/>,
             headline: intl.formatMessage({ id: "benefits.benefit3.name", defaultMessage: "No addictive algorithms" }),
-            description: intl.formatMessage({ id: "benefits.benefit3.description", defaultMessage: "Traditional social media keeps you addicted in order to sell you ads, which is intoxicating society. Damus doesn't. The result? A healthier community." }),
+            description: intl.formatMessage({ id: "benefits.benefit3.description", defaultMessage: "Traditional social media keeps you addicted in order to sell you ads, which is intoxicating society. Damus doesn't. The result? A healthier community" }),
         },
         {
             icon: <Wallet className="h-12 w-12 text-white opacity-80"/>,
             headline: intl.formatMessage({ id: "benefits.benefit4.name", defaultMessage: "Free speech meets Free money" }),
-            description: intl.formatMessage({ id: "benefits.benefit4.description", defaultMessage: "Tip your friends, earn tips, support creators, and stack sats with Bitcoin & Lightning, the Free and open internet money." }),
+            description: intl.formatMessage({ id: "benefits.benefit4.description", defaultMessage: "Tip your friends, earn tips, support creators, and stack sats with Bitcoin & Lightning, the Free and open internet money" }),
         }
     ]
 

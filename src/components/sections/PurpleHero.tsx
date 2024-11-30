@@ -25,25 +25,25 @@ export function PurpleHero() {
         <Image src="/stars-bg.webp" fill className="absolute top-0 left-0 object-cover lg:object-contain object-center w-full h-full" alt="" aria-hidden="true" />
         <MeshGradient1 className="-translate-x-1/3" />
       </div>
+      <TopMenu
+        className="w-full"
+        customCTA={<>
+          {loggedInAccountInfo ?
+            <Link href="/purple/account">
+              <Button variant="accent">
+                {intl.formatMessage({ id: "purple.hero.menu.go-to-my-account", defaultMessage: "My Account" })}
+              </Button>
+            </Link>
+            :
+            <Link href="/purple/login">
+              <Button variant="accent">
+                {intl.formatMessage({ id: "purple.hero.menu.login", defaultMessage: "Login" })}
+              </Button>
+            </Link>
+          }
+        </>}
+      />
       <div className="container z-10 mx-auto px-6 pt-12 h-full min-h-screen flex flex-col justify-center">
-        <TopMenu
-          className="w-full"
-          customCTA={<>
-            {loggedInAccountInfo ?
-              <Link href="/purple/account">
-                <Button variant="accent">
-                  {intl.formatMessage({ id: "purple.hero.menu.go-to-my-account", defaultMessage: "My Account" })}
-                </Button>
-              </Link>
-              :
-              <Link href="/purple/login">
-                <Button variant="accent">
-                  {intl.formatMessage({ id: "purple.hero.menu.login", defaultMessage: "Login" })}
-                </Button>
-              </Link>
-            }
-          </>}
-        />
         <div className="flex flex-col items-center justify-center h-full grow">
           <Link href="/purple/checkout">
             <motion.div

@@ -17,8 +17,8 @@ export function Hero() {
             <div className="absolute z-10 pointer-events-none">
                 <MeshGradient1 className="-translate-x-1/3"/>
             </div>
+            <TopMenu className="w-full"/>
             <div className="container mx-auto px-6 pb-32 pt-12">
-                <TopMenu className="w-full"/>
                 <div className="flex flex-col lg:flex-row items-center justify-center mt-32 lg:mt-16">
                     <div className="w-full z-20 mb-12">
                         <Link href="/purple">
@@ -33,13 +33,13 @@ export function Hero() {
                                 <ChevronRight className="ml-2"/>
                             </motion.div>
                         </Link>
-                        <motion.h1 
+                        <motion.h1
                             className="my-6 text-5xl sm:text-5xl md:text-7xl text-transparent bg-clip-text pb-6 font-semibold whitespace-pre-line max-w-2xl"
-                            style={{ 
+                            style={{
                                 backgroundImage: "linear-gradient(to right, #ffffff -100%, #ffffff -40%, #2D175B 100%)",
                                 opacity: 0
                             }}
-                            animate={{ 
+                            animate={{
                                 backgroundImage: "linear-gradient(to right, #ffffff 0%, #ffffff 40%, #2D175B 100%)",
                                 transition: { duration: 3 },
                                 opacity: 1
@@ -97,7 +97,7 @@ export function Hero() {
                         style={{ opacity: 0 }}
                         animate={{ opacity: 1, transition: { delay: 1, duration: 1 } }}
                     >
-                        <Image 
+                        <Image
                             src="/Hero.webp"
                             className="object-contain"
                             sizes="(max-width: 800px) 100vw, 800px"

@@ -13,6 +13,7 @@ import { Contribute } from '@/components/sections/Contribute';
 import { FinalCTA } from '@/components/sections/FinalCTA';
 import { Benefits } from '@/components/sections/Benefits';
 import { PurpleBanner } from '../sections/PurpleBanner';
+import { NotedeckHero } from '../sections/Notedeck/NotedeckHero';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,6 +29,7 @@ export function Home() {
     <main style={{ scrollBehavior: "smooth" }}>
       <Hero/>
       <Benefits/>
+      <NotedeckHero introducing={true} />
       <PurpleBanner/>
       <BannedInChina/>
       <div id="events">
