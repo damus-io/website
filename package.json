@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently npm:dev-website npm:storybook",
+    "dev-website": "next dev",
     "build": "./build",
     "build-staging": "./build staging",
     "build-dev": "./build dev",
@@ -12,7 +13,9 @@
     "lint": "next lint",
     "extract:i18n": "formatjs extract 'src/{pages,components}/**/*.{js,ts,tsx}' --preserve-whitespace --format transifex --id-interpolation-pattern '[sha512:contenthash:base64:6]' --out-file content/locales/en.json",
     "compile:i18n": "formatjs compile-folder --ast --format transifex content/locales content/compiled-locales",
-    "i18n": "npm run extract:i18n && npm run compile:i18n"
+    "i18n": "npm run extract:i18n && npm run compile:i18n",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.1.2",
@@ -39,14 +42,26 @@
     "usehooks-ts": "^2.9.2"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.3",
     "@formatjs/cli": "^6.2.0",
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-interactions": "^8.4.7",
+    "@storybook/addon-onboarding": "^8.4.7",
+    "@storybook/addon-styling": "^2.0.0",
+    "@storybook/blocks": "^8.4.7",
+    "@storybook/nextjs": "^8.4.7",
+    "@storybook/react": "^8.4.7",
+    "@storybook/test": "^8.4.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10",
+    "concurrently": "^9.1.2",
     "eslint": "^8",
     "eslint-config-next": "13.5.4",
+    "eslint-plugin-storybook": "^0.11.1",
     "postcss": "^8",
+    "storybook": "^8.4.7",
     "tailwindcss": "^3",
     "typescript": "^5"
   }
