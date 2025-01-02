@@ -48,6 +48,20 @@ The project is roughly structured as follows:
 - `postcss.config.js` - The [PostCSS](https://postcss.org/) configuration file, which is used to configure the PostCSS compiler. PostCSS is used to compile Tailwind CSS to regular CSS.
 - `src/pages/api` - The [Next.js API routes](https://nextjs.org/docs/api-routes/introduction), which can used to implement server-side (serverless) functions.
 
+## Operations
+
+### Putting Purple checkout under maintenance mode
+
+To put the Purple checkout under maintenance mode, simply make a route called `/purple-checkout-maintenance` available (returns HTTP 200). 
+
+In a static build, this can be done by creating a file called `purple-checkout-maintenance` at the root of wherever the static files are being hosted:
+
+```bash
+touch /path/to/static/files/purple-checkout-maintenance
+```
+
+When present, the checkout page will be replaced with a maintenance message.
+
 ## Contributing
 
 You can send me patches over nostr or [email][email] at jb55@jb55.com

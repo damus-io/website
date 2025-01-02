@@ -446,6 +446,15 @@
   "purple.benefits.headline": {
     "string": "Get more from Damus."
   },
+  "purple.checkout-maintenance.description": {
+    "string": "Under maintenance"
+  },
+  "purple.checkout-maintenance.description-2": {
+    "string": "We are working on some fixes, please come back later. Thank you for your patience."
+  },
+  "purple.checkout-maintenance.title": {
+    "string": "Checkout"
+  },
   "purple.checkout.continue": {
     "string": "Continue in the app"
   },
