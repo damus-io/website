@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 
 export interface ParsedNote {
@@ -55,11 +55,15 @@ export function NostrNoteView(props: NostrNoteViewProps) {
   const profileContent = useMemo(() => {  // JSON parsing is expensive, so we memoize it
     return JSON.parse(props.note.profile.content) as ProfileContent;
   }, [props.note.profile.content]);
-  const timestamp = new Date(props.note.note.created_at * 1000).toLocaleDateString();
+  const [timestamp, setTimestamp] = useState<string | null>(null);
   const displayName = profileContent.displayName || profileContent.name;
 
+  useEffect(() => {
+    setTimestamp(new Date(props.note.note.created_at * 1000).toLocaleDateString());
+  }, [props.note.note.created_at]);
+
   return (
-    <div className={cn("p-6 rounded-3xl shadow-lg border border-black/20", props.className)} style={props.style}>
+    <div className={cn("p-6 bg-white rounded-3xl shadow-lg border border-black/20 text-left", props.className)} style={props.style}>
       <div className="flex flex-col gap-y-3">
         <div className="flex items-center gap-x-3 text-xl">
           <Image
@@ -70,7 +74,7 @@ export function NostrNoteView(props: NostrNoteViewProps) {
             alt={displayName}
           />
           <div className="flex flex-col">
-            <div className="font-bold text-2xl">
+            <div className="font-bold text-2xl text-gray-700">
               {displayName}
             </div>
             <div className="text-gray-400 text-sm">

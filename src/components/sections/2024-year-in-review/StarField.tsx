@@ -11,19 +11,18 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-import { useScroll, useTransform } from 'framer-motion';
+import { MotionValue, useScroll, useTransform } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
 
 const STAR_COUNT = 300;
 const STAR_MIN_SPEED = 0.005;
-const STAR_MAX_SPEED = 0.1;
+const STAR_MAX_SPEED = 0.02;
 const MIN_VISION_PERSISTENCE = 0.2;
 const MAX_VISION_PERSISTENCE = 0.99;
 
-export function StarField({ className }: { className?: string }) {
+export function StarField({ className, scrollYProgress }: { className?: string, scrollYProgress: MotionValue<number> }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const contextRef = useRef<CanvasRenderingContext2D | null>(null);
-  const { scrollYProgress } = useScroll()
   const speed = useTransform(scrollYProgress, [0, 0.3], [STAR_MIN_SPEED, STAR_MAX_SPEED]);
   const visionPersistence = useTransform(scrollYProgress, [0, 0.3], [MIN_VISION_PERSISTENCE, MAX_VISION_PERSISTENCE]);
 
