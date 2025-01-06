@@ -53,14 +53,17 @@ export interface NostrNoteViewProps {
 
 export function NostrNoteView(props: NostrNoteViewProps) {
   const profileContent = useMemo(() => {  // JSON parsing is expensive, so we memoize it
+    if (!props.note?.profile)
+        return {name: "nostrich", displayName: "nostrich", picture: "https://damus.io/img/no-profile.svg"}
     return JSON.parse(props.note.profile.content) as ProfileContent;
-  }, [props.note.profile.content]);
+  }, [props.note?.profile?.content]);
   const [timestamp, setTimestamp] = useState<string | null>(null);
   const displayName = profileContent.displayName || profileContent.name;
 
   useEffect(() => {
-    setTimestamp(new Date(props.note.note.created_at * 1000).toLocaleDateString());
-  }, [props.note.note.created_at]);
+    let created_at = props.note?.note?.created_at || 0;
+    setTimestamp(new Date(created_at * 1000).toLocaleDateString());
+  }, [props.note?.note?.created_at]);
 
   return (
     <div className={cn("p-6 bg-white rounded-3xl shadow-lg border border-black/20 text-left", props.className)} style={props.style}>
@@ -83,10 +86,9 @@ export function NostrNoteView(props: NostrNoteViewProps) {
           </div>
         </div>
         <div className="text-gray-700 whitespace-pre-wrap break-words">
-          {props.note.parsed_content.map((block, i) => {
+          {props.note?.parsed_content?.map((block, i) => {
             return <NoteBlock key={i} block={block} />
-          })}
-          {/* {props.note.note.content} */}
+          }) || null}
         </div>
       </div>
     </div>
