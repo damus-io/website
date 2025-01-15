@@ -115,13 +115,6 @@ const team = [
         nostrNpub: "npub1wtuh24gpuxjyvnmjwlvxzg8k0elhasagfmmgz0x8vp4ltcy8ples54e7js",
     },
     {
-        profilePicture: "/team-photos/jeroen.png",
-        roleIntlString: "roles.first-business-intern",
-        fullName: "Jeroen",
-        shortName: "Jeroen",
-        nostrNpub: "npub17plqkxhsv66g8quxxc9p5t9mxazzn20m426exqnl8lxnh5a4cdns7jezx0"
-    },
-    {
         profilePicture: "https://charlie.fish/images/author/fishcharlie/current/square/256.png",
         roleIntlString: "roles.developer",
         fullName: "Charlie Fish",
