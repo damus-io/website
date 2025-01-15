@@ -45,13 +45,6 @@ const team = [
         nostrNpub: "npub13v47pg9dxjq96an8jfev9znhm0k7ntwtlh9y335paj9kyjsjpznqzzl3l8",
     },
     {
-        profilePicture: "/team-photos/joel-klabo.png",
-        roleIntlString: "roles.developer",
-        fullName: "Joel Klabo",
-        shortName: "Joel",
-        nostrNpub: "npub19a86gzxctwtz68l8zld2u9y2fjvyyj4juyx8m5geylssrmfj27eqs22ckt"
-    },
-    {
         profilePicture: "/team-photos/suhail-saqan.png",
         roleIntlString: "roles.developer",
         fullName: "Suhail Saqan",
@@ -73,13 +66,6 @@ const team = [
         nostrNpub: "npub12gyrpse550melzx2ey69srfxlyd8svkxkg0mjcjkjr4zakqm2cnqwa3jj5"
     },
     {
-        profilePicture: "/team-photos/bryan-montz.png",
-        roleIntlString: "roles.developer",
-        fullName: "Bryan Montz",
-        shortName: "Bryan",
-        nostrNpub: "npub1qlk0nqupxmlyxravg0aqscxmcc4q4tq898z6x003rykwwh3npj0syvyayc",
-    },
-    {
         profilePicture: "/team-photos/mr-e.png",
         roleIntlString: "roles.brand-ambassador",
         fullName: "Mr. E.",
@@ -94,33 +80,12 @@ const team = [
         nostrNpub: "npub1jutptdc2m8kgjmudtws095qk2tcale0eemvp4j2xnjnl4nh6669slrf04x",
     },
     {
-        profilePicture: "/team-photos/fishcake.png",
-        roleIntlString: "roles.developer",
-        fullName: "Fishcake",
-        shortName: "",
-        nostrNpub: "npub137c5pd8gmhhe0njtsgwjgunc5xjr2vmzvglkgqs5sjeh972gqqxqjak37w",
-    },
-    {
         profilePicture: "/team-photos/cr0bar.png",
         roleIntlString: "roles.developer",
         fullName: "cr0bar",
         shortName: "cr0bar",
         nostrNpub: "npub1794vv7hl7y6q2qw0y7m7h60rpphmvt5h7pzt5sr78z6assj6w0eqagwjhd",
     },
-    {
-        profilePicture: "/team-photos/thesamecat.png",
-        roleIntlString: "roles.developer",
-        fullName: "TheSameCat",
-        shortName: "",
-        nostrNpub: "npub1wtuh24gpuxjyvnmjwlvxzg8k0elhasagfmmgz0x8vp4ltcy8ples54e7js",
-    },
-    {
-        profilePicture: "https://charlie.fish/images/author/fishcharlie/current/square/256.png",
-        roleIntlString: "roles.developer",
-        fullName: "Charlie Fish",
-        shortName: "@fishcharlie",
-        nostrNpub: "npub16amr0pgqzl8l57npcupjmv8j3055042g07w4qj4tu3zf4yd48nlsh96569"
-    }
 ]
 
 export function MeetTheTeam({ className }: { className?: string }) {
