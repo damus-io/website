@@ -103,11 +103,19 @@ export function PurpleAccount() {
                 </Button>
               </div>
             </Link>}
-            <div className="py-2">
+            <div className="py-2 border-b border-purple-200/20">
               <Link href="/notedeck/install" target="_blank">
                 <Button variant="link" className="w-full text-left">
                   <ArrowUpRight className="text-damuspink-600 mr-2" />
                   {intl.formatMessage({ id: "purple.account.notedeck-install-link", defaultMessage: "Try Notedeck" })}
+                </Button>
+              </Link>
+            </div>
+            <div className="py-2">
+              <Link href="/purple/checkout" target="_blank">
+                <Button variant="link" className="w-full text-left">
+                  <ArrowUpRight className="text-damuspink-600 mr-2" />
+                  {intl.formatMessage({ id: "purple.account.renew", defaultMessage: "Renew Purple subscription" })}
                 </Button>
               </Link>
             </div>

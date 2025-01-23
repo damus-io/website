@@ -833,6 +833,12 @@
       "value": "Try Notedeck"
     }
   ],
+  "purple.account.renew": [
+    {
+      "type": 0,
+      "value": "Renew Purple subscription"
+    }
+  ],
   "purple.account.sign-out": [
     {
       "type": 0,

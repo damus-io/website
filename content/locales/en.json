@@ -410,6 +410,9 @@
   "purple.account.notedeck-install-link": {
     "string": "Try Notedeck"
   },
+  "purple.account.renew": {
+    "string": "Renew Purple subscription"
+  },
   "purple.account.sign-out": {
     "string": "Sign out"
   },
