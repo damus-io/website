@@ -962,7 +962,7 @@
   "purple.checkout.description-2": [
     {
       "type": 0,
-      "value": "Use this page to purchase a new account, or to renew an existing one. You will need the latest Damus version to complete the checkout."
+      "value": "Use this page to purchase a new account, or to renew an existing one."
     }
   ],
   "purple.checkout.is-this-you": [

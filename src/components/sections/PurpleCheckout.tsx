@@ -91,7 +91,7 @@ export function PurpleCheckout() {
             {intl.formatMessage({ id: "purple.checkout.description", defaultMessage: "New accounts and renewals" })}
           </span>
           <span className="text-xs text-purple-200/50">
-            {intl.formatMessage({ id: "purple.checkout.description-2", defaultMessage: "Use this page to purchase a new account, or to renew an existing one. You will need the latest Damus version to complete the checkout." })}
+            {intl.formatMessage({ id: "purple.checkout.description-2", defaultMessage: "Use this page to purchase a new account, or to renew an existing one." })}
           </span>
         </div>
       </div>
