@@ -2,11 +2,16 @@ import { useState, useEffect } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { AccountInfo } from "@/utils/PurpleUtils";
 
+export const LOGIN_SESSION_TOKEN_LOCAL_STORAGE_KEY = 'session_token';
+
+export function usePurpleLoginSessionToken() {
+  return useLocalStorage(LOGIN_SESSION_TOKEN_LOCAL_STORAGE_KEY, null);
+}
 
 export function usePurpleLoginSession(setError: (message: string) => void) {
-  const [sessionToken, setSessionToken] = useLocalStorage('session_token', null);
+  const [sessionToken, setSessionToken] = usePurpleLoginSessionToken();
   const [accountInfo, setAccountInfo] = useState<AccountInfo | undefined | null>(undefined);
-  
+
   const logout = () => {
     setSessionToken(null);
     setAccountInfo(null);

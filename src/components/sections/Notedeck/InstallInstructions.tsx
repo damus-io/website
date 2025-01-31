@@ -1,20 +1,18 @@
 import { useIntl } from "react-intl";
 import { useEffect, useState } from "react";
 import { ErrorDialog } from "../../ErrorDialog";
-import { usePurpleLoginSession } from "@/hooks/usePurpleLoginSession";
-import { useLocalStorage } from "usehooks-ts";
+import { usePurpleLoginSessionToken } from "@/hooks/usePurpleLoginSession";
 import { NotedeckInstallLayout } from "@/components/NotedeckInstallLayout";
 import { MarkdownView } from "@/components/ui/MarkdownView";
 
 export function InstallInstructions() {
   const intl = useIntl()
   const [error, setError] = useState<string | null>(null)
-  const { accountInfo: loggedInAccountInfo, logout } = usePurpleLoginSession(setError)
-  const [sessionToken, setSessionToken] = useLocalStorage('session_token', null);
+  const [sessionToken, setSessionToken] = usePurpleLoginSessionToken();
   const [installInstructions, setInstallInstructions] = useState<string | undefined | null>(undefined)
 
   // MARK: - Functions
-  
+
   const fetchInstallInstructions = async () => {
     const response = await fetch(process.env.NEXT_PUBLIC_PURPLE_API_BASE_URL + "/notedeck-install-instructions", {
       method: 'GET',
@@ -23,6 +21,12 @@ export function InstallInstructions() {
         'Authorization': 'Bearer ' + sessionToken
       },
     });
+
+    if (response.status === 401) {  // Unauthorized
+      // Redirect to the login page
+      window.location.href = "/purple/login?redirect=" + encodeURIComponent("/notedeck/install")
+      return;
+    }
 
     if (!response.ok) {
       setError("Failed to get Notedeck install instructions from our servers. Please wait a few minutes and refresh the page. If the problem persists, please contact support.");
@@ -34,14 +38,8 @@ export function InstallInstructions() {
   }
 
   useEffect(() => {
-    if (loggedInAccountInfo) {
-      fetchInstallInstructions();
-    }
-    else if (loggedInAccountInfo === null) {
-      // Redirect to the login page
-      window.location.href = "/purple/login?redirect=" + encodeURIComponent("/notedeck/install")
-    }
-  }, [loggedInAccountInfo])
+    fetchInstallInstructions();
+  }, [sessionToken])
 
   // MARK: - Render
 
