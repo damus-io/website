@@ -86,6 +86,27 @@ const team = [
         shortName: "cr0bar",
         nostrNpub: "npub1794vv7hl7y6q2qw0y7m7h60rpphmvt5h7pzt5sr78z6assj6w0eqagwjhd",
     },
+    {
+        profilePicture: "/team-photos/swift.png",
+        roleIntlString: "roles.developer",
+        fullName: "Swift",
+        shortName: "Swift",
+        nostrNpub: "npub1hzx87qrmhuau9l9wl709z0ccdw4nx7pvpw4x5mxp9twh3wg3pw3svjjhe7",
+    },
+    {
+        profilePicture: "/team-photos/kernel-kind.png",
+        roleIntlString: "roles.developer",
+        fullName: "KernelKind",
+        shortName: "KernelKind",
+        nostrNpub: "npub1fgz3pungsr2quse0fpjuk4c5m8fuyqx2d6a3ddqc4ek92h6hf9ns0mjeck",
+    },
+    {
+        profilePicture: "/team-photos/ken-sedgwick.jpg",
+        roleIntlString: "roles.developer",
+        fullName: "Ken Sedgwick",
+        shortName: "Ken",
+        nostrNpub: "npub1s5rq2ztdh76shy578znvympa2mzz2vjushs9mc5mwkdupewke67qeuf7u3",
+    },
 ]
 
 export function MeetTheTeam({ className }: { className?: string }) {
