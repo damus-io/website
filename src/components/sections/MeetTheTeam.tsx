@@ -17,7 +17,7 @@ const team = [
         nostrNpub: "npub1xtscya34g58tk0z605fvr788k263gsu6cy9x0mhnm87echrgufzsevkk5s",
     },
     {
-        profilePicture: "/team-photos/vanessa-gray.png",
+        profilePicture: "/team-photos/vanessa.jpeg",
         roleIntlString: "roles.marketer",
         fullName: "Vanessa Gray",
         shortName: "@vrod",
@@ -44,13 +44,7 @@ const team = [
         shortName: "Daniel",
         nostrNpub: "npub13v47pg9dxjq96an8jfev9znhm0k7ntwtlh9y335paj9kyjsjpznqzzl3l8",
     },
-    {
-        profilePicture: "/team-photos/suhail-saqan.png",
-        roleIntlString: "roles.developer",
-        fullName: "Suhail Saqan",
-        shortName: "Suhail",
-        nostrNpub: "npub1k92qsr95jcumkpu6dffurkvwwycwa2euvx4fthv78ru7gqqz0nrs2ngfwd"
-    },
+
     {
         profilePicture: "/team-photos/terry-yiu.png",
         roleIntlString: "roles.developer",
@@ -71,20 +65,6 @@ const team = [
         fullName: "Mr. E.",
         shortName: "Mr. E.",
         nostrNpub: "npub1h50pnxqw9jg7dhr906fvy4mze2yzawf895jhnc3p7qmljdugm6gsrurqev",
-    },
-    {
-        profilePicture: "/team-photos/ben-weeks.png",
-        roleIntlString: "roles.developer",
-        fullName: "Ben Weeks",
-        shortName: "Ben",
-        nostrNpub: "npub1jutptdc2m8kgjmudtws095qk2tcale0eemvp4j2xnjnl4nh6669slrf04x",
-    },
-    {
-        profilePicture: "/team-photos/cr0bar.png",
-        roleIntlString: "roles.developer",
-        fullName: "cr0bar",
-        shortName: "cr0bar",
-        nostrNpub: "npub1794vv7hl7y6q2qw0y7m7h60rpphmvt5h7pzt5sr78z6assj6w0eqagwjhd",
     },
     {
         profilePicture: "/team-photos/swift.png",

@@ -10,52 +10,36 @@ import { MeshGradient3 } from "../effects/MeshGradient.3";
 
 const events = [
     {
-        picture: "/event-logos/pacific-bitcoin.webp",
-        linkUrl: "https://pacificbitcoin.com",
-        locationIntlString: "events.location.los_angeles_california",
-        name: "Pacific Bitcoin",
-        startDate: new Date("2022-10-05"),
-        endDate: new Date("2022-10-06"),
+        picture: "/event-logos/vancouver.jpeg",
+        linkUrl: "https://www.learningbitcoin.ca/",
+        locationIntlString: "events.location.vancouver_canada",
+        name: "Learning Bitcoin Vancouver 2025",
+        startDate: new Date(2025, 7, 16), // Month is 0-indexed in JavaScript, so 7 = August
+        endDate: new Date(2025, 7, 17),
     },
     {
-        picture: "/event-logos/bitcoin-amsterdam.webp",
-        linkUrl: "https://b.tc/conference/amsterdam",
-        locationIntlString: "events.location.amsterdam_netherlands",
-        name: "Bitcoin Amsterdam",
-        startDate: new Date("2023-10-12"),
-        endDate: new Date("2023-10-13"),
+        picture: "/event-logos/bitcoin-is-for-everyone.png",
+        linkUrl: "https://bitcoinisforeveryone.com/tickets",
+        locationIntlString: "events.location.portland_oregon",
+        name: "Bitcoin is for Everyone 2025",
+        startDate: new Date(2025, 7, 1), // Month is 0-indexed in JavaScript, so 7 = August
+        endDate: new Date(2025, 7, 1),
     },
     {
-        picture: "/event-logos/indonesia-btc-conference.webp",
-        linkUrl: "https://indonesiabitcoinconference.com",
-        locationIntlString: "events.location.bali_indonesia",
-        name: "Indonesia Bitcoin Conference",
-        startDate: new Date("2023-10-26"),
-        endDate: new Date("2023-10-27"),
+        picture: "/event-logos/bitcoin-asia.png",
+        linkUrl: "https://b.tc/conference/asia",
+        locationIntlString: "events.location.hong_kong",
+        name: "Bitcoin Asia 2025",
+        startDate: new Date(2025, 7, 28), // Month is 0-indexed in JavaScript, so 7 = August
+        endDate: new Date(2025, 7, 29),
     },
     {
-        picture: "/event-logos/nostrasia.webp",
-        linkUrl: "https://nostr.world",
-        locationIntlString: "events.location.tokyo_japan",
-        name: "Nostrasia",
-        startDate: new Date("2023-11-01"),
-        endDate: new Date("2023-11-03"),
-    },
-    {
-        picture: "/event-logos/nostrville.webp",
-        linkUrl: "https://www.meetup.com/bitcoinpark/events/292518506/",
-        locationIntlString: "events.location.nashville_tennessee",
-        name: "Nostrville",
-        startDate: new Date("2023-11-09"),
-        endDate: new Date("2023-11-10"),
-    },
-    {
-        picture: "https://cdn.jb55.com/s/4311bfac2b5367c9.png",
-        linkUrl: "https://unconfiscatable.com/",
-        locationIntlString: "events.location.las_vegas",
-        name: "Unconfiscatable",
-        startDate: new Date("2023-12-07"),
-        endDate: new Date("2023-12-09"),
+        picture: "/event-logos/canadian-bitcoin-conference.png",
+        linkUrl: "https://canadianbitcoinconf.com",
+        locationIntlString: "events.location.montreal_canada",
+        name: "Canadian Bitcoin Conference 2025",
+        startDate: new Date(2025, 9, 16), // Month is 0-indexed in JavaScript, so 9 = October
+        endDate: new Date(2025, 9, 18),
     },
 ]
 
@@ -64,12 +48,10 @@ export function DamusLiveEvents({ className }: { className?: string }) {
 
     // This type of structure is necessary in this case to make strings get picked up by `npm run i18n`
     const locationIntlStrings: Record<string, string> = {
-        "events.location.tokyo_japan": intl.formatMessage({ id: "events.location.tokyo_japan", defaultMessage: "Tokyo, Japan" }),
-        "events.location.bali_indonesia": intl.formatMessage({ id: "events.location.bali_indonesia", defaultMessage: "Bali, Indonesia" }),
-        "events.location.amsterdam_netherlands": intl.formatMessage({ id: "events.location.amsterdam_netherlands", defaultMessage: "Amsterdam, Netherlands" }),
-        "events.location.los_angeles_california": intl.formatMessage({ id: "events.location.los_angeles_california", defaultMessage: "Los Angeles, California" }),
-        "events.location.nashville_tennessee": intl.formatMessage({ id: "events.location.nashville_tennessee", defaultMessage: "Nashville, Tennessee" }),
-        "events.location.las_vegas": intl.formatMessage({ id: "events.location.las_vegas", defaultMessage: "Las Vegas, Nevada" }),
+        "events.location.vancouver_canada": intl.formatMessage({ id: "events.location.vancouver_canada", defaultMessage: "Vancouver, Canada" }),
+        "events.location.portland_oregon": intl.formatMessage({ id: "events.location.portland_oregon", defaultMessage: "Portland, Oregon" }),
+        "events.location.hong_kong": intl.formatMessage({ id: "events.location.hong_kong", defaultMessage: "Hong Kong" }),
+        "events.location.montreal_canada": intl.formatMessage({ id: "events.location.montreal_canada", defaultMessage: "Montreal, Canada" }),
     }
 
     return (<>
@@ -112,7 +94,10 @@ export function DamusLiveEvents({ className }: { className?: string }) {
                                             </div>
                                             <div className="flex flex-col justify-center items-center md:items-start">
                                                 <div className="text-white/70 text-center text-xs font-semibold">
-                                                    {intl.formatMessage({ id: "damus_live_events.date_range", defaultMessage: "{startDate} – {endDate}" }, { startDate: intl.formatDate(item.startDate, { month: "short", day: "numeric" }), endDate: intl.formatDate(item.endDate, { month: "short", day: "numeric" }) })}
+                                                    {intl.formatMessage({ id: "damus_live_events.date_range", defaultMessage: "{startDate} – {endDate}" }, { 
+                                                        startDate: intl.formatDate(item.startDate, { month: "short", day: "numeric", timeZone: "UTC" }), 
+                                                        endDate: intl.formatDate(item.endDate, { month: "short", day: "numeric", timeZone: "UTC" }) 
+                                                    })}
                                                 </div>
                                                 <div className="text-xl text-white font-bold mt-1 text-center md:text-left">
                                                     {item.name}
