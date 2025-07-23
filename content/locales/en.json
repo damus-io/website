@@ -92,23 +92,17 @@
   "damus_on_media.headline": {
     "string": "Damus on media"
   },
-  "events.location.amsterdam_netherlands": {
-    "string": "Amsterdam, Netherlands"
+  "events.location.hong_kong": {
+    "string": "Hong Kong"
   },
-  "events.location.bali_indonesia": {
-    "string": "Bali, Indonesia"
+  "events.location.montreal_canada": {
+    "string": "Montreal, Canada"
   },
-  "events.location.las_vegas": {
-    "string": "Las Vegas, Nevada"
+  "events.location.portland_oregon": {
+    "string": "Portland, Oregon"
   },
-  "events.location.los_angeles_california": {
-    "string": "Los Angeles, California"
-  },
-  "events.location.nashville_tennessee": {
-    "string": "Nashville, Tennessee"
-  },
-  "events.location.tokyo_japan": {
-    "string": "Tokyo, Japan"
+  "events.location.vancouver_canada": {
+    "string": "Vancouver, Canada"
   },
   "faq.buy.purple": {
     "string": "How can I buy purple if I am not a purple member?"

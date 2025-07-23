@@ -193,40 +193,28 @@
       "value": "Damus on media"
     }
   ],
-  "events.location.amsterdam_netherlands": [
+  "events.location.hong_kong": [
     {
       "type": 0,
-      "value": "Amsterdam, Netherlands"
+      "value": "Hong Kong"
     }
   ],
-  "events.location.bali_indonesia": [
+  "events.location.montreal_canada": [
     {
       "type": 0,
-      "value": "Bali, Indonesia"
+      "value": "Montreal, Canada"
     }
   ],
-  "events.location.las_vegas": [
+  "events.location.portland_oregon": [
     {
       "type": 0,
-      "value": "Las Vegas, Nevada"
+      "value": "Portland, Oregon"
     }
   ],
-  "events.location.los_angeles_california": [
+  "events.location.vancouver_canada": [
     {
       "type": 0,
-      "value": "Los Angeles, California"
-    }
-  ],
-  "events.location.nashville_tennessee": [
-    {
-      "type": 0,
-      "value": "Nashville, Tennessee"
-    }
-  ],
-  "events.location.tokyo_japan": [
-    {
-      "type": 0,
-      "value": "Tokyo, Japan"
+      "value": "Vancouver, Canada"
     }
   ],
   "faq.buy.purple": [
