@@ -357,16 +357,16 @@
     "string": "Download Damus today!"
   },
   "final_cta.subheadline": {
-    "string": "Damus is available on iOS, iPadOS and macOS (M1/M2).\nIt's free and open source."
+    "string": "Damus is available on iOS, Android, and Desktop.\nIt's free and open source."
   },
   "home.hero.available_in": {
     "string": "Available in"
   },
   "home.hero.check-out-damus-android": {
-    "string": "Check Damus for Android"
+    "string": "Download Damus for Android"
   },
   "home.hero.check-out-notedeck": {
-    "string": "Check Notedeck for Desktop"
+    "string": "Download Notedeck for Desktop"
   },
   "home.hero.download_now": {
     "string": "Download now for iOS"

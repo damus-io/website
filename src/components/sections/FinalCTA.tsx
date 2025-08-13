@@ -9,9 +9,24 @@ import { ArrowUpRight, MessageCircleIcon, GitBranch, Github } from "lucide-react
 import { DAMUS_APP_STORE_URL } from "@/lib/constants";
 import { MeshGradient4 } from "../effects/MeshGradient.4";
 import { GithubIcon } from "../icons/GithubIcon";
+import { useEffect, useState } from "react";
 
 export function FinalCTA({ className }: { className?: string }) {
     const intl = useIntl()
+    const [platform, setPlatform] = useState<'ios' | 'android' | 'desktop'>('desktop')
+
+    useEffect(() => {
+        // Detect platform
+        const userAgent = window.navigator.userAgent.toLowerCase()
+        
+        if (/iphone|ipad|ipod/.test(userAgent)) {
+            setPlatform('ios')
+        } else if (/android/.test(userAgent)) {
+            setPlatform('android')
+        } else {
+            setPlatform('desktop')
+        }
+    }, [])
 
     return (<>
         <div className={cn("bg-black overflow-hidden relative", className)}>
@@ -36,7 +51,7 @@ export function FinalCTA({ className }: { className?: string }) {
                         </motion.h2>
                         <motion.div className="text-xl text-center max-w-2xl mb-12 text-transparent bg-clip-text bg-gradient-to-br from-white from-5% to-[#8DEBF8] to-100% whitespace-pre-line leading-loose">
                             {(intl.locale != "ja" || process.env.FORCE_LOAD_ALL_JA_SECTIONS) && (<>
-                                { intl.formatMessage({ id: "final_cta.subheadline", defaultMessage: "Damus is available on iOS, iPadOS and macOS (M1/M2).\nIt's free and open source." }) }
+                                { intl.formatMessage({ id: "final_cta.subheadline", defaultMessage: "Damus is available on iOS, Android, and Desktop.\nIt's free and open source." }) }
                             </>)}
                         </motion.div>
                         <motion.div
@@ -44,18 +59,30 @@ export function FinalCTA({ className }: { className?: string }) {
                             style={{ opacity: 0 }}
                             animate={{ opacity: 1, transition: { delay: 1.5, duration: 1 } }}
                         >
-                            <Link href={DAMUS_APP_STORE_URL} target="_blank">
-                                <Button variant="default" className="w-full md:w-auto">
-                                    { intl.formatMessage({ id: "home.hero.download_now", defaultMessage: "Download now" }) }
-                                    <ArrowUpRight className="ml-2" />
-                                </Button>
-                            </Link>
-                            <Link href={"/notedeck"} target="_blank">
-                                <Button variant="link" className="w-full md:w-auto">
-                                    { intl.formatMessage({ id: "home.hero.check-out-notedeck", defaultMessage: "Check Notedeck, our cross-platform client" }) }
-                                    <ArrowUpRight className="text-damuspink-600 ml-2"/>
-                                </Button>
-                            </Link>
+                            {platform === 'ios' && (
+                                <Link href={DAMUS_APP_STORE_URL} target="_blank">
+                                    <Button variant="default" className="w-full md:w-auto">
+                                        { intl.formatMessage({ id: "home.hero.download_now", defaultMessage: "Download for iOS" }) }
+                                        <ArrowUpRight className="ml-2" />
+                                    </Button>
+                                </Link>
+                            )}
+                            {platform === 'desktop' && (
+                                <Link href={"/notedeck"} target="_blank">
+                                    <Button variant="default" className="w-full md:w-auto">
+                                        { intl.formatMessage({ id: "home.hero.check-out-notedeck", defaultMessage: "Download Notedeck for Desktop" }) }
+                                        <ArrowUpRight className="ml-2" />
+                                    </Button>
+                                </Link>
+                            )}
+                            {platform === 'android' && (
+                                <Link href={"/damus-android"} target="_blank">
+                                    <Button variant="default" className="w-full md:w-auto">
+                                        { intl.formatMessage({ id: "home.hero.check-out-damus-android", defaultMessage: "Download for Android" }) }
+                                        <ArrowUpRight className="ml-2" />
+                                    </Button>
+                                </Link>
+                            )}
                         </motion.div>
                     </div>
                 </div>
