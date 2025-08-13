@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { RoundedContainerWithGradientBorder } from "@/components/ui/RoundedContainerWithGradientBorder";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { BrainCircuit, Bot, ArrowRight, Sparkles } from "lucide-react";
+import { BrainCircuit, Search, FileText, HelpCircle } from "lucide-react";
 
 const onest = Onest({ subsets: ['latin'] })
 
@@ -30,48 +30,48 @@ export function AiFeatures({ className }: { className?: string }) {
                             <FormattedMessage defaultMessage="Meet Dave, Your AI Assistant" id="damus-android.ai.headline"/>
                         </h2>
                         <p className="text-lg text-white/80 mb-8">
-                            <FormattedMessage defaultMessage="Damus Android incorporates cutting-edge AI to enhance your social media experience. Dave is your personal assistant, helping you navigate the nostr ecosystem." id="damus-android.ai.description"/>
+                            <FormattedMessage defaultMessage="Damus Android incorporates cutting-edge AI to enhance your nostr experience. Dave is your intelligent assistant, helping you search, understand, and interact with content across the network." id="damus-android.ai.description"/>
                         </p>
                         
                         <div className="space-y-6">
                             <div className="flex items-start gap-4">
                                 <div className="bg-purple-900/40 p-3 rounded-lg">
-                                    <Bot className="h-6 w-6 text-purple-200" />
+                                    <Search className="h-6 w-6 text-purple-200" />
                                 </div>
                                 <div>
                                     <h3 className={cn("text-xl text-white font-medium mb-2", onest.className)}>
-                                        <FormattedMessage defaultMessage="Content Creation" id="damus-android.ai.feature1.title"/>
+                                        <FormattedMessage defaultMessage="Search" id="damus-android.ai.feature1.title"/>
                                     </h3>
                                     <p className="text-white/70">
-                                        <FormattedMessage defaultMessage="Dave can help draft notes, suggest hashtags, and generate creative content based on your preferences." id="damus-android.ai.feature1.description"/>
+                                        <FormattedMessage defaultMessage="Dave can help users search and find content across the network with advanced contextual understanding." id="damus-android.ai.feature1.description"/>
                                     </p>
                                 </div>
                             </div>
                             
                             <div className="flex items-start gap-4">
                                 <div className="bg-purple-900/40 p-3 rounded-lg">
-                                    <ArrowRight className="h-6 w-6 text-purple-200" />
+                                    <FileText className="h-6 w-6 text-purple-200" />
                                 </div>
                                 <div>
                                     <h3 className={cn("text-xl text-white font-medium mb-2", onest.className)}>
-                                        <FormattedMessage defaultMessage="Discovery" id="damus-android.ai.feature2.title"/>
+                                        <FormattedMessage defaultMessage="Summarization" id="damus-android.ai.feature2.title"/>
                                     </h3>
                                     <p className="text-white/70">
-                                        <FormattedMessage defaultMessage="Discover new content and users that align with your interests through Dave's intelligent recommendations." id="damus-android.ai.feature2.description"/>
+                                        <FormattedMessage defaultMessage="Dave can summarize the content it searches, helping you quickly understand conversations and topics without reading every note." id="damus-android.ai.feature2.description"/>
                                     </p>
                                 </div>
                             </div>
                             
                             <div className="flex items-start gap-4">
                                 <div className="bg-purple-900/40 p-3 rounded-lg">
-                                    <Sparkles className="h-6 w-6 text-purple-200" />
+                                    <HelpCircle className="h-6 w-6 text-purple-200" />
                                 </div>
                                 <div>
                                     <h3 className={cn("text-xl text-white font-medium mb-2", onest.className)}>
-                                        <FormattedMessage defaultMessage="Personalization" id="damus-android.ai.feature3.title"/>
+                                        <FormattedMessage defaultMessage="Question Answering" id="damus-android.ai.feature3.title"/>
                                     </h3>
                                     <p className="text-white/70">
-                                        <FormattedMessage defaultMessage="Dave learns from your interactions to deliver a more personalized experience over time." id="damus-android.ai.feature3.description"/>
+                                        <FormattedMessage defaultMessage="Dave can answer questions based on notes it sees on the network, giving you insights and information from across the nostr ecosystem." id="damus-android.ai.feature3.description"/>
                                     </p>
                                 </div>
                             </div>
