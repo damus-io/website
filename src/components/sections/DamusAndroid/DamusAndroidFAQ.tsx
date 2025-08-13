@@ -14,15 +14,15 @@ export function DamusAndroidFAQ({ className }: { className?: string }) {
     const faqs = [
         {
             question: intl.formatMessage({ id: "damus-android.faq.q1", defaultMessage: "What is Damus Android?" }),
-            answer: intl.formatMessage({ id: "damus-android.faq.a1", defaultMessage: "Damus Android is a native Android client for the Nostr protocol. It brings the same high-quality, censorship-resistant social experience that iOS users enjoy to the Android platform." }),
+            answer: intl.formatMessage({ id: "damus-android.faq.a1", defaultMessage: "Damus Android is a native Android client for the Nostr protocol. It brings the simplicity and performance Damus iOS users enjoy to the Android platform." }),
         },
         {
             question: intl.formatMessage({ id: "damus-android.faq.q2", defaultMessage: "When will Damus Android be available?" }),
-            answer: intl.formatMessage({ id: "damus-android.faq.a2", defaultMessage: "Damus Android is currently in development. Sign up for our newsletter to be the first to know when it launches." }),
+            answer: intl.formatMessage({ id: "damus-android.faq.a2", defaultMessage: "Damus Android is available now! Scroll down to see download instructions." }),
         },
         {
             question: intl.formatMessage({ id: "damus-android.faq.q3", defaultMessage: "How much does Damus Android cost?" }),
-            answer: intl.formatMessage({ id: "damus-android.faq.a3", defaultMessage: "Damus Android is free to download and use. The app is supported by donations and the Damus community." }),
+            answer: intl.formatMessage({ id: "damus-android.faq.a3", defaultMessage: "Damus Android is free to download and use. We are planning to create more optional premium features in the future." }),
         },
         {
             question: intl.formatMessage({ id: "damus-android.faq.q4", defaultMessage: "What does 'zapping' mean?" }),
@@ -30,7 +30,7 @@ export function DamusAndroidFAQ({ className }: { className?: string }) {
         },
         {
             question: intl.formatMessage({ id: "damus-android.faq.q5", defaultMessage: "Is Damus Android secure?" }),
-            answer: intl.formatMessage({ id: "damus-android.faq.a5", defaultMessage: "Yes, Damus Android is built with security in mind. Your private keys never leave your device, giving you full control over your identity and data." }),
+            answer: intl.formatMessage({ id: "damus-android.faq.a5", defaultMessage: "Yes, Damus Android is built with security in mind. Your private keys stay on your device, keeping you in control of your Nostr identity." }),
         },
         {
             question: intl.formatMessage({ id: "damus-android.faq.q6", defaultMessage: "What is Dave, the AI assistant?" }),
@@ -38,7 +38,7 @@ export function DamusAndroidFAQ({ className }: { className?: string }) {
         },
         {
             question: intl.formatMessage({ id: "damus-android.faq.q7", defaultMessage: "How is Damus Android different from other social media apps?" }),
-            answer: intl.formatMessage({ id: "damus-android.faq.a7", defaultMessage: "Damus Android is built on the decentralized Nostr protocol, meaning no single entity controls your data or can censor your speech. It also integrates directly with Bitcoin Lightning for payments and tipping." }),
+            answer: intl.formatMessage({ id: "damus-android.faq.a7", defaultMessage: "Damus Android is built on the decentralized Nostr protocol, meaning no single entity controls your data, censor your speech, or algorithmically manipulate the content you see. It also integrates directly with Bitcoin Lightning for payments and tipping." }),
         },
         {
             question: intl.formatMessage({ id: "damus-android.faq.q8", defaultMessage: "Do I need a Nostr account to use Damus Android?" }),
@@ -71,7 +71,11 @@ export function DamusAndroidFAQ({ className }: { className?: string }) {
                 <Accordion type="single" collapsible className="w-full text-white max-w-2xl mx-auto">
                     {faqs.map((faq, index) => (
                         <AccordionItem value={`item-${index}`} key={index}>
-                            <AccordionTrigger>{faq.question}</AccordionTrigger>
+                            <AccordionTrigger>
+                              <span className="text-left">
+                                {faq.question}
+                              </span>
+                            </AccordionTrigger>
                             <AccordionContent className="whitespace-pre-line">
                                 <MarkdownView>
                                     {faq.answer}
