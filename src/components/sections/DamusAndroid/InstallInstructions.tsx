@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useEffect, useState } from "react";
 import { ErrorDialog } from "../../ErrorDialog";
 import { usePurpleLoginSessionToken } from "@/hooks/usePurpleLoginSession";
-import { NotedeckInstallLayout } from "@/components/NotedeckInstallLayout";
+import { DamusAndroidInstallLayout } from "../../DamusAndroidInstallLayout";
 import { MarkdownView } from "@/components/ui/MarkdownView";
 
 export function InstallInstructions() {
@@ -14,7 +14,7 @@ export function InstallInstructions() {
   // MARK: - Functions
 
   const fetchInstallInstructions = async () => {
-    const response = await fetch(process.env.NEXT_PUBLIC_PURPLE_API_BASE_URL + "/notedeck-install-instructions", {
+    const response = await fetch(process.env.NEXT_PUBLIC_PURPLE_API_BASE_URL + "/damus-android-install-instructions", {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -24,12 +24,12 @@ export function InstallInstructions() {
 
     if (response.status === 401) {  // Unauthorized
       // Redirect to the login page
-      window.location.href = "/purple/login?redirect=" + encodeURIComponent("/notedeck/install")
+      window.location.href = "/purple/login?redirect=" + encodeURIComponent("/damus-android/install")
       return;
     }
 
     if (!response.ok) {
-      setError("Failed to get Notedeck install instructions from our servers. Please wait a few minutes and refresh the page. If the problem persists, please contact support.");
+      setError("Failed to get Damus Android install instructions from our servers. Please wait a few minutes and refresh the page. If the problem persists, please contact support.");
       return;
     }
 
@@ -46,8 +46,8 @@ export function InstallInstructions() {
 
   return (<>
     <ErrorDialog error={error} setError={setError} />
-    <NotedeckInstallLayout>
+    <DamusAndroidInstallLayout>
       <MarkdownView className="text-purple-200">{installInstructions}</MarkdownView>
-    </NotedeckInstallLayout>
+    </DamusAndroidInstallLayout>
   </>)
 }

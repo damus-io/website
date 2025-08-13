@@ -134,11 +134,11 @@ export function DownloadNowButton({ className }: { className?: string }) {
   const intl = useIntl()
 
   return (
-    <a href={"#download"} className={cn("w-full md:w-auto", className)}>
+    <Link href="/damus-android/install" className={cn("w-full md:w-auto", className)}>
       <Button variant="accent" className="w-full flex gap-x-2 text-lg font-semibold">
         <Zap className="w-4 h-4"/>
         {intl.formatMessage({ id: "damus-android.hero.download", defaultMessage: "Download now" })}
       </Button>
-    </a>
+    </Link>
   )
 }

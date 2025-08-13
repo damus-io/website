@@ -2,6 +2,7 @@ import { Onest } from 'next/font/google'
 import { FormattedMessage, useIntl } from "react-intl";
 import { motion } from "framer-motion";
 import { RoundedContainerWithGradientBorder } from "@/components/ui/RoundedContainerWithGradientBorder";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { MeshGradient3 } from "@/components/effects/MeshGradient.3";
@@ -34,10 +35,12 @@ export function Recap({ className }: { className?: string }) {
                     </p>
                     
                     <div className="flex justify-center items-center max-w-lg mx-auto">
-                        <Button variant="accent" size="lg" className="w-full md:w-auto flex items-center gap-2 text-lg font-semibold">
-                            <Download className="w-5 h-5" />
-                            {intl.formatMessage({ id: "damus-android.recap.download", defaultMessage: "Download Now" })}
-                        </Button>
+                        <Link href="/damus-android/install">
+                            <Button variant="accent" size="lg" className="w-full md:w-auto flex items-center gap-2 text-lg font-semibold">
+                                <Download className="w-5 h-5" />
+                                {intl.formatMessage({ id: "damus-android.recap.download", defaultMessage: "Download Now" })}
+                            </Button>
+                        </Link>
                     </div>
                 </motion.div>
             </div>
