@@ -40,7 +40,7 @@ export function DamusAndroidHero({ className, introducing }: { className?: strin
           >
           {introducing && (
             <motion.h1
-                className={cn("text-2xl uppercase text-white/80 mb-8", onest.className)}
+                className={cn("text-lg md:text-2xl uppercase text-white/80 mb-8", onest.className)}
             >
                 Introducing
             </motion.h1>
@@ -54,7 +54,7 @@ export function DamusAndroidHero({ className, introducing }: { className?: strin
               className="rounded-lg md:rounded-xl lg:rounded-2xl w-12 md:w-16 lg:w-20 aspect-square"
             />
             <motion.h1
-                className={cn("text-4xl sm:text-4xl lg:text-6xl text-transparent bg-clip-text font-semibold whitespace-pre-line max-w-4xl tracking-wide md:leading-loose", onest.className)}
+                className={cn("text-3xl sm:text-4xl lg:text-6xl text-transparent bg-clip-text font-semibold whitespace-pre-line max-w-4xl tracking-wide md:leading-loose", onest.className)}
                 style={{
                     backgroundImage: "linear-gradient(to right, #ffffff -100%, #ffffff -80%, #6D4D9B 100%)",
                     opacity: 0,
