@@ -8,9 +8,24 @@ import Link from "next/link";
 import { DAMUS_APP_STORE_URL } from "@/lib/constants";
 import { motion } from "framer-motion";
 import { NostrIcon } from "../icons/NostrIcon";
+import { useEffect, useState } from "react";
 
 export function Hero() {
     const intl = useIntl()
+    const [platform, setPlatform] = useState<'ios' | 'android' | 'desktop'>('desktop')
+
+    useEffect(() => {
+        // Detect platform
+        const userAgent = window.navigator.userAgent.toLowerCase()
+        
+        if (/iphone|ipad|ipod/.test(userAgent)) {
+            setPlatform('ios')
+        } else if (/android/.test(userAgent)) {
+            setPlatform('android')
+        } else {
+            setPlatform('desktop')
+        }
+    }, [])
 
     return (<>
         <div className="bg-black overflow-hidden relative min-h-screen">
@@ -52,25 +67,37 @@ export function Hero() {
                             style={{ opacity: 0 }}
                             animate={{ opacity: 1, transition: { delay: 1, duration: 1 } }}
                         >
-                            { intl.formatMessage({ id: "home.hero.subheadline", defaultMessage: "Your very own social network for your friends or business.\n Available Now on iOS, iPad and macOS (M1/M2)" }) }
+                            { intl.formatMessage({ id: "home.hero.subheadline", defaultMessage: "Your very own social network for your friends or business.\n Available Now on iOS, Android, and Desktop" }) }
                         </motion.h2>
                         <motion.div
-                            className="mt-10 md:mt-6 flex flex-col md:flex-row items-center md:items-center gap-y-4 gap-x-6"
+                            className="mt-10 md:mt-6 flex flex-col items-center md:items-start gap-y-4 md:gap-y-1 gap-x-6"
                             style={{ opacity: 0 }}
                             animate={{ opacity: 1, transition: { delay: 1.5, duration: 1 } }}
                         >
-                            <Link href={DAMUS_APP_STORE_URL} target="_blank">
-                                <Button variant="default" className="w-full md:w-auto">
-                                    { intl.formatMessage({ id: "home.hero.download_now", defaultMessage: "Download now" }) }
-                                    <ArrowUpRight className="ml-2" />
-                                </Button>
-                            </Link>
-                            <Link href={"/notedeck"} target="_blank">
-                                <Button variant="link" className="w-full md:w-auto">
-                                    { intl.formatMessage({ id: "home.hero.check-out-notedeck", defaultMessage: "Check Notedeck, our cross-platform client" }) }
-                                    <ArrowUpRight className="text-damuspink-600 ml-2"/>
-                                </Button>
-                            </Link>
+                            {platform === 'ios' && (
+                                <Link href={DAMUS_APP_STORE_URL} target="_blank">
+                                    <Button variant="default" className="w-full md:w-auto">
+                                        { intl.formatMessage({ id: "home.hero.download_now", defaultMessage: "Download now for iOS" }) }
+                                        <ArrowUpRight className="ml-2" />
+                                    </Button>
+                                </Link>
+                            )}
+                            {platform === 'desktop' && (
+                                <Link href={"/notedeck"} target="_blank">
+                                    <Button variant="default" className="w-full md:w-auto">
+                                        { intl.formatMessage({ id: "home.hero.check-out-notedeck", defaultMessage: "Download Notedeck for Desktop" }) }
+                                        <ArrowUpRight className="ml-2" />
+                                    </Button>
+                                </Link>
+                            )}
+                            {platform === 'android' && (
+                                <Link href={"/damus-android"} target="_blank">
+                                    <Button variant="default" className="w-full md:w-auto">
+                                        { intl.formatMessage({ id: "home.hero.check-out-damus-android", defaultMessage: "Download Damus for Android" }) }
+                                        <ArrowUpRight className="ml-2" />
+                                    </Button>
+                                </Link>
+                            )}
                         </motion.div>
                         <motion.div
                             className="text-white/80 text-sm flex flex-col md:flex-row justify-center md:justify-start items-center mt-12 md:mt-8 gap-x-2 gap-y-4"
