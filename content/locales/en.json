@@ -74,48 +74,6 @@
   "damus-android.ai.headline": {
     "string": "Meet Dave, Your AI Assistant"
   },
-  "damus-android.benefits.benefit1.description": {
-    "string": "Make the internet social again - bring your friends with you, zap them, get zapped, and build real connections"
-  },
-  "damus-android.benefits.benefit1.name": {
-    "string": "Social by Design"
-  },
-  "damus-android.benefits.benefit2.description": {
-    "string": "Take control of your online presence with true ownership of your identity - no corporate overlords"
-  },
-  "damus-android.benefits.benefit2.name": {
-    "string": "Own Your Identity"
-  },
-  "damus-android.benefits.benefit3.description": {
-    "string": "Seamless Bitcoin Lightning Network integration for zapping your favorite content creators"
-  },
-  "damus-android.benefits.benefit3.name": {
-    "string": "Lightning Integration"
-  },
-  "damus-android.benefits.benefit4.description": {
-    "string": "Customize your experience with multiple columns to view different feeds, profiles, and topics simultaneously"
-  },
-  "damus-android.benefits.benefit4.name": {
-    "string": "Multiple Columns"
-  },
-  "damus-android.benefits.benefit5.description": {
-    "string": "Integrated AI assistant to help you navigate, create content, and enhance your social media experience"
-  },
-  "damus-android.benefits.benefit5.name": {
-    "string": "AI Assistant (Dave)"
-  },
-  "damus-android.benefits.benefit6.description": {
-    "string": "No shadow banning, no censorship - a truly free platform for expression and communication"
-  },
-  "damus-android.benefits.benefit6.name": {
-    "string": "Censorship Resistant"
-  },
-  "damus-android.benefits.description": {
-    "string": "Experience the power of decentralized social media on your Android device"
-  },
-  "damus-android.benefits.headline": {
-    "string": "Key Benefits of Damus Android"
-  },
   "damus-android.faq.a1": {
     "string": "Damus Android is a native Android client for the Nostr protocol. It brings the simplicity and performance Damus iOS users enjoy to the Android platform."
   },
