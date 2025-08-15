@@ -86,7 +86,7 @@ export function FreedomFeatures({ className }: { className?: string }) {
                         transition={{ duration: 0.8, delay: 0.2 }}
                     >
                       <Image 
-                          src="/damus-android/feed.png" 
+                          src="/damus-android/feed.webp" 
                           width={300} 
                           height={600} 
                           alt="Freedom of expression in Damus Android"

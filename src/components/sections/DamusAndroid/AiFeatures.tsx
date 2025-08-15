@@ -86,7 +86,7 @@ export function AiFeatures({ className }: { className?: string }) {
                         transition={{ duration: 0.8, delay: 0.2 }}
                     >
                       <Image 
-                          src="/damus-android/dave2.png" 
+                          src="/damus-android/dave2.webp"
                           width={300} 
                           height={600} 
                           alt="Freedom of expression in Damus Android"

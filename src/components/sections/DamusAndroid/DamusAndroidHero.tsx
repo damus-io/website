@@ -112,7 +112,7 @@ export function DamusAndroidHero({ className, introducing }: { className?: strin
                 }}
               >
                 <Image
-                  src="/damus-android/mockup.png"
+                  src="/damus-android/mockup.webp"
                   className="object-contain"
                   alt="Damus Android mockup"
                   width={350}
