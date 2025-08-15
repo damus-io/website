@@ -36,7 +36,7 @@ export function DamusAndroid() {
           customCTA={
             <DownloadNowButton className="hidden lg:block"/>
           }
-          hideLogoOnTop={true}
+          hideLogoOnTop={false}
         />
       </motion.div>
       

@@ -47,18 +47,18 @@ export function WhatIsDamusAndroid({ className }: { className?: string }) {
     const items: Item[] = [
         {
           icon: <Globe className="h-12 w-12 text-white opacity-80"/>,
-          headline: intl.formatMessage({ id: "damus-android.feature.audience.name", defaultMessage: "Android is for everyone" }),
+          headline: intl.formatMessage({ id: "damus-android.feature.audience.name", defaultMessage: "For Everyone" }),
           description: intl.formatMessage({ id: "damus-android.feature.audience.description", defaultMessage: "Open up the Damus experience to the billions of Android users worldwide. A native app built specifically for Android." }),
         },
         {
           icon: <Zap className="h-12 w-12 text-white opacity-80"/>,
-          headline: intl.formatMessage({ id: "damus-android.feature.speed.name", defaultMessage: "Lightning Fast Experience" }),
-          description: intl.formatMessage({ id: "damus-android.feature.speed.description", defaultMessage: "Enjoy lightning-fast performance with zap integration, multiple columns, and a responsive interface built to handle your social media needs." }),
+          headline: intl.formatMessage({ id: "damus-android.feature.speed.name", defaultMessage: "Lightning Fast" }),
+          description: intl.formatMessage({ id: "damus-android.feature.speed.description", defaultMessage: "Enjoy lightning-fast performance and a responsive interface built to handle your social media needs, even on older phones." }),
         },
         {
-          icon: <ArrowLeftRightIcon className="h-12 w-12 text-white opacity-80"/>,
-          headline: intl.formatMessage({ id: "damus-android.feature.compatibility.name", defaultMessage: "Cross-Platform Compatibility" }),
-          description: intl.formatMessage({ id: "damus-android.feature.compatibility.description", defaultMessage: "Seamlessly connect with the entire Nostr ecosystem, no matter what device others are using." }),
+          icon: <Gauge className="h-12 w-12 text-white opacity-80"/>,
+          headline: intl.formatMessage({ id: "damus-android.feature.power.name", defaultMessage: "Power Features" }),
+          description: intl.formatMessage({ id: "damus-android.feature.power.description", defaultMessage: "A powerful Nostr experience featuring multiple columns on larger devices, a built-in AI assistant, and more." }),
         },
     ]
 
@@ -96,7 +96,7 @@ export function WhatIsDamusAndroid({ className }: { className?: string }) {
                           <SpecialMarkdownView>
                             {intl.formatMessage({
                               id: "damus-android.what-is.description1",
-                              defaultMessage: "**Damus Android brings the powerful, censorship-resistant Nostr experience** to Android devices. It's a **lightning-fast client** that puts you in control of your social media experience.\n\n"
+                              defaultMessage: "**Damus Android brings the Damus experience** to Android devices. It's a **lightning-fast client** that puts you in control of your social media experience.\n\n"
                             })}
                           </SpecialMarkdownView>
                         </motion.div>
@@ -108,7 +108,7 @@ export function WhatIsDamusAndroid({ className }: { className?: string }) {
                           <SpecialMarkdownView>
                             {intl.formatMessage({
                               id: "damus-android.what-is.description2",
-                              defaultMessage: "A **native app built specifically for Android** that allows you to explore the Nostr social network with all the features you love, including:"
+                              defaultMessage: "A **native app built specifically for Android** that allows you to explore the Nostr social network with all the features you love."
                             })}
                           </SpecialMarkdownView>
                         </motion.div>
@@ -128,7 +128,7 @@ export function WhatIsDamusAndroid({ className }: { className?: string }) {
                           <SpecialMarkdownView>
                             {intl.formatMessage({
                               id: "damus-android.what-is.description3",
-                              defaultMessage: "Join the millions of users already experiencing the **future of social media** with Damus. Now available on Android, the world's most popular mobile platform.\n\nDamus Android puts the power back in **your hands**, free from censorship, algorithms, and central control."
+                              defaultMessage: "Join the many users already experiencing the **future of social media** with Damus. Now available on Android, the world's most popular mobile platform.\n\nDamus Android puts the power back in **your hands**, free from shadow banning, censorship, and manipulative algorithms."
                             })}
                           </SpecialMarkdownView>
                         </motion.div>

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { RoundedContainerWithGradientBorder } from "@/components/ui/RoundedContainerWithGradientBorder";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { Globe, MessageSquare, Shield, Zap } from "lucide-react";
+import { Globe, MessageSquare, PersonStanding, Shield, Zap } from "lucide-react";
 
 const onest = Onest({ subsets: ['latin'] })
 
@@ -27,23 +27,23 @@ export function FreedomFeatures({ className }: { className?: string }) {
                             <span className="text-sm font-medium">Freedom Focused</span>
                         </div>
                         <h2 className={cn("text-4xl sm:text-5xl text-white font-semibold mb-6", onest.className)}>
-                            <FormattedMessage defaultMessage="Take Back Control of Social Media" id="damus-android.freedom.headline"/>
+                            <FormattedMessage defaultMessage="Take Back Control of your Social Media Experience" id="damus-android.freedom.headline"/>
                         </h2>
                         <p className="text-lg text-white/80 mb-8">
-                            <FormattedMessage defaultMessage="Damus Android gives you the freedom to express yourself without fear of censorship or algorithmic manipulation. Free speech, free money, free communication." id="damus-android.freedom.description"/>
+                            <FormattedMessage defaultMessage="Damus Android gives you tools to express yourself without fear of arbitrary censorship, shadow-banning, and manipulative algorithms." id="damus-android.freedom.description"/>
                         </p>
                         
                         <div className="space-y-6">
                             <div className="flex items-start gap-4">
                                 <div className="bg-purple-900/40 p-3 rounded-lg">
-                                    <MessageSquare className="h-6 w-6 text-purple-200" />
+                                    <PersonStanding className="h-6 w-6 text-purple-200" />
                                 </div>
                                 <div>
                                     <h3 className={cn("text-xl text-white font-medium mb-2", onest.className)}>
-                                        <FormattedMessage defaultMessage="No Shadow Banning" id="damus-android.freedom.feature1.title"/>
+                                        <FormattedMessage defaultMessage="No Manipulative Algorithms" id="damus-android.freedom.feature1.title"/>
                                     </h3>
                                     <p className="text-white/70">
-                                        <FormattedMessage defaultMessage="Your posts reach your audience without arbitrary algorithmic filtering or shadow banning." id="damus-android.freedom.feature1.description"/>
+                                        <FormattedMessage defaultMessage="Unlike most social media platforms, we don't use manipulative algorithms to increase screen time and sell more ads. The result is a more authentic social media experience." id="damus-android.freedom.feature1.description"/>
                                     </p>
                                 </div>
                             </div>
@@ -54,10 +54,10 @@ export function FreedomFeatures({ className }: { className?: string }) {
                                 </div>
                                 <div>
                                     <h3 className={cn("text-xl text-white font-medium mb-2", onest.className)}>
-                                        <FormattedMessage defaultMessage="Free Money" id="damus-android.freedom.feature2.title"/>
+                                        <FormattedMessage defaultMessage="Value for Value" id="damus-android.freedom.feature2.title"/>
                                     </h3>
                                     <p className="text-white/70">
-                                        <FormattedMessage defaultMessage="Integrated Bitcoin Lightning Network enables direct value transfer without intermediaries or gatekeepers." id="damus-android.freedom.feature2.description"/>
+                                        <FormattedMessage defaultMessage="Get supported by fellow users who enjoy your content, without intermediaries through Zaps, powered by Bitcoin Lightning." id="damus-android.freedom.feature2.description"/>
                                     </p>
                                 </div>
                             </div>
@@ -68,10 +68,10 @@ export function FreedomFeatures({ className }: { className?: string }) {
                                 </div>
                                 <div>
                                     <h3 className={cn("text-xl text-white font-medium mb-2", onest.className)}>
-                                        <FormattedMessage defaultMessage="Censorship Resistant" id="damus-android.freedom.feature3.title"/>
+                                        <FormattedMessage defaultMessage="Built on an Open, Honest Network" id="damus-android.freedom.feature3.title"/>
                                     </h3>
                                     <p className="text-white/70">
-                                        <FormattedMessage defaultMessage="Built on the decentralized Nostr protocol, Damus Android cannot be shut down or controlled by any single entity." id="damus-android.freedom.feature3.description"/>
+                                        <FormattedMessage defaultMessage="Damus Android is built on the open and decentralized Nostr protocol, preventing censorship and shadow-banning, and giving each user more control, transparency, and options over their own experience." id="damus-android.freedom.feature3.description"/>
                                     </p>
                                 </div>
                             </div>
@@ -89,7 +89,8 @@ export function FreedomFeatures({ className }: { className?: string }) {
                           src="/damus-android/feed.webp" 
                           width={300} 
                           height={600} 
-                          alt="Freedom of expression in Damus Android"
+                          alt="Damus Android screenshot"
+                          aria-hidden="true"
                           className="rounded-lg shadow-xl"
                       />
                     </motion.div>

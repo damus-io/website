@@ -29,8 +29,8 @@ export function DamusAndroidFAQ({ className }: { className?: string }) {
             answer: intl.formatMessage({ id: "damus-android.faq.a4", defaultMessage: "Zapping is a way to send Bitcoin directly to content creators through the Lightning Network. It's like tipping, but faster and with lower fees." }),
         },
         {
-            question: intl.formatMessage({ id: "damus-android.faq.q5", defaultMessage: "Is Damus Android secure?" }),
-            answer: intl.formatMessage({ id: "damus-android.faq.a5", defaultMessage: "Yes, Damus Android is built with security in mind. Your private keys stay on your device, keeping you in control of your Nostr identity." }),
+            question: intl.formatMessage({ id: "damus-android.faq.q5", defaultMessage: "How is Damus Android different from other Nostr clients?" }),
+            answer: intl.formatMessage({ id: "damus-android.faq.a5", defaultMessage: "Different Nostr clients have different focuses. Damus Android is engineered to provide a simple yet focused experience with lightning-fast performance unmatched by any other client. It is also built to be uncompromising on the Nostr protocol, giving you a genuine and pure Nostr experience." }),
         },
         {
             question: intl.formatMessage({ id: "damus-android.faq.q6", defaultMessage: "What is Dave, the AI assistant?" }),

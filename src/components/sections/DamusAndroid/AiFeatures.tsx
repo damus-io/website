@@ -30,7 +30,7 @@ export function AiFeatures({ className }: { className?: string }) {
                             <FormattedMessage defaultMessage="Meet Dave, Your AI Assistant" id="damus-android.ai.headline"/>
                         </h2>
                         <p className="text-lg text-white/80 mb-8">
-                            <FormattedMessage defaultMessage="Damus Android incorporates cutting-edge AI to enhance your nostr experience. Dave is your intelligent assistant, helping you search, understand, and interact with content across the network." id="damus-android.ai.description"/>
+                            <FormattedMessage defaultMessage="Damus Android incorporates cutting-edge AI to enhance your Nostr experience. Dave is your intelligent assistant, helping you search, understand, and interact with content across the network." id="damus-android.ai.description"/>
                         </p>
                         
                         <div className="space-y-6">
@@ -71,7 +71,7 @@ export function AiFeatures({ className }: { className?: string }) {
                                         <FormattedMessage defaultMessage="Question Answering" id="damus-android.ai.feature3.title"/>
                                     </h3>
                                     <p className="text-white/70">
-                                        <FormattedMessage defaultMessage="Dave can answer questions based on notes it sees on the network, giving you insights and information from across the nostr ecosystem." id="damus-android.ai.feature3.description"/>
+                                        <FormattedMessage defaultMessage="Dave can answer questions based on notes it sees on the network, giving you insights and information from across the Nostr ecosystem." id="damus-android.ai.feature3.description"/>
                                     </p>
                                 </div>
                             </div>
