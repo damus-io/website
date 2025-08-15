@@ -90,7 +90,7 @@ export function DamusAndroidHero({ className, introducing }: { className?: strin
             animate={{ opacity: 1, transition: { delay: 1.5, duration: 1 } }}
           >
             <DownloadNowButton/>
-            <a href={"/damus-android#introducing"}>
+            <a href={"/android#introducing"}>
                 <Button variant="link" className="w-full md:w-auto">
                     { intl.formatMessage({ id: "damus-android.hero.learn-more", defaultMessage: "Learn more" }) }
                 </Button>

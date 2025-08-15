@@ -1,11 +1,12 @@
-import { IntlProvider } from 'react-intl'
+import { Inter } from 'next/font/google'
+import { IntlProvider, useIntl } from 'react-intl'
 import English from "@/../content/compiled-locales/en.json";
 import Japanese from "@/../content/compiled-locales/ja.json";
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { DamusAndroid } from '@/components/pages/damus-android/index';
+import { DamusAndroidInstallPage } from '../../components/pages/android/install';
 
-export default function HomePage() {
+export default function Page() {
   // Automatically detect the user's locale based on their browser settings
   const [language, setLanguage] = useState("en");
   const [messages, setMessages] = useState(English);
@@ -34,7 +35,7 @@ export default function HomePage() {
       locale={language}
       messages={messages}
       onError={() => null}>
-      <DamusAndroid />
+      <DamusAndroidInstallPage />
     </IntlProvider>
   </>)
 }

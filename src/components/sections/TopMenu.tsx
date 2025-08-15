@@ -11,7 +11,7 @@ import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion"
 let regularNavItems: { nameIntlId: string, href: string, target?: string }[] = [
     { nameIntlId: "topbar.purple", href: "/purple" },
     { nameIntlId: "topbar.notedeck", href: "/notedeck" },
-    { nameIntlId: "topbar.damus-android", href: "/damus-android" },
+    { nameIntlId: "topbar.damus-android", href: "/android" },
     { nameIntlId: "topbar.store", href: DAMUS_MERCH_STORE_URL, target: "_blank" },
     { nameIntlId: "topbar.events", href: "/#events" },
     { nameIntlId: "topbar.team", href: "/#team" },
