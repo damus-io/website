@@ -42,7 +42,7 @@ export function DamusAndroidFAQ({ className }: { className?: string }) {
         },
         {
             question: intl.formatMessage({ id: "damus-android.faq.q8", defaultMessage: "Do I need a Nostr account to use Damus Android?" }),
-            answer: intl.formatMessage({ id: "damus-android.faq.a8", defaultMessage: "Yes, you'll need a Nostr identity (a public/private key pair). Damus Android can help you create one when you first open the app, or you can import an existing one." }),
+            answer: intl.formatMessage({ id: "damus-android.faq.a8", defaultMessage: "You can browse Nostr without an account, browse the network through the eyes of different profiles (including our mascot Damoose!), or through your own account. In order to post, you'll need a Nostr identity (a public/private key pair). Damus Android can help you create one when you first open the app, or you can import an existing one." }),
         },
     ]
 
