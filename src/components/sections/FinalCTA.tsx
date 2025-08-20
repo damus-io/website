@@ -76,7 +76,7 @@ export function FinalCTA({ className }: { className?: string }) {
                                 </Link>
                             )}
                             {platform === 'android' && (
-                                <Link href={"/damus-android"} target="_blank">
+                                <Link href={"/android"} target="_blank">
                                     <Button variant="default" className="w-full md:w-auto">
                                         { intl.formatMessage({ id: "home.hero.check-out-damus-android", defaultMessage: "Download for Android" }) }
                                         <ArrowUpRight className="ml-2" />

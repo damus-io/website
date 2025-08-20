@@ -35,7 +35,7 @@ export function Recap({ className }: { className?: string }) {
                     </p>
                     
                     <div className="flex justify-center items-center max-w-lg mx-auto">
-                        <Link href="/damus-android/install">
+                        <Link href="/android/install">
                             <Button variant="accent" size="lg" className="w-full md:w-auto flex items-center gap-2 text-lg font-semibold">
                                 <Download className="w-5 h-5" />
                                 {intl.formatMessage({ id: "damus-android.recap.download", defaultMessage: "Download Now" })}

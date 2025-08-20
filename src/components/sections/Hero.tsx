@@ -1,4 +1,4 @@
-import { ArrowUpRight, ChevronRight, Globe2 } from "lucide-react";
+import { ArrowUpRight, ChevronRight, Globe2, Sparkles } from "lucide-react";
 import { MeshGradient1 } from "../effects/MeshGradient.1";
 import { TopMenu } from "./TopMenu";
 import { Button } from "../ui/Button";
@@ -9,6 +9,7 @@ import { DAMUS_APP_STORE_URL } from "@/lib/constants";
 import { motion } from "framer-motion";
 import { NostrIcon } from "../icons/NostrIcon";
 import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 export function Hero() {
     const intl = useIntl()
@@ -32,7 +33,9 @@ export function Hero() {
             <div className="absolute z-10 pointer-events-none">
                 <MeshGradient1 className="-translate-x-1/3"/>
             </div>
-            <TopMenu className="w-full"/>
+            <TopMenu className="w-full" customCTA={
+              <InstallNowButton className="hidden lg:block" platform={platform}/>
+            }/>
             <div className="container mx-auto px-6 pb-32 pt-12">
                 <div className="flex flex-col lg:flex-row items-center justify-center mt-32 lg:mt-16">
                     <div className="w-full z-20 mb-12">
@@ -91,7 +94,7 @@ export function Hero() {
                                 </Link>
                             )}
                             {platform === 'android' && (
-                                <Link href={"/damus-android"} target="_blank">
+                                <Link href={"/android"} target="_blank">
                                     <Button variant="default" className="w-full md:w-auto">
                                         { intl.formatMessage({ id: "home.hero.check-out-damus-android", defaultMessage: "Download Damus for Android" }) }
                                         <ArrowUpRight className="ml-2" />
@@ -140,4 +143,31 @@ export function Hero() {
             </div>
         </div>
     </>)
+}
+
+export function InstallNowButton({ platform, className }: { platform: string, className?: string }) {
+  const intl = useIntl()
+    
+  let label = intl.formatMessage(
+    platform === "ios"
+      ? { id: "notedeck.hero.install.ios", defaultMessage: "Get Damus" }
+      : platform === "android"
+      ? { id: "notedeck.hero.install.android", defaultMessage: "Get Damus" }
+      : { id: "notedeck.hero.install.desktop", defaultMessage: "Get Notedeck" }
+  )
+  
+  let url = platform === "ios"
+    ? DAMUS_APP_STORE_URL
+    : platform === "android"
+    ? "/android/install"
+    : "/notedeck/install"
+
+  return (
+    <Link href={url} className={cn("w-full md:w-auto", className)}>
+      <Button variant="accent" className="w-full flex gap-x-2 text-lg font-semibold">
+        <Sparkles className="w-4 h-4"/>
+        {label}
+      </Button>
+    </Link>
+  )
 }

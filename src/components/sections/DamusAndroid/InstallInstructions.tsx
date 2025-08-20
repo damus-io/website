@@ -24,7 +24,7 @@ export function InstallInstructions() {
 
     if (response.status === 401) {  // Unauthorized
       // Redirect to the login page
-      window.location.href = "/purple/login?redirect=" + encodeURIComponent("/damus-android/install")
+      window.location.href = "/purple/login?redirect=" + encodeURIComponent("/android/install")
       return;
     }
 
