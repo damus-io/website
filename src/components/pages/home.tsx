@@ -29,7 +29,6 @@ export function Home() {
     <main style={{ scrollBehavior: "smooth" }}>
       <Hero/>
       <Benefits/>
-      <NotedeckHero introducing={true} />
       <PurpleBanner/>
       <BannedInChina/>
       <div id="events">

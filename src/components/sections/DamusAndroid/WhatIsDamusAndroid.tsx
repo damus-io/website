@@ -1,18 +1,23 @@
 import { Onest } from 'next/font/google'
 import { FormattedMessage, useIntl } from "react-intl";
 import { motion } from "framer-motion";
-import { RoundedContainerWithGradientBorder } from "@/components/ui/RoundedContainerWithGradientBorder";
 import { cn } from "@/lib/utils";
-import { Columns, Eye, Film, Gauge, Globe, Joystick, KeyRound, Mail, Scale, Search, Settings2, ThumbsUp, Upload, Wallet, Zap, ArrowLeftRightIcon } from "lucide-react";
-import { MeshGradient3 } from "@/components/effects/MeshGradient.3";
-import { MarkdownView } from '@/components/ui/MarkdownView';
-import { Item, ItemSection } from './ItemSection';
+import Image from "next/image";
+import { Eye, Gauge, ArrowLeftRightIcon, Zap, Globe } from "lucide-react";
 import Markdown from 'react-markdown';
 import { SpecialMarkdownView } from '@/components/common/SpecialMarkdownView';
 
 const onest = Onest({ subsets: ['latin'] })
 
-export function WhatIsNotedeck({ className }: { className?: string }) {
+interface Item {
+  icon: React.ReactNode;
+  headline: string;
+  description: string;
+  badgeText?: string;
+  badgeClassName?: string;
+}
+
+export function WhatIsDamusAndroid({ className }: { className?: string }) {
     const intl = useIntl()
 
     const list = {
@@ -42,19 +47,19 @@ export function WhatIsNotedeck({ className }: { className?: string }) {
 
     const items: Item[] = [
         {
-          icon: <Eye className="h-12 w-12 text-white opacity-80"/>,
-          headline: intl.formatMessage({ id: "notedeck.feature.customization.name", defaultMessage: "Powerful Views" }),
-          description: intl.formatMessage({ id: "notedeck.feature.customization.description", defaultMessage: "Add profile, hashtag, and notification columns of any nostr public or private key. Which means you can see the nostr landscape through other peoples' eyes" }),
+          icon: <Globe className="h-12 w-12 text-white opacity-80"/>,
+          headline: intl.formatMessage({ id: "damus-android.feature.audience.name", defaultMessage: "For Everyone" }),
+          description: intl.formatMessage({ id: "damus-android.feature.audience.description", defaultMessage: "Open up the Damus experience to the billions of Android users worldwide. A native app built specifically for Android." }),
+        },
+        {
+          icon: <Zap className="h-12 w-12 text-white opacity-80"/>,
+          headline: intl.formatMessage({ id: "damus-android.feature.speed.name", defaultMessage: "Lightning Fast" }),
+          description: intl.formatMessage({ id: "damus-android.feature.speed.description", defaultMessage: "Enjoy lightning-fast performance and a responsive interface built to handle your social media needs, even on older phones." }),
         },
         {
           icon: <Gauge className="h-12 w-12 text-white opacity-80"/>,
-          headline: intl.formatMessage({ id: "notedeck.feature.speed.name", defaultMessage: "Speed" }),
-          description: intl.formatMessage({ id: "notedeck.feature.speed.description", defaultMessage: "The fastest nostr client. Built from the ground up with an ultra-fast database made exclusively for nostr, leveraging several state-of-the-art performance techniques not available on web clients" }),
-        },
-        {
-          icon: <ArrowLeftRightIcon className="h-12 w-12 text-white opacity-80"/>,
-          headline: intl.formatMessage({ id: "notedeck.feature.availability.name", defaultMessage: "Switch Between Accounts" }),
-          description: intl.formatMessage({ id: "notedeck.feature.availability.description", defaultMessage: "Nostriches can also switch between multiple accounts quickly and easily, drastically improving personal and business use cases" }),
+          headline: intl.formatMessage({ id: "damus-android.feature.power.name", defaultMessage: "Power Features" }),
+          description: intl.formatMessage({ id: "damus-android.feature.power.description", defaultMessage: "A powerful Nostr experience featuring multiple columns on larger devices, a built-in AI assistant, and more." }),
         },
     ]
 
@@ -75,7 +80,7 @@ export function WhatIsNotedeck({ className }: { className?: string }) {
                               opacity: 1
                           }}
                       >
-                        {intl.formatMessage({ id: "notedeck.what-is.headline", defaultMessage: "Introducing Notedeck" })}
+                        {intl.formatMessage({ id: "damus-android.what-is.headline", defaultMessage: "What is Damus Android?" })}
                       </motion.h2>
                       <motion.div
                         initial="hidden"
@@ -85,48 +90,46 @@ export function WhatIsNotedeck({ className }: { className?: string }) {
                         viewport={{ once: true }}
                       >
                         <motion.div
-                          className={cn("text-white/60 text-4xl leading-relaxed text-left max-w-4xl my-32 break-keep")}
+                          className={cn("text-white/60 text-2xl md:text-4xl leading-relaxed text-left max-w-4xl my-32 break-keep")}
                           variants={item}
                           transition={{ duration: 1 }}
                         >
                           <SpecialMarkdownView>
                             {intl.formatMessage({
-                              id: "notedeck.what-is.description1",
-                              defaultMessage: "**Nostr is the future of social media** and Notedeck is our latest innovation towards the **future of nostr**.\n\n"
+                              id: "damus-android.what-is.description1",
+                              defaultMessage: "**Damus Android brings the Damus experience** to Android devices. It's a **lightning-fast client** that puts you in control of your social media experience.\n\n"
                             })}
                           </SpecialMarkdownView>
                         </motion.div>
                         <motion.div
-                          className={cn("text-white/60 text-4xl leading-relaxed text-left max-w-4xl my-32 break-keep")}
+                          className={cn("text-white/60 text-2xl md:text-4xl leading-relaxed text-left max-w-4xl my-32 break-keep")}
                           variants={item}
                           transition={{ duration: 1 }}
                         >
                           <SpecialMarkdownView>
                             {intl.formatMessage({
-                              id: "notedeck.what-is.description2",
-                              defaultMessage: "A **lightning fast native app** that allows you to explore the nostr social network in a **completely new way**! Notedeck includes several power features to both personal and business use cases, including:"
+                              id: "damus-android.what-is.description2",
+                              defaultMessage: "A **native app built specifically for Android** that allows you to explore the Nostr social network with all the features you love."
                             })}
                           </SpecialMarkdownView>
                         </motion.div>
-                        {(intl.locale != "ja" || process.env.FORCE_LOAD_ALL_JA_SECTIONS) && (
-                            <motion.div
-                              className="flex flex-wrap gap-x-8 gap-y-16 items-stretch justify-center mt-28 mb-56"
-                              variants={item}
-                            >
-                                {items.map((item, index) => (
-                                    <ItemView key={index} item={item} index={index} />
-                                ))}
-                            </motion.div>
-                        )}
                         <motion.div
-                          className={cn("text-white/60 text-4xl leading-relaxed text-left max-w-4xl my-32 break-keep")}
+                          className="flex flex-wrap gap-x-8 gap-y-16 items-stretch justify-center mt-28 mb-56"
+                          variants={item}
+                        >
+                            {items.map((item, index) => (
+                                <ItemView key={index} item={item} index={index} />
+                            ))}
+                        </motion.div>
+                        <motion.div
+                          className={cn("text-white/60 text-2xl md:text-4xl leading-relaxed text-left max-w-4xl my-32 break-keep")}
                           variants={item}
                           transition={{ duration: 1 }}
                         >
                           <SpecialMarkdownView>
                             {intl.formatMessage({
-                              id: "notedeck.what-is.description3",
-                              defaultMessage: "This isn't a web app and it's not just \"another\" social client. This is nostr **like you've never seen it before!**\n\nNotedeck works on **Linux**, **macOS**, and **Windows** on day one. An Android version will be added in 2025, along with iOS and iPadOS eventually.\n\nFuture nostr apps **will run on Notedeck in 2025.**\n\nAn early Notedeck Alpha version is available **today** to our paid [Purple](/purple) subscribers."
+                              id: "damus-android.what-is.description3",
+                              defaultMessage: "Join the many users already experiencing the **future of social media** with Damus. Now available on Android, the world's most popular mobile platform.\n\nDamus Android puts the power back in **your hands**, free from shadow banning, censorship, and manipulative algorithms."
                             })}
                           </SpecialMarkdownView>
                         </motion.div>

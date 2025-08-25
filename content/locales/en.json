@@ -50,6 +50,159 @@
   "contribute.talk_to_a_team_member": {
     "string": "Talk to a team member"
   },
+  "damus-android.ai.description": {
+    "string": "Damus Android incorporates cutting-edge AI to enhance your Nostr experience. Dave is your intelligent assistant, helping you search, understand, and interact with content across the network."
+  },
+  "damus-android.ai.feature1.description": {
+    "string": "Dave can help users search and find content across the network with advanced contextual understanding."
+  },
+  "damus-android.ai.feature1.title": {
+    "string": "Search"
+  },
+  "damus-android.ai.feature2.description": {
+    "string": "Dave can summarize the content it searches, helping you quickly understand conversations and topics without reading every note."
+  },
+  "damus-android.ai.feature2.title": {
+    "string": "Summarization"
+  },
+  "damus-android.ai.feature3.description": {
+    "string": "Dave can answer questions based on notes it sees on the network, giving you insights and information from across the Nostr ecosystem."
+  },
+  "damus-android.ai.feature3.title": {
+    "string": "Question Answering"
+  },
+  "damus-android.ai.headline": {
+    "string": "Meet Dave, Your AI Assistant"
+  },
+  "damus-android.faq.a1": {
+    "string": "Damus Android is a native Android client for the Nostr protocol. It brings the simplicity and performance Damus iOS users enjoy to the Android platform."
+  },
+  "damus-android.faq.a2": {
+    "string": "Damus Android is available now! Scroll down to see download instructions."
+  },
+  "damus-android.faq.a3": {
+    "string": "Damus Android is free to download and use. We are planning to create more optional premium features in the future."
+  },
+  "damus-android.faq.a4": {
+    "string": "Zapping is a way to send Bitcoin directly to content creators through the Lightning Network. It's like tipping, but faster and with lower fees."
+  },
+  "damus-android.faq.a5": {
+    "string": "Different Nostr clients have different focuses. Damus Android is engineered to provide a simple yet focused experience with lightning-fast performance unmatched by any other client. It is also built to be uncompromising on the Nostr protocol, giving you a genuine and pure Nostr experience."
+  },
+  "damus-android.faq.a6": {
+    "string": "Dave is an AI assistant integrated into Damus Android that helps you create content, discover new accounts to follow, and navigate the Nostr ecosystem."
+  },
+  "damus-android.faq.a7": {
+    "string": "Damus Android is built on the decentralized Nostr protocol, meaning no single entity controls your data, censor your speech, or algorithmically manipulate the content you see. It also integrates directly with Bitcoin Lightning for payments and tipping."
+  },
+  "damus-android.faq.a8": {
+    "string": "You can browse Nostr without an account, browse the network through the eyes of different profiles (including our mascot Damoose!), or through your own account. In order to post, you'll need a Nostr identity (a public/private key pair). Damus Android can help you create one when you first open the app, or you can import an existing one."
+  },
+  "damus-android.faq.headline": {
+    "string": "Frequently Asked Questions"
+  },
+  "damus-android.faq.q1": {
+    "string": "What is Damus Android?"
+  },
+  "damus-android.faq.q2": {
+    "string": "When will Damus Android be available?"
+  },
+  "damus-android.faq.q3": {
+    "string": "How much does Damus Android cost?"
+  },
+  "damus-android.faq.q4": {
+    "string": "What does 'zapping' mean?"
+  },
+  "damus-android.faq.q5": {
+    "string": "How is Damus Android different from other Nostr clients?"
+  },
+  "damus-android.faq.q6": {
+    "string": "What is Dave, the AI assistant?"
+  },
+  "damus-android.faq.q7": {
+    "string": "How is Damus Android different from other social media apps?"
+  },
+  "damus-android.faq.q8": {
+    "string": "Do I need a Nostr account to use Damus Android?"
+  },
+  "damus-android.feature.audience.description": {
+    "string": "Open up the Damus experience to the billions of Android users worldwide. A native app built specifically for Android."
+  },
+  "damus-android.feature.audience.name": {
+    "string": "For Everyone"
+  },
+  "damus-android.feature.power.description": {
+    "string": "A powerful Nostr experience featuring multiple columns on larger devices, a built-in AI assistant, and more."
+  },
+  "damus-android.feature.power.name": {
+    "string": "Power Features"
+  },
+  "damus-android.feature.speed.description": {
+    "string": "Enjoy lightning-fast performance and a responsive interface built to handle your social media needs, even on older phones."
+  },
+  "damus-android.feature.speed.name": {
+    "string": "Lightning Fast"
+  },
+  "damus-android.freedom.description": {
+    "string": "Damus Android gives you tools to express yourself without fear of arbitrary censorship, shadow-banning, and manipulative algorithms."
+  },
+  "damus-android.freedom.feature1.description": {
+    "string": "Unlike most social media platforms, we don't use manipulative algorithms to increase screen time and sell more ads. The result is a more authentic social media experience."
+  },
+  "damus-android.freedom.feature1.title": {
+    "string": "No Manipulative Algorithms"
+  },
+  "damus-android.freedom.feature2.description": {
+    "string": "Get supported by fellow users who enjoy your content, without intermediaries through Zaps, powered by Bitcoin Lightning."
+  },
+  "damus-android.freedom.feature2.title": {
+    "string": "Value for Value"
+  },
+  "damus-android.freedom.feature3.description": {
+    "string": "Damus Android is built on the open and decentralized Nostr protocol, preventing censorship and shadow-banning, and giving each user more control, transparency, and options over their own experience."
+  },
+  "damus-android.freedom.feature3.title": {
+    "string": "Built on an Open, Honest Network"
+  },
+  "damus-android.freedom.headline": {
+    "string": "Take Back Control of your Social Media Experience"
+  },
+  "damus-android.hero.announcement": {
+    "string": "Now available - free on Android"
+  },
+  "damus-android.hero.download": {
+    "string": "Download now"
+  },
+  "damus-android.hero.headline": {
+    "string": "Make the internet social again - bring your friends, zap and get zapped, own your identity."
+  },
+  "damus-android.hero.learn-more": {
+    "string": "Learn more"
+  },
+  "damus-android.meta_description": {
+    "string": "Damus Android is a powerful, performant Nostr client for Android devices"
+  },
+  "damus-android.recap.closing": {
+    "string": "Join thousands of users already experiencing the future of social media on the Nostr protocol."
+  },
+  "damus-android.recap.download": {
+    "string": "Download Now"
+  },
+  "damus-android.recap.headline": {
+    "string": "Ready to Take Back Control?"
+  },
+  "damus-android.what-is.description1": {
+    "string": "**Damus Android brings the Damus experience** to Android devices. It's a **lightning-fast client** that puts you in control of your social media experience.\n\n"
+  },
+  "damus-android.what-is.description2": {
+    "string": "A **native app built specifically for Android** that allows you to explore the Nostr social network with all the features you love."
+  },
+  "damus-android.what-is.description3": {
+    "string": "Join the many users already experiencing the **future of social media** with Damus. Now available on Android, the world's most popular mobile platform.\n\nDamus Android puts the power back in **your hands**, free from shadow banning, censorship, and manipulative algorithms."
+  },
+  "damus-android.what-is.headline": {
+    "string": "What is Damus Android?"
+  },
   "damus_around_the_world.headline": {
     "string": "Damus around the world"
   },
@@ -162,22 +315,25 @@
     "string": "Download Damus today!"
   },
   "final_cta.subheadline": {
-    "string": "Damus is available on iOS, iPadOS and macOS (M1/M2).\nIt's free and open source."
+    "string": "Damus is available on iOS, Android, and Desktop.\nIt's free and open source."
   },
   "home.hero.available_in": {
     "string": "Available in"
   },
+  "home.hero.check-out-damus-android": {
+    "string": "Download Damus for Android"
+  },
   "home.hero.check-out-notedeck": {
-    "string": "Check Notedeck, our cross-platform client"
+    "string": "Download Notedeck for Desktop"
   },
   "home.hero.download_now": {
-    "string": "Download now"
+    "string": "Download now for iOS"
   },
   "home.hero.headline": {
     "string": "The social network you control"
   },
   "home.hero.subheadline": {
-    "string": "Your very own social network for your friends or business.\n Available Now on iOS, iPad and macOS (M1/M2)"
+    "string": "Your very own social network for your friends or business.\n Available Now on iOS, Android, and Desktop"
   },
   "home.meta_description": {
     "string": "Damus is a new social network that you control. Available now on iOS, iPad and macOS (M1/M2)"
@@ -703,6 +859,9 @@
   },
   "topbar.contribute": {
     "string": "Contribute"
+  },
+  "topbar.damus-android": {
+    "string": "Damus Android"
   },
   "topbar.download": {
     "string": "Download"

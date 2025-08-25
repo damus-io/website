@@ -11,6 +11,7 @@ import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion"
 let regularNavItems: { nameIntlId: string, href: string, target?: string }[] = [
     { nameIntlId: "topbar.purple", href: "/purple" },
     { nameIntlId: "topbar.notedeck", href: "/notedeck" },
+    { nameIntlId: "topbar.damus-android", href: "/android" },
     { nameIntlId: "topbar.store", href: DAMUS_MERCH_STORE_URL, target: "_blank" },
     { nameIntlId: "topbar.events", href: "/#events" },
     { nameIntlId: "topbar.team", href: "/#team" },
@@ -41,6 +42,7 @@ export function TopMenu({ className, customCTA, hideLogoOnTop: hideLogoOnTop = f
     const topbarItemNameIntl: Record<string, string> = {
         "topbar.purple": intl.formatMessage({ id: "topbar.purple", defaultMessage: "Purple" }),
         "topbar.notedeck": intl.formatMessage({ id: "topbar.notedeck", defaultMessage: "Notedeck" }),
+        "topbar.damus-android": intl.formatMessage({ id: "topbar.damus-android", defaultMessage: "Damus Android" }),
         "topbar.store": intl.formatMessage({ id: "topbar.store", defaultMessage: "Store" }),
         "topbar.events": intl.formatMessage({ id: "topbar.events", defaultMessage: "Events" }),
         "topbar.team": intl.formatMessage({ id: "topbar.team", defaultMessage: "Our Team" }),
