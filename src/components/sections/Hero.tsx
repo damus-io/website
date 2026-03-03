@@ -5,7 +5,7 @@ import { Button } from "../ui/Button";
 import Image from "next/image"
 import { FormattedMessage, useIntl } from "react-intl";
 import Link from "next/link";
-import { DAMUS_APP_STORE_URL } from "@/lib/constants";
+import { DAMUS_APP_STORE_URL, DAMUS_TESTFLIGHT_URL } from "@/lib/constants";
 import { motion } from "framer-motion";
 import { NostrIcon } from "../icons/NostrIcon";
 import { useEffect, useState } from "react";
@@ -82,6 +82,14 @@ export function Hero() {
                                     <Button variant="default" className="w-full md:w-auto">
                                         { intl.formatMessage({ id: "home.hero.download_now", defaultMessage: "Download now for iOS" }) }
                                         <ArrowUpRight className="ml-2" />
+                                    </Button>
+                                </Link>
+                            )}
+                            {platform === 'ios' && (
+                                <Link href="/testflight">
+                                    <Button variant="link" className="w-full md:w-auto text-sm">
+                                        { intl.formatMessage({ id: "home.hero.testflight_beta", defaultMessage: "Try the beta on TestFlight" }) }
+                                        <ChevronRight className="ml-1 h-4 w-4" />
                                     </Button>
                                 </Link>
                             )}
