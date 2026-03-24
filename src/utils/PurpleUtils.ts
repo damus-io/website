@@ -58,10 +58,17 @@ const getProfileEvent = async (pubkey: string): Promise<NostrEvent | null> => {
 const relay = await Relay.connect(process.env.NEXT_PUBLIC_NOSTR_RELAY || 'wss://relay.damus.io')
 
 const events: Array<NostrEvent> = []
-return new Promise((resolve, reject) => {
+return new Promise((resolve) => {
+    let resolved = false
+    const resolveWithMostRecent = () => {
+    if (resolved) return
+    resolved = true
+    // Get the most recent event, based on `created_at` field (sort descending)
+    const most_recent_event = events.sort((a, b) => b.created_at - a.created_at)[0]
+    resolve(most_recent_event || null)
+    }
 
-    // let's query for an event that exist 
-    const sub = relay.subscribe([
+    relay.subscribe([
     {
         authors: [pubkey],
         kinds: [0],
@@ -71,16 +78,12 @@ return new Promise((resolve, reject) => {
         events.push(event)
     },
     oneose() {
-        // Get the most recent event, based on `created_at` field
-        if (events.length === 0) {
-        // No events found
-        resolve(null)
-        }
-        else {
-        const most_recent_event = events.sort((a, b) => a.created_at - b.created_at)[0]
-        resolve(most_recent_event)
-        }
+        resolveWithMostRecent()
         relay.close()
+    },
+    onclose() {
+        // Relay closed before or after EOSE — resolve with whatever we have
+        resolveWithMostRecent()
     }
     })
 });
@@ -88,4 +91,3 @@ return new Promise((resolve, reject) => {
 
 export { getPurpleAccountInfo, getProfile, getProfileEvent }
 export type { AccountInfo, Profile }
-

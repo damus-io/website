@@ -1,11 +1,8 @@
-import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useIntl } from "react-intl";
 import Link from "next/link";
-import Image from "next/image";
-import { useEffect, useState } from "react";
 import { QRCodeSVG } from 'qrcode.react';
-import { AccountInfo, Profile, getProfile, getPurpleAccountInfo } from "@/utils/PurpleUtils";
+import { Profile } from "@/utils/PurpleUtils";
 import { LNCheckout } from "./Types";
 
 export interface Step2DamusIOSVerificationProps {
@@ -20,51 +17,8 @@ export interface Step2DamusIOSVerificationProps {
 
 export function Step2DamusIOSVerification(props: Step2DamusIOSVerificationProps) {
   const intl = useIntl()
-  const [existingAccountInfo, setExistingAccountInfo] = useState<AccountInfo | null | undefined>(undefined)  // The account info fetched from the server
-  
-  const step1Done = props.lnCheckout?.product_template_name != null
+
   const step2Done = props.lnCheckout?.verified_pubkey != null
-
-  // MARK: - Functions
-
-  const fetchProfile = async () => {
-    if (!props.pubkey) {
-      return
-    }
-    try {
-      const profile = await getProfile(props.pubkey)
-      props.setProfile(profile)
-    }
-    catch (e) {
-      console.error(e)
-      props.setError("Failed to get profile info from the relay. Please wait a few minutes and refresh the page. If the problem persists, please contact support.")
-    }
-  }
-
-  const fetchAccountInfo = async () => {
-    if (!props.pubkey) {
-      setExistingAccountInfo(undefined)
-      return
-    }
-    try {
-      const accountInfo = await getPurpleAccountInfo(props.pubkey)
-      setExistingAccountInfo(accountInfo)
-    }
-    catch (e) {
-      console.error(e)
-      props.setError("Failed to get account info from our servers. Please wait a few minutes and refresh the page. If the problem persists, please contact support.")
-    }
-  }
-
-  // MARK: - Effects and hooks
-
-  // Load the profile when the pubkey changes
-  useEffect(() => {
-    if (props.pubkey) {
-      fetchProfile()
-      fetchAccountInfo()
-    }
-  }, [props.pubkey])
 
   // MARK: - Render
 

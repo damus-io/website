@@ -30,6 +30,7 @@ export function NostrUserInput(props: { pubkey: string | null, setPubkey: (pubke
     try {
       const profile = await getProfile(props.pubkey)
       setProfile(profile)
+      props.onProfileChange(profile)
     }
     catch (e) {
       console.error(e)

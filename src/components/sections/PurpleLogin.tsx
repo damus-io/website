@@ -9,7 +9,7 @@ import { Info } from "lucide-react";
 import { Input } from "@/components/ui/Input"
 import { Label } from "@/components/ui/Label"
 import { InputOTP6Digits } from "@/components/ui/InputOTP";
-import { AccountInfo, Profile, getProfile, getPurpleAccountInfo } from "@/utils/PurpleUtils";
+import { AccountInfo, Profile, getPurpleAccountInfo } from "@/utils/PurpleUtils";
 import { useLocalStorage } from "usehooks-ts";
 import { ErrorDialog } from "../ErrorDialog";
 import { PurpleLayout } from "../PurpleLayout";
@@ -35,20 +35,6 @@ export function PurpleLogin() {
   const loginSuccessful = sessionToken !== null && otpVerified === true;
 
   // MARK: - Functions
-
-  const fetchProfile = async () => {
-    if (!pubkey) {
-      return
-    }
-    try {
-      const profile = await getProfile(pubkey)
-      setProfile(profile)
-    }
-    catch (e) {
-      console.error(e)
-      setError("Failed to get profile info from the relay. Please wait a few minutes and refresh the page. If the problem persists, please contact support.")
-    }
-  }
 
   const fetchAccountInfo = async () => {
     if (!pubkey) {
@@ -124,7 +110,6 @@ export function PurpleLogin() {
   // Load the profile when the pubkey changes
   useEffect(() => {
     if (pubkey) {
-      fetchProfile()
       fetchAccountInfo()
     }
   }, [pubkey])

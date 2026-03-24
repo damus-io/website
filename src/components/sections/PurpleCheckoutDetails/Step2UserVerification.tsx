@@ -63,7 +63,10 @@ export function Step2UserVerification(props: Step2UserVerificationProps) {
   // Load the profile when the pubkey changes
   useEffect(() => {
     if (pubkey) {
-      fetchProfile()
+      // Only fetch profile here for the iOS flow — the OTP flow gets profile via NostrUserInput's onProfileChange callback
+      if (props.selectedAuthMethod === 'damus-ios') {
+        fetchProfile()
+      }
       fetchAccountInfo()
     }
   }, [pubkey])
