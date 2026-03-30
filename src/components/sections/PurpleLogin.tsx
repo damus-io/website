@@ -46,7 +46,6 @@ export function PurpleLogin() {
     }
     catch (e) {
       console.error(e)
-      setError("Failed to get profile info from the relay. Please wait a few minutes and refresh the page. If the problem persists, please contact support.")
     }
   }
 

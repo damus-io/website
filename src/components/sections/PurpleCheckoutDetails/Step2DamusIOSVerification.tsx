@@ -37,7 +37,6 @@ export function Step2DamusIOSVerification(props: Step2DamusIOSVerificationProps)
     }
     catch (e) {
       console.error(e)
-      props.setError("Failed to get profile info from the relay. Please wait a few minutes and refresh the page. If the problem persists, please contact support.")
     }
   }
 
